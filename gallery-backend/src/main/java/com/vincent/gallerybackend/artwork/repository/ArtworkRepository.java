@@ -1,8 +1,8 @@
 package com.vincent.gallerybackend.artwork.repository;
 
-import com.vincent.gallerybackend.artwork.model.UserEntity;
+import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, String> {}
+public interface ArtworkRepository extends JpaRepository<ArtworkEntity, Long> {}

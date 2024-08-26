@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RequiredArgsConstructor
 @SpringBootTest
-class UserMapperTests {
+class ArtworkMapperTests {
 
     private UserMapperImpl userMapperImpl;
     private UserEntity thomas;

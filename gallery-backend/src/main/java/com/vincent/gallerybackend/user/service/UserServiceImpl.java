@@ -31,6 +31,10 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public UserEntity createUser(User user) {
+        boolean exists = userRepository.existsById(user.getId());
+        if (exists) {
+            throw new IllegalStateException("User already exists");
+        }
         UserEntity userEntity = userMapper.userDTOtoDAO(user);
         return userRepository.save(userEntity);
     }
