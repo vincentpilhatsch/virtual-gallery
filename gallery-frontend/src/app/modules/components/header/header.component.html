@@ -1,0 +1,34 @@
+<div class="bar">
+  <div class="left-container">
+    <p class="header-title" routerLink="">OLIVER KEROS</p>
+  </div>
+  <div class="middle-container">
+    <!--    <p class="header-text" routerLink="" routerLinkActive="active-link">Virtuelle Tour</p>-->
+    <!--    <p class="centered-dot">-->
+    <!--      <span class="dot"></span>-->
+    <!--    </p>-->
+    <p class="header-text" routerLink="kunstwerke" routerLinkActive="active-link">Kunstwerke</p>
+    <p class="centered-dot">
+      <span class="dot"></span>
+    </p>
+    <p class="header-text" routerLink="künstler" routerLinkActive="active-link">Künstler</p>
+    <p class="centered-dot">
+      <span class="dot"></span>
+    </p>
+    <p class="header-text" routerLink="events" routerLinkActive="active-link">Events</p>
+    <p class="centered-dot">
+      <span class="dot"></span>
+    </p>
+    <p class="header-text dashboard" routerLink="dashboard" routerLinkActive="active-link">Dashboard</p>
+  </div>
+  <div class="right-container">
+    <p class="header-text" routerLink="">{{ selectedLanguage }}</p>
+    <p class="centered-dot">
+      <span class="dot"></span>
+    </p>
+    <div class="bar-icons">
+      <mat-icon fontIcon="notifications"></mat-icon>
+      <mat-icon fontIcon="account_circle" routerLink="profil"></mat-icon>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<p class="title-one">Events verwalten</p>
+<p class="text-one">
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+  magna aliquyam erat, sed diam voluptua dolor diam nonumy eirmod sit amet, consetetur sadipscing elitr, sed diam
+  nonumy.
+</p>
+<p class="title-two">Aufkommendes Event</p>
+<div class="upcoming-event-container">
+  <div class="left-section">
+    <img src="./assets/imgs/keros_artwork_2.png" alt="artwork-card">
+  </div>
+  <div class="right-section">
+    <div>
+      <p class="text-one title">Titel des Events</p>
+      <p class="text-one date">10.06.2024</p>
+    </div>
+    <p class="text-one text">
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+      dolore magna aliquyam erat, sed diam voluptua.
+    </p>
+    <div class="text-one">Zugesagte Teilnehmer: 26</div>
+    <button mat-stroked-button class="button-one" [routerLink]="['/dashboard', 'event-bearbeiten']">Event verwalten
+    </button>
+  </div>
+</div>
+<div class="divider"></div>
+<p class="title-two">Aufkommendes Event</p>
+<div class="finished-event-container">
+  <!--  <app-artwork-card></app-artwork-card>-->
+  <!--  <app-artwork-card></app-artwork-card>-->
+  <!--  <app-artwork-card></app-artwork-card>-->
+</div>
+<button mat-stroked-button class="button-one" [routerLink]="['/dashboard', 'event-erstellen']">Event hinzufügen</button>

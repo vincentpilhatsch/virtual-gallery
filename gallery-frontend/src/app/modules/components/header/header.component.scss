@@ -1,0 +1,82 @@
+app-header {
+  .bar {
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    background-color: white;
+    padding: 25px 0;
+    margin-bottom: 50px;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .right-container {
+    display: flex;
+  }
+
+  .header-title {
+    font-size: 22px;
+    position: relative;
+  }
+
+  .header-text {
+    font-size: 16px;
+    position: relative;
+
+  }
+
+  .header-text.dashboard {
+    color: var(--custom-color-red);
+    font-weight: 500;
+  }
+
+  .bar-icons {
+    display: flex;
+    gap: 15px;
+  }
+
+  p {
+    margin: 0 !important;
+  }
+
+  .mat-icon {
+    font-size: 24px;
+    overflow: visible;
+  }
+
+  .header-title, .header-text, .mat-icon {
+    cursor: pointer;
+  }
+
+  //.active-link {
+  //  border-bottom: 2px solid black;
+  //  color: black;
+  //}
+
+
+  /* Slide-in Animation */
+  .middle-container {
+    display: flex;
+
+    .header-text {
+      overflow: hidden;
+    }
+
+    .header-text::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #383838;
+      opacity: 1;
+      transform: translate3d(-100%, 0, 0);
+      transition: transform 150ms ease-in-out;
+    }
+
+    .header-text:hover::after {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}

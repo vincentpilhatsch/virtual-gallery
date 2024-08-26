@@ -1,0 +1,16 @@
+app-artworks {
+
+  .filter-container {
+    margin: 70px 0;
+  }
+
+  .inner-artwork-container {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 25px;
+  }
+
+  .mat-mdc-form-field {
+    width: 400px;
+  }
+}

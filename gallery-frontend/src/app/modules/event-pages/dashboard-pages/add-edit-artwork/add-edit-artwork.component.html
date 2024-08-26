@@ -1,0 +1,40 @@
+<p class="title-one">{{ title }}</p>
+<div class="artwork-container">
+  <div class="first-section">
+    <img src="./assets/imgs/keros_artwork_2.png" alt="artwork-card">
+  </div>
+  <form class="second-section">
+    <mat-form-field>
+      <mat-label>Titel</mat-label>
+      <input matInput type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Technik</mat-label>
+      <input matInput type="text">
+    </mat-form-field>
+    <div class="inner-form-container">
+      <mat-form-field>
+        <mat-label>Breite</mat-label>
+        <input matInput type="text">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Höhe</mat-label>
+        <input matInput type="text">
+      </mat-form-field>
+    </div>
+    <div class="inner-form-container">
+      <mat-form-field>
+        <mat-label>Erstellungsjahr</mat-label>
+        <input matInput type="text">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Preis</mat-label>
+        <input matInput type="text">
+      </mat-form-field>
+    </div>
+    <mat-checkbox>
+      <p class="text-one">Verkauft</p>
+    </mat-checkbox>
+    <button mat-stroked-button class="button-one">{{ buttonText }}</button>
+  </form>
+</div>

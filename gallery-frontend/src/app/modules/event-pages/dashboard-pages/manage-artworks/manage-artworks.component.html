@@ -1,0 +1,37 @@
+<p class="title-one">Kunstwerke verwalten</p>
+<p class="text-one">
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+  magna aliquyam erat, sed diam voluptua dolor diam nonumy eirmod sit amet, consetetur sadipscing elitr, sed diam
+  nonumy.
+</p>
+<div class="filter-container">
+  <form>
+    <mat-form-field>
+      <mat-label>Suchen...</mat-label>
+      <input matInput>
+    </mat-form-field>
+  </form>
+  <div class="add-button" [routerLink]="['/dashboard', 'kunstwerk-erstellen']">
+    <mat-icon fontIcon="add"></mat-icon>
+  </div>
+</div>
+<div class="artwork-container">
+  <div class="inner-artwork-container">
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+  </div>
+  <div class="inner-artwork-container">
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+  </div>
+  <div class="inner-artwork-container">
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+    <app-artwork-card [routerLink]="['/dashboard', 'kunstwerk-bearbeiten']"></app-artwork-card>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+app-add-edit-artwork {
+
+  .artwork-container {
+    display: flex;
+    gap: 80px;
+  }
+
+  .first-section {
+    width: 60%;
+  }
+
+  .second-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 40%;
+  }
+
+  .inner-form-container {
+    display: flex;
+    gap: 30px;
+  }
+
+  .mat-mdc-text-field-wrapper.mdc-text-field {
+    width: 100% !important;
+  }
+
+  p.text-one {
+    margin-bottom: 2px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .mat-mdc-button-base {
+    margin-top: 50px;
+    width: 350px;
+  }
+}

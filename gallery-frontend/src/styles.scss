@@ -1,0 +1,109 @@
+// Miscellaneous
+
+:root {
+
+  // Colors
+  --custom-color-red: #a60000;
+  --custom-color-grey: #4E4E4E;
+
+  // Input
+  --mdc-outlined-text-field-focus-outline-color: black;
+  --mdc-filled-text-field-caret-color: black;
+  --mdc-filled-text-field-focus-label-text-color: black;
+  --mdc-filled-text-field-container-color: white;
+
+  // Checkbox
+  --mdc-checkbox-selected-focus-icon-color: black;
+  --mdc-checkbox-selected-pressed-icon-color: black;
+  --mdc-checkbox-selected-icon-color: black;
+  --mdc-checkbox-selected-hover-icon-color: black;
+  --mdc-checkbox-selected-focus-state-layer-color: black;
+  --mdc-checkbox-selected-hover-state-layer-color: black;
+  --mdc-checkbox-selected-pressed-state-layer-color: black;
+}
+
+
+body {
+  margin: 0 18%;
+}
+
+.divider {
+  width: 100%;
+  margin: 100px 0;
+  border-top: 1px solid black;
+}
+
+.centered-dot {
+  display: flex;
+  align-items: center;
+  padding-bottom: 3px;
+}
+
+.dot {
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  background-color: black;
+  border-radius: 50%;
+  margin: 0 35px;
+}
+
+// Buttons
+
+.button-one {
+  padding: 28px 100px !important;
+  border: 1px solid black !important;
+  border-radius: 0 !important;
+  font-size: 18px !important;
+  font-weight: normal !important;
+  letter-spacing: 1px !important;
+}
+
+.button-one:hover {
+  background-color: black;
+  color: white !important;
+}
+
+// Text
+
+.title-one {
+  font-size: 48px !important;
+  padding-bottom: 80px;
+}
+
+.title-two {
+  font-size: 28px;
+  padding-bottom: 60px;
+  font-weight: 500;
+}
+
+.text-one {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+// Form
+
+.mat-mdc-text-field-wrapper.mdc-text-field {
+  background-color: white !important;
+  border: 1px solid black !important;
+  border-radius: 0 !important;
+  width: 450px !important;
+}
+
+.mdc-line-ripple {
+  display: none !important;
+}
+
+.mat-mdc-form-field-infix {
+  background-color: white !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  background-color: white !important;
+}
+
+.mat-mdc-form-field {
+  width: 100% !important;
+}
+

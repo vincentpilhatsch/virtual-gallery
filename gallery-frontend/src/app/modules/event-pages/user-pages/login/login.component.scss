@@ -1,0 +1,19 @@
+app-login {
+  .container {
+    display: flex;
+    gap: 100px;
+  }
+
+  .text-one {
+    margin-bottom: 100px !important;
+  }
+
+  .button-one {
+    margin-top: 60px !important;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}

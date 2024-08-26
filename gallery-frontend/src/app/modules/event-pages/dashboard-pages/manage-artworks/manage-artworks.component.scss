@@ -1,0 +1,43 @@
+app-manage-artworks {
+
+  .filter-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+    margin-bottom: 50px;
+  }
+
+  .artwork-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .inner-artwork-container {
+    display: flex;
+    gap: 30px;
+  }
+
+  .add-button {
+    display: flex;
+    width: 56px;
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+  }
+
+  .add-button:hover {
+    background-color: black;
+    cursor: pointer;
+
+    .mat-icon {
+      color: white;
+    }
+  }
+
+  .mat-mdc-form-field-bottom-align {
+    display: none;
+  }
+
+}

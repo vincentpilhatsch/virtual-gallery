@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="left-container">
+    <img ngSrc="../../../../assets/imgs/keros_artwork_3.png" alt="login" height="880" width="610"
+         priority="high">
+  </div>
+  <div class="right-container">
+    <p class="title-one">Anmelden</p>
+    <p class="text-one">
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
+    </p>
+    <form>
+      <mat-form-field>
+        <mat-label>E-Mail</mat-label>
+        <input type="email" matInput placeholder="example@example.com">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Passwort</mat-label>
+        <input matInput [type]="hide() ? 'password' : 'text'"/>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()">
+          <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+    <button mat-stroked-button class="button-one">Anmelden</button>
+  </div>
+</div>

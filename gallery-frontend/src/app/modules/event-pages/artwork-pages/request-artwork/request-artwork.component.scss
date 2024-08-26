@@ -1,0 +1,54 @@
+app-request-artwork {
+
+  .first-section {
+    display: flex;
+    gap: 50px
+  }
+
+  .button-one {
+    margin-top: 60px;
+  }
+
+  .right-container {
+    width: 100%;
+  }
+
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .inner-artwork-container {
+    display: flex;
+    gap: 50px;
+  }
+
+  .item-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  p.text-one {
+    padding-top: 10px;
+  }
+
+  .mat-divider {
+    border-top-color: rgb(0 0 0 / 74%);
+  }
+
+  .mdc-list-item__primary-text {
+    font-size: 18px;
+    color: black;
+  }
+
+  .mdc-list {
+    margin-bottom: 70px;
+  }
+
+}

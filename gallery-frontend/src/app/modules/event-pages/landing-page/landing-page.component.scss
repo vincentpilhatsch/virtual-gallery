@@ -1,0 +1,82 @@
+app-landing-page {
+  margin: 40px 0;
+
+  .first-section {
+    display: flex;
+    gap: 40px;
+  }
+
+  .first-left-container {
+    width: 60%;
+
+    .title {
+      font-size: 105px;
+      margin-top: 50px;
+      margin-bottom: 180px;
+    }
+
+    .sub-title {
+      margin-top: 200px;
+      font-weight: 500;
+      font-size: 26px;
+    }
+
+    .title-two {
+      padding-bottom: 0;
+    }
+
+    .text-one {
+      margin-top: 60px;
+    }
+
+    .button-one {
+      margin-top: 190px;
+    }
+  }
+
+  .first-right-container {
+    width: 40%;
+    display: flex;
+    justify-content: flex-end;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  .second-section {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .inner-artwork-container {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+  }
+
+  .third-section {
+    display: flex;
+    gap: 80px;
+
+    .second-left-container {
+      width: 40%;
+
+      img {
+        width: 100%;
+        height: 600px;
+        object-fit: cover;
+      }
+    }
+
+    .second-right-container {
+      width: 60%;
+
+      button {
+        margin-top: 140px;
+      }
+    }
+  }
+}

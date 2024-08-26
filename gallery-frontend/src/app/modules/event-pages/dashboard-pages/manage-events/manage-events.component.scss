@@ -1,0 +1,43 @@
+app-manage-events {
+
+  .upcoming-event-container {
+    display: flex;
+    gap: 80px;
+  }
+
+  .left-section {
+    width: 45%;
+  }
+
+  .right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 55%;
+  }
+
+  .title-two {
+    margin-top: 80px;
+  }
+
+  .text-one.title {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  .text-one.date {
+    color: #4E4E4E;
+  }
+
+  .button-one {
+    margin-top: 30px;
+    width: 350px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+}
