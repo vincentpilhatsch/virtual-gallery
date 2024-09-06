@@ -1,13 +1,13 @@
 package com.vincent.gallerybackend.user.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "gallery_user") // "user" is reserved
@@ -15,7 +15,8 @@ import lombok.*;
 public class UserEntity {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @NotEmpty()
     @Size(min = 2, max = 30, message = "Firstname is to small/long")
@@ -26,6 +27,7 @@ public class UserEntity {
     private String lastName;
 
     @NotEmpty()
+    @Column(unique = true)
     @Email(message = "Invalid email format")
     private String email;
 

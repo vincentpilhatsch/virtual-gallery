@@ -8,19 +8,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ActiveProfiles("test")
 @SpringBootTest
-class ArtworkControllerTests {
+class UserControllerTests {
 
     private MockMvc mockMvc;
 
@@ -37,18 +42,18 @@ class ArtworkControllerTests {
     }
 
     private void initializeDatabase() {
-        UserEntity thomas = new UserEntity("0",
+        UserEntity thomas = new UserEntity(UUID.randomUUID(),
                 "thomas",
-                "müller",
-                "müller@bht.de",
+                "bäcker",
+                "bäcker@bht.de",
                 "müller123",
                 "berlin",
                 "123456789",
                 Language.DE);
-        UserEntity max = new UserEntity("1",
+        UserEntity max = new UserEntity(UUID.randomUUID(),
                 "max",
-                "müller",
-                "müller@bht.de",
+                "schultz",
+                "schultz@bht.de",
                 "müller123",
                 "berlin",
                 "123456789",
@@ -69,26 +74,25 @@ class ArtworkControllerTests {
     // getUserById
 
     @Test
-    void getUserByIdShouldReturn200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/user/0")
+    void getUserByEmailShouldReturn200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/bäcker@bht.de")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     void getUserByIdShouldReturnCorrectUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/user/0")
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/bäcker@bht.de")
                         .contentType(MediaType.APPLICATION_JSON))
-                        .andExpect(jsonPath("$.id").value("0"))
                         .andExpect(jsonPath("$.firstName").value("thomas"))
-                        .andExpect(jsonPath("$.lastName").value("müller"))
-                        .andExpect(jsonPath("$.email").value("müller@bht.de"))
+                        .andExpect(jsonPath("$.lastName").value("bäcker"))
+                        .andExpect(jsonPath("$.email").value("bäcker@bht.de"))
                         .andExpect(jsonPath("$.phone").value("123456789"))
                         .andExpect(jsonPath("$.language").value("DE"));
     }
 
     @Test
-    void getUserByIdShouldReturn404WhenUserNotFound() throws Exception {
+    void getUserByEmailShouldReturn404WhenUserNotFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/user/1111")
                         .contentType(MediaType.APPLICATION_JSON))
                         .andExpect(status().isNotFound());
@@ -101,11 +105,10 @@ class ArtworkControllerTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/user")
                         .content("""
                                 {
-                                  "id": "10",
                                   "firstName": "Sebastian",
-                                  "lastName": "müller",
-                                  "email": "müller@bht.de",
-                                  "password": "müller123",
+                                  "lastName": "bäcker",
+                                  "email": "reiner@bht.de",
+                                  "password": "bäcker",
                                   "city": "Berlin",
                                   "phone": "123456789",
                                   "language": "DE"
@@ -120,11 +123,10 @@ class ArtworkControllerTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/user")
                         .content("""
                                 {
-                                  "id": "10",
                                   "firstName": "Sebastian",
-                                  "lastName": "müller",
-                                  "email": "müller@bht.de",
-                                  "password": "müller123",
+                                  "lastName": "bäcker",
+                                  "email": "reiner@bht.de",
+                                  "password": "bäcker",
                                   "city": "Berlin",
                                   "phone": "123456789",
                                   "language": "DE"
@@ -132,10 +134,9 @@ class ArtworkControllerTests {
                                 """)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value("10"))
                 .andExpect(jsonPath("$.firstName").value("Sebastian"))
-                .andExpect(jsonPath("$.lastName").value("müller"))
-                .andExpect(jsonPath("$.email").value("müller@bht.de"))
+                .andExpect(jsonPath("$.lastName").value("bäcker"))
+                .andExpect(jsonPath("$.email").value("reiner@bht.de"))
                 .andExpect(jsonPath("$.phone").value("123456789"))
                 .andExpect(jsonPath("$.language").value("DE"));;
     }
@@ -145,7 +146,6 @@ class ArtworkControllerTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/user")
                         .content("""
                                 {
-                                  "id": "10",
                                   "firstName": "Sebastian",
                                 }
                                 """)
@@ -160,11 +160,10 @@ class ArtworkControllerTests {
         mockMvc.perform(MockMvcRequestBuilders.put("/user")
                         .content("""
                                 {
-                                  "id": "1",
                                   "firstName": "MAX",
-                                  "lastName": "müller",
-                                  "email": "müller@bht.de",
-                                  "password": "müller123",
+                                  "lastName": "bäcker",
+                                  "email": "bäcker@bht.de",
+                                  "password": "bäcker",
                                   "city": "Berlin",
                                   "phone": "123456789",
                                   "language": "DE"
@@ -176,25 +175,23 @@ class ArtworkControllerTests {
 
     @Test
     void updateUserShouldReturnUpdatedUserCorrect() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/user")
+        mockMvc.perform(MockMvcRequestBuilders.put("/user")
                         .content("""
                                 {
-                                  "id": "1",
                                   "firstName": "MAX",
-                                  "lastName": "müller",
-                                  "email": "müller@bht.de",
-                                  "password": "müller123",
+                                  "lastName": "bäcker",
+                                  "email": "bäcker@bht.de",
+                                  "password": "bäcker",
                                   "city": "Berlin",
                                   "phone": "123456789",
                                   "language": "DE"
                                 }
                                 """)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value("1"))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName").value("MAX"))
-                .andExpect(jsonPath("$.lastName").value("müller"))
-                .andExpect(jsonPath("$.email").value("müller@bht.de"))
+                .andExpect(jsonPath("$.lastName").value("bäcker"))
+                .andExpect(jsonPath("$.email").value("bäcker@bht.de"))
                 .andExpect(jsonPath("$.phone").value("123456789"))
                 .andExpect(jsonPath("$.language").value("DE"));;
     }
@@ -206,16 +203,16 @@ class ArtworkControllerTests {
                                 {
                                   "id": "1111",
                                   "firstName": "MAX",
-                                  "lastName": "müller",
-                                  "email": "müller@bht.de",
-                                  "password": "müller123",
+                                  "lastName": "bäcker",
+                                  "email": "bäcker@bht.de",
+                                  "password": "bäcker",
                                   "city": "Berlin",
                                   "phone": "123456789",
                                   "language": "DE"
                                 }
                                 """)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
     }
 
 }

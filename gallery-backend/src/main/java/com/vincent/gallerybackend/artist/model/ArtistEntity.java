@@ -1,13 +1,12 @@
 package com.vincent.gallerybackend.artist.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "gallery_artist")
@@ -15,10 +14,12 @@ import lombok.*;
 public class ArtistEntity {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @NotEmpty()
     @Email(message = "Invalid email format")
+    @Column(unique = true)
     private String email;
 
     @NotEmpty()

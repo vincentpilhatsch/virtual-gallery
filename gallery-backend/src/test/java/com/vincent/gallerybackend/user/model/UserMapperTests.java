@@ -4,12 +4,18 @@ import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @RequiredArgsConstructor
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ActiveProfiles("test")
 @SpringBootTest
-class ArtworkMapperTests {
+class UserMapperTests {
 
     private UserMapperImpl userMapperImpl;
     private UserEntity thomas;
@@ -19,7 +25,7 @@ class ArtworkMapperTests {
     void setup() {
         userMapperImpl = new UserMapperImpl();
 
-        thomas = new UserEntity("0",
+        thomas = new UserEntity(UUID.randomUUID(),
                 "thomas",
                 "müller",
                 "müller@bht.de",
@@ -27,8 +33,7 @@ class ArtworkMapperTests {
                 "berlin",
                 "123456789",
                 Language.DE);
-        incompleteUserEntity = new UserEntity(
-                "1",
+        incompleteUserEntity = new UserEntity(UUID.randomUUID(),
                 null,
                 "müller",
                 null,
@@ -44,7 +49,6 @@ class ArtworkMapperTests {
         User user = userMapperImpl.userDAOtoDTO(thomas);
 
         assertInstanceOf(User.class, user);
-        assertEquals("0", user.getId());
         assertEquals("thomas", user.getFirstName());
         assertEquals("müller", user.getLastName());
         assertEquals("müller@bht.de", user.getEmail());

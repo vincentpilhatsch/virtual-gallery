@@ -6,16 +6,19 @@ import com.vincent.gallerybackend.artist.repository.ArtistRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.util.List;
+import java.util.UUID;
 
+@Profile("!test")
 @Configuration
 public class ArtistConfig {
 
     @Bean
     CommandLineRunner artistCommandLineRunner(ArtistRepository artistRepository) {
         return args -> {
-            ArtistEntity artistEntity = new ArtistEntity("0",
+            ArtistEntity artistEntity = new ArtistEntity(UUID.randomUUID(),
                     "keros@bht.de",
                     "oliver123",
                     Language.DE);

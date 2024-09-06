@@ -6,10 +6,8 @@ import com.vincent.gallerybackend.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 
 @RestController
 @RequestMapping(path = "/user")
@@ -18,9 +16,9 @@ public class UserController {
 
     private final UserServiceImpl userServiceImpl;
 
-    @GetMapping(value = "/{id}", produces = "application/json")
-    public User getUserById(@PathVariable String id) {
-        return userServiceImpl.getUserById(id);
+    @GetMapping(value = "/{email}", produces = "application/json")
+    public User getUserById(@PathVariable String email) {
+        return userServiceImpl.getUserByEmail(email);
     }
 
     @PostMapping

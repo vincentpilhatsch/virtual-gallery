@@ -1,6 +1,5 @@
 package com.vincent.gallerybackend.user.service;
 
-import com.vincent.gallerybackend.user.model.Language;
 import com.vincent.gallerybackend.user.model.User;
 import com.vincent.gallerybackend.user.model.UserEntity;
 import com.vincent.gallerybackend.user.model.UserMapper;
@@ -18,30 +17,26 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
-    public User getUserById(String id) {
-        UserEntity userEntity = findById(id);
+    public User getUserByEmail(String email) {
+        UserEntity userEntity = findByEmail(email);
         return userMapper.userDAOtoDTO(userEntity);
     }
 
 
-    private UserEntity findById(String id) {
-        return userRepository.findById(id)
+    private UserEntity findByEmail(String email) {
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("User not found"));
     }
 
     @Transactional
     public UserEntity createUser(User user) {
-        boolean exists = userRepository.existsById(user.getId());
-        if (exists) {
-            throw new IllegalStateException("User already exists");
-        }
         UserEntity userEntity = userMapper.userDTOtoDAO(user);
         return userRepository.save(userEntity);
     }
 
     @Transactional
     public UserEntity updateUser(User newUser) {
-        UserEntity oldUser = findById(newUser.getId());
+        UserEntity oldUser = findByEmail(newUser.getEmail());
         UserEntity updatedUserEntity = userMapper.updateUserDTOtoDAO(oldUser, newUser);
         return userRepository.save(updatedUserEntity);
     }

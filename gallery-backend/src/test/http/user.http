@@ -1,0 +1,51 @@
+### USER
+
+###
+GET http://localhost:8080/user/müller@bht.de
+
+<> 2024-08-26T121113.200.json
+<> 2024-08-26T120900.200.json
+
+###
+PUT http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "firstName": "TOMAS",
+  "lastName": "käfer",
+  "email": "müller@bht.de",
+  "password": "müller123",
+  "city": "",
+  "phone": "",
+  "language": "DE"
+}
+
+<> 2024-08-26T124748.200.txt
+<> 2024-08-26T124734.200.txt
+<> 2024-08-26T123537.200.txt
+<> 2024-08-26T123520.200.txt
+<> 2024-08-26T123512.200.txt
+<> 2024-08-26T122926.200.txt
+<> 2024-08-26T121122.200.txt
+<> 2024-08-26T121112.400.json
+<> 2024-08-26T120950.400.json
+
+###
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "firstName": "Sebastian",
+  "lastName": "käfer",
+  "email": "muster@bht.de",
+  "password": "müller123",
+  "city": "",
+  "phone": "",
+  "language": "DE"
+}
+
+<> 2024-08-26T134053.201.json
+<> 2024-08-26T134008.500.json
+<> 2024-08-26T134000.500.json
+<> 2024-08-26T124924.201.txt
+

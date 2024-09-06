@@ -1,0 +1,8 @@
+### ARTIST
+
+###
+GET http://localhost:8080/artist/keros@bht.de
+
+<> 2024-08-26T172016.200.json
+<> 2024-08-26T172006.404.txt
+<> 2024-08-26T172002.200.json

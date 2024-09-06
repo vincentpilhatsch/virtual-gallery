@@ -3,10 +3,14 @@
     import org.mapstruct.Mapper;
     import org.mapstruct.Mapping;
 
+    import java.util.List;
+
     @Mapper(componentModel = "spring")
     public interface ArtworkMapper {
 
-        Artwork artworkDAOtoDTO(ArtworkEntity userEntity);
+        Artwork artworkDAOtoDTO(ArtworkEntity artworkEntity);
+
+        List<Artwork> artworksDAOtoDTO(List<ArtworkEntity> artworkEntity);
 
         ArtworkEntity artworkDTOtoDAO(Artwork artwork);
 

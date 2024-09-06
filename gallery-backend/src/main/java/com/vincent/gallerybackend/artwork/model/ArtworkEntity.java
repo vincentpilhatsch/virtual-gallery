@@ -1,9 +1,6 @@
 package com.vincent.gallerybackend.artwork.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,7 +15,7 @@ import java.time.LocalDateTime;
 public class ArtworkEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotEmpty
@@ -42,6 +39,7 @@ public class ArtworkEntity {
 
     private boolean sold = Boolean.FALSE;
 
+    @Lob
     @NotEmpty
     private byte[] image;
 

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ArtistService {
 
-    boolean checkArtistExists(String id);
+    boolean checkArtistExists(String email);
 
 }

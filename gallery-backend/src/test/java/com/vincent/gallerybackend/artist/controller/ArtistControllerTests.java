@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -39,7 +40,7 @@ class ArtistControllerTests {
     }
 
     private void initializeDatabase() {
-        ArtistEntity artistEntity = new ArtistEntity("0",
+        ArtistEntity artistEntity = new ArtistEntity(UUID.randomUUID(),
                 "müller@bht.de",
                 "müller123",
                 Language.DE);
