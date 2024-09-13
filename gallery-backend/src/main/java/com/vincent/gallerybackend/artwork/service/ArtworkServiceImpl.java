@@ -23,6 +23,14 @@ public class ArtworkServiceImpl implements ArtworkService {
     private final ArtworkMapper artworkMapper;
 
     @Transactional(readOnly = true)
+    @Override
+    public List<Artwork> getArtworks() {
+        List<ArtworkEntity> artworkEntities = artworkRepository.findAll();
+        return artworkMapper.artworksDAOtoDTO(artworkEntities);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public Artwork getArtworkById(long id) {
         ArtworkEntity artworkEntity = findById(id);
         return artworkMapper.artworkDAOtoDTO(artworkEntity);
@@ -33,13 +41,8 @@ public class ArtworkServiceImpl implements ArtworkService {
                 .orElseThrow(() -> new NotFoundException("Artwork not found"));
     }
 
-    @Transactional(readOnly = true)
-    public List<Artwork> getArtworks() {
-        List<ArtworkEntity> artworkEntities = artworkRepository.findAll();
-        return artworkMapper.artworksDAOtoDTO(artworkEntities);
-    }
-
     @Transactional
+    @Override
     public ArtworkEntity createArtwork(Artwork artwork, MultipartFile imageFile) {
         ArtworkEntity artworkEntity = artworkMapper.artworkDTOtoDAO(artwork);
         setArtworkImage(artworkEntity, imageFile);
@@ -48,6 +51,7 @@ public class ArtworkServiceImpl implements ArtworkService {
     }
 
     @Transactional
+    @Override
     public ArtworkEntity updateArtwork(Artwork newArtwork, MultipartFile imageFile) {
         ArtworkEntity oldArtwork = findById(newArtwork.getId());
         ArtworkEntity updatedArtworkEntity = artworkMapper.updateArtworkDTOtoDAO(oldArtwork, newArtwork);
@@ -56,19 +60,19 @@ public class ArtworkServiceImpl implements ArtworkService {
         return artworkRepository.save(updatedArtworkEntity);
     }
 
-    // TODO: Wirklich notwendig?
     private void setArtworkImage(ArtworkEntity artworkEntity, MultipartFile imageFile) {
         try {
-            if (imageFile == null) {
-                return;
+            if (imageFile == null || imageFile.isEmpty()) {
+                throw new ImageFileException("Image must be not empty");
             }
             artworkEntity.setImage(imageFile.getBytes());
         } catch (IOException e) {
-            throw new ImageFileException("Could not safe image in artwork");
+            throw new ImageFileException("Could not safe image");
         }
     }
 
     @Transactional
+    @Override
     public void deleteArtwork(long id) {
         ArtworkEntity artworkEntity = findById(id);
         artworkRepository.delete(artworkEntity);

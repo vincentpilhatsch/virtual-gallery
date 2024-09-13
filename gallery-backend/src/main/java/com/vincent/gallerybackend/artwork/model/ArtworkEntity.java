@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "artwork")
+@Table(name = "gallery_artwork")
 @AllArgsConstructor @NoArgsConstructor @Getter @Setter @ToString
 public class ArtworkEntity {
 

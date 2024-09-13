@@ -13,4 +13,8 @@ public interface UserService {
 
     UserEntity updateUser(User user);
 
+    UserEntity updateFavoriteArtworksOfUser(String email, long artworkId);
+
+    UserEntity updateAcceptedEventsOfUser(String email, long eventId);
+
 }

@@ -86,11 +86,11 @@ class UserServiceImplTests {
 
     @Test
     void getUserByEmailShouldThrowNotFound() {
-        when(userRepository.findByEmail("1111"))
+        when(userRepository.findByEmail("notexisting@bht.de"))
                 .thenThrow(new NotFoundException("User not found"));
 
         assertThrows(NotFoundException.class, () ->
-                userServiceImpl.getUserByEmail("1111"));
+                userServiceImpl.getUserByEmail("notexisting@bht.de"));
     }
 
     // createUser

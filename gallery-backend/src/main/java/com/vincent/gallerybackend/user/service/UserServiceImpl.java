@@ -1,5 +1,7 @@
 package com.vincent.gallerybackend.user.service;
 
+import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
+import com.vincent.gallerybackend.event.repository.EventRepository;
 import com.vincent.gallerybackend.user.model.User;
 import com.vincent.gallerybackend.user.model.UserEntity;
 import com.vincent.gallerybackend.user.model.UserMapper;
@@ -9,14 +11,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final ArtworkRepository artworkRepository;
+    private final EventRepository eventRepository;
     private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
+    @Override
     public User getUserByEmail(String email) {
         UserEntity userEntity = findByEmail(email);
         return userMapper.userDAOtoDTO(userEntity);
@@ -29,16 +36,62 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
+    @Override
     public UserEntity createUser(User user) {
         UserEntity userEntity = userMapper.userDTOtoDAO(user);
         return userRepository.save(userEntity);
     }
 
     @Transactional
+    @Override
     public UserEntity updateUser(User newUser) {
         UserEntity oldUser = findByEmail(newUser.getEmail());
         UserEntity updatedUserEntity = userMapper.updateUserDTOtoDAO(oldUser, newUser);
         return userRepository.save(updatedUserEntity);
+    }
+
+    @Transactional
+    @Override
+    public UserEntity updateFavoriteArtworksOfUser(String email, long artworkId) {
+        UserEntity userEntity = findByEmail(email);
+        checkIfArtworkExists(artworkId);
+        Set<Long> favoriteArtworks = addOrDeleteIdInSet(userEntity.getFavoriteArtworkIds(), artworkId);
+        userEntity.setFavoriteArtworkIds(favoriteArtworks);
+        return userRepository.save(userEntity);
+    }
+
+    private void checkIfArtworkExists(long artworkId) {
+        boolean artworkExists = artworkRepository.existsById(artworkId);
+        if (!artworkExists) {
+            throw new NotFoundException("Artwork not found");
+        }
+    }
+
+    @Transactional
+    @Override
+    public UserEntity updateAcceptedEventsOfUser(String email, long eventId) {
+        UserEntity userEntity = findByEmail(email);
+        checkIfEventExists(eventId);
+        Set<Long> acceptedEvents = addOrDeleteIdInSet(userEntity.getAcceptedEventIds(), eventId);
+        userEntity.setAcceptedEventIds(acceptedEvents);
+        return userRepository.save(userEntity);
+    }
+
+    private void checkIfEventExists(long eventId) {
+        boolean eventExists = eventRepository.existsById(eventId);
+        if (!eventExists) {
+            throw new NotFoundException("Event not found");
+        }
+    }
+
+    private Set<Long> addOrDeleteIdInSet(Set<Long> set, long id) {
+        boolean exists = set.contains(id);
+        if (exists) {
+            set.remove(id);
+        } else {
+            set.add(id);
+        }
+        return set;
     }
 
 }

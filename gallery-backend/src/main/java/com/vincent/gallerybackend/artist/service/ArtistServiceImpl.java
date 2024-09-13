@@ -14,6 +14,7 @@ public class ArtistServiceImpl implements ArtistService {
     private final ArtistRepository artistRepository;
 
     @Transactional
+    @Override
     public boolean checkArtistExists(String email) {
         ArtistEntity artistEntity = artistRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("Artist not found"));

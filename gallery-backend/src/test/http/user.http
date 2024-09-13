@@ -7,6 +7,31 @@ GET http://localhost:8080/user/müller@bht.de
 <> 2024-08-26T120900.200.json
 
 ###
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "firstName": "Sebastian",
+  "lastName": "käfer",
+  "email": "muster@bht.de",
+  "password": "müller123",
+  "city": "",
+  "phone": "",
+  "language": "DE"
+}
+
+<> 2024-08-26T134053.201.json
+<> 2024-08-26T134008.500.json
+<> 2024-08-26T134000.500.json
+<> 2024-08-26T124924.201.txt
+
+###
+POST http://localhost:8080/user/updateFavoriteArtworks
+Content-Type: application/x-www-form-urlencoded
+
+email=müller%40bht.de&artworkId=1
+
+###
 PUT http://localhost:8080/user
 Content-Type: application/json
 
@@ -29,23 +54,3 @@ Content-Type: application/json
 <> 2024-08-26T121122.200.txt
 <> 2024-08-26T121112.400.json
 <> 2024-08-26T120950.400.json
-
-###
-POST http://localhost:8080/user
-Content-Type: application/json
-
-{
-  "firstName": "Sebastian",
-  "lastName": "käfer",
-  "email": "muster@bht.de",
-  "password": "müller123",
-  "city": "",
-  "phone": "",
-  "language": "DE"
-}
-
-<> 2024-08-26T134053.201.json
-<> 2024-08-26T134008.500.json
-<> 2024-08-26T134000.500.json
-<> 2024-08-26T124924.201.txt
-

@@ -2,6 +2,7 @@ package com.vincent.gallerybackend.user.model;
 
 import lombok.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter @ToString
@@ -15,8 +16,8 @@ public class User {
     private String city;
     private String phone;
     private Language language;
-
-//    private String visitIds;
-
+    private Set<Long> favoriteArtworkIds;
+    private Set<Long> acceptedEventIds;
+    private Set<Long> notificationIds;
 
 }

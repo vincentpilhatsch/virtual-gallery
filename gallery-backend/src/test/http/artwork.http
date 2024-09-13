@@ -1,34 +1,14 @@
 ### ARTWORK
 
 ###
-GET http://localhost:8080/artwork/1
+GET http://localhost:8080/artwork/2
 
-<> 2024-08-26T210718.200.json
-<> 2024-08-26T210710.404.txt
+<> 2024-08-27T201805.404.txt
 
 ###
-#POST http://localhost:8080/artwork
-#Content-Type: application/json
-#
-#{
-#  "title": "XXX",
-#  "width": 120,
-#  "height": 160,
-#  "yearOfCreation": "2021",
-#  "uploadedAt": "2024-08-26T21:06:23.416067",
-#  "technic": "Gemalt mit Pinsel und Sprühdose",
-#  "price": 123.45,
-#  "sold": false,
-#  "image": "MTIz"
-#}
+GET http://localhost:8080/artwork/all
 
-#<> 2024-08-26T211845.500.json
-#<> 2024-08-26T211005.201.json
-#<> 2024-08-26T210959.201.json
-#<> 2024-08-26T210949.201.json
-#<> 2024-08-26T210939.201.json
-#<> 2024-08-26T210923.201.json
-
+###
 POST http://localhost:8080/artwork
 Content-Type: multipart/form-data; boundary=boundary
 
@@ -82,11 +62,6 @@ Content-Type: image/jpeg
 IiggIBslGx8fITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGy0lICYtLS0rLS0tLS0tLS0tLS0t
 LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIALcBEwMBIgACEQEDEQH/xAAcAAAC
 --boundary--
-
-###
-GET http://localhost:8080/artwork/2
-
-<> 2024-08-27T201805.404.txt
 
 ###
 DELETE http://localhost:8080/artwork/1

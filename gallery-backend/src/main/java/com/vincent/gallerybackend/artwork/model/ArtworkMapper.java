@@ -10,9 +10,9 @@
 
         Artwork artworkDAOtoDTO(ArtworkEntity artworkEntity);
 
-        List<Artwork> artworksDAOtoDTO(List<ArtworkEntity> artworkEntity);
-
         ArtworkEntity artworkDTOtoDAO(Artwork artwork);
+
+        List<Artwork> artworksDAOtoDTO(List<ArtworkEntity> artworkEntity);
 
         @Mapping(target = "id", source = "oldArtworkEntity.id")
         @Mapping(target = "title", source = "newArtwork.title")

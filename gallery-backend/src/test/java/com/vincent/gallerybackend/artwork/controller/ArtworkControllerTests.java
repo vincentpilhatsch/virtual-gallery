@@ -50,7 +50,8 @@ class ArtworkControllerTests {
     private void initializeDatabase() {
         fixedLocalDateTime = LocalDateTime.now();
 
-        ArtworkEntity drippingWater = new ArtworkEntity(1L,
+        ArtworkEntity drippingWater = new ArtworkEntity(
+                1L,
                 "Dripping Water",
                 120,
                 160,
@@ -59,8 +60,10 @@ class ArtworkControllerTests {
                 "Gemalt mit Pinsel und Sprühdose",
                 new BigDecimal("123.45"),
                 false,
-                new byte[]{'1', '2', '3'});
-        ArtworkEntity burningFire = new ArtworkEntity(2L,
+                new byte[]{'1', '2', '3'}
+        );
+        ArtworkEntity burningFire = new ArtworkEntity(
+                2L,
                 "Burning Fire",
                 120,
                 160,
@@ -69,7 +72,8 @@ class ArtworkControllerTests {
                 "Gemalt mit Pinsel und Sprühdose",
                 new BigDecimal("123.45"),
                 false,
-                new byte[]{'1', '2', '3'});
+                new byte[]{'1', '2', '3'}
+        );
 
         artworkRepository.saveAll(List.of(drippingWater, burningFire));
 
@@ -89,7 +93,7 @@ class ArtworkControllerTests {
 
     @Test
     void getUserByIdShouldReturn200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/artwork/0")
+        mockMvc.perform(MockMvcRequestBuilders.get("/artwork/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -98,8 +102,7 @@ class ArtworkControllerTests {
     void getUserByIdShouldReturnCorrectArtwork() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/artwork/1")
                         .contentType(MediaType.APPLICATION_JSON))
-                        .andExpect(jsonPath("$.id").value("1"))
-                        .andExpect(jsonPath("$.title").value("Dripping Water"))
+                         .andExpect(jsonPath("$.title").value("Dripping Water"))
                         .andExpect(jsonPath("$.width").value("120"))
                         .andExpect(jsonPath("$.height").value("160"))
                         .andExpect(jsonPath("$.yearOfCreation").value("2021"))

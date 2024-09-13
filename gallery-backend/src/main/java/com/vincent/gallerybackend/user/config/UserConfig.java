@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Profile("!test")
@@ -18,14 +19,20 @@ public class UserConfig {
     @Bean
     CommandLineRunner userCommandLineRunner(UserRepository userRepository) {
         return args -> {
-            UserEntity thomas = new UserEntity(UUID.randomUUID(),
+            UserEntity thomas = new UserEntity(
+                    UUID.randomUUID(),
                     "thomas",
                     "müller",
                     "müller@bht.de",
                     "müller123",
                     "berlin",
                     "123456789",
-                    Language.DE);
+                    Language.DE,
+                    Set.of(1L),          // favoriteArtworkIds
+                    Set.of(1L),          // acceptedEventIds
+                    Set.of(1L, 2L)       // notificationIds
+            );
+
             UserEntity max = new UserEntity(UUID.randomUUID(),
                     "max",
                     "steiner",
@@ -33,7 +40,11 @@ public class UserConfig {
                     "müller123",
                     "berlin",
                     "123456789",
-                    Language.ENG);
+                    Language.ENG,
+                    Set.of(1L, 2L),          // favoriteArtworkIds
+                    Set.of(1L),          // acceptedEventIds
+                    Set.of(1L)       // notificationIds
+            );
             userRepository.saveAll(List.of(thomas, max));
         };
     }

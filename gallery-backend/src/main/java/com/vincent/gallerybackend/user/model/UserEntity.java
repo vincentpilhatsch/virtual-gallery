@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -41,9 +42,19 @@ public class UserEntity {
     @NotNull
     private Language language;
 
-//    private String favoriteArtworkIds;
-//    private String acceptedEventIds;
-//    private String galleryVisitIds;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_favorite_artworks", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "artwork_id")
+    private Set<Long> favoriteArtworkIds;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_accepted_events", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "event_id")
+    private Set<Long> acceptedEventIds;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_notifications", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "notification_id")
+    private Set<Long> notificationIds;
 
 }

@@ -1,0 +1,28 @@
+### Notification
+
+###
+GET http://localhost:8080/notification/müller@bht.de
+
+<> f-3.txt
+<> f-2.txt
+<> f-1.txt
+
+###
+POST http://localhost:8080/notification
+Content-Type: application/json
+
+{
+  "id": 3,
+  "title": "Title",
+  "description": "Desc",
+  "dateTime": "2024-08-26T21:06:23.416067",
+  "read": false
+}
+
+<> 2024-09-08T152428.201.json
+
+###
+PUT http://localhost:8080/notification/1
+Content-Type: application/x-www-form-urlencoded
+
+<> 2024-09-08T152537.200.json

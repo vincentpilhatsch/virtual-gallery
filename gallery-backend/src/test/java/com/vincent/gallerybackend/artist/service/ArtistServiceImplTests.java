@@ -44,27 +44,28 @@ class ArtistServiceImplTests {
                 "müller@bht.de",
                 "müller123",
                 Language.DE);
+        artistRepository.save(artistEntity);
     }
 
     // checkArtistExists
 
     @Test
     void checkArtistExists() {
-        when(artistRepository.findById(artist.getId())).thenReturn(Optional.ofNullable(artistEntity));
+        when(artistRepository.findByEmail(artistEntity.getEmail())).thenReturn(Optional.ofNullable(artistEntity));
 
-//        boolean artistExists = artistServiceImpl.checkArtistExists(artist.getId());
+        boolean artistExists = artistServiceImpl.checkArtistExists(artistEntity.getEmail());
 
-        verify(artistRepository).findById(artist.getId());
-//        assertTrue(artistExists);
+        verify(artistRepository).findByEmail(artistEntity.getEmail());
+        assertTrue(artistExists);
     }
 
     @Test
     void checkArtistExistsShouldThrowNotFound() {
-//        when(artistRepository.findById("1111"))
-//                .thenThrow(new NotFoundException("User not found"));
+        when(artistRepository.findByEmail("notexisting@bht.de"))
+                .thenThrow(new NotFoundException("Artist not found"));
 
         assertThrows(NotFoundException.class, () ->
-                artistServiceImpl.checkArtistExists("1111"));
+                artistServiceImpl.checkArtistExists("notexisting@bht.de"));
     }
 
 }

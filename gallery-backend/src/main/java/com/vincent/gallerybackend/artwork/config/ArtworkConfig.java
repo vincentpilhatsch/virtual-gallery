@@ -18,7 +18,7 @@ public class ArtworkConfig {
     @Bean
     CommandLineRunner artworkCommandLineRunner(ArtworkRepository artworkRepository) {
         return args -> {
-            ArtworkEntity drippingWater = new ArtworkEntity(0L,
+            ArtworkEntity drippingWater = new ArtworkEntity(1L,
                     "Dripping Water",
                     120,
                     160,
@@ -28,7 +28,7 @@ public class ArtworkConfig {
                     new BigDecimal("123.45"),
                     false,
                     new byte[]{'1', '2', '3'});
-            ArtworkEntity burningFire = new ArtworkEntity(0L,
+            ArtworkEntity burningFire = new ArtworkEntity(2L,
                     "Burning Fire",
                     120,
                     160,
