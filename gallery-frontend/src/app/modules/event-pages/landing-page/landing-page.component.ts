@@ -1,9 +1,7 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {MatButton} from "@angular/material/button";
 import {NgOptimizedImage} from "@angular/common";
-import {ArtworkCardComponent} from "../../components/artwork-card/artwork-card.component";
-import {ArtworkExtendedCardComponent} from "../../components/artwork-extended-card/artwork-extended-card.component";
+import {ArtworkCardComponent} from "../artwork/artwork-card/artwork-card.component";
 
 @Component({
   selector: 'app-landing-page',
@@ -13,8 +11,7 @@ import {ArtworkExtendedCardComponent} from "../../components/artwork-extended-ca
   imports: [
     MatButton,
     NgOptimizedImage,
-    ArtworkCardComponent,
-    ArtworkExtendedCardComponent
+    ArtworkCardComponent
   ],
   standalone: true
 })

@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -27,6 +28,23 @@ public class ArtworkServiceImpl implements ArtworkService {
     public List<Artwork> getArtworks() {
         List<ArtworkEntity> artworkEntities = artworkRepository.findAll();
         return artworkMapper.artworksDAOtoDTO(artworkEntities);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Artwork> getRandomArtworks(int numberOfArtworks) {
+        List<ArtworkEntity> randomArtworks = pickRandomArtworks(numberOfArtworks);
+        return artworkMapper.artworksDAOtoDTO(randomArtworks);
+    }
+
+    private List<ArtworkEntity> pickRandomArtworks(int numberOfArtworks) {
+        List<ArtworkEntity> artworkEntities = artworkRepository.findAll();
+        if (artworkEntities.size() < numberOfArtworks) {
+            throw new IllegalArgumentException("Requested number of artworks (" + numberOfArtworks + ") " +
+                    "exceeds the available artwork count (" + artworkEntities.size() + ")");
+        }
+        Collections.shuffle(artworkEntities);
+        return artworkEntities.subList(0, numberOfArtworks);
     }
 
     @Transactional(readOnly = true)

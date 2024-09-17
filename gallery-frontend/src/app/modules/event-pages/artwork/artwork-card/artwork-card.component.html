@@ -1,0 +1,16 @@
+@if (artwork) {
+  <div class="card">
+    <img (click)="handleCardClick()" src="data:image/jpeg;base64,{{ artwork.image }}" alt="artwork-card" loading="lazy">
+    <div class="text-container">
+      <div class="first-text-container">
+        <p class="title">{{ artwork.title }}</p>
+        <p class="price">{{ artwork.price }} €</p>
+      </div>
+      <div class="second-text-container">
+        <app-favorite-icon [artworkId]="artwork.id" [isFavorite]="isFavorite"></app-favorite-icon>
+      </div>
+    </div>
+  </div>
+} @else {
+
+}

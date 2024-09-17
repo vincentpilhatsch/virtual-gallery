@@ -24,14 +24,21 @@ public class ArtworkController {
     @GetMapping(value = "/all", produces = "application/json")
     public List<Artwork> getArtworks() {
         List<Artwork> artworks = artworkServiceImpl.getArtworks();
-        log.info("GET ALL artworks ({}): {}", artworks.size(), artworks);
+        log.info("GET ALL artworks ({})", artworks.size());
+        return artworks;
+    }
+
+    @GetMapping(value = "/random", produces = "application/json")
+    public List<Artwork> getRandomArtworks(@RequestParam int numberOfArtworks) {
+        List<Artwork> artworks = artworkServiceImpl.getRandomArtworks(numberOfArtworks);
+        log.info("GET ALL artworks ({})", artworks.size());
         return artworks;
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public Artwork getArtworkById(@PathVariable long id) {
+    public Artwork getArtwork(@PathVariable long id) {
         Artwork artwork = artworkServiceImpl.getArtworkById(id);
-        log.info("GET artwork: {}", artwork);
+        log.info("GET artwork with id: {}", artwork.getId());
         return artwork;
     }
 
@@ -39,7 +46,7 @@ public class ArtworkController {
     public ResponseEntity<ArtworkEntity> createArtwork(@Valid @RequestPart("artwork") Artwork artwork,
                                                        @RequestPart("file") MultipartFile imageFile) {
         ArtworkEntity artworkEntity = artworkServiceImpl.createArtwork(artwork, imageFile);
-        log.info("CREATE artwork: {}", artwork);
+        log.info("CREATE artwork with id: {}", artwork.getId());
         return new ResponseEntity<>(artworkEntity, HttpStatus.CREATED);
     }
 
@@ -47,7 +54,7 @@ public class ArtworkController {
     public ResponseEntity<ArtworkEntity> updateArtwork(@Valid @RequestPart("artwork") Artwork newArtwork,
                                                        @RequestPart("file") MultipartFile imageFile) {
         ArtworkEntity updatedArtworkEntity = artworkServiceImpl.updateArtwork(newArtwork, imageFile);
-        log.info("UPDATE artwork: {}", newArtwork);
+        log.info("UPDATE artwork with id: {}", newArtwork.getId());
         return new ResponseEntity<>(updatedArtworkEntity, HttpStatus.OK);
     }
 

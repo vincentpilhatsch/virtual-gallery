@@ -14,6 +14,8 @@ public interface ArtworkService {
 
     List<Artwork> getArtworks();
 
+    List<Artwork> getRandomArtworks(int numberOfArtworks);
+
     ArtworkEntity createArtwork(Artwork artwork, MultipartFile imageFile);
 
     ArtworkEntity updateArtwork(Artwork artwork, MultipartFile imageFile);

@@ -28,11 +28,30 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = findByEmail(email);
         return userMapper.userDAOtoDTO(userEntity);
     }
-
-
     private UserEntity findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("User not found"));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Set<Long> getFavoriteArtworkIdsByEmail(String email) {
+        UserEntity userEntity = findByEmail(email);
+        return userEntity.getFavoriteArtworkIds();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Set<Long> getAcceptedEventIdsByEmail(String email) {
+        UserEntity userEntity = findByEmail(email);
+        return userEntity.getAcceptedEventIds();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Set<Long> getNotificationIdsByEmail(String email) {
+        UserEntity userEntity = findByEmail(email);
+        return userEntity.getNotificationIds();
     }
 
     @Transactional

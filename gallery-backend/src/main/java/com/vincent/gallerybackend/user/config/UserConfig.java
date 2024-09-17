@@ -23,7 +23,7 @@ public class UserConfig {
                     UUID.randomUUID(),
                     "thomas",
                     "müller",
-                    "müller@bht.de",
+                    "mueller@bht.de",
                     "müller123",
                     "berlin",
                     "123456789",

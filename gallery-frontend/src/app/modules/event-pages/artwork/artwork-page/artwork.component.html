@@ -1,0 +1,54 @@
+@if (artwork) {
+<div class="first-section">
+  <div class="left-container">
+    <img src="data:image/jpeg;base64,{{ artwork.image }}" alt="artwork">
+  </div>
+  <div class="right-container">
+    <div class="title-container">
+      <p class="title-two">{{ artwork.title }}</p>
+      <app-favorite-icon [isFavorite]="isFavorite" [artworkId]="artwork.id"></app-favorite-icon>
+    </div>
+    <mat-list>
+      <mat-list-item>
+        <div class="item-content">
+          <span>Preis</span>
+          <span>{{ artwork.price }}€</span>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="item-content">
+          <span>Abmessung</span>
+          <span>{{ artwork.width }}cm x {{ artwork.height }}cm</span>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="item-content">
+          <span>Entstehungsjahr</span>
+          <span>{{ artwork.yearOfCreation }}</span>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="item-content">
+          <span>Technik</span>
+          <span>{{ artwork.technic }}</span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <button mat-stroked-button class="button-one" [routerLink]="['/kunstwerk-anfragen']">Anfrage stellen</button>
+  </div>
+</div>
+<div class="divider"></div>
+<div class="second-section">
+  <p class="title-two">Andere Kunstwerke</p>
+  @for (group of randomGroupedArtworks; track $index) {
+    <div class="inner-artwork-container">
+      @for (artwork of group;track artwork.id) {
+        <app-artwork-card [artwork]="artwork" [favoriteArtworkIds]="favoriteIds"></app-artwork-card>
+      }
+    </div>
+  }
+</div>
+}

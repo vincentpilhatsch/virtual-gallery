@@ -29,7 +29,7 @@ public class EventController {
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public Event getEventById(@PathVariable long id) {
+    public Event getEvent(@PathVariable long id) {
         Event event = eventServiceImpl.getEventById(id);
         log.info("GET event: {}", event);
         return event;

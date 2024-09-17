@@ -1,0 +1,38 @@
+app-artwork-card {
+
+  .card {
+    max-width: 100%;
+    height: auto;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      cursor: pointer;
+    }
+
+    .text-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+
+      .first-text-container {
+        .title {
+          font-size: 20px;
+        }
+
+        .price {
+          font-size: 18px;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+
+  .mat-icon {
+    font-size: 26px;
+    cursor: pointer;
+    overflow: visible;
+  }
+
+}

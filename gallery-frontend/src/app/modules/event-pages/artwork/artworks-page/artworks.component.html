@@ -1,0 +1,20 @@
+<div class="container">
+  <p class="title-one">Kunstwerke</p>
+  <div class="filter-container">
+    <form>
+      <mat-form-field>
+        <mat-label>Suchen...</mat-label>
+        <input matInput>
+      </mat-form-field>
+    </form>
+    <div class="filter">
+    </div>
+  </div>
+  @for (group of groupedArtworks;track $index) {
+    <div class="inner-artwork-container">
+      @for (artwork of group;track artwork.id) {
+        <app-artwork-card [artwork]="artwork" [favoriteArtworkIds]="favoriteIds"></app-artwork-card>
+      }
+    </div>
+  }
+</div>

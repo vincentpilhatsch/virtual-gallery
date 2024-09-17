@@ -4,10 +4,18 @@ import com.vincent.gallerybackend.user.model.User;
 import com.vincent.gallerybackend.user.model.UserEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public interface UserService {
 
     User getUserByEmail(String id);
+
+    Set<Long> getFavoriteArtworkIdsByEmail(String id);
+
+    Set<Long> getAcceptedEventIdsByEmail(String id);
+
+    Set<Long> getNotificationIdsByEmail(String id);
 
     UserEntity createUser(User user);
 

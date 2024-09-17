@@ -1,8 +1,11 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {LandingPageComponent} from "./modules/event-pages/landing-page/landing-page.component";
-import {HeaderComponent} from "./modules/components/header/header.component";
-import {FooterComponent} from "./modules/components/footer/footer.component";
+import {HttpClientModule, HttpErrorResponse} from "@angular/common/http";
+import {HeaderComponent} from "./modules/event-pages/misc/header/header.component";
+import {FooterComponent} from "./modules/event-pages/misc/footer/footer.component";
+import {UserService} from "./modules/event-pages/user/services/user.service";
+import {User} from "./modules/event-pages/user/model/user";
 
 @Component({
   selector: 'app-root',
@@ -14,10 +17,29 @@ import {FooterComponent} from "./modules/components/footer/footer.component";
     HeaderComponent,
     RouterOutlet,
     RouterLink,
-    FooterComponent
+    FooterComponent,
+    HttpClientModule
   ],
   standalone: true
 })
-export class AppComponent {
-  title = 'gallery-frontend';
+export class AppComponent implements OnInit{
+
+  constructor(private userHttpService: UserService) {
+  }
+
+  ngOnInit() {
+    this.loadUserInService();
+  }
+
+
+  private loadUserInService() {
+    this.userHttpService.getUserByEmail("mueller@bht.de").subscribe({
+      next: (res: User): void => {
+        this.userHttpService.user = res;
+      },
+      error: (err: HttpErrorResponse): void => {
+        console.error(err)
+      }
+    });
+  }
 }
