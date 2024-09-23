@@ -2,8 +2,6 @@ import {Component, ViewEncapsulation} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {MatFormField} from "@angular/material/form-field";
-import {MatOption} from "@angular/material/autocomplete";
-import {MatSelect} from "@angular/material/select";
 import {MatMenu, MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
