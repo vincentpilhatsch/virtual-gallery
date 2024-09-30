@@ -1,20 +1,18 @@
 import {Routes} from '@angular/router';
-import {LandingPageComponent} from "./modules/event-pages/landing-page/landing-page.component";
-import {ArtworkComponent} from "./modules/event-pages/artwork/artwork-page/artwork.component";
-import {ArtworksComponent} from "./modules/event-pages/artwork/artworks-page/artworks.component";
-import {RequestArtworkComponent} from "./modules/event-pages/artwork/request-artwork/request-artwork.component";
-import {ArtistComponent} from "./modules/event-pages/artist/artist-page/artist.component";
-import {EventsComponent} from "./modules/event-pages/event/event-page/events.component";
-import {LoginComponent} from "./modules/event-pages/user/login-page/login.component";
-import {RegisterComponent} from "./modules/event-pages/user/register-page/register.component";
-import {ProfileComponent} from "./modules/event-pages/user/profile-page/profile.component";
-import {DashboardComponent} from "./modules/event-pages/dashboard/dashboard-page/dashboard.component";
-import {ManageArtworksComponent} from "./modules/event-pages/dashboard/manage-artworks-page/manage-artworks.component";
-import {
-  AddEditArtworkComponent
-} from "./modules/event-pages/dashboard/add-edit-artwork-page/add-edit-artwork.component";
-import {ManageEventsComponent} from "./modules/event-pages/dashboard/manage-events-page/manage-events.component";
-import {AddEditEventComponent} from "./modules/event-pages/dashboard/add-and-edit-event-page/add-edit-event.component";
+import {LandingPageComponent} from "./modules/landing-page/landing-page.component";
+import {ArtworkComponent} from "./modules/artwork/artwork-page/artwork.component";
+import {ArtworksComponent} from "./modules/artwork/artworks-page/artworks.component";
+import {RequestArtworkComponent} from "./modules/artwork/request-artwork/request-artwork.component";
+import {ArtistComponent} from "./modules/artist/artist-page/artist.component";
+import {EventsComponent} from "./modules/event/event-page/events.component";
+import {LoginComponent} from "./modules/user/login-page/login.component";
+import {RegisterComponent} from "./modules/user/register-page/register.component";
+import {ProfileComponent} from "./modules/user/profile-page/profile.component";
+import {DashboardComponent} from "./modules/dashboard/dashboard-page/dashboard.component";
+import {ManageArtworksComponent} from "./modules/dashboard/manage-artworks-page/manage-artworks.component";
+import {AddEditArtworkComponent} from "./modules/dashboard/add-edit-artwork-page/add-edit-artwork.component";
+import {ManageEventsComponent} from "./modules/dashboard/manage-events-page/manage-events.component";
+import {AddEditEventComponent} from "./modules/dashboard/add-and-edit-event-page/add-edit-event.component";
 
 export const routes: Routes = [
   // {path: '', redirectTo: '', pathMatch: 'full'},

@@ -1,17 +1,17 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {LandingPageComponent} from "./modules/event-pages/landing-page/landing-page.component";
-import {HttpClient, HttpClientModule, HttpErrorResponse} from "@angular/common/http";
-import {HeaderComponent} from "./modules/event-pages/misc/header/header.component";
-import {FooterComponent} from "./modules/event-pages/misc/footer/footer.component";
-import {UserService} from "./modules/event-pages/user/services/user.service";
-import {User} from "./modules/event-pages/user/model/user";
-import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {TranslateModule} from "@ngx-translate/core";
+import {HttpClientModule, HttpErrorResponse} from "@angular/common/http";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {LandingPageComponent} from "./modules/landing-page/landing-page.component";
+import {HeaderComponent} from "./modules/misc/header/header.component";
+import {FooterComponent} from "./modules/misc/footer/footer.component";
+import {UserService} from "./modules/user/services/user.service";
+import {User} from "./modules/user/model/user";
+import {Language} from "./modules/user/model/language";
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+// export function HttpLoaderFactory(http: HttpClient) {
+//   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+// }
 
 @Component({
   selector: 'app-root',
@@ -24,15 +24,17 @@ export function HttpLoaderFactory(http: HttpClient) {
     RouterOutlet,
     RouterLink,
     FooterComponent,
-    HttpClientModule,  // Import HttpClientModule here
+    HttpClientModule,
     TranslateModule
   ],
   standalone: true
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
+  readonly german: string = "de";
+  readonly english: string = "en";
 
-  constructor(private userHttpService: UserService) {
-  }
+  constructor(private userHttpService: UserService,
+              private translateService: TranslateService) {}
 
   ngOnInit() {
     this.loadUserInService();
@@ -43,10 +45,25 @@ export class AppComponent implements OnInit{
     this.userHttpService.getUserByEmail("mueller@bht.de").subscribe({
       next: (res: User): void => {
         this.userHttpService.user = res;
+        this.setLanguage();
       },
       error: (err: HttpErrorResponse): void => {
         console.error(err)
       }
     });
+  }
+
+  private setLanguage(): void {
+    const usersLanguage: Language | undefined = this.userHttpService.user?.language;
+    if (usersLanguage && usersLanguage === Language.EN) {
+      this.setLanguageWithService(this.english)
+      return;
+    }
+    this.setLanguageWithService(this.german)
+  }
+
+  private setLanguageWithService(language: string) {
+    this.translateService.setDefaultLang(language);
+    this.translateService.use(language);
   }
 }

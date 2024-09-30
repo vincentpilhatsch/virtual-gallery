@@ -15,17 +15,16 @@
          priority="high">
   </div>
 </div>
-<!--<div class="divider"></div>-->
-<!--<div class="second-section">-->
-<!--  <div class="artwork-container">-->
-<!--    <app-artwork-card></app-artwork-card>-->
-<!--    <app-artwork-card></app-artwork-card>-->
-<!--  </div>-->
-<!--  <div class="artwork-container">-->
-<!--    <app-artwork-card></app-artwork-card>-->
-<!--    <app-artwork-extended-card></app-artwork-extended-card>-->
-<!--  </div>-->
-<!--</div>-->
+<div class="divider"></div>
+<div class="second-section">
+  @for (group of randomGroupedArtworks; track $index) {
+    <div class="inner-artwork-container">
+      @for (artwork of group;track artwork.id) {
+        <app-artwork-card [artwork]="artwork" [favoriteArtworkIds]="favoriteIds"></app-artwork-card>
+      }
+    </div>
+  }
+</div>
 <div class="divider"></div>
 <div class="third-section">
   <div class="second-left-container">

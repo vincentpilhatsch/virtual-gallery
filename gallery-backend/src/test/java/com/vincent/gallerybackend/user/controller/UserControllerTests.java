@@ -57,7 +57,7 @@ class UserControllerTests {
                 "müller123",
                 "berlin",
                 "123456789",
-                Language.ENG);
+                Language.EN);
         userRepository.saveAll(List.of(thomas, max));
     }
 

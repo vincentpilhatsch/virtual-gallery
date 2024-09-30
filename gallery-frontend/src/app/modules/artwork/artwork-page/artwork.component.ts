@@ -10,6 +10,8 @@ import {Artwork} from "../model/artwork";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ArtworkCardComponent} from "../artwork-card/artwork-card.component";
 import {UserService} from "../../user/services/user.service";
+import {forkJoin} from "rxjs";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-artwork',
@@ -40,46 +42,38 @@ export class ArtworkComponent implements OnInit{
               private userService: UserService) {}
 
   ngOnInit() {
-    this.loadArtwork();
+    this.loadArtworkAndFavoriteIds();
     this.loadFourRandomArtworks();
   }
 
-  private loadArtwork(): void {
+  private loadArtworkAndFavoriteIds(): void {
     this.route.paramMap.subscribe(params => {
       const id: string | null = params.get('id');
-      if (id) {
+      const email: string | undefined = this.userService.user?.email;
+      if (id && email) {
         const convertedId = Number(id);
-        this.artworkService.getArtworkById(convertedId).subscribe({
-          next: (res: Artwork): void => {
-            this.artwork = res;
-            this.checkIfIsFavoriteArtwork();
-          },
-          error: (err: HttpErrorResponse): void => {
-            console.error(err)
-          }
-        });
+        this.forkJoinArtworkAndFavoriteIds(convertedId, email);
       }
     });
   }
 
-  private checkIfIsFavoriteArtwork(): void {
-    const email: string | undefined = this.userService.user?.email;
-    if (email) {
-      this.userService.getFavoriteArtworkIdsByEmail(email).subscribe({
-        next: (res: number[]): void => {
-          if (this.artwork?.id) {
-            this.isFavorite = res.includes(this.artwork?.id)
-            this.favoriteIds = res;
-          }
-        },
-        error: (err: HttpErrorResponse): void => {
-          console.error(err)
-        }
-      })
-    }
+  private forkJoinArtworkAndFavoriteIds(id: number, email: string): void {
+    forkJoin({
+      artwork: this.artworkService.getArtworkById(id),
+      favoriteIds: this.userService.getFavoriteArtworkIdsByEmail(email)
+    }).subscribe({
+      next: (res: { artwork: Artwork, favoriteIds: number[] }): void => {
+        this.artwork = res.artwork;
+        this.favoriteIds = res.favoriteIds;
+        this.isFavorite = res.favoriteIds.includes(this.artwork.id);
+      },
+      error: (err: HttpErrorResponse): void => {
+        console.error(err);
+      }
+    });
   }
 
-  private loadFourRandomArtworks() {
+  private loadFourRandomArtworks(): void {
     this.artworkService.getRandomArtworks(4).subscribe({
       next: (res: Artwork[]): void => {
         this.setRandomGroupedArtworks(res)
@@ -90,7 +84,7 @@ export class ArtworkComponent implements OnInit{
     })
   }
 
-  setRandomGroupedArtworks(artworks: Artwork[]) {
+  private setRandomGroupedArtworks(artworks: Artwork[]): void {
     for (let i = 0; i < artworks.length; i += 2) {
       this.randomGroupedArtworks.push(artworks.slice(i, i + 2));
     }

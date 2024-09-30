@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,11 +21,17 @@ import java.util.List;
 @Configuration
 public class ArtworkConfig {
 
+    private final ResourceLoader resourceLoader;
+
+    public ArtworkConfig(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
     @Bean
     CommandLineRunner artworkCommandLineRunner(ArtworkRepository artworkRepository) throws IOException {
         List<byte[]> images = new ArrayList<>();
         for (int i = 1; i < 10; i++) {
-            String path = "C:/Users/v-pil/Desktop/gallery-website/virtual-gallery/gallery-backend/src/main/resources/" + i + ".jpg";
+            String path = "classpath:" + i + ".jpg";
             byte[] base64 = readFileToByteArray(path);
             images.add(base64);
         }
@@ -44,9 +52,9 @@ public class ArtworkConfig {
     }
 
     public byte[] readFileToByteArray(String filePath) throws IOException {
-        File file = new File(filePath);
-        try (FileInputStream fis = new FileInputStream(file)) {
-            byte[] bytesArray = new byte[(int) file.length()];
+        Resource resource = resourceLoader.getResource(filePath);
+        try (FileInputStream fis = new FileInputStream(resource.getFile())) {
+            byte[] bytesArray = new byte[(int) resource.contentLength()];
             fis.read(bytesArray);
             return bytesArray;
         }

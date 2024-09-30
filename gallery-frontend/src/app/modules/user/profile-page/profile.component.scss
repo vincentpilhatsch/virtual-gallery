@@ -24,6 +24,21 @@ app-profile {
     .button-one {
       margin-top: 30px;
     }
+
+    .mat-mdc-tab-header {
+      margin-bottom: 70px;
+    }
+
+    .mdc-tab__text-label {
+      color: black !important;
+      font-size: 20px;
+      letter-spacing: 0;
+      font-weight: 400;
+    }
+
+    //.mdc-tab-indicator__content--underline {
+    //  border-color: black;
+    //}
   }
 
   .first-form-container, .second-form-container {

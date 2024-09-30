@@ -40,7 +40,7 @@ public class UserConfig {
                     "müller123",
                     "berlin",
                     "123456789",
-                    Language.ENG,
+                    Language.EN,
                     Set.of(1L, 2L),          // favoriteArtworkIds
                     Set.of(1L),          // acceptedEventIds
                     Set.of(1L)       // notificationIds

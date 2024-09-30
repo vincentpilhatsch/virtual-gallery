@@ -50,7 +50,7 @@ class UserServiceImplTests {
                 "müller123",
                 "berlin",
                 "123456789",
-                Language.ENG);
+                Language.EN);
         userEntity = new UserEntity(UUID.randomUUID(),
                 "max",
                 "meier",
@@ -66,7 +66,7 @@ class UserServiceImplTests {
                 "müller123",
                 "berlin",
                 "123456789",
-                Language.ENG);
+                Language.EN);
     }
 
     // getUserById
