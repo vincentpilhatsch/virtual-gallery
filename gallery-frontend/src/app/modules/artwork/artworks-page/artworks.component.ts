@@ -29,7 +29,8 @@ export class ArtworksComponent implements OnInit {
   favoriteIds: number[] = [];
 
   constructor(private artworkService: ArtworkService,
-              private userService: UserService) {}
+              private userService: UserService) {
+  }
 
   ngOnInit() {
     this.loadArtworksAndFavoriteIds();
@@ -54,7 +55,7 @@ export class ArtworksComponent implements OnInit {
     }
   }
 
-  setGroupedArtworks() {
+  private setGroupedArtworks(): void {
     for (let i = 0; i < this.artworks.length; i += 3) {
       this.groupedArtworks.push(this.artworks.slice(i, i + 3));
     }

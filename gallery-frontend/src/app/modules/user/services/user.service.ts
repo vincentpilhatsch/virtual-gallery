@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../model/user";
 import {environment} from "../../environment";
+import {Artwork} from "../../artwork/model/artwork";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,11 @@ export class UserService {
   getFavoriteArtworkIdsByEmail(email: string): Observable<number[]> {
     const url: string = `${this.endpoint}/favoriteArtworkIds/${email}`;
     return this.httpClient.get<number[]>(url);
+  }
+
+  getFavoriteArtworksByEmail(email: string): Observable<Artwork[]> {
+    const url: string = `${this.endpoint}/favoriteArtworks/${email}`;
+    return this.httpClient.get<Artwork[]>(url);
   }
 
   getAcceptedEventIdsByEmail(email: string): Observable<number[]> {

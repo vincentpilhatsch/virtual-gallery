@@ -22,7 +22,11 @@
   --mdc-checkbox-selected-pressed-state-layer-color: black;
 
   // Tab
-  --mdc-tab-indicator-active-indicator-color: black !important;
+
+  .mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
+    --mdc-tab-indicator-active-indicator-color: black !important;
+    --mat-tab-header-active-focus-indicator-color: #000000 !important;
+  }
 }
 
 

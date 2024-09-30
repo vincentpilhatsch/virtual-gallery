@@ -3,7 +3,7 @@
   <button mat-stroked-button class="button-one">Abmelden</button>
 </div>
 <div class="second-section">
-  <mat-tab-group>
+  <mat-tab-group [disableRipple]="true">
     <mat-tab label="Persönliche Daten">
       <form>
         <div class="first-form-container">
@@ -36,7 +36,16 @@
       </form>
       <button mat-stroked-button class="button-one">Daten speichern</button>
     </mat-tab>
-    <mat-tab label="Second"></mat-tab>
-    <mat-tab label="Third"></mat-tab>
+    <mat-tab label="Angefragte Kunstwerke">
+    </mat-tab>
+    <mat-tab label="Favorisierte Kunstwerke">
+      @for (group of groupedArtworks;track $index) {
+        <div class="inner-artwork-container">
+          @for (artwork of group;track artwork.id) {
+            <app-artwork-card [artwork]="artwork" [favoriteArtworkIds]="favoriteArtworkIds"></app-artwork-card>
+          }
+        </div>
+      }
+    </mat-tab>
   </mat-tab-group>
 </div>

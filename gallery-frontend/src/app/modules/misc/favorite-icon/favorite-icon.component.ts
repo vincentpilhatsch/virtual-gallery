@@ -2,6 +2,7 @@ import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {HttpErrorResponse} from "@angular/common/http";
 import {UserService} from "../../user/services/user.service";
+import {FavoriteIconService} from "../services/favorite-icon.service";
 
 @Component({
   selector: 'app-favorite-icon',
@@ -17,15 +18,22 @@ export class FavoriteIconComponent {
   @Input() artworkId: number | undefined;
   @Input() isFavorite: boolean | undefined;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private favoriteIconService: FavoriteIconService) {
   }
 
   handleFavoriteClicked(isFavorite: boolean) {
     this.isFavorite = isFavorite;
+    this.updateFavoriteArtworkSubject();
     this.updateFavoriteArtworksOfUser();
   }
 
-  updateFavoriteArtworksOfUser(): void {
+  private updateFavoriteArtworkSubject() {
+    if (this.artworkId && this.isFavorite) {
+      this.favoriteIconService.removeArtworkFromFavorites(this.artworkId);
+    }
+  }
+
+  private updateFavoriteArtworksOfUser(): void {
     if (this.userService.user?.id && this.artworkId) {
       this.userService.updateFavoriteArtworksOfUser(this.userService.user.email, this.artworkId).subscribe({
         error: (err: HttpErrorResponse): void => {

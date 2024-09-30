@@ -21,6 +21,11 @@ app-profile {
   }
 
   .second-section {
+    .first-form-container, .second-form-container {
+      display: flex;
+      gap: 20px;
+    }
+
     .button-one {
       margin-top: 30px;
     }
@@ -36,19 +41,28 @@ app-profile {
       font-weight: 400;
     }
 
-    //.mdc-tab-indicator__content--underline {
-    //  border-color: black;
-    //}
+    .mat-mdc-tab {
+      width: calc(100% / 3);
+    }
+
+    .mat-mdc-text-field-wrapper.mdc-text-field {
+      width: 100% !important;
+      border: none !important;
+      border-bottom: 1px solid black !important;
+    }
+
+    .inner-artwork-container {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 25px;
+    }
+
+    app-artwork-card {
+      width: calc(100% / 3);
+    }
   }
 
-  .first-form-container, .second-form-container {
-    display: flex;
-    gap: 20px;
+  .mat-typography p {
+    font: 400 14px Roboto, sans-serif // TODO
   }
-
-  .favorite-container {
-    display: flex;
-    gap: 20px;
-  }
-
 }

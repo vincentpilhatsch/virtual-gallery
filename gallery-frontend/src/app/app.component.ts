@@ -9,10 +9,6 @@ import {UserService} from "./modules/user/services/user.service";
 import {User} from "./modules/user/model/user";
 import {Language} from "./modules/user/model/language";
 
-// export function HttpLoaderFactory(http: HttpClient) {
-//   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-// }
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,7 +30,8 @@ export class AppComponent implements OnInit {
   readonly english: string = "en";
 
   constructor(private userHttpService: UserService,
-              private translateService: TranslateService) {}
+              private translateService: TranslateService) {
+  }
 
   ngOnInit() {
     this.loadUserInService();

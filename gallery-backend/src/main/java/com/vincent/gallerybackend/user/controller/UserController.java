@@ -1,5 +1,6 @@
 package com.vincent.gallerybackend.user.controller;
 
+import com.vincent.gallerybackend.artwork.model.Artwork;
 import com.vincent.gallerybackend.user.model.User;
 import com.vincent.gallerybackend.user.model.UserEntity;
 import com.vincent.gallerybackend.user.service.UserServiceImpl;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -33,6 +35,13 @@ public class UserController {
         Set<Long> favoriteArtworkIds = userServiceImpl.getFavoriteArtworkIdsByEmail(email);
         log.info("GET favorite artwork ids: {}", favoriteArtworkIds);
         return favoriteArtworkIds;
+    }
+
+    @GetMapping(value = "/favoriteArtworks/{email}", produces = "application/json")
+    public List<Artwork> getFavoriteArtworks(@PathVariable String email) {
+        List<Artwork> favoriteArtworks = userServiceImpl.getFavoriteArtworksByEmail(email);
+        log.info("GET favorite artworks ({})", favoriteArtworks.size());
+        return favoriteArtworks;
     }
 
     @GetMapping(value = "/acceptedEventIds/{email}", produces = "application/json")

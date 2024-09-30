@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent, MatCardImage} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 import {FavoriteIconComponent} from "../../misc/favorite-icon/favorite-icon.component";
@@ -22,12 +22,14 @@ import {Artwork} from "../model/artwork";
   encapsulation: ViewEncapsulation.None
 })
 export class ArtworkCardComponent implements OnInit {
+  @Output() removedFavoriteArtwork = new EventEmitter<void>();
   @Input() artwork: Artwork | undefined;
   @Input() favoriteArtworkIds: number[] | undefined;
 
   isFavorite: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
     this.checkIfArtworkIsFavorite();
