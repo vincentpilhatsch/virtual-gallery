@@ -12,7 +12,11 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "gallery_user") // "user" is reserved
-@AllArgsConstructor @NoArgsConstructor @Getter @Setter @ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class UserEntity {
 
     @Id
@@ -46,6 +50,11 @@ public class UserEntity {
     @CollectionTable(name = "user_favorite_artworks", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "artwork_id")
     private Set<Long> favoriteArtworkIds;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_requested_artworks", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "artwork_id")
+    private Set<Long> requestedArtworkIds;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_accepted_events", joinColumns = @JoinColumn(name = "user_id"))

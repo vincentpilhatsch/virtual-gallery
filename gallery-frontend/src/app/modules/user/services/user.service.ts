@@ -25,11 +25,6 @@ export class UserService {
     return this.httpClient.get<number[]>(url);
   }
 
-  getFavoriteArtworksByEmail(email: string): Observable<Artwork[]> {
-    const url: string = `${this.endpoint}/favoriteArtworks/${email}`;
-    return this.httpClient.get<Artwork[]>(url);
-  }
-
   getAcceptedEventIdsByEmail(email: string): Observable<number[]> {
     const url: string = `${this.endpoint}/acceptedEventIds/${email}`;
     return this.httpClient.get<number[]>(url);
@@ -38,6 +33,16 @@ export class UserService {
   getNotificationIdsByEmail(email: string): Observable<number[]> {
     const url: string = `${this.endpoint}/notificationIds/${email}`;
     return this.httpClient.get<number[]>(url);
+  }
+
+  getFavoriteArtworksByEmail(email: string): Observable<Artwork[]> {
+    const url: string = `${this.endpoint}/favoriteArtworks/${email}`;
+    return this.httpClient.get<Artwork[]>(url);
+  }
+
+  getRequestedArtworksByEmail(email: string): Observable<Artwork[]> {
+    const url: string = `${this.endpoint}/requestedArtworks/${email}`;
+    return this.httpClient.get<Artwork[]>(url);
   }
 
   updateFavoriteArtworksOfUser(email: string, artworkId: number) {

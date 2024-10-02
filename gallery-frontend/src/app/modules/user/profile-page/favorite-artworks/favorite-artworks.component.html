@@ -1,0 +1,7 @@
+@for (group of groupedArtworks; track $index) {
+  <div class="inner-artwork-container">
+    @for (artwork of group; track artwork.id) {
+      <app-artwork-card [artwork]="artwork" [favoriteArtworkIds]="favoriteArtworkIds"></app-artwork-card>
+    }
+  </div>
+}

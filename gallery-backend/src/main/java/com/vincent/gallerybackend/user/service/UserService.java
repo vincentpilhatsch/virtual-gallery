@@ -11,15 +11,17 @@ import java.util.Set;
 @Service
 public interface UserService {
 
-    User getUserByEmail(String id);
+    User getUserByEmail(String email);
 
-    Set<Long> getFavoriteArtworkIdsByEmail(String id);
+    Set<Long> getFavoriteArtworkIdsByEmail(String email);
 
-    Set<Long> getAcceptedEventIdsByEmail(String id);
+    Set<Long> getAcceptedEventIdsByEmail(String email);
 
-    List<Artwork> getFavoriteArtworksByEmail(String id);
+    Set<Long> getNotificationIdsByEmail(String email);
 
-    Set<Long> getNotificationIdsByEmail(String id);
+    List<Artwork> getFavoriteArtworksByEmail(String email);
+
+    List<Artwork> getRequestedArtworksByEmail(String email);
 
     UserEntity createUser(User user);
 

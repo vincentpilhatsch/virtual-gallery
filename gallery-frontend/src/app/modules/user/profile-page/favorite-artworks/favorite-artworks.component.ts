@@ -1,0 +1,97 @@
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Artwork} from "../../../artwork/model/artwork";
+import {UserService} from "../../services/user.service";
+import {FavoriteIconService} from "../../../misc/services/favorite-icon.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ArtworkCardComponent} from "../../../artwork/artwork-card/artwork-card.component";
+import {Subscription} from "rxjs";
+
+@Component({
+  selector: 'app-favorite-artworks',
+  standalone: true,
+  imports: [
+    ArtworkCardComponent
+  ],
+  templateUrl: './favorite-artworks.component.html',
+  styleUrl: './favorite-artworks.component.scss'
+})
+export class FavoriteArtworksComponent implements OnInit, OnDestroy {
+  groupedArtworks: Artwork[][] = [];
+  favoriteArtworkIds: number[] = [];
+
+  subscriptions: Subscription[] = [];
+
+  constructor(private userService: UserService,
+              private favoriteIconService: FavoriteIconService) {
+  }
+
+  ngOnInit(): void {
+    this.loadFavoriteArtworks();
+    this.subscribeToFavoriteArtworkObserver();
+  }
+
+  private loadFavoriteArtworks() {
+    const email = this.userService.user?.email;
+    if (email) {
+      this.userService.getFavoriteArtworksByEmail(email).subscribe({
+        next: (res: Artwork[]): void => {
+          this.setGroupedArtworks(res);
+          this.setFavoriteArtworkIds(res)
+        },
+        error: (err: HttpErrorResponse): void => {
+          console.error(err);
+        }
+      });
+    }
+  }
+
+  private setGroupedArtworks(favoriteArtworks: Artwork[]): void {
+    for (let i = 0; i < favoriteArtworks.length; i += 3) {
+      this.groupedArtworks.push(favoriteArtworks.slice(i, i + 3));
+    }
+  }
+
+  private setFavoriteArtworkIds(favoriteArtworks: Artwork[]): void {
+    for (const artwork of favoriteArtworks) {
+      this.favoriteArtworkIds.push(artwork.id);
+    }
+  }
+
+  private subscribeToFavoriteArtworkObserver() {
+    const sub: Subscription = this.favoriteIconService.getFavoriteArtworkObserver().subscribe(artworkId => {
+      this.updateFavoriteArtworkIds(artworkId);
+      this.updateGroupedArtworks(artworkId);
+    });
+    this.subscriptions.push(sub);
+  }
+
+  private updateFavoriteArtworkIds(artworkId: number) {
+    const index: number = this.favoriteArtworkIds.indexOf(artworkId);
+    if (index > -1) {
+      this.favoriteArtworkIds.splice(index, 1);
+    }
+  }
+
+  private updateGroupedArtworks(artworkId: number) {
+    for (let i = 0; i < this.groupedArtworks.length; i++) {
+      const artworkGroup = this.groupedArtworks[i];
+      const artworkIndex = artworkGroup.findIndex(artwork => artwork.id === artworkId);
+
+      if (artworkIndex > -1) {
+        artworkGroup.splice(artworkIndex, 1);
+        const tempGroupedArtworks = this.groupedArtworks;
+        this.groupedArtworks = [];
+        this.setGroupedArtworks(tempGroupedArtworks.flat());
+        return;
+      }
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    })
+  }
+}

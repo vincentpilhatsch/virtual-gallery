@@ -29,6 +29,7 @@ public class UserConfig {
                     "123456789",
                     Language.DE,
                     Set.of(1L),          // favoriteArtworkIds
+                    Set.of(2L),          // requestedArtworkIds
                     Set.of(1L),          // acceptedEventIds
                     Set.of(1L, 2L)       // notificationIds
             );
@@ -42,6 +43,7 @@ public class UserConfig {
                     "123456789",
                     Language.EN,
                     Set.of(1L, 2L),          // favoriteArtworkIds
+                    Set.of(1L),          // requestedArtworkIds
                     Set.of(1L),          // acceptedEventIds
                     Set.of(1L)       // notificationIds
             );

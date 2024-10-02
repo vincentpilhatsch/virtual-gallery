@@ -37,13 +37,6 @@ public class UserController {
         return favoriteArtworkIds;
     }
 
-    @GetMapping(value = "/favoriteArtworks/{email}", produces = "application/json")
-    public List<Artwork> getFavoriteArtworks(@PathVariable String email) {
-        List<Artwork> favoriteArtworks = userServiceImpl.getFavoriteArtworksByEmail(email);
-        log.info("GET favorite artworks ({})", favoriteArtworks.size());
-        return favoriteArtworks;
-    }
-
     @GetMapping(value = "/acceptedEventIds/{email}", produces = "application/json")
     public Set<Long> getAcceptedEventIds(@PathVariable String email) {
         Set<Long> acceptedEventIds = userServiceImpl.getAcceptedEventIdsByEmail(email);
@@ -56,6 +49,20 @@ public class UserController {
         Set<Long> notificationIds = userServiceImpl.getNotificationIdsByEmail(email);
         log.info("GET notification ids: {}", notificationIds);
         return notificationIds;
+    }
+
+    @GetMapping(value = "/favoriteArtworks/{email}", produces = "application/json")
+    public List<Artwork> getFavoriteArtworks(@PathVariable String email) {
+        List<Artwork> favoriteArtworks = userServiceImpl.getFavoriteArtworksByEmail(email);
+        log.info("GET favorite artworks ({})", favoriteArtworks.size());
+        return favoriteArtworks;
+    }
+
+    @GetMapping(value = "/requestedArtworks/{email}", produces = "application/json")
+    public List<Artwork> getRequestedArtworks(@PathVariable String email) {
+        List<Artwork> requestedArtworks = userServiceImpl.getRequestedArtworksByEmail(email);
+        log.info("GET requested artworks ({})", requestedArtworks.size());
+        return requestedArtworks;
     }
 
     @PostMapping

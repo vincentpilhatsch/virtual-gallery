@@ -48,15 +48,6 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Artwork> getFavoriteArtworksByEmail(String email) {
-        UserEntity userEntity = findByEmail(email);
-        Set<Long> artworkIds = userEntity.getFavoriteArtworkIds();
-        List<ArtworkEntity> artworkEntities = artworkRepository.findAllById(artworkIds);
-        return artworkMapper.artworksDAOtoDTO(artworkEntities);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
     public Set<Long> getAcceptedEventIdsByEmail(String email) {
         UserEntity userEntity = findByEmail(email);
         return userEntity.getAcceptedEventIds();
@@ -67,6 +58,24 @@ public class UserServiceImpl implements UserService {
     public Set<Long> getNotificationIdsByEmail(String email) {
         UserEntity userEntity = findByEmail(email);
         return userEntity.getNotificationIds();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Artwork> getFavoriteArtworksByEmail(String email) {
+        UserEntity userEntity = findByEmail(email);
+        Set<Long> artworkIds = userEntity.getFavoriteArtworkIds();
+        List<ArtworkEntity> artworkEntities = artworkRepository.findAllById(artworkIds);
+        return artworkMapper.artworksDAOtoDTO(artworkEntities);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Artwork> getRequestedArtworksByEmail(String email) {
+        UserEntity userEntity = findByEmail(email);
+        Set<Long> artworkIds = userEntity.getRequestedArtworkIds();
+        List<ArtworkEntity> artworkEntities = artworkRepository.findAllById(artworkIds);
+        return artworkMapper.artworksDAOtoDTO(artworkEntities);
     }
 
     @Transactional

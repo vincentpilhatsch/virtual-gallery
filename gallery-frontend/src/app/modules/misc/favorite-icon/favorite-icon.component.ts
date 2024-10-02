@@ -28,7 +28,8 @@ export class FavoriteIconComponent {
   }
 
   private updateFavoriteArtworkSubject() {
-    if (this.artworkId && this.isFavorite) {
+    if (this.artworkId && !this.isFavorite) {
+      console.log("now");
       this.favoriteIconService.removeArtworkFromFavorites(this.artworkId);
     }
   }

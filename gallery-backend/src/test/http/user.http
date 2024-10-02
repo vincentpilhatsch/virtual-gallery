@@ -3,6 +3,9 @@
 ###
 GET http://localhost:8080/user/müller@bht.de
 
+###
+GET http://localhost:8080/user/requestedArtworks/mueller@bht.de
+
 <> 2024-08-26T121113.200.json
 <> 2024-08-26T120900.200.json
 
@@ -29,7 +32,8 @@ Content-Type: application/json
 POST http://localhost:8080/user/updateFavoriteArtworks
 Content-Type: application/x-www-form-urlencoded
 
-email=müller%40bht.de&artworkId=1
+email = müller%40bht.de &
+artworkId = 1
 
 ###
 PUT http://localhost:8080/user
