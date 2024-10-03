@@ -1,30 +1,34 @@
-<form>
+<form [formGroup]="form">
   <div class="first-form-container">
     <mat-form-field>
       <mat-label>Vorname</mat-label>
-      <input matInput type="text">
+      <input matInput type="text" formControlName="firstName">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Nachname</mat-label>
-      <input matInput type="text">
+      <input matInput type="text" formControlName="lastName">
     </mat-form-field>
   </div>
-
   <div class="second-form-container">
     <mat-form-field>
       <mat-label>E-Mail</mat-label>
-      <input type="email" matInput placeholder="example@example.com">
+      <input type="email" matInput placeholder="example@email.com" formControlName="email">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Telefon</mat-label>
-      <input matInput type="text">
+      <input matInput type="text" formControlName="phone">
     </mat-form-field>
   </div>
   <div class="third-form-container">
     <mat-form-field>
       <mat-label>Wohnort</mat-label>
-      <input matInput type="text">
+      <input matInput type="text" formControlName="city">
     </mat-form-field>
   </div>
+  @if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+  }
+  @if (showSubmitButton) {
+    <button mat-stroked-button class="button-one" (click)="onFormSubmitted()">Daten speichern</button>
+  }
 </form>
-<button mat-stroked-button class="button-one">Daten speichern</button>

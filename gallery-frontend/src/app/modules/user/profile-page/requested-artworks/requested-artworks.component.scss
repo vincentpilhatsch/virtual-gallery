@@ -1,0 +1,33 @@
+app-requested-artworks {
+  .inner-artwork-container {
+    display: flex;
+    gap: 40px;
+  }
+
+  .card {
+    height: auto;
+    width: calc(100% / 2);
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      cursor: pointer;
+    }
+
+    .text-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+
+      p {
+        font-size: 20px;
+      }
+    }
+
+    .button-one {
+      width: 100%;
+      margin-top: 16px;
+    }
+  }
+}

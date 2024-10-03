@@ -6,10 +6,10 @@ export interface User {
   lastName: string,
   email: string,
   password: string,
-  city: string,
-  phone: string,
-  language: Language, // enum?
-  favoriteArtworkIds: number[],
-  acceptedEventIds: number[],
-  notificationIds: number[],
+  city?: string,
+  phone?: string,
+  language: Language,
+  favoriteArtworkIds?: number[],
+  acceptedEventIds?: number[],
+  notificationIds?: number[],
 }

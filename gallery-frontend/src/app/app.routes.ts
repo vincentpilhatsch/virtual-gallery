@@ -1,5 +1,4 @@
 import {Routes} from '@angular/router';
-import {LandingPageComponent} from "./modules/landing-page/landing-page.component";
 import {ArtworkComponent} from "./modules/artwork/artwork-page/artwork.component";
 import {ArtworksComponent} from "./modules/artwork/artworks-page/artworks.component";
 import {RequestArtworkComponent} from "./modules/artwork/request-artwork/request-artwork.component";
@@ -13,10 +12,11 @@ import {ManageArtworksComponent} from "./modules/dashboard/manage-artworks-page/
 import {AddEditArtworkComponent} from "./modules/dashboard/add-edit-artwork-page/add-edit-artwork.component";
 import {ManageEventsComponent} from "./modules/dashboard/manage-events-page/manage-events.component";
 import {AddEditEventComponent} from "./modules/dashboard/add-and-edit-event-page/add-edit-event.component";
+import {HomeComponent} from "./modules/home/home.component";
 
 export const routes: Routes = [
   // {path: '', redirectTo: '', pathMatch: 'full'},
-  {path: '', component: LandingPageComponent},
+  {path: '', component: HomeComponent},
   {path: 'kunstwerk/:id', component: ArtworkComponent},
   {path: 'kunstwerke', component: ArtworksComponent},
   {path: 'kunstwerk-anfragen', component: RequestArtworkComponent},

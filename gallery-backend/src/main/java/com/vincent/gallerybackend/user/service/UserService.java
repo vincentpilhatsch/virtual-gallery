@@ -31,4 +31,6 @@ public interface UserService {
 
     UserEntity updateAcceptedEventsOfUser(String email, long eventId);
 
+    UserEntity updateOneRequestedArtworkOfUser(String email, long eventId);
+
 }

@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserEntity updateUser(User newUser) {
-        UserEntity oldUser = findByEmail(newUser.getEmail());
+        UserEntity oldUser = userRepository.findById(newUser.getId()).orElseThrow(() -> new NotFoundException("User not found"));
         UserEntity updatedUserEntity = userMapper.updateUserDTOtoDAO(oldUser, newUser);
         return userRepository.save(updatedUserEntity);
     }
@@ -103,11 +103,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(userEntity);
     }
 
-    private void checkIfArtworkExists(long artworkId) {
-        boolean artworkExists = artworkRepository.existsById(artworkId);
-        if (!artworkExists) {
-            throw new NotFoundException("Artwork not found");
-        }
+    @Transactional
+    @Override
+    public UserEntity updateOneRequestedArtworkOfUser(String email, long artworkId) {
+        UserEntity userEntity = findByEmail(email);
+        checkIfArtworkExists(artworkId);
+        Set<Long> requestedArtworks = addOrDeleteIdInSet(userEntity.getRequestedArtworkIds(), artworkId);
+        userEntity.setRequestedArtworkIds(requestedArtworks);
+        return userRepository.save(userEntity);
     }
 
     @Transactional
@@ -124,6 +127,13 @@ public class UserServiceImpl implements UserService {
         boolean eventExists = eventRepository.existsById(eventId);
         if (!eventExists) {
             throw new NotFoundException("Event not found");
+        }
+    }
+
+    private void checkIfArtworkExists(long artworkId) {
+        boolean artworkExists = artworkRepository.existsById(artworkId);
+        if (!artworkExists) {
+            throw new NotFoundException("Artwork not found");
         }
     }
 

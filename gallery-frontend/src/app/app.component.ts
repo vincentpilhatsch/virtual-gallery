@@ -2,12 +2,12 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {HttpClientModule, HttpErrorResponse} from "@angular/common/http";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {LandingPageComponent} from "./modules/landing-page/landing-page.component";
 import {HeaderComponent} from "./modules/misc/header/header.component";
 import {FooterComponent} from "./modules/misc/footer/footer.component";
 import {UserService} from "./modules/user/services/user.service";
 import {User} from "./modules/user/model/user";
 import {Language} from "./modules/user/model/language";
+import {HomeComponent} from "./modules/home/home.component";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ import {Language} from "./modules/user/model/language";
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None,
   imports: [
-    LandingPageComponent,
+    HomeComponent,
     HeaderComponent,
     RouterOutlet,
     RouterLink,

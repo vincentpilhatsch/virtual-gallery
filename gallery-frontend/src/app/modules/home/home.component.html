@@ -8,16 +8,16 @@
       accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
       sanctus est Lorem ipsum dolor sit amet.
     </p>
-    <button mat-stroked-button class="button-one">{{ 'landing.page.button.artworks' | translate }}</button>
+    <button mat-stroked-button class="button-one">{{ 'home.button.artworks' | translate }}</button>
   </div>
   <div class="first-right-container">
-    <img ngSrc="../../../../assets/imgs/keros_artwork_3.png" alt="landing-page" height="880" width="610"
+    <img ngSrc="../../../../assets/imgs/keros_artwork_3.png" alt="home" height="880" width="610"
          priority="high">
   </div>
 </div>
 <div class="divider"></div>
 <div class="second-section">
-  @for (group of randomGroupedArtworks; track $index) {
+  @for (group of randomGroupedArtworks;track $index) {
     <div class="inner-artwork-container">
       @for (artwork of group;track artwork.id) {
         <app-artwork-card [artwork]="artwork" [favoriteArtworkIds]="favoriteIds"></app-artwork-card>
@@ -28,7 +28,7 @@
 <div class="divider"></div>
 <div class="third-section">
   <div class="second-left-container">
-    <img src="../../../../assets/imgs/keros_artwork_3.png" alt="landing-page">
+    <img src="../../../../assets/imgs/keros_artwork_3.png" alt="home">
   </div>
   <div class="second-right-container">
     <div class="title-two">Erlebe die Galerie in einer 360 Grad Tour</div>

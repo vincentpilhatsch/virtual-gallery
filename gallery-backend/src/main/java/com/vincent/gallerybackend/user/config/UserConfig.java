@@ -19,30 +19,13 @@ public class UserConfig {
     @Bean
     CommandLineRunner userCommandLineRunner(UserRepository userRepository) {
         return args -> {
-            UserEntity thomas = new UserEntity(
-                    UUID.randomUUID(),
-                    "thomas",
-                    "müller",
-                    "mueller@bht.de",
-                    "müller123",
-                    "berlin",
-                    "123456789",
-                    Language.DE,
-                    Set.of(1L),          // favoriteArtworkIds
-                    Set.of(2L),          // requestedArtworkIds
+            UserEntity thomas = new UserEntity(UUID.randomUUID(), "thomas", "müller", "mueller@bht.de", "müller123", "berlin", "123456789", Language.DE, Set.of(1L, 2L),      // favoriteArtworkIds
+                    Set.of(1L, 2L),      // requestedArtworkIds
                     Set.of(1L),          // acceptedEventIds
                     Set.of(1L, 2L)       // notificationIds
             );
 
-            UserEntity max = new UserEntity(UUID.randomUUID(),
-                    "max",
-                    "steiner",
-                    "steiner@bht.de",
-                    "müller123",
-                    "berlin",
-                    "123456789",
-                    Language.EN,
-                    Set.of(1L, 2L),          // favoriteArtworkIds
+            UserEntity max = new UserEntity(UUID.randomUUID(), "max", "steiner", "steiner@bht.de", "müller123", "berlin", "123456789", Language.EN, Set.of(1L, 2L),          // favoriteArtworkIds
                     Set.of(1L),          // requestedArtworkIds
                     Set.of(1L),          // acceptedEventIds
                     Set.of(1L)       // notificationIds

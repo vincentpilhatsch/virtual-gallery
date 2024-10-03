@@ -53,4 +53,17 @@ export class UserService {
     return this.httpClient.post<{ email: string, eventId: number }>(url + params, null);
   }
 
+  updateOneRequestedArtwork(email: string, artworkId: number) {
+    const url: string = `${this.endpoint}/updateOneRequestedArtwork?`;
+    const params: HttpParams = new HttpParams()
+      .set("email", email)
+      .set("artworkId", artworkId);
+    return this.httpClient.post<{ email: string, eventId: number }>(url + params, null);
+  }
+
+  updateUser(user: User) {
+    const url: string = `${this.endpoint}`;
+    return this.httpClient.put<User>(url, user);
+  }
+
 }

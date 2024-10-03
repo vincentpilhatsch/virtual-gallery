@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {Artwork} from "../../../artwork/model/artwork";
 import {UserService} from "../../services/user.service";
 import {FavoriteIconService} from "../../../misc/services/favorite-icon.service";
@@ -13,7 +13,8 @@ import {Subscription} from "rxjs";
     ArtworkCardComponent
   ],
   templateUrl: './favorite-artworks.component.html',
-  styleUrl: './favorite-artworks.component.scss'
+  styleUrl: './favorite-artworks.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class FavoriteArtworksComponent implements OnInit, OnDestroy {
   groupedArtworks: Artwork[][] = [];

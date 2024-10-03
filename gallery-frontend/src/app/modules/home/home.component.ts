@@ -10,9 +10,9 @@ import {ArtworkService} from "../artwork/services/artwork.service";
 import {forkJoin} from "rxjs";
 
 @Component({
-  selector: 'app-landing-page',
-  templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.scss'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
   encapsulation: ViewEncapsulation.None,
   imports: [
     MatButton,
@@ -22,12 +22,13 @@ import {forkJoin} from "rxjs";
   ],
   standalone: true
 })
-export class LandingPageComponent implements OnInit {
+export class HomeComponent implements OnInit {
   randomGroupedArtworks: Artwork[][] = [];
   favoriteIds: number[] = [];
 
   constructor(private userService: UserService,
-              private artworkService: ArtworkService) {}
+              private artworkService: ArtworkService) {
+  }
 
   ngOnInit() {
     this.loadFourArtworksAndFavoriteIds()

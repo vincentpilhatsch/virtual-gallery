@@ -72,6 +72,13 @@ public class UserController {
         return new ResponseEntity<>(userEntity, HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "/updateOneRequestedArtwork")
+    public ResponseEntity<UserEntity> updateOneRequestedArtworkOfUser(@RequestParam String email, @RequestParam long artworkId) {
+        UserEntity userEntity = userServiceImpl.updateOneRequestedArtworkOfUser(email, artworkId);
+        log.info("UPDATE one requested artwork for user: {}", userEntity);
+        return new ResponseEntity<>(userEntity, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/updateFavoriteArtworks")
     public ResponseEntity<UserEntity> updateFavoriteArtworksOfUser(@RequestParam String email, @RequestParam long artworkId) {
         UserEntity userEntity = userServiceImpl.updateFavoriteArtworksOfUser(email, artworkId);

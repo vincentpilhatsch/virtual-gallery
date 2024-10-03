@@ -11,12 +11,12 @@ app-profile {
     .button-one {
       padding: 26px !important;
       color: var(--custom-color-red);
+      border: 1px solid var(--custom-color-red) !important;
     }
 
     .button-one:hover {
       color: white;
       background-color: var(--custom-color-red);
-      border: 1px solid var(--custom-color-red) !important;
     }
   }
 
@@ -53,16 +53,6 @@ app-profile {
 
     .mat-mdc-tab-label-container {
       border-bottom: 1px solid;
-    }
-
-    .inner-artwork-container {
-      display: flex;
-      gap: 40px;
-      margin-bottom: 25px;
-    }
-
-    app-artwork-card {
-      width: calc(100% / 3);
     }
   }
 

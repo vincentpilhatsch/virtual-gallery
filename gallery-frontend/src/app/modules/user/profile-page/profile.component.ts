@@ -6,9 +6,8 @@ import {ArtworkCardComponent} from "../../artwork/artwork-card/artwork-card.comp
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {FavoriteArtworksComponent} from "./favorite-artworks/favorite-artworks.component";
 import {PersonalDataComponent} from "./personal-data/personal-data.component";
-import {MatListOption, MatSelectionList, MatSelectionListChange} from "@angular/material/list";
+import {MatListOption, MatSelectionList} from "@angular/material/list";
 import {FormsModule} from "@angular/forms";
-import {SubProfilePagesEnum} from "../model/subProfilePages.enum";
 import {RequestedArtworksComponent} from "./requested-artworks/requested-artworks.component";
 
 @Component({
@@ -34,11 +33,9 @@ import {RequestedArtworksComponent} from "./requested-artworks/requested-artwork
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileComponent {
-  selectedSubProfilePage: SubProfilePagesEnum = SubProfilePagesEnum.PERSONAL_DATA;
-
-  onSelectionChange(event: MatSelectionListChange) {
-    this.selectedSubProfilePage = event.options[0].value;
-  }
-
-  protected readonly SubProfilePagesEnum = SubProfilePagesEnum;
+  // selectedSubProfilePage: SubProfilePagesEnum = SubProfilePagesEnum.PERSONAL_DATA;
+  // onSelectionChange(event: MatSelectionListChange) {
+  //   this.selectedSubProfilePage = event.options[0].value;
+  // }
+  // protected readonly SubProfilePagesEnum = SubProfilePagesEnum;
 }
