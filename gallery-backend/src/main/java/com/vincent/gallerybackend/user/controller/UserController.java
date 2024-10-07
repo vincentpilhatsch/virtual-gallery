@@ -29,7 +29,7 @@ public class UserController {
     @GetMapping(value = "/{email}", produces = "application/json")
     public User getUser(@PathVariable String email) {
         User user = userServiceImpl.getUserByEmail(email);
-        log.info("GET user: {}", user);
+        log.info("GET user: {}", user.getEmail());
         return user;
     }
 
@@ -68,53 +68,57 @@ public class UserController {
         return requestedArtworks;
     }
 
-    @PostMapping
-    public ResponseEntity<UserEntity> createUser(@Valid @RequestBody User user) {
-        UserEntity userEntity = userServiceImpl.createUser(user);
-        log.info("CREATE user: {}", user);
-        return new ResponseEntity<>(userEntity, HttpStatus.CREATED);
-    }
+//    @PostMapping
+//    public ResponseEntity<UserEntity> createUser(@Valid @RequestBody User user) {
+//        UserEntity userEntity = userServiceImpl.createUser(user);
+//        log.info("CREATE user: {}", user);
+//        return new ResponseEntity<>(userEntity, HttpStatus.CREATED);
+//    }
 
     @PostMapping(value = "/updateOneRequestedArtwork")
     public ResponseEntity<UserEntity> updateOneRequestedArtworkOfUser(@RequestParam String email, @RequestParam long artworkId) {
         UserEntity userEntity = userServiceImpl.updateOneRequestedArtworkOfUser(email, artworkId);
-        log.info("UPDATE one requested artwork for user: {}", userEntity);
+        log.info("UPDATE one requested artwork for user: {}", userEntity.getEmail());
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 
     @PostMapping(value = "/updateFavoriteArtworks")
     public ResponseEntity<UserEntity> updateFavoriteArtworksOfUser(@RequestParam String email, @RequestParam long artworkId) {
         UserEntity userEntity = userServiceImpl.updateFavoriteArtworksOfUser(email, artworkId);
-        log.info("UPDATE favorite artwork for user: {}", userEntity);
+        log.info("UPDATE favorite artwork for user: {}", userEntity.getEmail());
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 
     @PostMapping(value = "/updateAcceptedEvents")
     public ResponseEntity<UserEntity> updateAcceptedEventsOfUser(@RequestParam String email, @RequestParam long eventId) {
         UserEntity userEntity = userServiceImpl.updateAcceptedEventsOfUser(email, eventId);
-        log.info("UPDATE favorite artwork for user: {}", userEntity);
+        log.info("UPDATE favorite artwork for user: {}", userEntity.getEmail());
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<UserEntity> updateUser(@Valid @RequestBody User newUser) {
         UserEntity updatedUserEntity = userServiceImpl.updateUser(newUser);
-        log.info("UPDATE user: {}", newUser);
+        log.info("UPDATE user: {}", newUser.getEmail());
         return new ResponseEntity<>(updatedUserEntity, HttpStatus.OK);
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
-        if (userServiceImpl.findByEmail(user.getEmail()) != null) {
-            return ResponseEntity.badRequest().body("User already exists");
+        ResponseEntity<?> responseEntity = userServiceImpl.createUser(user);
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            log.info("REGISTER user: {}", user.getEmail());
         }
-        userServiceImpl.createUser(user);
-        return ResponseEntity.ok("User registered successfully");
+        return responseEntity;
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
-        return userServiceImpl.loginUser(user);
+        ResponseEntity<?> responseEntity = userServiceImpl.loginUser(user);
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            log.info("LOGIN user: {}", user.getEmail());
+        }
+        return responseEntity;
     }
 
 }

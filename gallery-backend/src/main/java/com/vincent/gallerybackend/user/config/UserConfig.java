@@ -1,6 +1,7 @@
 package com.vincent.gallerybackend.user.config;
 
 import com.vincent.gallerybackend.user.model.Language;
+import com.vincent.gallerybackend.user.model.Role;
 import com.vincent.gallerybackend.user.model.UserEntity;
 import com.vincent.gallerybackend.user.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -36,6 +37,7 @@ public class UserConfig {
                     "berlin",
                     "123456789",
                     Language.DE,
+                    Role.ARTIST,
                     Set.of(1L, 2L),      // favoriteArtworkIds
                     Set.of(1L, 2L),      // requestedArtworkIds
                     Set.of(1L),          // acceptedEventIds
@@ -51,6 +53,7 @@ public class UserConfig {
                     "berlin",
                     "123456789",
                     Language.EN,
+                    Role.ARTIST,
                     Set.of(1L, 2L),          // favoriteArtworkIds
                     Set.of(1L),          // requestedArtworkIds
                     Set.of(1L),          // acceptedEventIds

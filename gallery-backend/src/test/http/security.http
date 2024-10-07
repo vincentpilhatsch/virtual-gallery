@@ -14,27 +14,12 @@ Content-Type: application/json
 ###
 POST http://localhost:8080/user/register
 Content-Type: application/json
-#Authorization: Bearer {{jwt}}
-
 
 {
-  "id": "",
   "firstName": "asd",
   "lastName": "asd",
-  "email": "adsasd@bht.de",
-  "password": "super_save*password9178",
-  "city": "dqw",
-  "phone": "21412124",
-  "language": "DE",
-  "favoriteArtworkIds": [
-    1
-  ],
-  "acceptedEventIds": [
-    1
-  ],
-  "notificationIds": [
-    1
-  ]
+  "email": "adsasddd@bht.de",
+  "password": "1"
 }
 
 ###

@@ -17,6 +17,7 @@ public class User {
     private String phone;
     private Language language;
     private Set<Long> favoriteArtworkIds;
+    private Set<Long> requestedArtworkIds;
     private Set<Long> acceptedEventIds;
     private Set<Long> notificationIds;
 

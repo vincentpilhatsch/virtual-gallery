@@ -7,9 +7,7 @@ import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
 import com.vincent.gallerybackend.event.repository.EventRepository;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
 import com.vincent.gallerybackend.security.JwtUtils;
-import com.vincent.gallerybackend.user.model.User;
-import com.vincent.gallerybackend.user.model.UserEntity;
-import com.vincent.gallerybackend.user.model.UserMapper;
+import com.vincent.gallerybackend.user.model.*;
 import com.vincent.gallerybackend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserEntity findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
+        try {
+            return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
+        } catch (NotFoundException e) {
+            return null;
+        }
     }
 
     @Transactional(readOnly = true)
@@ -92,10 +94,21 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserEntity createUser(User user) {
+    public ResponseEntity<?> createUser(User user) {
+        if (findByEmail(user.getEmail()) != null) {
+            return ResponseEntity.badRequest().body("User already exists");
+        }
+        UserEntity userEntity = mapUserAndSetDefaultValues(user);
+        userRepository.save(userEntity);
+        return ResponseEntity.ok("User registered successfully");
+    }
+
+    private UserEntity mapUserAndSetDefaultValues(User user) {
         UserEntity userEntity = userMapper.userDTOtoDAO(user);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(userEntity);
+        userEntity.setLanguage(Language.DE);
+        userEntity.setRole(Role.USER);
+        return userEntity;
     }
 
     @Transactional

@@ -1,2 +1,20 @@
+Angluar:
+- Viewencapsulation, damit nicht Style global ist
+
+Spring Boot:
+- Liquibase (changelog, init Data)
+- @Transactional
+- H2 in-memory -> damit bei Testing jeder Tests zurückgesetzt wird und viel mehr...
+- Probleme mit Bilder-Ladegeschwindigkeit
+	- vielleicht Cashing einbauen für Bilder
+	- lazy loading
 - Authentication
-    - Durch JWT (Header[Algorithm], Payload[User-Data], Signature[JWT-Secret])
+    	- Durch JWT (Header[Algorithm], Payload[User-Data], Signature[JWT-Secret])
+	- isValid password (custom strong password validation) https://www.baeldung.com/registration-password-strength-and-rules
+
+Datenbank:
+- Wie Bilder Speichern Base64/Blob
+- id -> long/UUID
+	- UUID -> no dublication in the universe
+- dateTime -> Datum und Uhrzeit in einem (Timestamp)
+- price -> float (DECIMAL(10,2))

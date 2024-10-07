@@ -20,6 +20,7 @@
         @Mapping(target = "phone", source = "newUser.phone")
         @Mapping(target = "language", source = "newUser.language")
         @Mapping(target = "favoriteArtworkIds", source = "newUser.favoriteArtworkIds")
+        @Mapping(target = "requestedArtworkIds", source = "newUser.requestedArtworkIds")
         @Mapping(target = "acceptedEventIds", source = "newUser.acceptedEventIds")
         @Mapping(target = "notificationIds", source = "newUser.notificationIds")
         UserEntity updateUserDTOtoDAO(UserEntity oldUser, User newUser);

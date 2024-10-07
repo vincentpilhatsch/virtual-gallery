@@ -24,7 +24,7 @@ public interface UserService {
 
     List<Artwork> getRequestedArtworksByEmail(String email);
 
-    UserEntity createUser(User user);
+    ResponseEntity<?> createUser(User user);
 
     ResponseEntity<?> loginUser(User user);
 

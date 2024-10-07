@@ -3,7 +3,6 @@ package com.vincent.gallerybackend.user.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -43,8 +42,9 @@ public class UserEntity {
 
     private String phone;
 
-    @NotNull
-    private Language language;
+    private Language language = Language.DE;
+
+    private Role role = Role.USER;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_favorite_artworks", joinColumns = @JoinColumn(name = "user_id"))
