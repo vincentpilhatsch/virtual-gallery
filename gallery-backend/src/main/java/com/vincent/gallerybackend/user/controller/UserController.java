@@ -119,7 +119,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         if (userServiceImpl.findByEmail(user.getEmail()) != null) {
-            return ResponseEntity.badRequest().body("Username is already taken");
+            return ResponseEntity.badRequest().body("User already exists");
         }
         userServiceImpl.createUser(user);
         return ResponseEntity.ok("User registered successfully");
@@ -134,7 +134,7 @@ public class UserController {
             String jwt = jwtUtils.generateToken(userDetails);
             return ResponseEntity.ok(jwt);
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(401).body("Invalid username or password");
+            return ResponseEntity.status(401).body("Invalid email or password");
         }
     }
 

@@ -1,0 +1,43 @@
+###
+POST http://localhost:8080/user/login
+Content-Type: application/json
+
+{
+  "email": "steiner@bht.de",
+  "password": "SuperSecretePassword9274"
+}
+
+> {%
+    client.global.set("jwt", response.body.trim());
+%}
+
+###
+POST http://localhost:8080/user/register
+Content-Type: application/json
+#Authorization: Bearer {{jwt}}
+
+
+{
+  "id": "",
+  "firstName": "asd",
+  "lastName": "asd",
+  "email": "adsasd@bht.de",
+  "password": "super_save*password9178",
+  "city": "dqw",
+  "phone": "21412124",
+  "language": "DE",
+  "favoriteArtworkIds": [
+    1
+  ],
+  "acceptedEventIds": [
+    1
+  ],
+  "notificationIds": [
+    1
+  ]
+}
+
+###
+GET http://localhost:8080/user/mueller@bht.de
+Authorization: Bearer {{jwt}}
+

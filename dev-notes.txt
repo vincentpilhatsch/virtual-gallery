@@ -1,0 +1,2 @@
+- Authentication
+    - Durch JWT (Header[Algorithm], Payload[User-Data], Signature[JWT-Secret])
