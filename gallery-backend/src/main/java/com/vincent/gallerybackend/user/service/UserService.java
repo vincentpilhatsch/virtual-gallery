@@ -3,6 +3,7 @@ package com.vincent.gallerybackend.user.service;
 import com.vincent.gallerybackend.artwork.model.Artwork;
 import com.vincent.gallerybackend.user.model.User;
 import com.vincent.gallerybackend.user.model.UserEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public interface UserService {
     List<Artwork> getRequestedArtworksByEmail(String email);
 
     UserEntity createUser(User user);
+
+    ResponseEntity<?> loginUser(User user);
 
     UserEntity updateUser(User user);
 

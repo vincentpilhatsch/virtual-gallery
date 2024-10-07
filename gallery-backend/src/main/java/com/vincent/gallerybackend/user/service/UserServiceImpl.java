@@ -6,11 +6,18 @@ import com.vincent.gallerybackend.artwork.model.ArtworkMapper;
 import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
 import com.vincent.gallerybackend.event.repository.EventRepository;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
+import com.vincent.gallerybackend.security.JwtUtils;
 import com.vincent.gallerybackend.user.model.User;
 import com.vincent.gallerybackend.user.model.UserEntity;
 import com.vincent.gallerybackend.user.model.UserMapper;
 import com.vincent.gallerybackend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +37,8 @@ public class UserServiceImpl implements UserService {
     private final ArtworkMapper artworkMapper;
 
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtils;
 
     @Transactional(readOnly = true)
     @Override
@@ -149,5 +158,17 @@ public class UserServiceImpl implements UserService {
             set.add(id);
         }
         return set;
+    }
+
+    public ResponseEntity<?> loginUser(User user) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String jwt = jwtUtils.generateToken(userDetails);
+            return ResponseEntity.ok(jwt);
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(401).body("Invalid email or password");
+        }
     }
 }
