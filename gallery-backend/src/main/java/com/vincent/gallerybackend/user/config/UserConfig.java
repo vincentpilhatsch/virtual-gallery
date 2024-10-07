@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Set;
@@ -16,16 +17,41 @@ import java.util.UUID;
 @Configuration
 public class UserConfig {
 
+    private final PasswordEncoder passwordEncoder;
+
+    // Inject PasswordEncoder via constructor
+    public UserConfig(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Bean
     CommandLineRunner userCommandLineRunner(UserRepository userRepository) {
         return args -> {
-            UserEntity thomas = new UserEntity(UUID.randomUUID(), "thomas", "müller", "mueller@bht.de", "müller123", "berlin", "123456789", Language.DE, Set.of(1L, 2L),      // favoriteArtworkIds
+            UserEntity thomas = new UserEntity(
+                    UUID.randomUUID(),
+                    "thomas",
+                    "müller",
+                    "mueller@bht.de",
+                    passwordEncoder.encode("Super*Secrete_Password9274"),
+                    "berlin",
+                    "123456789",
+                    Language.DE,
+                    Set.of(1L, 2L),      // favoriteArtworkIds
                     Set.of(1L, 2L),      // requestedArtworkIds
                     Set.of(1L),          // acceptedEventIds
                     Set.of(1L, 2L)       // notificationIds
             );
 
-            UserEntity max = new UserEntity(UUID.randomUUID(), "max", "steiner", "steiner@bht.de", "müller123", "berlin", "123456789", Language.EN, Set.of(1L, 2L),          // favoriteArtworkIds
+            UserEntity max = new UserEntity(
+                    UUID.randomUUID(),
+                    "max",
+                    "steiner",
+                    "steiner@bht.de",
+                    passwordEncoder.encode("Super*Secrete_Password9274"),
+                    "berlin",
+                    "123456789",
+                    Language.EN,
+                    Set.of(1L, 2L),          // favoriteArtworkIds
                     Set.of(1L),          // requestedArtworkIds
                     Set.of(1L),          // acceptedEventIds
                     Set.of(1L)       // notificationIds

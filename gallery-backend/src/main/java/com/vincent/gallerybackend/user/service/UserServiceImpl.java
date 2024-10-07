@@ -11,6 +11,7 @@ import com.vincent.gallerybackend.user.model.UserEntity;
 import com.vincent.gallerybackend.user.model.UserMapper;
 import com.vincent.gallerybackend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,8 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final ArtworkMapper artworkMapper;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Transactional(readOnly = true)
     @Override
     public User getUserByEmail(String email) {
@@ -35,7 +38,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.userDAOtoDTO(userEntity);
     }
 
-    private UserEntity findByEmail(String email) {
+    public UserEntity findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
     }
 
@@ -82,6 +85,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity createUser(User user) {
         UserEntity userEntity = userMapper.userDTOtoDAO(user);
+        userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(userEntity);
     }
 
@@ -146,5 +150,4 @@ public class UserServiceImpl implements UserService {
         }
         return set;
     }
-
 }

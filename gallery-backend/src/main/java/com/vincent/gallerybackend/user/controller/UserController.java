@@ -1,14 +1,20 @@
 package com.vincent.gallerybackend.user.controller;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
+import com.vincent.gallerybackend.security.JwtUtils;
 import com.vincent.gallerybackend.user.model.User;
 import com.vincent.gallerybackend.user.model.UserEntity;
 import com.vincent.gallerybackend.user.service.UserServiceImpl;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,10 +24,20 @@ import java.util.Set;
 @Slf4j
 @RestController
 @RequestMapping(path = "/user")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class UserController {
 
     private final UserServiceImpl userServiceImpl;
+
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtils;
+
+    @Autowired
+    public UserController(UserServiceImpl userServiceImpl, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+        this.userServiceImpl = userServiceImpl;
+        this.authenticationManager = authenticationManager;
+        this.jwtUtils = jwtUtils;
+    }
 
     @GetMapping(value = "/{email}", produces = "application/json")
     public User getUser(@PathVariable String email) {
@@ -98,6 +114,28 @@ public class UserController {
         UserEntity updatedUserEntity = userServiceImpl.updateUser(newUser);
         log.info("UPDATE user: {}", newUser);
         return new ResponseEntity<>(updatedUserEntity, HttpStatus.OK);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        if (userServiceImpl.findByEmail(user.getEmail()) != null) {
+            return ResponseEntity.badRequest().body("Username is already taken");
+        }
+        userServiceImpl.createUser(user);
+        return ResponseEntity.ok("User registered successfully");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody User user) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String jwt = jwtUtils.generateToken(userDetails);
+            return ResponseEntity.ok(jwt);
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(401).body("Invalid username or password");
+        }
     }
 
 }
