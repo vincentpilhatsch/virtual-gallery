@@ -7,6 +7,7 @@ import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
 import com.vincent.gallerybackend.event.repository.EventRepository;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
 import com.vincent.gallerybackend.security.JwtUtils;
+import com.vincent.gallerybackend.security.PasswordValidator;
 import com.vincent.gallerybackend.user.model.*;
 import com.vincent.gallerybackend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -97,6 +98,9 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<?> createUser(User user) {
         if (findByEmail(user.getEmail()) != null) {
             return ResponseEntity.badRequest().body("User already exists");
+        }
+        if (!PasswordValidator.isPasswordStrong(user.getPassword())) {
+            return ResponseEntity.badRequest().body("Password is not strong enough");
         }
         UserEntity userEntity = mapUserAndSetDefaultValues(user);
         userRepository.save(userEntity);

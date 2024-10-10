@@ -106,18 +106,14 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         ResponseEntity<?> responseEntity = userServiceImpl.createUser(user);
-        if (responseEntity.getStatusCode() == HttpStatus.OK) {
-            log.info("REGISTER user: {}", user.getEmail());
-        }
+        log.info("REGISTER user: {}, {}", user.getEmail(), responseEntity.getBody());
         return responseEntity;
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
         ResponseEntity<?> responseEntity = userServiceImpl.loginUser(user);
-        if (responseEntity.getStatusCode() == HttpStatus.OK) {
-            log.info("LOGIN user: {}", user.getEmail());
-        }
+        log.info("LOGIN user: {}, {}", user.getEmail(), responseEntity.getBody());
         return responseEntity;
     }
 
