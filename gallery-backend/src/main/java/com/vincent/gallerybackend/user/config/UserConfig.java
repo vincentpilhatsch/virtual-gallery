@@ -53,7 +53,7 @@ public class UserConfig {
                     "berlin",
                     "123456789",
                     Language.EN,
-                    Role.ARTIST,
+                    Role.USER,
                     Set.of(1L, 2L),          // favoriteArtworkIds
                     Set.of(1L),          // requestedArtworkIds
                     Set.of(1L),          // acceptedEventIds

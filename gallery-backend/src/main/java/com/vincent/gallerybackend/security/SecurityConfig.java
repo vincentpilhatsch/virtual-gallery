@@ -31,10 +31,8 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/dashboard/**", "/profil", "/kunstwerk-anfragen")
-                        .authenticated()
-                        .anyRequest()
-                        .permitAll()
+                        .requestMatchers("/user/requestedArtworks/**").hasAuthority("ARTIST")
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

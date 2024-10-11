@@ -115,6 +115,18 @@ public class UserServiceImpl implements UserService {
         return userEntity;
     }
 
+    public ResponseEntity<?> loginUser(User user) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String jwt = jwtUtils.generateToken(userDetails);
+            return ResponseEntity.ok(jwt);
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(401).body("Invalid email or password");
+        }
+    }
+
     @Transactional
     @Override
     public UserEntity updateUser(User newUser) {
@@ -177,15 +189,4 @@ public class UserServiceImpl implements UserService {
         return set;
     }
 
-    public ResponseEntity<?> loginUser(User user) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String jwt = jwtUtils.generateToken(userDetails);
-            return ResponseEntity.ok(jwt);
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(401).body("Invalid email or password");
-        }
-    }
 }

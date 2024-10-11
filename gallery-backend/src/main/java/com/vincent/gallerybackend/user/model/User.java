@@ -5,7 +5,11 @@ import lombok.*;
 import java.util.Set;
 import java.util.UUID;
 
-@NoArgsConstructor @AllArgsConstructor @Getter @Setter @ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class User {
 
     private UUID id;

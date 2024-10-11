@@ -68,13 +68,6 @@ public class UserController {
         return requestedArtworks;
     }
 
-//    @PostMapping
-//    public ResponseEntity<UserEntity> createUser(@Valid @RequestBody User user) {
-//        UserEntity userEntity = userServiceImpl.createUser(user);
-//        log.info("CREATE user: {}", user);
-//        return new ResponseEntity<>(userEntity, HttpStatus.CREATED);
-//    }
-
     @PostMapping(value = "/updateOneRequestedArtwork")
     public ResponseEntity<UserEntity> updateOneRequestedArtworkOfUser(@RequestParam String email, @RequestParam long artworkId) {
         UserEntity userEntity = userServiceImpl.updateOneRequestedArtworkOfUser(email, artworkId);
