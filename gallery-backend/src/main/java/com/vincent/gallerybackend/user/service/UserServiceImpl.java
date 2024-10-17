@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public ResponseEntity<?> createUser(User user) {
+    public ResponseEntity<String> createUser(User user) {
         if (findByEmail(user.getEmail()) != null) {
             return ResponseEntity.badRequest().body("User already exists");
         }
@@ -115,10 +115,10 @@ public class UserServiceImpl implements UserService {
         return userEntity;
     }
 
-    public ResponseEntity<?> loginUser(User user) {
+    public ResponseEntity<String> loginUser(LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String jwt = jwtUtils.generateToken(userDetails);
             return ResponseEntity.ok(jwt);

@@ -1,6 +1,7 @@
 package com.vincent.gallerybackend.user.controller;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
+import com.vincent.gallerybackend.user.model.LoginRequest;
 import com.vincent.gallerybackend.user.model.User;
 import com.vincent.gallerybackend.user.model.UserEntity;
 import com.vincent.gallerybackend.user.service.UserServiceImpl;
@@ -68,6 +69,28 @@ public class UserController {
         return requestedArtworks;
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
+        ResponseEntity<String> responseEntity = userServiceImpl.createUser(user);
+        log.info("REGISTER user: {}, {}", user.getEmail(), responseEntity.getBody());
+        return responseEntity;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
+        ResponseEntity<String> responseEntity = userServiceImpl.loginUser(loginRequest);
+        log.info("LOGIN user: {}, {}", loginRequest.getEmail(), responseEntity.getBody());
+        return responseEntity;
+    }
+
+    @PutMapping
+    public ResponseEntity<UserEntity> updateUser(@Valid @RequestBody User newUser) {
+        UserEntity updatedUserEntity = userServiceImpl.updateUser(newUser);
+        log.info("UPDATE user: {}", newUser.getEmail());
+        return new ResponseEntity<>(updatedUserEntity, HttpStatus.OK);
+    }
+
+
     @PostMapping(value = "/updateOneRequestedArtwork")
     public ResponseEntity<UserEntity> updateOneRequestedArtworkOfUser(@RequestParam String email, @RequestParam long artworkId) {
         UserEntity userEntity = userServiceImpl.updateOneRequestedArtworkOfUser(email, artworkId);
@@ -87,27 +110,6 @@ public class UserController {
         UserEntity userEntity = userServiceImpl.updateAcceptedEventsOfUser(email, eventId);
         log.info("UPDATE favorite artwork for user: {}", userEntity.getEmail());
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
-    }
-
-    @PutMapping
-    public ResponseEntity<UserEntity> updateUser(@Valid @RequestBody User newUser) {
-        UserEntity updatedUserEntity = userServiceImpl.updateUser(newUser);
-        log.info("UPDATE user: {}", newUser.getEmail());
-        return new ResponseEntity<>(updatedUserEntity, HttpStatus.OK);
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
-        ResponseEntity<?> responseEntity = userServiceImpl.createUser(user);
-        log.info("REGISTER user: {}, {}", user.getEmail(), responseEntity.getBody());
-        return responseEntity;
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user) {
-        ResponseEntity<?> responseEntity = userServiceImpl.loginUser(user);
-        log.info("LOGIN user: {}, {}", user.getEmail(), responseEntity.getBody());
-        return responseEntity;
     }
 
 }

@@ -1,5 +1,6 @@
 Angluar:
 - Viewencapsulation, damit nicht Style global ist
+- JWT wie im FE speichern? (LocalStorage Cookie)
 
 Spring Boot:
 - Liquibase (changelog, init Data)

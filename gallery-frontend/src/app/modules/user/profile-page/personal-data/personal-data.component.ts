@@ -25,9 +25,20 @@ export class PersonalDataComponent implements OnInit {
   showSubmitButton: boolean = false;
   errorMessage: string | null = null;
   form: FormGroup = this.fb.group({
-    firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-    lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    email: ['', [Validators.required, Validators.email]],
+    firstName: ['', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(30)
+    ]],
+    lastName: ['', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(50)
+    ]],
+    email: ['', [
+      Validators.required,
+      Validators.email
+    ]],
     phone: [''],
     city: ['']
   });

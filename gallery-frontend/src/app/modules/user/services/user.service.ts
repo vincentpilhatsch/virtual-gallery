@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {User} from "../model/user";
 import {environment} from "../../environment";
 import {Artwork} from "../../artwork/model/artwork";
+import {LoginForm} from "../model/loginForm";
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,11 @@ export class UserService {
   getRequestedArtworksByEmail(email: string): Observable<Artwork[]> {
     const url: string = `${this.endpoint}/requestedArtworks/${email}`;
     return this.httpClient.get<Artwork[]>(url);
+  }
+
+  login(loginForm: LoginForm) {
+    const url: string = `${this.endpoint}/login`;
+    return this.httpClient.post(url, loginForm, {responseType: 'text'});
   }
 
   updateFavoriteArtworksOfUser(email: string, artworkId: number) {

@@ -8,14 +8,14 @@
     <p class="text-one">
       Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
     </p>
-    <form>
+    <form [formGroup]="form">
       <mat-form-field>
         <mat-label>E-Mail</mat-label>
-        <input type="email" matInput placeholder="example@example.com">
+        <input type="email" matInput placeholder="example@example.com" formControlName="email">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Passwort</mat-label>
-        <input matInput [type]="hide() ? 'password' : 'text'"/>
+        <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password"/>
         <button
           mat-icon-button
           matSuffix
@@ -26,6 +26,6 @@
         </button>
       </mat-form-field>
     </form>
-    <button mat-stroked-button class="button-one">Anmelden</button>
+    <button mat-stroked-button class="button-one" (click)="onFormSubmitted()">Anmelden</button>
   </div>
 </div>

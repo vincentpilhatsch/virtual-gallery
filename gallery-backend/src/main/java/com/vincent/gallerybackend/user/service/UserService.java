@@ -1,6 +1,7 @@
 package com.vincent.gallerybackend.user.service;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
+import com.vincent.gallerybackend.user.model.LoginRequest;
 import com.vincent.gallerybackend.user.model.User;
 import com.vincent.gallerybackend.user.model.UserEntity;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,9 @@ public interface UserService {
 
     List<Artwork> getRequestedArtworksByEmail(String email);
 
-    ResponseEntity<?> createUser(User user);
+    ResponseEntity<String> createUser(User user);
 
-    ResponseEntity<?> loginUser(User user);
+    ResponseEntity<String> loginUser(LoginRequest loginRequest);
 
     UserEntity updateUser(User user);
 
