@@ -1,10 +1,12 @@
 package com.vincent.gallerybackend.user.controller;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
+import com.vincent.gallerybackend.user.model.AuthResponse;
 import com.vincent.gallerybackend.user.model.LoginRequest;
 import com.vincent.gallerybackend.user.model.User;
 import com.vincent.gallerybackend.user.model.UserEntity;
 import com.vincent.gallerybackend.user.service.UserServiceImpl;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -77,9 +79,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
-        ResponseEntity<String> responseEntity = userServiceImpl.loginUser(loginRequest);
-        log.info("LOGIN user: {}, {}", loginRequest.getEmail(), responseEntity.getBody());
+    public ResponseEntity<AuthResponse> loginUser(@RequestBody LoginRequest loginRequest,
+                                                  HttpServletResponse response) {
+        ResponseEntity<AuthResponse> responseEntity = userServiceImpl.loginUser(loginRequest, response);
+        log.info("LOGIN user: {}", loginRequest.getEmail());
         return responseEntity;
     }
 

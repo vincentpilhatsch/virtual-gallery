@@ -1,12 +1,14 @@
 import {Component, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import {MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatInput, MatInputModule} from "@angular/material/input";
-import {NgOptimizedImage} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UserService} from "../services/user.service";
 import {LoginForm} from "../model/loginForm";
+import {AuthService} from "../services/auth.service";
+import {AuthResponse} from "../model/authResponse";
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,7 @@ import {LoginForm} from "../model/loginForm";
     MatInputModule,
     MatFormFieldModule,
     MatIcon,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
     ]],
   });
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -112,7 +114,8 @@ export class LoginComponent implements OnInit {
 
   loginUser(loginForm: LoginForm): void {
     this.userService.login(loginForm).subscribe({
-      next: (res): void => {
+      next: (res: AuthResponse): void => {
+        this.authService.setToken(res.jwt)
         console.log(res);
       },
       error: (err): void => {

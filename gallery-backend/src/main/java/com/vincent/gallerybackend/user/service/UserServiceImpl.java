@@ -10,7 +10,10 @@ import com.vincent.gallerybackend.security.JwtUtils;
 import com.vincent.gallerybackend.security.PasswordValidator;
 import com.vincent.gallerybackend.user.model.*;
 import com.vincent.gallerybackend.user.repository.UserRepository;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +30,9 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
+    @Value("${jwt.expiration-time}")
+    private int expirationTime;
 
     private final UserRepository userRepository;
     private final ArtworkRepository artworkRepository;
@@ -115,16 +121,26 @@ public class UserServiceImpl implements UserService {
         return userEntity;
     }
 
-    public ResponseEntity<String> loginUser(LoginRequest loginRequest) {
+    public ResponseEntity<AuthResponse> loginUser(LoginRequest loginRequest, HttpServletResponse response) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String jwt = jwtUtils.generateToken(userDetails);
-            return ResponseEntity.ok(jwt);
+            createCookie(response, jwt);
+            return ResponseEntity.ok(new AuthResponse("Success", jwt));
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(401).body("Invalid email or password");
+            return ResponseEntity.status(401).body(new AuthResponse("Error", null));
         }
+    }
+
+    private void createCookie(HttpServletResponse response, String jwt) {
+        Cookie jwtCookie = new Cookie("token", jwt);
+        jwtCookie.setHttpOnly(true);
+//        jwtCookie.setSecure(true);
+        jwtCookie.setPath("/");
+        jwtCookie.setMaxAge(expirationTime);
+        response.addCookie(jwtCookie);
     }
 
     @Transactional

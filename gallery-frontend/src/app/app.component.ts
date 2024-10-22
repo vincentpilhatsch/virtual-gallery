@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
 
 
   private loadUserInService() {
-    this.userHttpService.getUserByEmail("mueller@bht.de").subscribe({
+    this.userHttpService.getUserByEmail("admin@bht.de").subscribe({
       next: (res: User): void => {
         this.userHttpService.user = res;
         this.setLanguage();
