@@ -1,7 +1,7 @@
 Angluar:
 - Viewencapsulation, damit nicht Style global ist
 - JWT wie im FE speichern? (LocalStorage Cookie)
-    - Cookie: XSS attacken nicht wirksam
+    - Cookie -> XSS attacken nicht wirksam
 
 Spring Boot:
 - Liquibase (changelog, init Data)

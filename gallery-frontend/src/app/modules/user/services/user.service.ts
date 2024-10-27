@@ -5,7 +5,6 @@ import {User} from "../model/user";
 import {environment} from "../../environment";
 import {Artwork} from "../../artwork/model/artwork";
 import {LoginForm} from "../model/loginForm";
-import {AuthService} from "./auth.service";
 import {AuthResponse} from "../model/authResponse";
 
 @Injectable({
@@ -25,7 +24,7 @@ export class UserService {
 
   getFavoriteArtworkIdsByEmail(email: string): Observable<number[]> {
     const url: string = `${this.endpoint}/favoriteArtworkIds/${email}`;
-    return this.httpClient.get<number[]>(url, {withCredentials: true}); // <---------
+    return this.httpClient.get<number[]>(url, {withCredentials: true});
   }
 
   getAcceptedEventIdsByEmail(email: string): Observable<number[]> {
