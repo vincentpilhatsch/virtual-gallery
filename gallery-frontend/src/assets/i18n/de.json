@@ -1,3 +1,5 @@
 {
-  "home.button.artworks": "Kunstwerke"
+  "home": {
+    "button.artworks": "Kunstwerke"
+  }
 }

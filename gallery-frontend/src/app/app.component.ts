@@ -37,7 +37,6 @@ export class AppComponent implements OnInit {
     this.loadUserInService();
   }
 
-
   private loadUserInService() {
     this.userHttpService.getUserByEmail("admin@bht.de").subscribe({
       next: (res: User): void => {

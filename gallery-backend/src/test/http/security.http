@@ -3,12 +3,15 @@ POST http://localhost:8080/user/login
 Content-Type: application/json
 
 {
-  "email": "steiner@bht.de",
-  "password": "SuperSecretePassword9274"
+  "email": "admin@bht.de",
+  "password": "admin"
 }
 
 > {%
-    client.global.set("jwt", response.body.trim());
+    var setCookie = response.headers['set-cookie'];
+    var jwt = setCookie.match(/token=([^;]+)/)[1];
+    client.log("Extracted JWT:", jwt); // Logs the token value
+    client.global.set("jwt", jwt);
 %}
 
 ###
@@ -23,9 +26,10 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/user/mueller@bht.de
-Authorization: Bearer {{jwt}}
+GET http://localhost:8080/user/admin@bht.de
+Cookie: token={{jwt}}
 
 ###
-GET http://localhost:8080/user/requestedArtworks/steiner@bht.de
-Authorization: Bearer {{jwt}}
+GET http://localhost:8080/user/requestedArtworks/admin@bht.de
+Content-Type: application/json
+Cookie: token={{jwt}}

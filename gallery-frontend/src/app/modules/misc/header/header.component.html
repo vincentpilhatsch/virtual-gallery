@@ -30,7 +30,14 @@
     <p class="header-text dashboard" routerLink="dashboard" routerLinkActive="active-link">Dashboard</p>
   </div>
   <div class="right-container">
-    <p class="header-text" routerLink="">{{ selectedLanguage }}</p>
+    <mat-form-field>
+      <mat-label>Favorite food</mat-label>
+      <mat-select [(value)]="languageArray[0]" )]>
+        @for (language of languageArray; track language) {
+          <mat-option [value]="language">{{ language }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
     <p class="centered-dot">
       <span class="dot"></span>
     </p>

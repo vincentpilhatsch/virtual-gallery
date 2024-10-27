@@ -1,10 +1,12 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {MatFormField} from "@angular/material/form-field";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatMenu, MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
+import {MatOption, MatSelect} from "@angular/material/select";
+import {Language} from "../../user/model/language";
 
 @Component({
   selector: 'app-header',
@@ -17,13 +19,15 @@ import {MatInput} from "@angular/material/input";
     MatMenuModule,
     MatFormField,
     MatInput,
-    RouterLinkActive
+    RouterLinkActive,
+    MatLabel,
+    MatSelect,
+    MatOption
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent {
-  selectedLanguage = 'DE';
-
+  readonly languageArray: string[] = Object.values(Language);
 }
