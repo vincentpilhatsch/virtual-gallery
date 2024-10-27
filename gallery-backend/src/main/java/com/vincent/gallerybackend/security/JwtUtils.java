@@ -1,9 +1,11 @@
 package com.vincent.gallerybackend.security;
 
+import com.vincent.gallerybackend.exceptions.ExpiredJwtCustomException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Component
@@ -25,7 +28,12 @@ public class JwtUtils {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", userDetails.getAuthorities().stream().findFirst().get().getAuthority());
+        Optional<String> role = userDetails.getAuthorities().stream().findFirst().map(GrantedAuthority::getAuthority);
+        if (role.isPresent()) {
+            claims.put("role", role.get());
+        } else {
+            throw new IllegalArgumentException("User has no assigned roles");
+        }
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -67,7 +75,10 @@ public class JwtUtils {
     }
 
     private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        if (extractExpiration(token).before(new Date())) {
+            throw new ExpiredJwtCustomException("Jwt token is expired");
+        }
+        return false;
     }
 
     public Date extractExpiration(String token) {

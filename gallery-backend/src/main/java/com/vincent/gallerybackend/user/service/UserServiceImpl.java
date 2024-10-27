@@ -5,6 +5,7 @@ import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
 import com.vincent.gallerybackend.artwork.model.ArtworkMapper;
 import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
 import com.vincent.gallerybackend.event.repository.EventRepository;
+import com.vincent.gallerybackend.exceptions.AuthenticationFailedException;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
 import com.vincent.gallerybackend.security.JwtUtils;
 import com.vincent.gallerybackend.security.PasswordValidator;
@@ -52,12 +53,17 @@ public class UserServiceImpl implements UserService {
         return userMapper.userDAOtoDTO(userEntity);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public User getUserByToken(String token) {
+        String email = jwtUtils.extractUsername(token);
+        UserEntity userEntity = findByEmail(email);
+        return userMapper.userDAOtoDTO(userEntity);
+    }
+
     public UserEntity findByEmail(String email) {
-        try {
-            return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
-        } catch (NotFoundException e) {
-            return null;
-        }
+        return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
+        // Try catch necessary?
     }
 
     @Transactional(readOnly = true)
@@ -121,17 +127,23 @@ public class UserServiceImpl implements UserService {
         return userEntity;
     }
 
-    public ResponseEntity<AuthResponse> loginUser(LoginRequest loginRequest, HttpServletResponse response) {
+    public AuthResponse loginUser(LoginRequest loginRequest, HttpServletResponse response) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String jwt = jwtUtils.generateToken(userDetails);
             createCookie(response, jwt);
-            return ResponseEntity.ok(new AuthResponse("Success", jwt));
+            return createAuthResponse(loginRequest, jwt);
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(401).body(new AuthResponse("Error", null));
+            throw new AuthenticationFailedException("Invalid email or password");
         }
+    }
+
+    private AuthResponse createAuthResponse(LoginRequest loginRequest, String jwt) {
+        UserEntity userEntity = findByEmail(loginRequest.getEmail());
+        User user = userMapper.userDAOtoDTO(userEntity);
+        return new AuthResponse(user, jwt);
     }
 
     private void createCookie(HttpServletResponse response, String jwt) {

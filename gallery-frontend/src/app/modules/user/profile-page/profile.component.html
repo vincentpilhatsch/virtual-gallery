@@ -3,34 +3,17 @@
   <button mat-stroked-button class="button-one" (click)="this.authService.logout()">Abmelden</button>
 </div>
 <div class="second-section">
-  <mat-tab-group [disableRipple]="true">
-    <mat-tab label="Persönliche Daten">
-      <app-personal-data></app-personal-data>
-    </mat-tab>
-    <mat-tab label="Angefragte Kunstwerke">
-      <app-requested-artworks></app-requested-artworks>
-    </mat-tab>
-    <mat-tab label="Favorisierte Kunstwerke">
-      <app-favorite-artworks></app-favorite-artworks>
-    </mat-tab>
-  </mat-tab-group>
-
-  <!--  <mat-selection-list (selectionChange)="onSelectionChange($event)" [multiple]="false">-->
-  <!--    <mat-list-option [value]="SubProfilePagesEnum.PERSONAL_DATA">Persönliche Daten</mat-list-option>-->
-  <!--    <mat-list-option [value]="SubProfilePagesEnum.REQUESTED_ARTWORKS">Angefragte Kunstwerke</mat-list-option>-->
-  <!--    <mat-list-option [value]="SubProfilePagesEnum.FAVORITE_ARTWORKS">Favorisierte Kunstwerke</mat-list-option>-->
-  <!--  </mat-selection-list>-->
-  <!--  <hr>-->
-  <!--  @switch (selectedSubProfilePage) {-->
-  <!--    @case (SubProfilePagesEnum.PERSONAL_DATA) {-->
-  <!--      <app-personal-data></app-personal-data>-->
-  <!--    }-->
-  <!--    @case (SubProfilePagesEnum.REQUESTED_ARTWORKS) {-->
-
-  <!--    }-->
-  <!--    @case (SubProfilePagesEnum.FAVORITE_ARTWORKS) {-->
-  <!--      <app-favorite-artworks></app-favorite-artworks>-->
-  <!--    }-->
-  <!--  }-->
-
+  @if (userFromParent) {
+    <mat-tab-group [disableRipple]="true">
+      <mat-tab label="Persönliche Daten">
+          <app-personal-data [userFromParent]="userFromParent"></app-personal-data>
+      </mat-tab>
+      <mat-tab label="Angefragte Kunstwerke">
+        <app-requested-artworks [userFromParent]="userFromParent"></app-requested-artworks>
+      </mat-tab>
+      <mat-tab label="Favorisierte Kunstwerke">
+        <app-favorite-artworks [userFromParent]="userFromParent"></app-favorite-artworks>
+      </mat-tab>
+    </mat-tab-group>
+  }
 </div>

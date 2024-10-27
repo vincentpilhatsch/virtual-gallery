@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {NgOptimizedImage} from "@angular/common";
 import {ArtworkCardComponent} from "../artwork/artwork-card/artwork-card.component";
@@ -7,7 +7,8 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {Artwork} from "../artwork/model/artwork";
 import {UserService} from "../user/services/user.service";
 import {ArtworkService} from "../artwork/services/artwork.service";
-import {forkJoin} from "rxjs";
+import {forkJoin, Subscription} from "rxjs";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -19,43 +20,61 @@ import {forkJoin} from "rxjs";
     NgOptimizedImage,
     ArtworkCardComponent,
     TranslateModule,
+    RouterLink,
+    RouterLinkActive,
   ],
   standalone: true
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   randomGroupedArtworks: Artwork[][] = [];
   favoriteIds: number[] = [];
+  readonly numbersOfRandomArtworks: number = 4;
+
+  subscriptions: Subscription[] = [];
 
   constructor(private userService: UserService,
               private artworkService: ArtworkService) {
   }
 
   ngOnInit() {
-    this.loadFourArtworksAndFavoriteIds()
+    this.subscribeToUser();
   }
 
-  private loadFourArtworksAndFavoriteIds(): void {
-    const email = this.userService.user?.email;
-    if (email) {
-      forkJoin([
-        this.artworkService.getRandomArtworks(4),
-        this.userService.getFavoriteArtworkIdsByEmail(email)
-      ]).subscribe({
-        next: ([artworks, favoriteArtworkIds]: [Artwork[], number[]]): void => {
-          this.setRandomGroupedArtworks(artworks);
-          this.favoriteIds = favoriteArtworkIds;
-        },
-        error: (err: HttpErrorResponse): void => {
-          console.error(err);
-        }
-      });
-    }
+  private subscribeToUser() {
+    this.userService.user$.subscribe((user) => {
+      if (user) {
+        this.loadFourArtworksAndFavoriteIds(user.email);
+      }
+    });
+  }
+
+  private loadFourArtworksAndFavoriteIds(email: string): void {
+    forkJoin([
+      this.artworkService.getRandomArtworks(this.numbersOfRandomArtworks),
+      this.userService.getFavoriteArtworkIdsByEmail(email)
+    ]).subscribe({
+      next: ([artworks, favoriteArtworkIds]: [Artwork[], number[]]): void => {
+        this.setRandomGroupedArtworks(artworks);
+        this.favoriteIds = favoriteArtworkIds;
+      },
+      error: (err: HttpErrorResponse): void => {
+        console.error(err);
+      }
+    });
   }
 
   setRandomGroupedArtworks(artworks: Artwork[]) {
     for (let i = 0; i < artworks.length; i += 2) {
       this.randomGroupedArtworks.push(artworks.slice(i, i + 2));
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    })
   }
 
 }

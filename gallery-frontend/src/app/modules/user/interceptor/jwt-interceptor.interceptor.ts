@@ -1,18 +1,13 @@
 import {HttpInterceptorFn} from '@angular/common/http';
-import {AuthService} from '../services/auth.service';
-import {inject} from "@angular/core";
+
+const excludedUrls = ["user/login", "assets/i18n"];
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
-  // const authService = inject(AuthService);
-  // const token = authService.getToken();
-  //
-  // if (token) {
-  //   req = req.clone({
-  //     setHeaders: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  // }
-
+  // Check if the request URL includes any of the excluded URLs
+  const shouldExclude = excludedUrls.some(url => req.url.includes(url));
+  if (!shouldExclude) {
+    const clonedRequest = req.clone({withCredentials: true});
+    return next(clonedRequest);
+  }
   return next(req);
 };

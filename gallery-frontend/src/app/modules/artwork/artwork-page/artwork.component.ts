@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {FavoriteIconComponent} from "../../misc/favorite-icon/favorite-icon.component";
 import {MatList, MatListItem} from "@angular/material/list";
@@ -10,8 +10,7 @@ import {Artwork} from "../model/artwork";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ArtworkCardComponent} from "../artwork-card/artwork-card.component";
 import {UserService} from "../../user/services/user.service";
-import {forkJoin} from "rxjs";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {forkJoin, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-artwork',
@@ -30,26 +29,38 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
   styleUrl: './artwork.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class ArtworkComponent implements OnInit{
+export class ArtworkComponent implements OnInit, OnDestroy {
   artwork: Artwork | undefined;
   randomGroupedArtworks: Artwork[][] = [];
+
+  subscriptions: Subscription[] = [];
 
   favoriteIds: number[] = [];
   isFavorite: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private artworkService: ArtworkService,
-              private userService: UserService) {}
+              private userService: UserService) {
+  }
 
   ngOnInit() {
-    this.loadArtworkAndFavoriteIds();
+    this.subscribeToUser();
     this.loadFourRandomArtworks();
   }
 
-  private loadArtworkAndFavoriteIds(): void {
+  private subscribeToUser() {
+    this.subscriptions.push(
+      this.userService.user$.subscribe((user) => {
+        if (user) {
+          this.loadArtworkAndFavoriteIds(user.email);
+        }
+      })
+    );
+  }
+
+  private loadArtworkAndFavoriteIds(email: string): void {
     this.route.paramMap.subscribe(params => {
       const id: string | null = params.get('id');
-      const email: string | undefined = this.userService.user?.email;
       if (id && email) {
         const convertedId = Number(id);
         this.forkJoinArtworkAndFavoriteIds(convertedId, email);
@@ -89,4 +100,13 @@ export class ArtworkComponent implements OnInit{
       this.randomGroupedArtworks.push(artworks.slice(i, i + 2));
     }
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    })
+  }
+
 }

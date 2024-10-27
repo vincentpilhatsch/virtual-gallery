@@ -36,6 +36,13 @@ public class UserController {
         return user;
     }
 
+    @PostMapping()
+    public User getUserByToken(@RequestBody String token) {
+        User user = userServiceImpl.getUserByToken(token);
+        log.info("GET user: {}", user.getEmail());
+        return user;
+    }
+
     @GetMapping(value = "/favoriteArtworkIds/{email}", produces = "application/json")
     public Set<Long> getFavoriteArtworkIds(@PathVariable String email) {
         Set<Long> favoriteArtworkIds = userServiceImpl.getFavoriteArtworkIdsByEmail(email);
@@ -79,15 +86,15 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> loginUser(@RequestBody LoginRequest loginRequest,
-                                                  HttpServletResponse response) {
-        ResponseEntity<AuthResponse> responseEntity = userServiceImpl.loginUser(loginRequest, response);
+    public AuthResponse loginUser(@RequestBody LoginRequest loginRequest,
+                                  HttpServletResponse response) {
+        AuthResponse responseEntity = userServiceImpl.loginUser(loginRequest, response);
         log.info("LOGIN user: {}", loginRequest.getEmail());
         return responseEntity;
     }
 
     @PutMapping
-    public ResponseEntity<UserEntity> updateUser(@Valid @RequestBody User newUser) {
+    public ResponseEntity<UserEntity> updateUser(@Valid @RequestBody User newUser) { // Todo: Response type "ResponseEntity<UserEntity>"?
         UserEntity updatedUserEntity = userServiceImpl.updateUser(newUser);
         log.info("UPDATE user: {}", newUser.getEmail());
         return new ResponseEntity<>(updatedUserEntity, HttpStatus.OK);
@@ -95,21 +102,21 @@ public class UserController {
 
 
     @PostMapping(value = "/updateOneRequestedArtwork")
-    public ResponseEntity<UserEntity> updateOneRequestedArtworkOfUser(@RequestParam String email, @RequestParam long artworkId) {
+    public ResponseEntity<UserEntity> updateOneRequestedArtworkOfUser(@RequestParam String email, @RequestParam long artworkId) { // Todo: Response type "Entity"?
         UserEntity userEntity = userServiceImpl.updateOneRequestedArtworkOfUser(email, artworkId);
         log.info("UPDATE one requested artwork for user: {}", userEntity.getEmail());
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 
     @PostMapping(value = "/updateFavoriteArtworks")
-    public ResponseEntity<UserEntity> updateFavoriteArtworksOfUser(@RequestParam String email, @RequestParam long artworkId) {
+    public ResponseEntity<UserEntity> updateFavoriteArtworksOfUser(@RequestParam String email, @RequestParam long artworkId) { // Todo: Response type "Entity"?
         UserEntity userEntity = userServiceImpl.updateFavoriteArtworksOfUser(email, artworkId);
         log.info("UPDATE favorite artwork for user: {}", userEntity.getEmail());
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 
     @PostMapping(value = "/updateAcceptedEvents")
-    public ResponseEntity<UserEntity> updateAcceptedEventsOfUser(@RequestParam String email, @RequestParam long eventId) {
+    public ResponseEntity<UserEntity> updateAcceptedEventsOfUser(@RequestParam String email, @RequestParam long eventId) { // Todo: Response type "Entity"?
         UserEntity userEntity = userServiceImpl.updateAcceptedEventsOfUser(email, eventId);
         log.info("UPDATE favorite artwork for user: {}", userEntity.getEmail());
         return new ResponseEntity<>(userEntity, HttpStatus.OK);

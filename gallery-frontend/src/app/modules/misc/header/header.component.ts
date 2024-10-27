@@ -7,6 +7,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {Language} from "../../user/model/language";
+import {UserService} from "../../user/services/user.service";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-header',
@@ -22,7 +24,8 @@ import {Language} from "../../user/model/language";
     RouterLinkActive,
     MatLabel,
     MatSelect,
-    MatOption
+    MatOption,
+    FormsModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -30,4 +33,10 @@ import {Language} from "../../user/model/language";
 })
 export class HeaderComponent {
   readonly languageArray: string[] = Object.values(Language);
+  selectedLanguage: string = Language.DE;
+
+
+  constructor(protected userService: UserService) {
+  }
+
 }

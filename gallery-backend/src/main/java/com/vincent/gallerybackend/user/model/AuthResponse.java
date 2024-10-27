@@ -8,6 +8,6 @@ import lombok.*;
 @Setter
 @ToString
 public class AuthResponse {
-    private String status;
+    private User user;
     private String jwt;
 }

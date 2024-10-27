@@ -49,7 +49,7 @@ public class UserConfig {
                     "max",
                     "steiner",
                     "steiner@bht.de",
-                    passwordEncoder.encode("SuperSecretePassword9274"),
+                    passwordEncoder.encode("admin"),
                     "berlin",
                     "123456789",
                     Language.EN,

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -22,8 +22,11 @@ import {PersonalDataForm} from "../../model/personalDataForm";
   encapsulation: ViewEncapsulation.None
 })
 export class PersonalDataComponent implements OnInit {
+  @Input() userFromParent: User | undefined;
+
   showSubmitButton: boolean = false;
   errorMessage: string | null = null;
+
   form: FormGroup = this.fb.group({
     firstName: ['', [
       Validators.required,
@@ -52,14 +55,13 @@ export class PersonalDataComponent implements OnInit {
   }
 
   private initForm(): void {
-    const user: User | undefined = this.userService.user;
-    if (user) {
+    if (this.userFromParent) {
       const existingUser: PersonalDataForm = {
-        firstName: user?.firstName || '',
-        lastName: user?.lastName || '',
-        email: user?.email || '',
-        phone: user?.phone ?? '',
-        city: user?.city ?? ''
+        firstName: this.userFromParent.firstName || '',
+        lastName: this.userFromParent.lastName || '',
+        email: this.userFromParent.email || '',
+        phone: this.userFromParent.phone ?? '',
+        city: this.userFromParent.city ?? ''
       }
       this.form.setValue(existingUser);
     }
@@ -110,6 +112,7 @@ export class PersonalDataComponent implements OnInit {
   }
 
   private updateUserServiceValues() {
+    // (this.userService.user) check because of the compiler, actually not necessary
     if (this.form.valid && this.userService.user) {
       const personalData: PersonalDataForm = this.form.value;
       this.userService.user.firstName = personalData.firstName;
@@ -121,9 +124,8 @@ export class PersonalDataComponent implements OnInit {
   }
 
   private updateUser() {
-    const user: User | undefined = this.userService.user;
-    if (user) {
-      this.userService.updateUser(user).subscribe({
+    if (this.userFromParent) {
+      this.userService.updateUser(this.userFromParent).subscribe({
         next: (res): void => {
           console.log(res);
         },

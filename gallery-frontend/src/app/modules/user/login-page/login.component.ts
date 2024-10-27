@@ -1,7 +1,7 @@
 import {Component, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import {MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatInput, MatInputModule} from "@angular/material/input";
-import {CommonModule, NgOptimizedImage} from "@angular/common";
+import {NgOptimizedImage} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -9,6 +9,8 @@ import {UserService} from "../services/user.service";
 import {LoginForm} from "../model/loginForm";
 import {AuthService} from "../services/auth.service";
 import {AuthResponse} from "../model/authResponse";
+import {LanguageService} from "../services/language.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -42,24 +44,16 @@ export class LoginComponent implements OnInit {
     ]],
   });
 
-  constructor(private fb: FormBuilder, private userService: UserService, private authService: AuthService) {
+  constructor(private fb: FormBuilder,
+              private userService: UserService,
+              private authService: AuthService,
+              private languageService: LanguageService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    // this.initForm();
     this.subscribeToFormValueChanges();
   }
-
-  // private initForm(): void {
-  //   const user: User | undefined = this.userService.user;
-  //   if (user) {
-  //     const existingUser: LoginForm = {
-  //       email: '', // user?.email || '',
-  //       password: '' // user?.password ?? ''
-  //     }
-  //     this.form.setValue(existingUser);
-  //   }
-  // }
 
   private subscribeToFormValueChanges(): void {
     this.form.valueChanges.subscribe(() => {
@@ -115,8 +109,10 @@ export class LoginComponent implements OnInit {
   loginUser(loginForm: LoginForm): void {
     this.userService.login(loginForm).subscribe({
       next: (res: AuthResponse): void => {
+        this.userService.user = res.user
+        this.languageService.setLanguageByLoginUser(res.user.language);
         this.authService.setToken(res.jwt)
-        console.log(res);
+        void this.router.navigate(["home"]);
       },
       error: (err): void => {
         console.error(err);

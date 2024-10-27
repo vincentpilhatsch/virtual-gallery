@@ -1,12 +1,18 @@
 import {Injectable} from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
+import {UserService} from "./user.service";
+import {Router} from "@angular/router";
+import {LanguageService} from "./language.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
 
-  constructor(private cookieService: CookieService) {
+  constructor(private cookieService: CookieService,
+              private userService: UserService,
+              private router: Router,
+              private languageService: LanguageService) {
   }
 
   setToken(token: string): void {
@@ -18,6 +24,9 @@ export class AuthService {
   }
 
   logout(): void {
+    this.userService.user = null;
+    // this.languageService.setDefaultLanguage();
     this.cookieService.delete('token', '/');
+    void this.router.navigate(["home"]);
   }
 }

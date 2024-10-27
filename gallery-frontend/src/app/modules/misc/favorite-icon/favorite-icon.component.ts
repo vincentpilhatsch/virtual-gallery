@@ -3,6 +3,7 @@ import {MatIcon} from "@angular/material/icon";
 import {HttpErrorResponse} from "@angular/common/http";
 import {UserService} from "../../user/services/user.service";
 import {FavoriteIconService} from "../services/favorite-icon.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-favorite-icon',
@@ -18,25 +19,34 @@ export class FavoriteIconComponent {
   @Input() artworkId: number | undefined;
   @Input() isFavorite: boolean | undefined;
 
+  subscriptions: Subscription[] = [];
+
   constructor(private userService: UserService, private favoriteIconService: FavoriteIconService) {
   }
 
   handleFavoriteClicked(isFavorite: boolean) {
     this.isFavorite = isFavorite;
     this.updateFavoriteArtworkSubject();
-    this.updateFavoriteArtworksOfUser();
+    this.subscribeToUser();
+  }
+
+  private subscribeToUser() {
+    this.userService.user$.subscribe((user) => {
+      if (user) {
+        this.updateFavoriteArtworksOfUser(user.email);
+      }
+    });
   }
 
   private updateFavoriteArtworkSubject() {
     if (this.artworkId && !this.isFavorite) {
-      console.log("now");
       this.favoriteIconService.removeArtworkFromFavorites(this.artworkId);
     }
   }
 
-  private updateFavoriteArtworksOfUser(): void {
+  private updateFavoriteArtworksOfUser(email: string): void {
     if (this.userService.user?.id && this.artworkId) {
-      this.userService.updateFavoriteArtworksOfUser(this.userService.user.email, this.artworkId).subscribe({
+      this.userService.updateFavoriteArtworksOfUser(email, this.artworkId).subscribe({
         error: (err: HttpErrorResponse): void => {
           console.error(err)
         }

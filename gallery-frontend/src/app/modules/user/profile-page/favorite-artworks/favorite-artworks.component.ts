@@ -1,10 +1,11 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {Artwork} from "../../../artwork/model/artwork";
 import {UserService} from "../../services/user.service";
 import {FavoriteIconService} from "../../../misc/services/favorite-icon.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ArtworkCardComponent} from "../../../artwork/artwork-card/artwork-card.component";
 import {Subscription} from "rxjs";
+import {User} from "../../model/user";
 
 @Component({
   selector: 'app-favorite-artworks',
@@ -17,6 +18,7 @@ import {Subscription} from "rxjs";
   encapsulation: ViewEncapsulation.None
 })
 export class FavoriteArtworksComponent implements OnInit, OnDestroy {
+  @Input() userFromParent: User | undefined;
   groupedArtworks: Artwork[][] = [];
   favoriteArtworkIds: number[] = [];
 
@@ -32,7 +34,7 @@ export class FavoriteArtworksComponent implements OnInit, OnDestroy {
   }
 
   private loadFavoriteArtworks() {
-    const email = this.userService.user?.email;
+    const email: string | undefined = this.userFromParent?.email;
     if (email) {
       this.userService.getFavoriteArtworksByEmail(email).subscribe({
         next: (res: Artwork[]): void => {
@@ -59,11 +61,12 @@ export class FavoriteArtworksComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToFavoriteArtworkObserver() {
-    const sub: Subscription = this.favoriteIconService.getFavoriteArtworkObserver().subscribe(artworkId => {
-      this.updateFavoriteArtworkIds(artworkId);
-      this.updateGroupedArtworks(artworkId);
-    });
-    this.subscriptions.push(sub);
+    this.subscriptions.push(
+      this.favoriteIconService.getFavoriteArtworkObserver().subscribe(artworkId => {
+        this.updateFavoriteArtworkIds(artworkId);
+        this.updateGroupedArtworks(artworkId);
+      })
+    );
   }
 
   private updateFavoriteArtworkIds(artworkId: number) {

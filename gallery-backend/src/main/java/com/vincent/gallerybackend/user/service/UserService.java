@@ -17,6 +17,8 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
+    User getUserByToken(String token);
+
     Set<Long> getFavoriteArtworkIdsByEmail(String email);
 
     Set<Long> getAcceptedEventIdsByEmail(String email);
@@ -29,7 +31,7 @@ public interface UserService {
 
     ResponseEntity<String> createUser(User user);
 
-    ResponseEntity<AuthResponse> loginUser(LoginRequest loginRequest, HttpServletResponse response);
+    AuthResponse loginUser(LoginRequest loginRequest, HttpServletResponse response);
 
     UserEntity updateUser(User user);
 

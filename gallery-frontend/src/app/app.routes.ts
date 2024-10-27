@@ -15,7 +15,8 @@ import {AddEditEventComponent} from "./modules/dashboard/add-and-edit-event-page
 import {HomeComponent} from "./modules/home/home.component";
 
 export const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', redirectTo: '/einloggen', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent},
   {path: 'kunstwerk/:id', component: ArtworkComponent},
   {path: 'kunstwerke', component: ArtworksComponent},
   {path: 'kunstwerk-anfragen', component: RequestArtworkComponent},

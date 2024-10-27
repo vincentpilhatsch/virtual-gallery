@@ -10,8 +10,13 @@ app-header {
     z-index: 1000;
   }
 
+  .left-container {
+    display: flex;
+  }
+
   .right-container {
     display: flex;
+    align-items: center;
   }
 
   .header-title {
@@ -35,6 +40,12 @@ app-header {
     gap: 15px;
   }
 
+  .header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   p {
     margin: 0 !important;
   }
@@ -42,6 +53,10 @@ app-header {
   .mat-icon {
     font-size: 24px;
     overflow: visible;
+  }
+
+  .button-one {
+    padding: 20px 14px !important;
   }
 
   .header-title, .header-text, .mat-icon {
@@ -72,5 +87,42 @@ app-header {
     .header-text:hover::after {
       transform: translate3d(0, 0, 0);
     }
+  }
+
+  .mat-mdc-form-field {
+    width: auto !important;
+
+    .mat-mdc-text-field-wrapper.mdc-text-field {
+      width: 50px !important;
+      border: none !important;
+      padding: 0;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    .mat-mdc-select-arrow {
+      display: none;
+    }
+
+    .mat-mdc-select-value {
+      display: flex;
+      justify-content: center;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  div.mat-mdc-select-panel {
+    border-radius: 0 !important;
+  }
+
+  span.mdc-list-item__primary-text {
+    color: black !important;
   }
 }

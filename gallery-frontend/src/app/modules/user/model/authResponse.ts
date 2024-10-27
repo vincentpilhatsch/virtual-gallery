@@ -1,4 +1,6 @@
+import {User} from "./user";
+
 export interface AuthResponse {
-  status: string,
+  user: User,
   jwt: string
 }

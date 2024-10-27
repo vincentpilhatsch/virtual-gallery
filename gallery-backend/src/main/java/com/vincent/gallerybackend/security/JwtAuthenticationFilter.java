@@ -28,11 +28,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String jwt = getJwtFromRequest(request);
-        if (jwt != null) {
-            log.info("JWT found in cookie: {}", jwt);
-        } else {
-            log.info("No JWT found in cookies");
-        }
+//        if (jwt != null) {
+//            log.info("JWT found in cookie: {}", jwt);
+//        } else {
+//            log.info("No JWT found in cookies");
+//        }
         String username = null;
 
         if (jwt != null) {

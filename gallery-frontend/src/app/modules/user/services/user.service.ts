@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {User} from "../model/user";
 import {environment} from "../../environment";
 import {Artwork} from "../../artwork/model/artwork";
@@ -12,7 +12,17 @@ import {AuthResponse} from "../model/authResponse";
 })
 export class UserService {
   private endpoint: string = `${environment.apiUrl}/user`;
-  user: User | undefined;
+
+  private userSubject = new BehaviorSubject<User | null>(null);
+  user$ = this.userSubject.asObservable();
+
+  get user(): User | null {
+    return this.userSubject.value;
+  }
+
+  set user(user: User | null) {
+    this.userSubject.next(user);
+  }
 
   constructor(private httpClient: HttpClient) {
   }
@@ -22,9 +32,14 @@ export class UserService {
     return this.httpClient.get<User>(url);
   }
 
+  getUserByToken(token: string): Observable<User> {
+    const url: string = `${this.endpoint}`;
+    return this.httpClient.post<User>(url, token);
+  }
+
   getFavoriteArtworkIdsByEmail(email: string): Observable<number[]> {
     const url: string = `${this.endpoint}/favoriteArtworkIds/${email}`;
-    return this.httpClient.get<number[]>(url, {withCredentials: true});
+    return this.httpClient.get<number[]>(url);
   }
 
   getAcceptedEventIdsByEmail(email: string): Observable<number[]> {

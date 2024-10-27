@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {Artwork} from "../../../artwork/model/artwork";
 import {HttpErrorResponse} from "@angular/common/http";
 import {UserService} from "../../services/user.service";
@@ -21,6 +21,8 @@ import {User} from "../../model/user";
   encapsulation: ViewEncapsulation.None
 })
 export class RequestedArtworksComponent implements OnInit {
+  @Input() userFromParent: User | undefined;
+
   groupedArtworks: Artwork[][] = [];
 
   constructor(private userService: UserService, private router: Router) {
@@ -31,7 +33,7 @@ export class RequestedArtworksComponent implements OnInit {
   }
 
   private loadRequestedArtworks() {
-    const email = this.userService.user?.email;
+    const email: string | undefined = this.userFromParent?.email;
     if (email) {
       this.userService.getRequestedArtworksByEmail(email).subscribe({
         next: (res: Artwork[]): void => {
@@ -56,16 +58,14 @@ export class RequestedArtworksComponent implements OnInit {
 
   handleWithdrawRequest(artworkId: number): void {
     this.updateOneRequestedArtwork(artworkId);
-    // sendEmail();
+    // sendEmail(); hier dann
   }
 
   private updateOneRequestedArtwork(artworkId: number) {
-    const user: User | undefined = this.userService.user;
-    if (user) {
-      this.userService.updateOneRequestedArtwork(user.email, artworkId).subscribe({
+    if (this.userFromParent?.email) {
+      this.userService.updateOneRequestedArtwork(this.userFromParent.email, artworkId).subscribe({
         next: (res): void => {
           console.log(res);
-          // get new groupedArray from res
         },
         error: (err: HttpErrorResponse): void => {
           console.error(err)
