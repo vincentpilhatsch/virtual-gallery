@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private userService: UserService,
+  constructor(protected userService: UserService,
               private artworkService: ArtworkService) {
   }
 
@@ -41,14 +41,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToUser() {
-    this.userService.user$.subscribe((user) => {
-      if (user) {
-        this.loadFourArtworksAndFavoriteIds(user.email);
-      }
-    });
+    this.subscriptions.push(this.userService.user$.subscribe((user) => {
+        if (user) {
+          this.loadFourRandomArtworksAndFavoriteIds(user.email);
+        } else {
+          this.loadFourRandomArtworks();
+        }
+      })
+    );
   }
 
-  private loadFourArtworksAndFavoriteIds(email: string): void {
+  private loadFourRandomArtworksAndFavoriteIds(email: string): void {
     forkJoin([
       this.artworkService.getRandomArtworks(this.numbersOfRandomArtworks),
       this.userService.getFavoriteArtworkIdsByEmail(email)
@@ -64,9 +67,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   setRandomGroupedArtworks(artworks: Artwork[]) {
+    this.randomGroupedArtworks = [];
     for (let i = 0; i < artworks.length; i += 2) {
       this.randomGroupedArtworks.push(artworks.slice(i, i + 2));
     }
+  }
+
+  private loadFourRandomArtworks() {
+    this.artworkService.getRandomArtworks(this.numbersOfRandomArtworks).subscribe({
+      next: (res: Artwork[]): void => {
+        this.setRandomGroupedArtworks(res);
+      },
+      error: (err: HttpErrorResponse): void => {
+        console.error(err);
+      }
+    })
   }
 
   ngOnDestroy(): void {
@@ -76,5 +91,4 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     })
   }
-
 }

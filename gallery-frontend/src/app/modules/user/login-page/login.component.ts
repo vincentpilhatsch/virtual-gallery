@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(loginForm).subscribe({
       next: (res: AuthResponse): void => {
         this.userService.user = res.user
-        this.languageService.setLanguageByLoginUser(res.user.language);
+        this.languageService.setLanguageByLoggedInUser(res.user.language);
         this.authService.setToken(res.jwt)
         void this.router.navigate(["home"]);
       },

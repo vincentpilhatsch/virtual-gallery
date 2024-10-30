@@ -21,6 +21,9 @@
   --mdc-checkbox-selected-hover-state-layer-color: black;
   --mdc-checkbox-selected-pressed-state-layer-color: black;
 
+  // Option
+  --mat-option-selected-state-label-text-color: black;
+
   // Tab
   .mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
     --mdc-tab-indicator-active-indicator-color: black !important;
@@ -113,3 +116,12 @@ body {
   width: 100% !important;
 }
 
+// Snack-Bar
+.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  font-size: 15px !important;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  margin: 15px;
+  min-width: auto !important;
+}

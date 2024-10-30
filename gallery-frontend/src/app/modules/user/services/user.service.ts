@@ -11,7 +11,7 @@ import {AuthResponse} from "../model/authResponse";
   providedIn: 'root'
 })
 export class UserService {
-  private endpoint: string = `${environment.apiUrl}/user`;
+  readonly endpoint: string = `${environment.apiUrl}/user`;
 
   private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();

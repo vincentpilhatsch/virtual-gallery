@@ -165,6 +165,14 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
+    public UserEntity updateLanguageOfUser(String email, Language language) {
+        UserEntity user = findByEmail(email);
+        user.setLanguage(language);
+        return userRepository.save(user);
+    }
+
+    @Transactional
+    @Override
     public UserEntity updateFavoriteArtworksOfUser(String email, long artworkId) {
         UserEntity userEntity = findByEmail(email);
         checkIfArtworkExists(artworkId);

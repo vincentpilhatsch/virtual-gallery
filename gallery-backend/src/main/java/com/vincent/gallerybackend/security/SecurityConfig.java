@@ -3,6 +3,7 @@ package com.vincent.gallerybackend.security;
 import com.vincent.gallerybackend.user.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,6 +19,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final String ROLE_ARTIST = "ARTIST";
+    private final String ROLE_USER = "USER";
+
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtUtils jwtUtils;
 
@@ -31,9 +35,34 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // Checks for every (matching) request if user has authority
-                        .requestMatchers("/user/requestedArtworks/**").hasAuthority("ARTIST")
-                        // Permit all other requests
+                        // Role ARTIST
+                        .requestMatchers(HttpMethod.POST, "/artwork").hasAuthority(ROLE_ARTIST)
+                        .requestMatchers(HttpMethod.PUT, "/artwork").hasAuthority(ROLE_ARTIST)
+                        .requestMatchers(HttpMethod.DELETE, "/artwork/**").hasAuthority(ROLE_ARTIST)
+
+                        .requestMatchers(HttpMethod.GET, "/artist").hasAuthority(ROLE_ARTIST)
+
+                        .requestMatchers(HttpMethod.POST, "/event").hasAuthority(ROLE_ARTIST)
+                        .requestMatchers(HttpMethod.PUT, "/event").hasAuthority(ROLE_ARTIST)
+                        .requestMatchers(HttpMethod.DELETE, "/event/**").hasAuthority(ROLE_ARTIST)
+
+                        .requestMatchers(HttpMethod.POST, "/notification").hasAuthority(ROLE_ARTIST)
+                        .requestMatchers(HttpMethod.PUT, "/notification/**").hasAuthority(ROLE_ARTIST)
+
+                        // Role ARTIST/USER
+                        .requestMatchers(HttpMethod.GET, "/notification/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
+
+                        .requestMatchers(HttpMethod.PUT, "/user").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
+                        .requestMatchers(HttpMethod.PUT, "/user/updateLanguage").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
+                        .requestMatchers(HttpMethod.POST, "/user/updateOneRequestedArtwork").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
+                        .requestMatchers(HttpMethod.POST, "/user/updateFavoriteArtworks").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
+                        .requestMatchers(HttpMethod.POST, "/user/updateAcceptedEvents").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
+                        .requestMatchers(HttpMethod.GET, "/user/favoriteArtworkIds/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
+                        .requestMatchers(HttpMethod.GET, "/user/acceptedEventIds/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
+                        .requestMatchers(HttpMethod.GET, "/user/notificationIds/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
+                        .requestMatchers(HttpMethod.GET, "/user/favoriteArtworks/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
+                        .requestMatchers(HttpMethod.GET, "/user/requestedArtworks/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
+
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session

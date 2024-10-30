@@ -33,7 +33,18 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.logUserInIfTokenIsPresent();
+    this.loadUserFromSessionOrToken();
+  }
+
+  private loadUserFromSessionOrToken() {
+    const storedUser = sessionStorage.getItem('user');
+    if (storedUser) {
+      const user: User = JSON.parse(storedUser);
+      this.userService.user = user;
+      this.languageService.setLanguageByLoggedInUser(user.language);
+    } else {
+      this.logUserInIfTokenIsPresent();
+    }
   }
 
   private logUserInIfTokenIsPresent() {
@@ -42,7 +53,8 @@ export class AppComponent implements OnInit {
       this.userService.getUserByToken(token).subscribe({
         next: (res: User): void => {
           this.userService.user = res;
-          this.languageService.setLanguageByLoginUser(res.language);
+          this.languageService.setLanguageByLoggedInUser(res.language);
+          sessionStorage.setItem('user', JSON.stringify(res));
         },
         error: (err: HttpErrorResponse): void => {
           console.error(err)

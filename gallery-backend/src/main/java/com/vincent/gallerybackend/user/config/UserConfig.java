@@ -36,7 +36,7 @@ public class UserConfig {
                     passwordEncoder.encode("admin"),
                     "berlin",
                     "123456789",
-                    Language.DE,
+                    Language.EN,
                     Role.ARTIST,
                     Set.of(1L, 2L),      // favoriteArtworkIds
                     Set.of(1L, 2L),      // requestedArtworkIds

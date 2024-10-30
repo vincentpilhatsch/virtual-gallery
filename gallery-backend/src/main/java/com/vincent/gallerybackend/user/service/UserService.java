@@ -1,10 +1,7 @@
 package com.vincent.gallerybackend.user.service;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
-import com.vincent.gallerybackend.user.model.AuthResponse;
-import com.vincent.gallerybackend.user.model.LoginRequest;
-import com.vincent.gallerybackend.user.model.User;
-import com.vincent.gallerybackend.user.model.UserEntity;
+import com.vincent.gallerybackend.user.model.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -34,6 +31,8 @@ public interface UserService {
     AuthResponse loginUser(LoginRequest loginRequest, HttpServletResponse response);
 
     UserEntity updateUser(User user);
+
+    UserEntity updateLanguageOfUser(String email, Language language);
 
     UserEntity updateFavoriteArtworksOfUser(String email, long artworkId);
 

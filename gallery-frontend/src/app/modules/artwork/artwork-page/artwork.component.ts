@@ -11,6 +11,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {ArtworkCardComponent} from "../artwork-card/artwork-card.component";
 import {UserService} from "../../user/services/user.service";
 import {forkJoin, Subscription} from "rxjs";
+import {MoneyConverterPipe} from "../pipes/money-converter.pipe";
 
 @Component({
   selector: 'app-artwork',
@@ -23,7 +24,8 @@ import {forkJoin, Subscription} from "rxjs";
     MatListItem,
     MatDivider,
     MatButton,
-    RouterLink
+    RouterLink,
+    MoneyConverterPipe
   ],
   templateUrl: './artwork.component.html',
   styleUrl: './artwork.component.scss',
@@ -38,9 +40,9 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   favoriteIds: number[] = [];
   isFavorite: boolean = false;
 
-  constructor(private route: ActivatedRoute,
-              private artworkService: ArtworkService,
-              private userService: UserService) {
+  constructor(protected userService: UserService,
+              private route: ActivatedRoute,
+              private artworkService: ArtworkService) {
   }
 
   ngOnInit() {
@@ -52,23 +54,29 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.userService.user$.subscribe((user) => {
         if (user) {
-          this.loadArtworkAndFavoriteIds(user.email);
+          this.loadArtworkIdFromParam(user.email);
+        } else {
+          this.loadArtworkIdFromParam();
         }
       })
     );
   }
 
-  private loadArtworkAndFavoriteIds(email: string): void {
+  private loadArtworkIdFromParam(email?: string): void {
     this.route.paramMap.subscribe(params => {
       const id: string | null = params.get('id');
-      if (id && email) {
+      if (id) {
         const convertedId = Number(id);
-        this.forkJoinArtworkAndFavoriteIds(convertedId, email);
+        if (email) {
+          this.loadArtworkAndFavoriteIds(convertedId, email);
+        } else {
+          this.loadArtwork(convertedId);
+        }
       }
     });
   }
 
-  private forkJoinArtworkAndFavoriteIds(id: number, email: string): void {
+  private loadArtworkAndFavoriteIds(id: number, email: string): void {
     forkJoin({
       artwork: this.artworkService.getArtworkById(id),
       favoriteIds: this.userService.getFavoriteArtworkIdsByEmail(email)
@@ -82,6 +90,17 @@ export class ArtworkComponent implements OnInit, OnDestroy {
         console.error(err);
       }
     });
+  }
+
+  private loadArtwork(id: number): void {
+    this.artworkService.getArtworkById(id).subscribe({
+      next: (res: Artwork) => {
+        this.artwork = res;
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+      }
+    })
   }
 
   private loadFourRandomArtworks(): void {

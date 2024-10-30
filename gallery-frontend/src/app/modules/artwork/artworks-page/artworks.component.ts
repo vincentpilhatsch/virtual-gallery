@@ -31,7 +31,7 @@ export class ArtworksComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(private artworkService: ArtworkService,
-              private userService: UserService) {
+              protected userService: UserService) {
   }
 
   ngOnInit() {
@@ -43,6 +43,8 @@ export class ArtworksComponent implements OnInit, OnDestroy {
       this.userService.user$.subscribe((user) => {
         if (user) {
           this.loadArtworksAndFavoriteIds(user.email);
+        } else {
+          this.loadArtworks();
         }
       })
     );
@@ -64,6 +66,18 @@ export class ArtworksComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  private loadArtworks() {
+    this.artworkService.getArtworks().subscribe({
+      next: (res: Artwork[]): void => {
+        this.artworks = res;
+        this.setGroupedArtworks();
+      },
+      error: (err: HttpErrorResponse): void => {
+        console.error(err);
+      }
+    })
   }
 
   private setGroupedArtworks(): void {

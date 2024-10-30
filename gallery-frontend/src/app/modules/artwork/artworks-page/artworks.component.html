@@ -10,10 +10,12 @@
     <div class="filter">
     </div>
   </div>
-  @for (group of groupedArtworks;track $index) {
+  @for (group of groupedArtworks; track $index) {
     <div class="inner-artwork-container">
-      @for (artwork of group;track artwork.id) {
-        <app-artwork-card [artwork]="artwork" [favoriteArtworkIds]="favoriteIds"></app-artwork-card>
+      @for (artwork of group; track artwork.id) {
+        <app-artwork-card [artwork]="artwork"
+                          [favoriteArtworkIds]="userService.user ? favoriteIds : undefined">
+        </app-artwork-card>
       }
     </div>
   }

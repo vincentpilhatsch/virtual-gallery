@@ -8,9 +8,10 @@ import {environment} from "../../environment";
   providedIn: 'root'
 })
 export class ArtworkService {
-  private endpoint: string = `${environment.apiUrl}/artwork`;
+  readonly endpoint: string = `${environment.apiUrl}/artwork`;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   getArtworks(): Observable<Artwork[]> {
     const url: string = `${this.endpoint}/all`;

@@ -11,8 +11,7 @@ export class AuthService {
 
   constructor(private cookieService: CookieService,
               private userService: UserService,
-              private router: Router,
-              private languageService: LanguageService) {
+              private router: Router,) {
   }
 
   setToken(token: string): void {

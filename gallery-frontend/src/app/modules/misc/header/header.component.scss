@@ -116,13 +116,9 @@ app-header {
       display: flex;
       align-items: center;
     }
-  }
 
-  div.mat-mdc-select-panel {
-    border-radius: 0 !important;
-  }
-
-  span.mdc-list-item__primary-text {
-    color: black !important;
+    div.mat-mdc-select-panel {
+      border-radius: 0 !important;
+    }
   }
 }

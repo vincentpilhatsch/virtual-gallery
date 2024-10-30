@@ -1,0 +1,14 @@
+app-snack-bar {
+  .snack-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    flex-wrap: wrap;
+    max-width: 350px;
+  }
+
+  .snack-bar-message {
+    flex: 1;
+    word-break: break-word;
+  }
+}

@@ -20,3 +20,12 @@ Datenbank:
 	- UUID -> no dublication in the universe
 - dateTime -> Datum und Uhrzeit in einem (Timestamp)
 - price -> float (DECIMAL(10,2))
+
+Security (GPT-Session):
+- Rate limiting: protect some endpoints with rate limiting to prevent brute-force attacks
+- CSRF Protection in Spring Boot
+- HTTPS
+- SonarQube/OWASP to find vulnerabilities
+- CSP: load styles, images just from approved sources
+- Log authentication attempts, password things, alert for unusual behavior (Daten auf Dashboard darstellen?)
+

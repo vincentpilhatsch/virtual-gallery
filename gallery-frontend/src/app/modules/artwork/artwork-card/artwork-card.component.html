@@ -4,10 +4,13 @@
     <div class="text-container">
       <div class="first-text-container">
         <p class="title">{{ artwork.title }}</p>
-        <p class="price">{{ artwork.price }} €</p>
+        <p class="price">{{ artwork.price | moneyConverter }}</p>
       </div>
       <div class="second-text-container">
-        <app-favorite-icon [artworkId]="artwork.id" [isFavorite]="isFavorite"></app-favorite-icon>
+        <!-- Show favorite-icon only if user is logged in -> favoriteArtworksIds are present -->
+        @if (favoriteArtworkIds) {
+          <app-favorite-icon [artworkId]="artwork.id" [isFavorite]="isFavorite"></app-favorite-icon>
+        }
       </div>
     </div>
   </div>

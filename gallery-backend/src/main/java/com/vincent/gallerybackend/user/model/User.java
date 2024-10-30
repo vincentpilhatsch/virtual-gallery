@@ -20,6 +20,7 @@ public class User {
     private String city;
     private String phone;
     private Language language;
+    private Role role;
     private Set<Long> favoriteArtworkIds;
     private Set<Long> requestedArtworkIds;
     private Set<Long> acceptedEventIds;

@@ -1,14 +1,17 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatMenu, MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
-import {MatOption, MatSelect} from "@angular/material/select";
+import {MatOption, MatSelect, MatSelectChange} from "@angular/material/select";
 import {Language} from "../../user/model/language";
 import {UserService} from "../../user/services/user.service";
 import {FormsModule} from "@angular/forms";
+import {LanguageService} from "../../user/services/language.service";
+import {User} from "../../user/model/user";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-header',
@@ -31,12 +34,35 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './header.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   readonly languageArray: string[] = Object.values(Language);
-  selectedLanguage: string = Language.DE;
+  selectedLanguage: Language = Language.DE;
 
 
-  constructor(protected userService: UserService) {
+  constructor(protected userService: UserService,
+              private languageService: LanguageService) {
   }
 
+  ngOnInit(): void {
+    this.subscribeToUser();
+  }
+
+  private subscribeToUser(): void {
+    this.userService.user$.subscribe((user) => {
+      if (user) {
+        this.selectedLanguage = user.language;
+      }
+    });
+  }
+
+  onSelectChange($event: MatSelectChange): void {
+    const language: Language = $event.value;
+    this.selectedLanguage = language;
+    this.languageService.setLanguageInTranslateService(language);
+    this.languageService.updateLanguageForUser(language)?.subscribe({
+      error: (err: HttpErrorResponse): void => {
+        console.error(err);
+      }
+    });
+  }
 }

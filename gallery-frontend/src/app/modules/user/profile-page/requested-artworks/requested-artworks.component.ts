@@ -7,6 +7,7 @@ import {FavoriteIconComponent} from "../../../misc/favorite-icon/favorite-icon.c
 import {Router} from "@angular/router";
 import {MatButton} from "@angular/material/button";
 import {User} from "../../model/user";
+import {MoneyConverterPipe} from "../../../artwork/pipes/money-converter.pipe";
 
 @Component({
   selector: 'app-requested-artworks',
@@ -14,7 +15,8 @@ import {User} from "../../model/user";
   imports: [
     ArtworkCardComponent,
     FavoriteIconComponent,
-    MatButton
+    MatButton,
+    MoneyConverterPipe
   ],
   templateUrl: './requested-artworks.component.html',
   styleUrls: ['./requested-artworks.component.scss'],
