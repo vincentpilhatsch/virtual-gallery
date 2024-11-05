@@ -10,8 +10,8 @@ export const artistGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state:
   if (userService.user?.role === Role.ARTIST) {
     return true;
   }
-  void router.navigate(["anmelden"]);
-  openSnackBarByRouteState(state)
+  // void router.navigate(["anmelden"]);
+  // openSnackBarByRouteState(state)
   return false;
 }
 

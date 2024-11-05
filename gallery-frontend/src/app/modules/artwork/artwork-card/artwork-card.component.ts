@@ -5,6 +5,7 @@ import {FavoriteIconComponent} from "../../misc/favorite-icon/favorite-icon.comp
 import {Router, RouterLink} from "@angular/router";
 import {Artwork} from "../model/artwork";
 import {MoneyConverterPipe} from "../pipes/money-converter.pipe";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-artwork-card',
@@ -17,7 +18,8 @@ import {MoneyConverterPipe} from "../pipes/money-converter.pipe";
     MatIcon,
     FavoriteIconComponent,
     RouterLink,
-    MoneyConverterPipe
+    MoneyConverterPipe,
+    NgOptimizedImage
   ],
   templateUrl: './artwork-card.component.html',
   styleUrl: './artwork-card.component.scss',

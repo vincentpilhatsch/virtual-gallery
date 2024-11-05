@@ -14,7 +14,6 @@ export class JsonReaderService {
   loadTranslations(): void {
     this.http.get('/assets/i18n/de.json').subscribe(data => {
       this.deTranslation = data;
-      console.log(this.deTranslation['add.edit.artwork.title']);
     });
   }
 }

@@ -13,8 +13,6 @@ import {Observable} from "rxjs";
 export class LanguageService {
   readonly endpoint: string = `${environment.apiUrl}/user`;
 
-  // private user: User | undefined;
-
   constructor(private userService: UserService,
               private translateService: TranslateService,
               private httpClient: HttpClient) {

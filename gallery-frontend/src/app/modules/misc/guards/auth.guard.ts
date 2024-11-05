@@ -1,15 +1,18 @@
 import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from '@angular/router';
 import {UserService} from "../../user/services/user.service";
 import {inject} from "@angular/core";
-import {Role} from "../../user/model/role";
 import {SnackBarService} from "../services/snack-bar.service";
 
 export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
   const userService: UserService = inject(UserService);
-  if (!userService.user?.role) {
+  const router: Router = inject(Router);
+  if (!userService.user) {
+    // void router.navigate(["anmelden"]);
+    console.log("can activate");
     return true;
   }
-  openSnackBarByRouteState(state)
+  // openSnackBarByRouteState(state)
+  console.log("can NOT activate");
   return false;
 }
 

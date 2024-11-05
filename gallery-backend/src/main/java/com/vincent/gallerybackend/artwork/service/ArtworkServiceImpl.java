@@ -23,6 +23,7 @@ public class ArtworkServiceImpl implements ArtworkService {
     private final ArtworkRepository artworkRepository;
     private final ArtworkMapper artworkMapper;
 
+//    @Cacheable(value = "artworksCache", key = "'allArtworks'")
     @Transactional(readOnly = true)
     @Override
     public List<Artwork> getArtworks() {

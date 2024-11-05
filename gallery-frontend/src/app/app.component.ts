@@ -27,34 +27,25 @@ import {AuthService} from "./modules/user/services/auth.service";
   standalone: true
 })
 export class AppComponent implements OnInit {
-  constructor(private userService: UserService,
-              private languageService: LanguageService,
-              private authService: AuthService) {
+  constructor(
+    private userService: UserService,
+    private languageService: LanguageService,
+    private authService: AuthService,
+  ) {
   }
 
   ngOnInit() {
-    this.loadUserFromSessionOrToken();
+    this.logUserInIfTokenIsValid();
   }
 
-  private loadUserFromSessionOrToken() {
-    const storedUser = sessionStorage.getItem('user');
-    if (storedUser) {
-      const user: User = JSON.parse(storedUser);
-      this.userService.user = user;
-      this.languageService.setLanguageByLoggedInUser(user.language);
-    } else {
-      this.logUserInIfTokenIsPresent();
-    }
-  }
-
-  private logUserInIfTokenIsPresent() {
-    const token: string = this.authService.getToken()
-    if (token) {
+  private logUserInIfTokenIsValid() {
+    const token: string = this.authService.getToken();
+    const isNotExpired: boolean = !this.authService.isTokenExpired();
+    if (token && isNotExpired) {
       this.userService.getUserByToken(token).subscribe({
         next: (res: User): void => {
           this.userService.user = res;
           this.languageService.setLanguageByLoggedInUser(res.language);
-          sessionStorage.setItem('user', JSON.stringify(res));
         },
         error: (err: HttpErrorResponse): void => {
           console.error(err)
@@ -62,7 +53,8 @@ export class AppComponent implements OnInit {
       });
     } else {
       this.languageService.setDefaultLanguage();
+      this.authService.deleteTokenFromCookie();
     }
   }
-
 }
+

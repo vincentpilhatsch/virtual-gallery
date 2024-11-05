@@ -1,17 +1,24 @@
+Generell:
+- Für Bachelorarbeit mit Seite nicht Live gehen
+    - Da sonst viele rechtliche Sachen beachtet werden müssen
+    - Kann mir sonst (Bei Verteidigung o.ä. Genick brechen)
+
 Angluar:
 - Viewencapsulation, damit nicht Style global ist
 - JWT wie im FE speichern? (LocalStorage Cookie)
     - Cookie -> XSS attacken nicht wirksam
+        - Cookies: Technisch notwendige Cookies vs. Nicht technisch notwendige Cookies
 
 Spring Boot:
 - Liquibase (changelog, init Data)
 - @Transactional
 - H2 in-memory -> damit bei Testing jeder Tests zurückgesetzt wird und viel mehr...
 - Probleme mit Bilder-Ladegeschwindigkeit
-	- vielleicht Cashing einbauen für Bilder
+	- Caching durch Redis
 	- lazy loading
+	(Nicht möglich, da Blob - Angular Image-Optimization -> https://angular.dev/guide/image-optimization)
 - Authentication
-    	- Durch JWT (Header[Algorithm], Payload[User-Data], Signature[JWT-Secret])
+    - Durch JWT (Header[Algorithm], Payload[User-Data], Signature[JWT-Secret])
 	- isValid password (custom strong password validation) https://www.baeldung.com/registration-password-strength-and-rules
 
 Datenbank:
@@ -21,11 +28,15 @@ Datenbank:
 - dateTime -> Datum und Uhrzeit in einem (Timestamp)
 - price -> float (DECIMAL(10,2))
 
-Security (GPT-Session):
-- Rate limiting: protect some endpoints with rate limiting to prevent brute-force attacks
-- CSRF Protection in Spring Boot
-- HTTPS
-- SonarQube/OWASP to find vulnerabilities
-- CSP: load styles, images just from approved sources
-- Log authentication attempts, password things, alert for unusual behavior (Daten auf Dashboard darstellen?)
-
+Geplante Sachen:
+- Wenn Kunstwerk verkauft wird -> Unabhängig bekommt jeder der Requested/Reliked hat eine Nachricht
+- Auf dem Dashboard User Daten anzeigen (Wie viel User, wie viele logged in, wie viele Artwork-Requests -> allgemein,
+ausstehend, ...)
+(- Wenn jemand Webseite betritt (Pascal bekommt Nachricht?))
+- Security (GPT-Session):
+    - Rate limiting: protect some endpoints with rate limiting to prevent brute-force attacks
+    - CSRF Protection in Spring Boot
+    - HTTPS
+    - SonarQube/OWASP to find vulnerabilities
+    - CSP: load styles, images just from approved sources
+    - Log authentication attempts, password things, alert for unusual behavior (Daten auf Dashboard darstellen?)
