@@ -35,13 +35,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.logUserInIfTokenIsValid();
+    this.logUserIn();
   }
 
-  private logUserInIfTokenIsValid() {
-    const token: string = this.authService.getToken();
-    const isNotExpired: boolean = !this.authService.isTokenExpired();
-    if (token && isNotExpired) {
+  private logUserIn() {
+    if (this.authService.isUserLoggedIn()) {
+      const token: string = this.authService.getToken();
       this.userService.getUserByToken(token).subscribe({
         next: (res: User): void => {
           this.userService.user = res;
@@ -52,8 +51,8 @@ export class AppComponent implements OnInit {
         }
       });
     } else {
-      this.languageService.setDefaultLanguage();
       this.authService.deleteTokenFromCookie();
+      this.languageService.setDefaultLanguageByLocalStorage();
     }
   }
 }

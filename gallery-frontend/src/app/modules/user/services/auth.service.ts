@@ -22,13 +22,16 @@ export class AuthService {
     this.cookieService.set('token', token, {path: '/'}); // httpOnly
   }
 
+  isUserLoggedIn(): boolean {
+    return this.getToken() !== "" && !this.isTokenExpired();
+  }
+
   isTokenExpired(): boolean {
     const token = this.getToken();
     if (!token) return true;
     try {
       const decodedToken: { exp: number } = jwtDecode(token);
       const expirationDate = new Date(decodedToken.exp * 1000);
-      console.log(expirationDate);
       return expirationDate < new Date();
     } catch (e) {
       return true;

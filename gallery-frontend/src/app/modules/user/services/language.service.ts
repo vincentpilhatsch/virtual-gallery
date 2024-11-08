@@ -23,6 +23,8 @@ export class LanguageService {
     this.userService.user$.subscribe((user) => {
       if (user) {
         this.setLanguageByLoggedInUser(user.language);
+      } else {
+        this.setDefaultLanguageByLocalStorage();
       }
     });
   }
@@ -47,13 +49,30 @@ export class LanguageService {
     this.setLanguageInTranslateService(Language.DE)
   }
 
-  setDefaultLanguage(): void {
-    this.setLanguageInTranslateService(Language.DE);
+  setDefaultLanguageByLocalStorage(): void {
+    const localStorageLanguage: Language | null = this.getLanguageFromLocalStorage();
+    if (localStorageLanguage) {
+      this.setLanguageInTranslateService(localStorageLanguage);
+    } else {
+      this.setLanguageInTranslateService(Language.DE);
+    }
   }
 
   setLanguageInTranslateService(language: Language): void {
     const languageString: string = language.toString().toLowerCase();
     this.translateService.setDefaultLang(languageString);
     this.translateService.use(languageString);
+  }
+
+  setLanguageInLocalStorage(language: Language): void {
+    localStorage.setItem("language", language);
+  }
+
+  getLanguageFromLocalStorage(): Language | null {
+    const localStorageLanguage: string | null = localStorage.getItem("language");
+    if (localStorageLanguage != null) {
+      return Language[localStorageLanguage as keyof typeof Language];
+    }
+    return null;
   }
 }

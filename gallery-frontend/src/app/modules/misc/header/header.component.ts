@@ -51,6 +51,8 @@ export class HeaderComponent implements OnInit {
     this.userService.user$.subscribe((user) => {
       if (user) {
         this.selectedLanguage = user.language;
+      } else {
+        this.setLanguageByLocalStorage();
       }
     });
   }
@@ -58,11 +60,19 @@ export class HeaderComponent implements OnInit {
   onSelectChange($event: MatSelectChange): void {
     const language: Language = $event.value;
     this.selectedLanguage = language;
+    this.languageService.setLanguageInLocalStorage(language);
     this.languageService.setLanguageInTranslateService(language);
     this.languageService.updateLanguageForUser(language)?.subscribe({
       error: (err: HttpErrorResponse): void => {
         console.error(err);
       }
     });
+  }
+
+  private setLanguageByLocalStorage() {
+    const localStorageLanguage: Language | null = this.languageService.getLanguageFromLocalStorage();
+    if (localStorageLanguage) {
+      this.selectedLanguage = localStorageLanguage;
+    }
   }
 }
