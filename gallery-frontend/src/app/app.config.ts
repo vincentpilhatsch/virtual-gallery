@@ -8,6 +8,7 @@ import {HttpClient, provideHttpClient, withFetch, withInterceptors} from "@angul
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {jwtInterceptor} from "./modules/user/interceptor/jwt-interceptor.interceptor";
+import {IMAGE_CONFIG} from "@angular/common";
 
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
@@ -28,6 +29,14 @@ export const appConfig: ApplicationConfig = {
         useFactory: httpLoaderFactory,
         deps: [HttpClient],
       },
-    })])
+    })]),
+    {
+      provide: IMAGE_CONFIG,
+      useValue:
+        {
+          disableImageSizeWarning: true,
+          disableImageLazyLoadWarning: true
+        }
+    },
   ],
 };

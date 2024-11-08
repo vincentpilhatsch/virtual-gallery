@@ -10,7 +10,6 @@ Content-Type: application/json
 > {%
     var setCookie = response.headers['set-cookie'];
     var jwt = setCookie.match(/token=([^;]+)/)[1];
-    client.log("Extracted JWT:", jwt); // Logs the token value
     client.global.set("jwt", jwt);
 %}
 

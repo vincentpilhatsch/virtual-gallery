@@ -7,6 +7,7 @@ import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
 import com.vincent.gallerybackend.exceptions.ImageFileException;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,9 +24,9 @@ public class ArtworkServiceImpl implements ArtworkService {
     private final ArtworkRepository artworkRepository;
     private final ArtworkMapper artworkMapper;
 
-//    @Cacheable(value = "artworksCache", key = "'allArtworks'")
     @Transactional(readOnly = true)
     @Override
+    @Cacheable("artworks")
     public List<Artwork> getArtworks() {
         List<ArtworkEntity> artworkEntities = artworkRepository.findAll();
         return artworkMapper.artworksDAOtoDTO(artworkEntities);
