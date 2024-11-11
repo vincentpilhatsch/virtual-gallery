@@ -26,7 +26,7 @@ public interface UserService {
 
     List<Artwork> getRequestedArtworksByEmail(String email);
 
-    ResponseEntity<String> createUser(User user);
+    AuthResponse createUser(RegisterRequest registerRequest, HttpServletResponse response);
 
     AuthResponse loginUser(LoginRequest loginRequest, HttpServletResponse response);
 

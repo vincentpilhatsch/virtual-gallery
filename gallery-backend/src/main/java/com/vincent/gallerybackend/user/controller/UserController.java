@@ -75,18 +75,19 @@ public class UserController {
         return requestedArtworks;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
-        ResponseEntity<String> responseEntity = userServiceImpl.createUser(user);
-        log.info("REGISTER user: {}, {}", user.getEmail(), responseEntity.getBody());
-        return responseEntity;
-    }
-
     @PostMapping("/login")
     public AuthResponse loginUser(@RequestBody LoginRequest loginRequest,
                                   HttpServletResponse response) {
         AuthResponse responseEntity = userServiceImpl.loginUser(loginRequest, response);
         log.info("LOGIN user: {}", loginRequest.getEmail());
+        return responseEntity;
+    }
+
+    @PostMapping("/register")
+    public AuthResponse registerUser(@RequestBody RegisterRequest registerRequest,
+                                     HttpServletResponse response) {
+        AuthResponse responseEntity = userServiceImpl.createUser(registerRequest, response);
+        log.info("REGISTER user: {}", registerRequest.getEmail());
         return responseEntity;
     }
 

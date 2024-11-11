@@ -4,8 +4,9 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {User} from "../model/user";
 import {environment} from "../../environment";
 import {Artwork} from "../../artwork/model/artwork";
-import {LoginForm} from "../model/loginForm";
+import {LoginRequest} from "../model/loginRequest";
 import {AuthResponse} from "../model/authResponse";
+import {RegisterRequest} from "../model/registerRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -62,9 +63,15 @@ export class UserService {
     return this.httpClient.get<Artwork[]>(url);
   }
 
-  login(loginForm: LoginForm) {
+  login(loginForm: LoginRequest) {
     const url: string = `${this.endpoint}/login`;
     return this.httpClient.post<AuthResponse>(url, loginForm);
+  }
+
+  register(registerRequest: RegisterRequest) {
+    const url: string = `${this.endpoint}/register`;
+    console.log(registerRequest);
+    return this.httpClient.post<AuthResponse>(url, registerRequest);
   }
 
   updateFavoriteArtworksOfUser(email: string, artworkId: number) {
@@ -87,5 +94,4 @@ export class UserService {
     const url: string = `${this.endpoint}`;
     return this.httpClient.put<User>(url, user);
   }
-
 }

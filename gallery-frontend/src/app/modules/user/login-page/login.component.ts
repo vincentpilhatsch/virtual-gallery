@@ -1,4 +1,4 @@
-import {Component, OnInit, signal, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import {MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatInput, MatInputModule} from "@angular/material/input";
 import {NgOptimizedImage} from "@angular/common";
@@ -6,12 +6,13 @@ import {MatIcon} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UserService} from "../services/user.service";
-import {LoginForm} from "../model/loginForm";
+import {LoginRequest} from "../model/loginRequest";
 import {AuthService} from "../services/auth.service";
 import {AuthResponse} from "../model/authResponse";
 import {LanguageService} from "../services/language.service";
 import {Router, RouterLink} from "@angular/router";
 import {ErrorTypeEnum} from "../model/errorType.enum";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -32,8 +33,9 @@ import {ErrorTypeEnum} from "../model/errorType.enum";
   styleUrl: './login.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   hide = signal(true);
+
   errorMessage: ErrorTypeEnum | null = null;
   disableLoginButton: boolean = true; // TODO: Set false for Live
   form: FormGroup = this.fb.group({
@@ -46,6 +48,8 @@ export class LoginComponent implements OnInit {
       Validators.pattern("^(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$")
     ]],
   });
+
+  subscriptions: Subscription[] = [];
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
@@ -101,7 +105,7 @@ export class LoginComponent implements OnInit {
     // if (this.checkIfFormsAreValid()) { // TODO: Comment in for Live
     const formEmail: string = this.form.get("email")?.value;
     const formPassword: string = this.form.get("password")?.value;
-    const user: LoginForm = {
+    const user: LoginRequest = {
       email: formEmail,
       password: formPassword
     }
@@ -116,13 +120,13 @@ export class LoginComponent implements OnInit {
     return formIsValid && !!formEmail && !!formPassword;
   }
 
-  loginUser(loginForm: LoginForm): void {
+  loginUser(loginForm: LoginRequest): void {
     this.userService.login(loginForm).subscribe({
       next: (res: AuthResponse): void => {
         this.userService.user = res.user
         this.languageService.setLanguageByLoggedInUser(res.user.language);
         this.authService.setToken(res.jwt)
-        void this.router.navigate(["home"]);
+        void this.router.navigate(["profil"]);
       },
       error: (err): void => {
         console.error(err);
@@ -133,5 +137,13 @@ export class LoginComponent implements OnInit {
   showOrHidePassword(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    })
   }
 }

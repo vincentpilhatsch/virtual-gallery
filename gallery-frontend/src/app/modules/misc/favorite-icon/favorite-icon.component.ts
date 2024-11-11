@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {HttpErrorResponse} from "@angular/common/http";
 import {UserService} from "../../user/services/user.service";
@@ -15,13 +15,14 @@ import {Subscription} from "rxjs";
   styleUrl: './favorite-icon.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class FavoriteIconComponent {
+export class FavoriteIconComponent implements OnDestroy {
   @Input() artworkId: number | undefined;
   @Input() isFavorite: boolean | undefined;
 
   subscriptions: Subscription[] = [];
 
-  constructor(private userService: UserService, private favoriteIconService: FavoriteIconService) {
+  constructor(private userService: UserService,
+              private favoriteIconService: FavoriteIconService) {
   }
 
   handleFavoriteClicked(isFavorite: boolean) {
@@ -31,11 +32,13 @@ export class FavoriteIconComponent {
   }
 
   private subscribeToUser() {
-    this.userService.user$.subscribe((user) => {
-      if (user) {
-        this.updateFavoriteArtworksOfUser(user.email);
-      }
-    });
+    this.subscriptions.push(
+      this.userService.user$.subscribe((user) => {
+        if (user) {
+          this.updateFavoriteArtworksOfUser(user.email);
+        }
+      })
+    );
   }
 
   private updateFavoriteArtworkSubject() {
@@ -52,5 +55,13 @@ export class FavoriteIconComponent {
         }
       })
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    })
   }
 }

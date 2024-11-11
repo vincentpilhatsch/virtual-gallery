@@ -2,6 +2,8 @@ Generell:
 - Für Bachelorarbeit mit Seite nicht Live gehen
     - Da sonst viele rechtliche Sachen beachtet werden müssen
     - Kann mir sonst (Bei Verteidigung o.ä. Genick brechen)
+- Sie/Du?
+    - Da reiche (Kunstinteressierte Leute -> Sie)
 
 Angluar:
 - Viewencapsulation, damit nicht Style global ist

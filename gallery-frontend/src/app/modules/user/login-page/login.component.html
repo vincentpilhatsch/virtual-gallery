@@ -28,7 +28,8 @@
         </mat-form-field>
       </form>
       <span class="error-message">{{ errorMessage }}</span>
-      <button mat-stroked-button class="button-one" (click)="onFormSubmitted()" [disabled]="disableLoginButton">
+      <button mat-stroked-button class="button-one" (click)="onFormSubmitted()" [disabled]="false">
+        <!-- disableLoginButton -->
         Anmelden
       </button>
     </div>

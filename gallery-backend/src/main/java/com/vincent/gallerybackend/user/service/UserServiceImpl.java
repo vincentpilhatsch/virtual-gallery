@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -107,21 +108,30 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public ResponseEntity<String> createUser(User user) {
-        if (findByEmail(user.getEmail()) != null) {
-            return ResponseEntity.badRequest().body("User already exists");
+    public AuthResponse createUser(RegisterRequest registerRequest, HttpServletResponse response) {
+        if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
+            throw new AuthenticationFailedException("User already exists");
         }
-        if (!PasswordValidator.isPasswordStrong(user.getPassword())) {
-            return ResponseEntity.badRequest().body("Password is not strong enough");
+        if (!PasswordValidator.isPasswordStrong(registerRequest.getPassword())) {
+            throw new AuthenticationFailedException("Password is not strong enough");
         }
-        UserEntity userEntity = mapUserAndSetDefaultValues(user);
+        UserEntity userEntity = mapUserAndSetDefaultValues(registerRequest);
         userRepository.save(userEntity);
-        return ResponseEntity.ok("User registered successfully");
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(registerRequest.getEmail(), registerRequest.getPassword()));
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String jwt = jwtUtils.generateToken(userDetails);
+        createCookie(response, jwt);
+        return createAuthResponse(registerRequest.getEmail(), jwt);
     }
 
-    private UserEntity mapUserAndSetDefaultValues(User user) {
-        UserEntity userEntity = userMapper.userDTOtoDAO(user);
-        userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
+    private UserEntity mapUserAndSetDefaultValues(RegisterRequest registerRequest) {
+        UserEntity userEntity = new UserEntity(); // userMapper.userDTOtoDAO(user);
+        userEntity.setFirstName(registerRequest.getFirstName());
+        userEntity.setLastName(registerRequest.getLastName());
+        userEntity.setEmail(registerRequest.getEmail());
+        userEntity.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         userEntity.setLanguage(Language.DE);
         userEntity.setRole(Role.USER);
         return userEntity;
@@ -134,14 +144,14 @@ public class UserServiceImpl implements UserService {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String jwt = jwtUtils.generateToken(userDetails);
             createCookie(response, jwt);
-            return createAuthResponse(loginRequest, jwt);
+            return createAuthResponse(loginRequest.getEmail(), jwt);
         } catch (AuthenticationException e) {
             throw new AuthenticationFailedException("Invalid email or password");
         }
     }
 
-    private AuthResponse createAuthResponse(LoginRequest loginRequest, String jwt) {
-        UserEntity userEntity = findByEmail(loginRequest.getEmail());
+    private AuthResponse createAuthResponse(String email, String jwt) {
+        UserEntity userEntity = findByEmail(email);
         User user = userMapper.userDAOtoDTO(userEntity);
         return new AuthResponse(user, jwt);
     }
