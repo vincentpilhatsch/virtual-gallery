@@ -35,6 +35,7 @@ import {ErrorTypeEnum} from "../model/errorType.enum";
 export class LoginComponent implements OnInit {
   hide = signal(true);
   errorMessage: ErrorTypeEnum | null = null;
+  disableLoginButton: boolean = true; // TODO: Set false for Live
   form: FormGroup = this.fb.group({
     email: ['', [
       Validators.required,
@@ -59,23 +60,13 @@ export class LoginComponent implements OnInit {
 
   private subscribeToFormValueChanges(): void {
     this.form.valueChanges.subscribe(() => {
-      const emailValidAndDirty: boolean | undefined =
-        this.form.get("email")?.valid && this.form.get("email")?.dirty;
-      const passwordValidAndDirty: boolean | undefined =
-        this.form.get("password")?.valid && this.form.get("password")?.dirty;
-
-      if (emailValidAndDirty && this.errorMessage === ErrorTypeEnum.EMAIL) {
-        this.errorMessage = null;
-      } else if (passwordValidAndDirty && this.errorMessage === ErrorTypeEnum.PASSWORD) {
+      if (this.form.valid) {
         this.errorMessage = null;
       } else {
         this.handleErrorMessage();
       }
+      this.disableLoginButton = !this.checkIfFormsAreValid();
     });
-  }
-
-  onFocusOut() {
-    this.handleErrorMessage();
   }
 
   private handleErrorMessage(): void {
@@ -97,9 +88,6 @@ export class LoginComponent implements OnInit {
 
   private setMessageByErrorType(control: AbstractControl): void {
     if (control.errors) {
-      // if (control.errors['required']) {
-      //   this.errorMessage = 'Bitte füllen Sie alle erforderlichen Felder aus.';
-      // }
       if (control.errors['email']) {
         this.errorMessage = ErrorTypeEnum.EMAIL;
       }
@@ -110,15 +98,22 @@ export class LoginComponent implements OnInit {
   }
 
   onFormSubmitted(): void {
+    // if (this.checkIfFormsAreValid()) { // TODO: Comment in for Live
     const formEmail: string = this.form.get("email")?.value;
     const formPassword: string = this.form.get("password")?.value;
-    if (this.form.valid && formEmail && formPassword) {
-      const user: LoginForm = {
-        email: formEmail,
-        password: formPassword
-      }
-      this.loginUser(user);
+    const user: LoginForm = {
+      email: formEmail,
+      password: formPassword
     }
+    this.loginUser(user);
+    // }
+  }
+
+  private checkIfFormsAreValid(): boolean {
+    const formEmail: string = this.form.get("email")?.value;
+    const formPassword: string = this.form.get("password")?.value;
+    const formIsValid: boolean = this.form.valid;
+    return formIsValid && !!formEmail && !!formPassword;
   }
 
   loginUser(loginForm: LoginForm): void {
