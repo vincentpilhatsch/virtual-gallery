@@ -28,6 +28,10 @@ export class UserService {
   constructor(private httpClient: HttpClient) {
   }
 
+  // checkAuthStatus(): Observable<boolean> {
+  //   return this.httpClient.get<boolean>(`${this.endpoint}/auth/status`);
+  // }
+
   getUserByEmail(email: string): Observable<User> {
     const url: string = `${this.endpoint}/${email}`;
     return this.httpClient.get<User>(url);

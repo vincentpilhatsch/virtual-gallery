@@ -22,6 +22,7 @@ Spring Boot:
 - Authentication
     - Durch JWT (Header[Algorithm], Payload[User-Data], Signature[JWT-Secret])
 	- isValid password (custom strong password validation) https://www.baeldung.com/registration-password-strength-and-rules
+- Swagger API-Doc
 
 Datenbank:
 - Wie Bilder Speichern Base64/Blob

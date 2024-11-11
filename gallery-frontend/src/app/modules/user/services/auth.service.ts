@@ -23,6 +23,7 @@ export class AuthService {
   }
 
   isUserLoggedIn(): boolean {
+    console.log(this.cookieService);
     return this.getToken() !== "" && !this.isTokenExpired();
   }
 

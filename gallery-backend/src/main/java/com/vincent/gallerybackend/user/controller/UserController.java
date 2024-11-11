@@ -1,8 +1,11 @@
 package com.vincent.gallerybackend.user.controller;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
+import com.vincent.gallerybackend.security.JwtUtils;
 import com.vincent.gallerybackend.user.model.*;
 import com.vincent.gallerybackend.user.service.UserServiceImpl;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +24,38 @@ import java.util.Set;
 public class UserController {
 
     private final UserServiceImpl userServiceImpl;
+    private final JwtUtils jwtUtils;
 
-    public UserController(UserServiceImpl userServiceImpl) {
+    public UserController(UserServiceImpl userServiceImpl, JwtUtils jwtUtils) {
         this.userServiceImpl = userServiceImpl;
+        this.jwtUtils = jwtUtils;
     }
+
+//    @GetMapping("/auth/status")
+//    public ResponseEntity<?> checkAuthStatus(HttpServletRequest request) {
+//        String jwt = getJwtFromRequest(request);  // JWT extrahieren
+//        if (jwt != null && jwtUtils.validateToken(jwt, null)) {
+//            return ResponseEntity.ok("Vorhaden!");
+//        } else {
+//            return ResponseEntity.ok("Nicht vorhanden!");
+//        }
+//    }
+
+//    private String getJwtFromRequest(HttpServletRequest request) {
+//        String jwt = null;
+//        Cookie[] cookies = request.getCookies();
+//
+//        if (cookies != null) {
+//            for (Cookie cookie : cookies) {
+//                if ("token".equals(cookie.getName())) {
+//                    jwt = cookie.getValue();
+//                    break;
+//                }
+//            }
+//        }
+//
+//        return jwt;
+//    }
 
     @GetMapping(value = "/{email}", produces = "application/json")
     public User getUser(@PathVariable String email) {

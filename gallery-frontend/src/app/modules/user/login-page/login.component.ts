@@ -41,11 +41,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   form: FormGroup = this.fb.group({
     email: ['', [
       Validators.required,
-      Validators.email
+      // Validators.email
     ]],
     password: ['', [
       Validators.required,
-      Validators.pattern("^(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$")
+      // Validators.pattern("^(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$")
     ]],
   });
 
@@ -63,43 +63,45 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToFormValueChanges(): void {
-    this.form.valueChanges.subscribe(() => {
-      if (this.form.valid) {
-        this.errorMessage = null;
-      } else {
-        this.handleErrorMessage();
-      }
-      this.disableLoginButton = !this.checkIfFormsAreValid();
-    });
+    this.subscriptions.push(
+      this.form.valueChanges.subscribe(() => {
+        // if (this.form.valid) {
+        //   this.errorMessage = null;
+        // } else {
+        //   this.handleErrorMessage();
+        // }
+        this.disableLoginButton = !this.checkIfFormsAreValid();
+      })
+    );
   }
 
-  private handleErrorMessage(): void {
-    if (this.form.invalid) {
-      this.errorMessage = null;
-      const reversedControls = Object.values(this.form.controls).reverse();
-      for (const controlName in reversedControls) {
-        this.setMessageByErrorType(reversedControls[controlName]);
-      }
-    } else {
-      this.errorMessage = null;
-    }
-  }
+  // private handleErrorMessage(): void {
+  //   if (this.form.invalid) {
+  //     this.errorMessage = null;
+  //     const reversedControls = Object.values(this.form.controls).reverse();
+  //     for (const controlName in reversedControls) {
+  //       this.setMessageByErrorType(reversedControls[controlName]);
+  //     }
+  //   } else {
+  //     this.errorMessage = null;
+  //   }
+  // }
 
   /*
     Password must be at least 8 characters long, contain at least 1 uppercase letter,
     1 digit, and 1 special character (any non-alphanumeric character).
   */
 
-  private setMessageByErrorType(control: AbstractControl): void {
-    if (control.errors) {
-      if (control.errors['email']) {
-        this.errorMessage = ErrorTypeEnum.EMAIL;
-      }
-      if (control.errors['pattern']) {
-        this.errorMessage = ErrorTypeEnum.PASSWORD;
-      }
-    }
-  }
+  // private setMessageByErrorType(control: AbstractControl): void {
+  //   if (control.errors) {
+  //     if (control.errors['email']) {
+  //       this.errorMessage = ErrorTypeEnum.EMAIL;
+  //     }
+  //     if (control.errors['pattern']) {
+  //       this.errorMessage = ErrorTypeEnum.PASSWORD;
+  //     }
+  //   }
+  // }
 
   onFormSubmitted(): void {
     // if (this.checkIfFormsAreValid()) { // TODO: Comment in for Live

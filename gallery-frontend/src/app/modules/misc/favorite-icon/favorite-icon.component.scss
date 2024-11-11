@@ -4,4 +4,8 @@ app-favorite-icon {
     cursor: pointer;
   }
 
+  .mat-form-field-invalid .mat-input-element {
+    border-color: initial;
+    color: initial;
+  }
 }

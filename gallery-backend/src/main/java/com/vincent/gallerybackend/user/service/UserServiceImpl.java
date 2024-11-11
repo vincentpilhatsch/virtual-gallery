@@ -15,7 +15,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,7 +25,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -115,9 +113,9 @@ public class UserServiceImpl implements UserService {
         if (!PasswordValidator.isPasswordStrong(registerRequest.getPassword())) {
             throw new AuthenticationFailedException("Password is not strong enough");
         }
-        UserEntity userEntity = mapUserAndSetDefaultValues(registerRequest);
-        userRepository.save(userEntity);
+        setAttributesAndSaveUser(registerRequest);
 
+        // TODO: Refactoring
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(registerRequest.getEmail(), registerRequest.getPassword()));
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -126,15 +124,15 @@ public class UserServiceImpl implements UserService {
         return createAuthResponse(registerRequest.getEmail(), jwt);
     }
 
-    private UserEntity mapUserAndSetDefaultValues(RegisterRequest registerRequest) {
-        UserEntity userEntity = new UserEntity(); // userMapper.userDTOtoDAO(user);
+    private void setAttributesAndSaveUser(RegisterRequest registerRequest) {
+        UserEntity userEntity = new UserEntity();
         userEntity.setFirstName(registerRequest.getFirstName());
         userEntity.setLastName(registerRequest.getLastName());
         userEntity.setEmail(registerRequest.getEmail());
         userEntity.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         userEntity.setLanguage(Language.DE);
         userEntity.setRole(Role.USER);
-        return userEntity;
+        userRepository.save(userEntity);
     }
 
     public AuthResponse loginUser(LoginRequest loginRequest, HttpServletResponse response) {

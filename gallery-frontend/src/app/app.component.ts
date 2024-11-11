@@ -35,6 +35,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.userService.checkAuthStatus().subscribe({
+    //   next: (res): void => {
+    //     console.log(res);
+    //   },
+    //   error: (res): void => {
+    //     console.error(res);
+    //   }
+    // });
     this.logUserIn();
   }
 
@@ -43,6 +51,7 @@ export class AppComponent implements OnInit {
       const token: string = this.authService.getToken();
       this.userService.getUserByToken(token).subscribe({
         next: (res: User): void => {
+          console.log(res);
           this.userService.user = res;
           this.languageService.setLanguageByLoggedInUser(res.language);
         },
