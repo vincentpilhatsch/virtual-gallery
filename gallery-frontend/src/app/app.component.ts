@@ -35,20 +35,29 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.userService.checkAuthStatus().subscribe({
-    //   next: (res): void => {
-    //     console.log(res);
-    //   },
-    //   error: (res): void => {
-    //     console.error(res);
-    //   }
-    // });
+    this.userService.getCurrentUser().subscribe({
+      next: (res: User | null): void => {
+        if (res) {
+          console.log(res);
+          this.userService.user = res;
+          this.languageService.setLanguageByLoggedInUser(res.language);
+        } else {
+          console.log("No User found!")
+          this.authService.deleteTokenFromCookie();
+          this.languageService.setDefaultLanguageByLocalStorage();
+        }
+      },
+      error: (res: HttpErrorResponse): void => {
+        console.error(res);
+      }
+    });
     this.logUserIn();
   }
 
   private logUserIn() {
     if (this.authService.isUserLoggedIn()) {
       const token: string = this.authService.getToken();
+      console.log(token);
       this.userService.getUserByToken(token).subscribe({
         next: (res: User): void => {
           console.log(res);

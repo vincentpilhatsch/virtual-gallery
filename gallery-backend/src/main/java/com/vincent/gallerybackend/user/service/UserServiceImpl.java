@@ -45,6 +45,14 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
+    @Transactional
+    @Override
+    public User getCurrentUser(Authentication authentication) {
+        String email = ((UserDetails) authentication.getPrincipal()).getUsername();
+        UserEntity userEntity = findByEmail(email);
+        return userMapper.userDAOtoDTO(userEntity);
+    }
+
     @Transactional(readOnly = true)
     @Override
     public User getUserByEmail(String email) {
@@ -148,18 +156,31 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    private void createCookie(HttpServletResponse response, String jwt) {
+        Cookie jwtCookie = new Cookie("token", jwt);
+        jwtCookie.setHttpOnly(true);
+        //        jwtCookie.setSecure(true); -> nur bei HTTPS
+        jwtCookie.setPath("/");
+        jwtCookie.setMaxAge(expirationTime);
+        response.addCookie(jwtCookie);
+    }
+
     private AuthResponse createAuthResponse(String email, String jwt) {
         UserEntity userEntity = findByEmail(email);
         User user = userMapper.userDAOtoDTO(userEntity);
         return new AuthResponse(user, jwt);
     }
 
-    private void createCookie(HttpServletResponse response, String jwt) {
-        Cookie jwtCookie = new Cookie("token", jwt);
-        jwtCookie.setHttpOnly(true);
-//        jwtCookie.setSecure(true);
+    @Override
+    public void logoutUser(HttpServletResponse response) {
+        deleteCookie(response);
+    }
+
+    private void deleteCookie(HttpServletResponse response) {
+        Cookie jwtCookie = new Cookie("token", null);
         jwtCookie.setPath("/");
-        jwtCookie.setMaxAge(expirationTime);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setMaxAge(0);
         response.addCookie(jwtCookie);
     }
 

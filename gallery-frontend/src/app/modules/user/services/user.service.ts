@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
+import {BehaviorSubject, catchError, map, Observable, of} from "rxjs";
 import {User} from "../model/user";
 import {environment} from "../../environment";
 import {Artwork} from "../../artwork/model/artwork";
@@ -28,9 +28,19 @@ export class UserService {
   constructor(private httpClient: HttpClient) {
   }
 
-  // checkAuthStatus(): Observable<boolean> {
-  //   return this.httpClient.get<boolean>(`${this.endpoint}/auth/status`);
-  // }
+  getCurrentUser(): Observable<User | null> {
+    const url: string = `${this.endpoint}/me`;
+    return this.httpClient.get<User>(url).pipe(
+      map((user: User) => user),
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          console.warn('User is not authenticated');
+          return of(null);
+        }
+        throw error;
+      })
+    );
+  }
 
   getUserByEmail(email: string): Observable<User> {
     const url: string = `${this.endpoint}/${email}`;
@@ -78,6 +88,12 @@ export class UserService {
     return this.httpClient.post<AuthResponse>(url, registerRequest);
   }
 
+  logout(): Observable<Object> {
+    const url: string = `${this.endpoint}/logout`;
+    return this.httpClient.post(url, {});
+  }
+
+
   updateFavoriteArtworksOfUser(email: string, artworkId: number) {
     const url: string = `${this.endpoint}/updateFavoriteArtworks?`;
     const params: HttpParams = new HttpParams()
@@ -98,4 +114,6 @@ export class UserService {
     const url: string = `${this.endpoint}`;
     return this.httpClient.put<User>(url, user);
   }
+
+
 }

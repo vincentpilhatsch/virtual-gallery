@@ -11,7 +11,7 @@ export class AuthService {
 
   constructor(private cookieService: CookieService,
               private userService: UserService,
-              private router: Router,) {
+              private router: Router) {
   }
 
   getToken(): string {
@@ -23,7 +23,6 @@ export class AuthService {
   }
 
   isUserLoggedIn(): boolean {
-    console.log(this.cookieService);
     return this.getToken() !== "" && !this.isTokenExpired();
   }
 

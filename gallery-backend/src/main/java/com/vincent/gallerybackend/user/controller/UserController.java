@@ -4,13 +4,12 @@ import com.vincent.gallerybackend.artwork.model.Artwork;
 import com.vincent.gallerybackend.security.JwtUtils;
 import com.vincent.gallerybackend.user.model.*;
 import com.vincent.gallerybackend.user.service.UserServiceImpl;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,38 +23,20 @@ import java.util.Set;
 public class UserController {
 
     private final UserServiceImpl userServiceImpl;
-    private final JwtUtils jwtUtils;
 
     public UserController(UserServiceImpl userServiceImpl, JwtUtils jwtUtils) {
         this.userServiceImpl = userServiceImpl;
-        this.jwtUtils = jwtUtils;
     }
 
-//    @GetMapping("/auth/status")
-//    public ResponseEntity<?> checkAuthStatus(HttpServletRequest request) {
-//        String jwt = getJwtFromRequest(request);  // JWT extrahieren
-//        if (jwt != null && jwtUtils.validateToken(jwt, null)) {
-//            return ResponseEntity.ok("Vorhaden!");
-//        } else {
-//            return ResponseEntity.ok("Nicht vorhanden!");
-//        }
-//    }
-
-//    private String getJwtFromRequest(HttpServletRequest request) {
-//        String jwt = null;
-//        Cookie[] cookies = request.getCookies();
-//
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if ("token".equals(cookie.getName())) {
-//                    jwt = cookie.getValue();
-//                    break;
-//                }
-//            }
-//        }
-//
-//        return jwt;
-//    }
+    @GetMapping("/me")
+    public ResponseEntity<User> getCurrentUser(Authentication authentication) {
+        if (authentication == null || authentication.getPrincipal() == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        User user = userServiceImpl.getCurrentUser(authentication);
+        log.info("GET me: {}", user.getEmail());
+        return  ResponseEntity.ok(user);
+    }
 
     @GetMapping(value = "/{email}", produces = "application/json")
     public User getUser(@PathVariable String email) {
@@ -120,6 +101,13 @@ public class UserController {
         AuthResponse responseEntity = userServiceImpl.createUser(registerRequest, response);
         log.info("REGISTER user: {}", registerRequest.getEmail());
         return responseEntity;
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        userServiceImpl.logoutUser(response);
+        log.info("LOGOUT user");
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping

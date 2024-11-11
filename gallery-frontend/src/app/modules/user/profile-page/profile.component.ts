@@ -9,10 +9,10 @@ import {PersonalDataComponent} from "./personal-data/personal-data.component";
 import {MatListOption, MatSelectionList} from "@angular/material/list";
 import {FormsModule} from "@angular/forms";
 import {RequestedArtworksComponent} from "./requested-artworks/requested-artworks.component";
-import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/user.service";
 import {User} from "../model/user";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -41,8 +41,8 @@ export class ProfileComponent implements OnInit, OnDestroy { // TODO: CanActivat
 
   subscriptions: Subscription[] = [];
 
-  constructor(protected authService: AuthService,
-              private userService: UserService) {
+  constructor(private userService: UserService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -54,6 +54,16 @@ export class ProfileComponent implements OnInit, OnDestroy { // TODO: CanActivat
       if (user) {
         this.userFromParent = user;
       }
+    });
+  }
+
+  logout() {
+    this.userService.logout().subscribe({
+      next: () => {
+        this.userService.user = null;
+        void this.router.navigate(["home"]);
+      },
+      error: (error) => console.error("Logout failed:", error),
     });
   }
 

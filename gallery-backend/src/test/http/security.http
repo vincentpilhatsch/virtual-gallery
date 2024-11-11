@@ -32,3 +32,6 @@ Cookie: token={{jwt}}
 GET http://localhost:8080/user/requestedArtworks/admin@bht.de
 Content-Type: application/json
 Cookie: token={{jwt}}
+
+###
+GET http://localhost:8080/user/me

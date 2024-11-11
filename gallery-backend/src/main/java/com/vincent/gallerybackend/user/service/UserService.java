@@ -3,7 +3,7 @@ package com.vincent.gallerybackend.user.service;
 import com.vincent.gallerybackend.artwork.model.Artwork;
 import com.vincent.gallerybackend.user.model.*;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +11,8 @@ import java.util.Set;
 
 @Service
 public interface UserService {
+
+    User getCurrentUser(Authentication authentication);
 
     User getUserByEmail(String email);
 
@@ -40,4 +42,5 @@ public interface UserService {
 
     UserEntity updateOneRequestedArtworkOfUser(String email, long eventId);
 
+    void logoutUser(HttpServletResponse response);
 }

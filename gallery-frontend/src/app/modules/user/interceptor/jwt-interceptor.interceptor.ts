@@ -1,6 +1,6 @@
 import {HttpInterceptorFn} from '@angular/common/http';
 
-const excludedUrls = ["user/login", "assets/i18n"];
+const excludedUrls = ["assets/i18n"]; // "user/login"
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   // Check if the request URL includes any of the excluded URLs

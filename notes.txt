@@ -9,6 +9,7 @@ Angluar:
 - Viewencapsulation, damit nicht Style global ist
 - JWT wie im FE speichern? (LocalStorage Cookie)
     - Cookie -> XSS attacken nicht wirksam
+        - nur wenn httpOnly: true -> kann Cookie nicht im FE auslesen und muss im BE prüfen
         - Cookies: Technisch notwendige Cookies vs. Nicht technisch notwendige Cookies
 
 Spring Boot:
