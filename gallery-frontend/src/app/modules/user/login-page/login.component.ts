@@ -10,7 +10,8 @@ import {LoginForm} from "../model/loginForm";
 import {AuthService} from "../services/auth.service";
 import {AuthResponse} from "../model/authResponse";
 import {LanguageService} from "../services/language.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import {ErrorTypeEnum} from "../model/errorType.enum";
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ import {Router} from "@angular/router";
     MatFormFieldModule,
     MatIcon,
     ReactiveFormsModule,
+    RouterLink,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -32,7 +34,7 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   hide = signal(true);
-  errorMessage: string | null = null;
+  errorMessage: ErrorTypeEnum | null = null;
   form: FormGroup = this.fb.group({
     email: ['', [
       Validators.required,
@@ -57,20 +59,34 @@ export class LoginComponent implements OnInit {
 
   private subscribeToFormValueChanges(): void {
     this.form.valueChanges.subscribe(() => {
-      if (this.form.dirty && this.form.invalid) {
-        this.handleErrorMessage();
-      } else {
+      const emailValidAndDirty: boolean | undefined =
+        this.form.get("email")?.valid && this.form.get("email")?.dirty;
+      const passwordValidAndDirty: boolean | undefined =
+        this.form.get("password")?.valid && this.form.get("password")?.dirty;
+
+      if (emailValidAndDirty && this.errorMessage === ErrorTypeEnum.EMAIL) {
         this.errorMessage = null;
+      } else if (passwordValidAndDirty && this.errorMessage === ErrorTypeEnum.PASSWORD) {
+        this.errorMessage = null;
+      } else {
+        this.handleErrorMessage();
       }
     });
   }
 
-  private handleErrorMessage(): void {
-    this.errorMessage = null;
-    const controls = this.form.controls;
+  onFocusOut() {
+    this.handleErrorMessage();
+  }
 
-    for (const controlName in controls) {
-      this.setMessageByErrorType(controls[controlName]);
+  private handleErrorMessage(): void {
+    if (this.form.invalid) {
+      this.errorMessage = null;
+      const reversedControls = Object.values(this.form.controls).reverse();
+      for (const controlName in reversedControls) {
+        this.setMessageByErrorType(reversedControls[controlName]);
+      }
+    } else {
+      this.errorMessage = null;
     }
   }
 
@@ -81,15 +97,14 @@ export class LoginComponent implements OnInit {
 
   private setMessageByErrorType(control: AbstractControl): void {
     if (control.errors) {
-      if (control.errors['required']) {
-        this.errorMessage = 'Bitte füllen Sie alle erforderlichen Felder aus.';
-      }
+      // if (control.errors['required']) {
+      //   this.errorMessage = 'Bitte füllen Sie alle erforderlichen Felder aus.';
+      // }
       if (control.errors['email']) {
-        this.errorMessage = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';
+        this.errorMessage = ErrorTypeEnum.EMAIL;
       }
-      if (control.errors['password']) {
-        this.errorMessage =
-          'Bitte geben Sie eine gültige Passwort an (mind. 8 Zeichen, 1 Großbuchstabe, 1 Zahl, 1 Sonderzeichen';
+      if (control.errors['pattern']) {
+        this.errorMessage = ErrorTypeEnum.PASSWORD;
       }
     }
   }
@@ -97,13 +112,13 @@ export class LoginComponent implements OnInit {
   onFormSubmitted(): void {
     const formEmail: string = this.form.get("email")?.value;
     const formPassword: string = this.form.get("password")?.value;
-    // if (this.form.valid && formEmail && formPassword) {
-    const user: LoginForm = {
-      email: formEmail,
-      password: formPassword
+    if (this.form.valid && formEmail && formPassword) {
+      const user: LoginForm = {
+        email: formEmail,
+        password: formPassword
+      }
+      this.loginUser(user);
     }
-    this.loginUser(user);
-    // }
   }
 
   loginUser(loginForm: LoginForm): void {

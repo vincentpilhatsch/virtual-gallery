@@ -16,4 +16,29 @@ app-login {
     display: flex;
     flex-direction: column;
   }
+
+  .right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .inner-register-container .text-one {
+    margin-bottom: 0 !important;
+  }
+
+  .register-link {
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+  }
+
+  .mat-mdc-text-field-wrapper.mdc-text-field {
+    width: 100% !important;
+  }
+
+  .error-message {
+    display: flex;
+    color: #f44336;
+  }
 }

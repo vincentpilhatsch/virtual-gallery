@@ -4,28 +4,37 @@
          priority="high">
   </div>
   <div class="right-container">
-    <p class="title-one">Anmelden</p>
-    <p class="text-one">
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-    </p>
-    <form [formGroup]="form">
-      <mat-form-field>
-        <mat-label>E-Mail</mat-label>
-        <input type="email" matInput placeholder="example@example.com" formControlName="email">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Passwort</mat-label>
-        <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password"/>
-        <button
-          mat-icon-button
-          matSuffix
-          (click)="showOrHidePassword($event)"
-          [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide()">
-          <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
-        </button>
-      </mat-form-field>
-    </form>
-    <button mat-stroked-button class="button-one" (click)="onFormSubmitted()">Anmelden</button>
+    <div class="inner-login-container">
+      <p class="title-one">Anmelden</p>
+      <p class="text-one">
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
+      </p>
+      <form [formGroup]="form">
+        <mat-form-field>
+          <mat-label>E-Mail</mat-label>
+          <input type="email" matInput placeholder="example@example.com" formControlName="email"
+                 (focusout)="onFocusOut()">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Passwort</mat-label>
+          <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" (focusout)="onFocusOut()"/>
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="showOrHidePassword($event)"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()">
+            <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+      <span class="error-message">{{ errorMessage }}</span>
+      <button mat-stroked-button class="button-one" (click)="onFormSubmitted()" [disabled]="false">Anmelden</button>
+    </div>
+    <div class="inner-register-container">
+      <p class="text-one">Du hast noch kein Konto?
+        <span class="register-link" routerLink="/registrieren">Hier Registrieren</span>
+      </p>
+    </div>
   </div>
 </div>

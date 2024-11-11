@@ -21,4 +21,8 @@ app-register {
     display: flex;
     gap: 20px;
   }
+
+  .mat-mdc-text-field-wrapper.mdc-text-field {
+    width: 100% !important;
+  }
 }
