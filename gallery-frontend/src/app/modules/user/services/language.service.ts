@@ -65,13 +65,17 @@ export class LanguageService {
   }
 
   setLanguageInLocalStorage(language: Language): void {
-    localStorage.setItem("language", language);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("language", language);
+    }
   }
 
   getLanguageFromLocalStorage(): Language | null {
-    const localStorageLanguage: string | null = localStorage.getItem("language");
-    if (localStorageLanguage != null) {
-      return Language[localStorageLanguage as keyof typeof Language];
+    if (typeof window !== 'undefined') {
+      const localStorageLanguage: string | null = localStorage.getItem("language");
+      if (localStorageLanguage != null) {
+        return Language[localStorageLanguage as keyof typeof Language];
+      }
     }
     return null;
   }

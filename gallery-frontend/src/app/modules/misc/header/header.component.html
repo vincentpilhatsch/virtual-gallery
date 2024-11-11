@@ -1,42 +1,42 @@
 <div class="bar">
   <div class="left-container">
     <div class="header-container">
-      <p class="header-title" routerLink="home">OLIVER KEROS</p>
+      <p class="header-title" routerLink="/home">OLIVER KEROS</p>
     </div>
   </div>
   <div class="middle-container">
     <div class="header-container">
-      <p class="header-text" routerLink="" routerLinkActive="active-link">Ausstellungen</p>
+      <p class="header-text" routerLink="/" routerLinkActive="active-link">Ausstellungen</p>
     </div>
     <p class="centered-dot">
       <span class="dot"></span>
     </p>
     <div class="header-container">
-      <p class="header-text" routerLink="kunstwerke" routerLinkActive="active-link">Kunstwerke</p>
+      <p class="header-text" routerLink="/kunstwerke" routerLinkActive="active-link">Kunstwerke</p>
     </div>
     <p class="centered-dot">
       <span class="dot"></span>
     </p>
     <div class="header-container">
-      <p class="header-text" routerLink="künstler" routerLinkActive="active-link">Künstler</p>
+      <p class="header-text" routerLink="/künstler" routerLinkActive="active-link">Künstler</p>
     </div>
     <p class="centered-dot">
       <span class="dot"></span>
     </p>
     <div class="header-container">
-      <p class="header-text" routerLink="events" routerLinkActive="active-link">Events</p>
+      <p class="header-text" routerLink="/events" routerLinkActive="active-link">Events</p>
     </div>
     <p class="centered-dot">
       <span class="dot"></span>
     </p>
     <div class="header-container">
-      <p class="header-text" routerLink="" routerLinkActive="active-link">Virtuelle Tour</p>
+      <p class="header-text" routerLink="/" routerLinkActive="active-link">Virtuelle Tour</p>
     </div>
     <p class="centered-dot">
       <span class="dot"></span>
     </p>
     <div class="header-container">
-      <p class="header-text dashboard" routerLink="dashboard" routerLinkActive="active-link">Dashboard</p>
+      <p class="header-text dashboard" routerLink="/dashboard" routerLinkActive="active-link">Dashboard</p>
     </div>
   </div>
   <div class="right-container">
@@ -54,11 +54,11 @@
       <div class="header-container">
         <div class="bar-icons">
           <mat-icon fontIcon="notifications"></mat-icon>
-          <mat-icon fontIcon="account_circle" routerLink="profil"></mat-icon>
+          <mat-icon fontIcon="account_circle" routerLink="/profil"></mat-icon>
         </div>
       </div>
     } @else {
-      <button mat-stroked-button class="button-one" [routerLink]="['/anmelden']">Anmelden</button>
+      <button mat-stroked-button class="button-one" routerLink="/anmelden">Anmelden</button>
     }
   </div>
 </div>
