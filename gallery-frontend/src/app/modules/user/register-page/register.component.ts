@@ -7,12 +7,9 @@ import {NgOptimizedImage} from "@angular/common";
 import {ErrorTypeEnum} from "../model/errorType.enum";
 import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UserService} from "../services/user.service";
-import {AuthService} from "../services/auth.service";
 import {LanguageService} from "../services/language.service";
 import {Router} from "@angular/router";
-import {LoginRequest} from "../model/loginRequest";
 import {AuthResponse} from "../model/authResponse";
-import {User} from "../model/user";
 import {RegisterRequest} from "../model/registerRequest";
 import {Subscription} from "rxjs";
 
@@ -60,7 +57,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
-              private authService: AuthService,
               private languageService: LanguageService,
               private router: Router) {
   }
@@ -145,7 +141,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       next: (res: AuthResponse): void => {
         this.userService.user = res.user
         this.languageService.setLanguageByLoggedInUser(res.user.language);
-        this.authService.setToken(res.jwt)
         void this.router.navigate(["profil"]);
       },
       error: (err): void => {

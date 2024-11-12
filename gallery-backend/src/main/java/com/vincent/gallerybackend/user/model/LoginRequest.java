@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class LoginRequest {
+public class LoginRequest implements AuthRequest {
 
     private String email;
     private String password;

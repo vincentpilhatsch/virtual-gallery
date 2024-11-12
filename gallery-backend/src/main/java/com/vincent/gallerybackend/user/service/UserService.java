@@ -28,9 +28,11 @@ public interface UserService {
 
     List<Artwork> getRequestedArtworksByEmail(String email);
 
-    AuthResponse createUser(RegisterRequest registerRequest, HttpServletResponse response);
-
     AuthResponse loginUser(LoginRequest loginRequest, HttpServletResponse response);
+
+    AuthResponse registerUser(RegisterRequest registerRequest, HttpServletResponse response);
+
+    void logoutUser(HttpServletResponse response);
 
     UserEntity updateUser(User user);
 
@@ -42,5 +44,4 @@ public interface UserService {
 
     UserEntity updateOneRequestedArtworkOfUser(String email, long eventId);
 
-    void logoutUser(HttpServletResponse response);
 }

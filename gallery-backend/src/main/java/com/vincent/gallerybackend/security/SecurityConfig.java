@@ -1,6 +1,8 @@
 package com.vincent.gallerybackend.security;
 
+import com.vincent.gallerybackend.config.CookieUtils;
 import com.vincent.gallerybackend.user.service.CustomUserDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final String ROLE_ARTIST = "ARTIST";
@@ -24,11 +27,7 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtUtils jwtUtils;
-
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService, JwtUtils jwtUtils) {
-        this.customUserDetailsService = customUserDetailsService;
-        this.jwtUtils = jwtUtils;
-    }
+    private final CookieUtils cookieUtils;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -70,7 +69,7 @@ public class SecurityConfig {
                 )
                 .addFilterBefore(
                         // Filter every request
-                        new JwtAuthenticationFilter(customUserDetailsService, jwtUtils),
+                        new JwtAuthenticationFilter(customUserDetailsService, jwtUtils, cookieUtils),
                         UsernamePasswordAuthenticationFilter.class
                 );
         return http.build();

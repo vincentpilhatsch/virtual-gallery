@@ -8,7 +8,6 @@ import {HomeComponent} from "./modules/home/home.component";
 import {UserService} from "./modules/user/services/user.service";
 import {User} from "./modules/user/model/user";
 import {LanguageService} from "./modules/user/services/language.service";
-import {AuthService} from "./modules/user/services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -30,7 +29,6 @@ export class AppComponent implements OnInit {
   constructor(
     private userService: UserService,
     private languageService: LanguageService,
-    private authService: AuthService,
   ) {
   }
 
@@ -38,12 +36,9 @@ export class AppComponent implements OnInit {
     this.userService.getCurrentUser().subscribe({
       next: (res: User | null): void => {
         if (res) {
-          console.log(res);
           this.userService.user = res;
           this.languageService.setLanguageByLoggedInUser(res.language);
         } else {
-          console.log("No User found!")
-          this.authService.deleteTokenFromCookie();
           this.languageService.setDefaultLanguageByLocalStorage();
         }
       },
@@ -51,27 +46,7 @@ export class AppComponent implements OnInit {
         console.error(res);
       }
     });
-    this.logUserIn();
   }
 
-  private logUserIn() {
-    if (this.authService.isUserLoggedIn()) {
-      const token: string = this.authService.getToken();
-      console.log(token);
-      this.userService.getUserByToken(token).subscribe({
-        next: (res: User): void => {
-          console.log(res);
-          this.userService.user = res;
-          this.languageService.setLanguageByLoggedInUser(res.language);
-        },
-        error: (err: HttpErrorResponse): void => {
-          console.error(err)
-        }
-      });
-    } else {
-      this.authService.deleteTokenFromCookie();
-      this.languageService.setDefaultLanguageByLocalStorage();
-    }
-  }
 }
 

@@ -1,11 +1,11 @@
 package com.vincent.gallerybackend.user.controller;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
-import com.vincent.gallerybackend.security.JwtUtils;
 import com.vincent.gallerybackend.user.model.*;
 import com.vincent.gallerybackend.user.service.UserServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +19,20 @@ import java.util.Set;
 @Slf4j
 @RestController
 @RequestMapping(path = "/user")
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserServiceImpl userServiceImpl;
 
-    public UserController(UserServiceImpl userServiceImpl, JwtUtils jwtUtils) {
-        this.userServiceImpl = userServiceImpl;
-    }
+//    public UserController(UserServiceImpl userServiceImpl) {
+//        this.userServiceImpl = userServiceImpl;
+//    }
 
     @GetMapping("/me")
     public ResponseEntity<User> getCurrentUser(Authentication authentication) {
         if (authentication == null || authentication.getPrincipal() == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//            return ResponseEntity.noContent().build();
         }
         User user = userServiceImpl.getCurrentUser(authentication);
         log.info("GET me: {}", user.getEmail());
@@ -98,7 +99,7 @@ public class UserController {
     @PostMapping("/register")
     public AuthResponse registerUser(@RequestBody RegisterRequest registerRequest,
                                      HttpServletResponse response) {
-        AuthResponse responseEntity = userServiceImpl.createUser(registerRequest, response);
+        AuthResponse responseEntity = userServiceImpl.registerUser(registerRequest, response);
         log.info("REGISTER user: {}", registerRequest.getEmail());
         return responseEntity;
     }

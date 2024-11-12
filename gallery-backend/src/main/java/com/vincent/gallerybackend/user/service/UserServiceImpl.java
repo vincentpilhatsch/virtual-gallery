@@ -4,6 +4,7 @@ import com.vincent.gallerybackend.artwork.model.Artwork;
 import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
 import com.vincent.gallerybackend.artwork.model.ArtworkMapper;
 import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
+import com.vincent.gallerybackend.config.CookieUtils;
 import com.vincent.gallerybackend.event.repository.EventRepository;
 import com.vincent.gallerybackend.exceptions.AuthenticationFailedException;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
@@ -11,10 +12,8 @@ import com.vincent.gallerybackend.security.JwtUtils;
 import com.vincent.gallerybackend.security.PasswordValidator;
 import com.vincent.gallerybackend.user.model.*;
 import com.vincent.gallerybackend.user.repository.UserRepository;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,10 +29,6 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-
-    @Value("${jwt.expiration-time}")
-    private int expirationTime;
-
     private final UserRepository userRepository;
     private final ArtworkRepository artworkRepository;
     private final EventRepository eventRepository;
@@ -43,7 +38,9 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+
     private final JwtUtils jwtUtils;
+    private final CookieUtils cookieUtils;
 
     @Transactional
     @Override
@@ -114,7 +111,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public AuthResponse createUser(RegisterRequest registerRequest, HttpServletResponse response) {
+    public AuthResponse registerUser(RegisterRequest registerRequest, HttpServletResponse response) {
         if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
             throw new AuthenticationFailedException("User already exists");
         }
@@ -122,14 +119,7 @@ public class UserServiceImpl implements UserService {
             throw new AuthenticationFailedException("Password is not strong enough");
         }
         setAttributesAndSaveUser(registerRequest);
-
-        // TODO: Refactoring
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(registerRequest.getEmail(), registerRequest.getPassword()));
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String jwt = jwtUtils.generateToken(userDetails);
-        createCookie(response, jwt);
-        return createAuthResponse(registerRequest.getEmail(), jwt);
+        return generateTokenForUserAndSafeTokenInCookie(registerRequest, response);
     }
 
     private void setAttributesAndSaveUser(RegisterRequest registerRequest) {
@@ -143,45 +133,33 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userEntity);
     }
 
+    private AuthResponse generateTokenForUserAndSafeTokenInCookie(AuthRequest authRequest, HttpServletResponse response) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String jwt = jwtUtils.generateToken(userDetails);
+        cookieUtils.createJwtCookie(response, jwt);
+        return createAuthResponse(authRequest.getEmail(), jwt);
+    }
+
     public AuthResponse loginUser(LoginRequest loginRequest, HttpServletResponse response) {
         try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String jwt = jwtUtils.generateToken(userDetails);
-            createCookie(response, jwt);
-            return createAuthResponse(loginRequest.getEmail(), jwt);
+            return generateTokenForUserAndSafeTokenInCookie(loginRequest, response);
         } catch (AuthenticationException e) {
             throw new AuthenticationFailedException("Invalid email or password");
         }
     }
 
-    private void createCookie(HttpServletResponse response, String jwt) {
-        Cookie jwtCookie = new Cookie("token", jwt);
-        jwtCookie.setHttpOnly(true);
-        //        jwtCookie.setSecure(true); -> nur bei HTTPS
-        jwtCookie.setPath("/");
-        jwtCookie.setMaxAge(expirationTime);
-        response.addCookie(jwtCookie);
-    }
 
     private AuthResponse createAuthResponse(String email, String jwt) {
         UserEntity userEntity = findByEmail(email);
-        User user = userMapper.userDAOtoDTO(userEntity);
+        User user = userMapper.userDAOtoDTO(userEntity);    
         return new AuthResponse(user, jwt);
     }
 
     @Override
     public void logoutUser(HttpServletResponse response) {
-        deleteCookie(response);
-    }
-
-    private void deleteCookie(HttpServletResponse response) {
-        Cookie jwtCookie = new Cookie("token", null);
-        jwtCookie.setPath("/");
-        jwtCookie.setHttpOnly(true);
-        jwtCookie.setMaxAge(0);
-        response.addCookie(jwtCookie);
+        cookieUtils.deleteJwtCookie(response);
     }
 
     @Transactional

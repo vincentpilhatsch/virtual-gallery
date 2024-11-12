@@ -30,16 +30,16 @@ export class UserService {
 
   getCurrentUser(): Observable<User | null> {
     const url: string = `${this.endpoint}/me`;
-    return this.httpClient.get<User>(url).pipe(
-      map((user: User) => user),
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          console.warn('User is not authenticated');
-          return of(null);
-        }
-        throw error;
-      })
-    );
+    return this.httpClient.get<User>(url)
+      .pipe(
+        map((user: User) => user),
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            return of(null);
+          }
+          throw error;
+        })
+      );
   }
 
   getUserByEmail(email: string): Observable<User> {
@@ -84,7 +84,6 @@ export class UserService {
 
   register(registerRequest: RegisterRequest) {
     const url: string = `${this.endpoint}/register`;
-    console.log(registerRequest);
     return this.httpClient.post<AuthResponse>(url, registerRequest);
   }
 

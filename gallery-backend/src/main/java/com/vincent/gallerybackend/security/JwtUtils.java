@@ -81,6 +81,11 @@ public class JwtUtils {
         return false;
     }
 
+    public boolean checkIfTokenIsExpiredWithoutThrowing(String token) {
+        Date expirationDate = extractExpiration(token);
+        return expirationDate.before(new Date());  // Returns true if expired
+    }
+
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }

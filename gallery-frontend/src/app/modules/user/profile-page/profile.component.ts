@@ -36,7 +36,7 @@ import {Router} from "@angular/router";
   styleUrl: './profile.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class ProfileComponent implements OnInit, OnDestroy { // TODO: CanActivate when user is logged in
+export class ProfileComponent implements OnInit, OnDestroy {
   userFromParent: User | undefined;
 
   subscriptions: Subscription[] = [];
@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit, OnDestroy { // TODO: CanActivat
         this.userService.user = null;
         void this.router.navigate(["home"]);
       },
-      error: (error) => console.error("Logout failed:", error),
+      error: (error) => console.error(error),
     });
   }
 
@@ -74,5 +74,4 @@ export class ProfileComponent implements OnInit, OnDestroy { // TODO: CanActivat
       }
     })
   }
-
 }

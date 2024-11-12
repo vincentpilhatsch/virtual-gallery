@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class RegisterRequest {
+public class RegisterRequest implements AuthRequest {
 
     private String firstName;
     private String lastName;

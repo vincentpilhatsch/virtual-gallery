@@ -4,10 +4,9 @@ import {MatInput, MatInputModule} from "@angular/material/input";
 import {NgOptimizedImage} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
-import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UserService} from "../services/user.service";
 import {LoginRequest} from "../model/loginRequest";
-import {AuthService} from "../services/auth.service";
 import {AuthResponse} from "../model/authResponse";
 import {LanguageService} from "../services/language.service";
 import {Router, RouterLink} from "@angular/router";
@@ -53,7 +52,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
-              private authService: AuthService,
               private languageService: LanguageService,
               private router: Router) {
   }
@@ -127,7 +125,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       next: (res: AuthResponse): void => {
         this.userService.user = res.user
         this.languageService.setLanguageByLoggedInUser(res.user.language);
-        this.authService.setToken(res.jwt)
         void this.router.navigate(["profil"]);
       },
       error: (err): void => {

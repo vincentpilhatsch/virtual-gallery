@@ -30,4 +30,19 @@ app-requested-artworks {
       margin-top: 16px;
     }
   }
+
+  .not-found-container {
+    display: flex;
+
+    .mat-icon {
+      width: 45px;
+      height: 45px;
+    }
+
+    .material-icons {
+      font-size: 45px;
+      color: #2a2a2a;
+    }
+  }
+
 }
