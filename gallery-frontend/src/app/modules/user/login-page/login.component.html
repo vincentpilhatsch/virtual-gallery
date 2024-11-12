@@ -12,14 +12,24 @@
       <form [formGroup]="form">
         <mat-form-field>
           <mat-label>E-Mail</mat-label>
-          <input type="email" matInput placeholder="example@example.com" formControlName="email"/>
+          <input matInput
+                 type="email"
+                 name="username"
+                 placeholder="example@example.com"
+                 formControlName="email"/>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Passwort</mat-label>
-          <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password"/>
+          <input matInput
+                 type="password"
+                 name="password"
+                 autocomplete="on"
+                 [type]="hide() ? 'password' : 'text'"
+                 formControlName="password"/>
           <button
             mat-icon-button
             matSuffix
+            type="button"
             (click)="showOrHidePassword($event)"
             [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide()">
