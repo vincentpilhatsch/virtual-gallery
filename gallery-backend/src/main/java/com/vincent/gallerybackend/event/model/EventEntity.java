@@ -10,7 +10,11 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "gallery_event")
-@AllArgsConstructor @NoArgsConstructor @Getter @Setter @ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class EventEntity {
 
     @Id
@@ -20,8 +24,9 @@ public class EventEntity {
     @NotEmpty()
     private String title;
 
-    @NotEmpty()
     private String description;
+
+    private String location;
 
     private LocalDateTime dateTime;
 

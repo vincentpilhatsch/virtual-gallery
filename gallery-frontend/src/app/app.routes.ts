@@ -21,7 +21,7 @@ export const routes: Routes = [
   {path: 'kunstwerke', component: ArtworksComponent},
   {path: 'kunstwerk-anfragen/:id', component: RequestArtworkComponent}, //, canActivate: [userAndArtistGuard]},
   {path: 'künstler', component: ArtistComponent},
-  {path: 'events', component: EventsComponent},
+  {path: 'ausstellungen', component: EventsComponent},
   {path: 'anmelden', component: LoginComponent}, // , canActivate: [authGuard]},
   {path: 'registrieren', component: RegisterComponent}, //, canActivate: [authGuard]},
   {path: 'profil', component: ProfileComponent}, //, canActivate: [userAndArtistGuard]},

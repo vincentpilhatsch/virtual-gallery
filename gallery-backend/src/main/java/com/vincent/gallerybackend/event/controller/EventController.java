@@ -24,14 +24,14 @@ public class EventController {
     @GetMapping(value = "/all", produces = "application/json")
     public List<Event> getEvents() {
         List<Event> events = eventServiceImpl.getEvents();
-        log.info("GET ALL events ({}): {}", events.size(), events);
+        log.info("GET ALL events ({})", events.size());
         return events;
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
     public Event getEvent(@PathVariable long id) {
         Event event = eventServiceImpl.getEventById(id);
-        log.info("GET event: {}", event);
+        log.info("GET event: {}", event.getTitle());
         return event;
     }
 
@@ -39,7 +39,7 @@ public class EventController {
     public ResponseEntity<EventEntity> createEvent(@Valid @RequestPart("event") Event event, // RequestParam?
                                                    @RequestPart("file") MultipartFile imageFile) {
         EventEntity eventEntity = eventServiceImpl.createEvent(event, imageFile);
-        log.info("CREATE event: {}", event);
+        log.info("CREATE event: {}", event.getTitle());
         return new ResponseEntity<>(eventEntity, HttpStatus.CREATED);
     }
 
@@ -47,7 +47,7 @@ public class EventController {
     public ResponseEntity<EventEntity> updateEvent(@Valid @RequestPart("event") Event newEvent,
                                                    @RequestPart("file") MultipartFile imageFile) {
         EventEntity eventEntity = eventServiceImpl.updateEvent(newEvent, imageFile);
-        log.info("UPDATE event: {}", newEvent);
+        log.info("UPDATE event: {}", newEvent.getTitle());
         return new ResponseEntity<>(eventEntity, HttpStatus.OK);
     }
 

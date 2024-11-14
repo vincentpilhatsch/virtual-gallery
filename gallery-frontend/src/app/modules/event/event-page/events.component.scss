@@ -3,6 +3,11 @@ app-events {
   .event {
     display: flex;
     gap: 60px;
+    margin-bottom: 70px;
+  }
+
+  .reversed-event {
+    flex-direction: row-reverse;
   }
 
   .first-section {
@@ -26,6 +31,6 @@ app-events {
 
   img {
     max-width: 100%;
-    height: 400px;
+    //height: 400px;
   }
 }
