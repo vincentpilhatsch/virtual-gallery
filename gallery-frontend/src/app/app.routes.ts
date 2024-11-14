@@ -19,7 +19,7 @@ export const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'kunstwerk/:id', component: ArtworkComponent},
   {path: 'kunstwerke', component: ArtworksComponent},
-  {path: 'kunstwerk-anfragen', component: RequestArtworkComponent}, //, canActivate: [userAndArtistGuard]},
+  {path: 'kunstwerk-anfragen/:id', component: RequestArtworkComponent}, //, canActivate: [userAndArtistGuard]},
   {path: 'künstler', component: ArtistComponent},
   {path: 'events', component: EventsComponent},
   {path: 'anmelden', component: LoginComponent}, // , canActivate: [authGuard]},

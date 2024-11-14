@@ -147,7 +147,7 @@ public class UserController {
     public ResponseEntity<UserEntity> updateAcceptedEventsOfUser(@RequestParam String email,
                                                                  @RequestParam long eventId) {
         UserEntity userEntity = userServiceImpl.updateAcceptedEventsOfUser(email, eventId);
-        log.info("UPDATE favorite artwork for user: {}", userEntity.getEmail());
+        log.info("UPDATE accepted for user: {}", userEntity.getEmail());
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 

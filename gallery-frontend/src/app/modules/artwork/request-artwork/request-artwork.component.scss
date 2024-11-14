@@ -5,12 +5,16 @@ app-request-artwork {
     gap: 50px
   }
 
-  .button-one {
-    margin-top: 60px;
+  .left-container {
+    width: 50%;
   }
 
   .right-container {
-    width: 100%;
+    width: 50%;
+  }
+
+  .button-one {
+    margin-top: 60px;
   }
 
   .title-container {
@@ -34,6 +38,10 @@ app-request-artwork {
     height: auto;
   }
 
+  .mat-mdc-text-field-wrapper.mdc-text-field {
+    width: 100% !important;
+  }
+
   p.text-one {
     padding-top: 10px;
   }
@@ -49,6 +57,10 @@ app-request-artwork {
 
   .mdc-list {
     margin-bottom: 70px;
+  }
+
+  form {
+    margin-top: 40px;
   }
 
 }
