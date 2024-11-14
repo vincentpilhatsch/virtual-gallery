@@ -22,8 +22,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final String ROLE_ARTIST = "ARTIST";
-    private final String ROLE_USER = "USER";
+    private static final String ROLE_ARTIST = "ARTIST";
+    private static final String ROLE_USER = "USER";
 
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtUtils jwtUtils;

@@ -12,7 +12,7 @@ public class CookieUtils {
     @Value("${jwt.expiration-time}")
     private int expirationTime;
 
-    private final String TOKEN_STRING = "token";
+    private static final String TOKEN_STRING = "token";
 
     public void createJwtCookie(HttpServletResponse response, String jwt) {
         Cookie jwtCookie = new Cookie(TOKEN_STRING, jwt);

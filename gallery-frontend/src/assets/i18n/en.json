@@ -1,3 +1,8 @@
 {
-  "home.button.artworks": "Artworks"
+  "home": {
+    "button.artworks": "Artworks"
+  },
+  "error": {
+    "incorrect.email.or.password": "Provided email address or password is wrong"
+  }
 }

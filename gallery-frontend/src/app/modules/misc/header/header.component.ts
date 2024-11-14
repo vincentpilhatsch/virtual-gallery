@@ -6,7 +6,7 @@ import {MatMenu, MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {MatOption, MatSelect, MatSelectChange} from "@angular/material/select";
-import {Language} from "../../user/model/language";
+import {LanguageEnum} from "../../user/model/language.enum";
 import {UserService} from "../../user/services/user.service";
 import {FormsModule} from "@angular/forms";
 import {LanguageService} from "../../user/services/language.service";
@@ -35,8 +35,8 @@ import {HttpErrorResponse} from "@angular/common/http";
   encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit {
-  readonly languageArray: string[] = Object.values(Language);
-  selectedLanguage: Language = Language.DE;
+  readonly languageArray: string[] = Object.values(LanguageEnum);
+  selectedLanguage: LanguageEnum = LanguageEnum.DE;
 
 
   constructor(protected userService: UserService,
@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onSelectChange($event: MatSelectChange): void {
-    const language: Language = $event.value;
+    const language: LanguageEnum = $event.value;
     this.selectedLanguage = language;
     this.languageService.setLanguageInLocalStorage(language);
     this.languageService.setLanguageInTranslateService(language);
@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit {
   }
 
   private setLanguageByLocalStorage() {
-    const localStorageLanguage: Language | null = this.languageService.getLanguageFromLocalStorage();
+    const localStorageLanguage: LanguageEnum | null = this.languageService.getLanguageFromLocalStorage();
     if (localStorageLanguage) {
       this.selectedLanguage = localStorageLanguage;
     }

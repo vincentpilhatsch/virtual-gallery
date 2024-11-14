@@ -1,4 +1,4 @@
-export enum ErrorTypeEnum {
+export enum FormErrorTypeEnum {
   FIRST_NAME = 'Bitte geben Sie einen Vornamen.',
   LAST_NAME = 'Bitte geben Sie einen Nachnamen.',
   EMAIL = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',

@@ -62,6 +62,7 @@ export class RequestedArtworksComponent implements OnInit {
 
   handleWithdrawRequest(artworkId: number): void {
     this.updateOneRequestedArtwork(artworkId);
+    this.updateGroupedArtworks(artworkId);
     // sendEmail(); hier dann
   }
 
@@ -75,6 +76,21 @@ export class RequestedArtworksComponent implements OnInit {
           console.error(err)
         }
       })
+    }
+  }
+
+  private updateGroupedArtworks(artworkId: number) {
+    for (let i = 0; i < this.groupedArtworks.length; i++) {
+      const artworkGroup = this.groupedArtworks[i];
+      const artworkIndex = artworkGroup.findIndex(artwork => artwork.id === artworkId);
+
+      if (artworkIndex > -1) {
+        artworkGroup.splice(artworkIndex, 1);
+        const tempGroupedArtworks = this.groupedArtworks;
+        this.groupedArtworks = [];
+        this.setGroupedArtworks(tempGroupedArtworks.flat());
+        return;
+      }
     }
   }
 }

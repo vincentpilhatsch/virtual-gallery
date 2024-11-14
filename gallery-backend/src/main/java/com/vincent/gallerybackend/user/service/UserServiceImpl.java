@@ -133,27 +133,29 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userEntity);
     }
 
+    public AuthResponse loginUser(LoginRequest loginRequest, HttpServletResponse response) {
+        return generateTokenForUserAndSafeTokenInCookie(loginRequest, response);
+    }
+
+
     private AuthResponse generateTokenForUserAndSafeTokenInCookie(AuthRequest authRequest, HttpServletResponse response) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        Authentication authentication;
+        try {
+            authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        } catch (AuthenticationException e) {
+            throw new AuthenticationFailedException("Incorrect email or password");
+        }
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String jwt = jwtUtils.generateToken(userDetails);
         cookieUtils.createJwtCookie(response, jwt);
         return createAuthResponse(authRequest.getEmail(), jwt);
     }
 
-    public AuthResponse loginUser(LoginRequest loginRequest, HttpServletResponse response) {
-        try {
-            return generateTokenForUserAndSafeTokenInCookie(loginRequest, response);
-        } catch (AuthenticationException e) {
-            throw new AuthenticationFailedException("Invalid email or password");
-        }
-    }
-
 
     private AuthResponse createAuthResponse(String email, String jwt) {
         UserEntity userEntity = findByEmail(email);
-        User user = userMapper.userDAOtoDTO(userEntity);    
+        User user = userMapper.userDAOtoDTO(userEntity);
         return new AuthResponse(user, jwt);
     }
 

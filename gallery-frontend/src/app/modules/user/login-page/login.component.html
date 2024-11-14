@@ -37,7 +37,7 @@
           </button>
         </mat-form-field>
       </form>
-      <span class="error-message">{{ errorMessage }}</span>
+      <span class="error-message">{{ backendErrorMessage | errorMessageHandler }}</span>
       <button mat-stroked-button class="button-one" (click)="onFormSubmitted()" [disabled]="false">
         <!-- disableLoginButton -->
         Anmelden

@@ -1,5 +1,9 @@
 {
   "home": {
     "button.artworks": "Kunstwerke"
+  },
+  "error": {
+    "default.message": "Ein Fehler ist aufgetreten",
+    "incorrect.email.or.password": "Deine angegebene E-Mail Adresse oder Passwort ist falsch"
   }
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Language} from "../model/language";
+import {LanguageEnum} from "../model/language.enum";
 import {UserService} from "./user.service";
 import {TranslateService} from "@ngx-translate/core";
 import {User} from "../model/user";
@@ -29,7 +29,7 @@ export class LanguageService {
     });
   }
 
-  updateLanguageForUser(language: Language): Observable<User> | null {
+  updateLanguageForUser(language: LanguageEnum): Observable<User> | null {
     const email: string | undefined = this.userService.user?.email;
     if (email) {
       const url: string = `${this.endpoint}/updateLanguage?`;
@@ -41,40 +41,40 @@ export class LanguageService {
     return null;
   }
 
-  setLanguageByLoggedInUser(usersLanguage: Language): void {
-    if (usersLanguage && usersLanguage === Language.EN) {
-      this.setLanguageInTranslateService(Language.EN)
+  setLanguageByLoggedInUser(usersLanguage: LanguageEnum): void {
+    if (usersLanguage && usersLanguage === LanguageEnum.EN) {
+      this.setLanguageInTranslateService(LanguageEnum.EN)
       return;
     }
-    this.setLanguageInTranslateService(Language.DE)
+    this.setLanguageInTranslateService(LanguageEnum.DE)
   }
 
   setDefaultLanguageByLocalStorage(): void {
-    const localStorageLanguage: Language | null = this.getLanguageFromLocalStorage();
+    const localStorageLanguage: LanguageEnum | null = this.getLanguageFromLocalStorage();
     if (localStorageLanguage) {
       this.setLanguageInTranslateService(localStorageLanguage);
     } else {
-      this.setLanguageInTranslateService(Language.DE);
+      this.setLanguageInTranslateService(LanguageEnum.DE);
     }
   }
 
-  setLanguageInTranslateService(language: Language): void {
+  setLanguageInTranslateService(language: LanguageEnum): void {
     const languageString: string = language.toString().toLowerCase();
     this.translateService.setDefaultLang(languageString);
     this.translateService.use(languageString);
   }
 
-  setLanguageInLocalStorage(language: Language): void {
+  setLanguageInLocalStorage(language: LanguageEnum): void {
     if (typeof window !== 'undefined') {
       localStorage.setItem("language", language);
     }
   }
 
-  getLanguageFromLocalStorage(): Language | null {
+  getLanguageFromLocalStorage(): LanguageEnum | null {
     if (typeof window !== 'undefined') {
       const localStorageLanguage: string | null = localStorage.getItem("language");
       if (localStorageLanguage != null) {
-        return Language[localStorageLanguage as keyof typeof Language];
+        return LanguageEnum[localStorageLanguage as keyof typeof LanguageEnum];
       }
     }
     return null;

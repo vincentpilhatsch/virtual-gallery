@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public final class PasswordValidator {
 
-  /*
+    /*
         Password must be at least 8 characters long, contain at least 1 uppercase letter,
         1 digit, and 1 special character (any non-alphanumeric character).
     */

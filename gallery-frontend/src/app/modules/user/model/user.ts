@@ -1,5 +1,5 @@
-import {Language} from "./language";
-import {Role} from "./role";
+import {LanguageEnum} from "./language.enum";
+import {RoleEnum} from "./role.enum";
 
 export interface User {
   id: string, // id notwendig?
@@ -9,8 +9,8 @@ export interface User {
   password: string,
   city?: string,
   phone?: string,
-  language: Language,
-  role: Role,
+  language: LanguageEnum,
+  role: RoleEnum,
   favoriteArtworkIds?: number[],
   acceptedEventIds?: number[],
   notificationIds?: number[],

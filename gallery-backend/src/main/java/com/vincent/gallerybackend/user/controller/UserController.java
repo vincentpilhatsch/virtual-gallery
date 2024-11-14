@@ -36,7 +36,7 @@ public class UserController {
         }
         User user = userServiceImpl.getCurrentUser(authentication);
         log.info("GET me: {}", user.getEmail());
-        return  ResponseEntity.ok(user);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping(value = "/{email}", produces = "application/json")

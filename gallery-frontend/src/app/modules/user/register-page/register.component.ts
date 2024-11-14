@@ -4,7 +4,7 @@ import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {NgOptimizedImage} from "@angular/common";
-import {ErrorTypeEnum} from "../model/errorType.enum";
+import {FormErrorTypeEnum} from "../model/formErrorType.enum";
 import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UserService} from "../services/user.service";
 import {LanguageService} from "../services/language.service";
@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   hide = signal(true);
 
   disableLoginButton: boolean = true; // TODO: Set false for Live
-  errorMessage: ErrorTypeEnum | null = null;
+  errorMessage: FormErrorTypeEnum | null = null;
   form: FormGroup = this.fb.group({
     firstName: ['', [
       Validators.required,
@@ -98,16 +98,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
   private setMessageByErrorType(control: AbstractControl): void {
     if (control.errors) {
       if (control.errors['firstName']) {
-        this.errorMessage = ErrorTypeEnum.FIRST_NAME;
+        this.errorMessage = FormErrorTypeEnum.FIRST_NAME;
       }
       if (control.errors['lastName']) {
-        this.errorMessage = ErrorTypeEnum.LAST_NAME;
+        this.errorMessage = FormErrorTypeEnum.LAST_NAME;
       }
       if (control.errors['email']) {
-        this.errorMessage = ErrorTypeEnum.EMAIL;
+        this.errorMessage = FormErrorTypeEnum.EMAIL;
       }
       if (control.errors['pattern']) {
-        this.errorMessage = ErrorTypeEnum.PASSWORD;
+        this.errorMessage = FormErrorTypeEnum.PASSWORD;
       }
     }
   }

@@ -10,8 +10,12 @@ import {LoginRequest} from "../model/loginRequest";
 import {AuthResponse} from "../model/authResponse";
 import {LanguageService} from "../services/language.service";
 import {Router, RouterLink} from "@angular/router";
-import {ErrorTypeEnum} from "../model/errorType.enum";
+import {FormErrorTypeEnum} from "../model/formErrorType.enum";
 import {Subscription} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ErrorResponse} from "../model/ErrorResponse";
+import {ErrorMessageHandlerPipe} from "../pipe/error-message-handler.pipe";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-login',
@@ -27,6 +31,8 @@ import {Subscription} from "rxjs";
     MatIcon,
     ReactiveFormsModule,
     RouterLink,
+    ErrorMessageHandlerPipe,
+    TranslateModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -35,16 +41,14 @@ import {Subscription} from "rxjs";
 export class LoginComponent implements OnInit, OnDestroy {
   hide = signal(true);
 
-  errorMessage: ErrorTypeEnum | null = null;
+  backendErrorMessage: HttpErrorResponse | null = null;
   disableLoginButton: boolean = true; // TODO: Set false for Live
   form: FormGroup = this.fb.group({
     email: ['', [
       Validators.required,
-      // Validators.email
     ]],
     password: ['', [
       Validators.required,
-      // Validators.pattern("^(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$")
     ]],
   });
 
@@ -63,43 +67,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   private subscribeToFormValueChanges(): void {
     this.subscriptions.push(
       this.form.valueChanges.subscribe(() => {
-        // if (this.form.valid) {
-        //   this.errorMessage = null;
-        // } else {
-        //   this.handleErrorMessage();
-        // }
         this.disableLoginButton = !this.checkIfFormsAreValid();
       })
     );
   }
-
-  // private handleErrorMessage(): void {
-  //   if (this.form.invalid) {
-  //     this.errorMessage = null;
-  //     const reversedControls = Object.values(this.form.controls).reverse();
-  //     for (const controlName in reversedControls) {
-  //       this.setMessageByErrorType(reversedControls[controlName]);
-  //     }
-  //   } else {
-  //     this.errorMessage = null;
-  //   }
-  // }
-
-  /*
-    Password must be at least 8 characters long, contain at least 1 uppercase letter,
-    1 digit, and 1 special character (any non-alphanumeric character).
-  */
-
-  // private setMessageByErrorType(control: AbstractControl): void {
-  //   if (control.errors) {
-  //     if (control.errors['email']) {
-  //       this.errorMessage = ErrorTypeEnum.EMAIL;
-  //     }
-  //     if (control.errors['pattern']) {
-  //       this.errorMessage = ErrorTypeEnum.PASSWORD;
-  //     }
-  //   }
-  // }
 
   onFormSubmitted(): void {
     // if (this.checkIfFormsAreValid()) { // TODO: Comment in for Live
@@ -127,8 +98,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.languageService.setLanguageByLoggedInUser(res.user.language);
         void this.router.navigate(["profil"]);
       },
-      error: (err): void => {
-        console.error(err);
+      error: (err: HttpErrorResponse): void => {
+        this.backendErrorMessage = err;
       }
     });
   }
