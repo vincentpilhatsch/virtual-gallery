@@ -4,6 +4,7 @@
   },
   "error": {
     "default.message": "Ein Fehler ist aufgetreten",
-    "incorrect.email.or.password": "Deine angegebene E-Mail Adresse oder Passwort ist falsch"
+    "incorrect.email.or.password": "Deine angegebene E-Mail Adresse oder Passwort ist falsch",
+    "invalid.date": "Ungültiges Datum"
   }
 }

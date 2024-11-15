@@ -53,9 +53,9 @@ export class LanguageService {
     const localStorageLanguage: LanguageEnum | null = this.getLanguageFromLocalStorage();
     if (localStorageLanguage) {
       this.setLanguageInTranslateService(localStorageLanguage);
-    } else {
-      this.setLanguageInTranslateService(LanguageEnum.DE);
+      return;
     }
+    this.setLanguageInTranslateService(LanguageEnum.DE);
   }
 
   setLanguageInTranslateService(language: LanguageEnum): void {

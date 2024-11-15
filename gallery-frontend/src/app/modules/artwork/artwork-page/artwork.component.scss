@@ -12,11 +12,11 @@ app-artwork {
   }
 
   .left-container {
-    width: 50%;
+    width: 40%;
   }
 
   .right-container {
-    width: 50%;
+    width: 60%;
   }
 
   .title-container {
@@ -36,8 +36,8 @@ app-artwork {
   }
 
   img {
-    max-width: 100%;
-    height: auto;
+    max-width: 600px;
+    max-height: 100%;
   }
 
   .mat-divider {

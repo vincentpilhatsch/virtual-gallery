@@ -3,6 +3,8 @@
     "button.artworks": "Artworks"
   },
   "error": {
-    "incorrect.email.or.password": "Provided email address or password is wrong"
+    "default.message": "An error has occurred",
+    "incorrect.email.or.password": "Provided email address or password is wrong",
+    "invalid.date": "Invalid date"
   }
 }

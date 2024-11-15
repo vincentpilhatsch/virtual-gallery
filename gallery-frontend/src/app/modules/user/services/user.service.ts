@@ -109,6 +109,14 @@ export class UserService {
     return this.httpClient.post<{ email: string, eventId: number }>(url + params, null);
   }
 
+  updateOneAcceptedEvent(email: string, eventId: number) {
+    const url: string = `${this.endpoint}/updateAcceptedEvents?`;
+    const params: HttpParams = new HttpParams()
+      .set("email", email)
+      .set("eventId", eventId);
+    return this.httpClient.post<{ email: string, eventId: number }>(url + params, null);
+  }
+
   updateUser(user: User) {
     const url: string = `${this.endpoint}`;
     return this.httpClient.put<User>(url, user);

@@ -8,34 +8,39 @@
       <div class="second-section">
         <p class="title-two">{{ event.title }}</p>
         <p class="text-one">{{ event.description }}</p>
-        <p class="text-one">{{ event.location }}</p>
+        <p class="text-one text-date">{{ event.location }}</p>
         <p class="text-one text-date">{{ event.dateTime | convertNumberArrayToDateString }}</p>
-        <p>user: {{ userService.user?.id }}</p>
-        <p>event: {{ event.confirmedUserIds }}</p>
-
-        @if (userService.user != null && event.confirmedUserIds.includes(userService.user.id!)) {
-          <button mat-stroked-button class="button-one" (click)="onButtonClicked(event.id)">Zugesagt</button>
-        } @else {
-          <button mat-stroked-button class="button-one" (click)="onButtonClicked(event.id)">Zusagen</button>
+        @if (userService.user != null) {
+          @if (event.confirmedUserIds.includes(userService.user.id)) {
+            <button mat-stroked-button class="button-one" (click)="onButtonClicked(event.id)">Teilnahme bestätigt</button>
+          } @else {
+            <button mat-stroked-button class="button-one" (click)="onButtonClicked(event.id)">Zusagen</button>
+          }
         }
       </div>
     </div>
   }
 }
 <div class="divider"></div>
-<p class="title-two">Vergangene Events</p>
+<p class="title-one">Vergangene Events</p>
 @if (pastEvents) {
   @for (event of pastEvents; track $index) {
-    <div class="event" [ngClass]="{ 'reversed-event': $index % 2 !== 0 }">
+    <div class="event" [ngClass]="{ 'reversed-event': $index % 2 === 0 }">
       <div class="first-section">
         <img src="data:image/jpeg;base64,{{ event.image }}" alt="event">
       </div>
       <div class="second-section">
         <p class="title-two">{{ event.title }}</p>
         <p class="text-one">{{ event.description }}</p>
-        <p class="text-one">{{ event.location }}</p>
+        <p class="text-one text-date">{{ event.location }}</p>
         <p class="text-one text-date">{{ event.dateTime | convertNumberArrayToDateString }}</p>
-        <button mat-stroked-button class="button-one">Zusagen</button>
+        @if (userService.user != null) {
+          @if (event.confirmedUserIds.includes(userService.user.id)) {
+            <button mat-stroked-button class="button-one" (click)="onButtonClicked(event.id)">Teilnahme bestätigt</button>
+          } @else {
+            <button mat-stroked-button class="button-one" (click)="onButtonClicked(event.id)">Zusagen</button>
+          }
+        }
       </div>
     </div>
   }

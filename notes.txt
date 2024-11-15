@@ -4,6 +4,10 @@ Generell:
     - Kann mir sonst (Bei Verteidigung o.ä. Genick brechen)
 - Sie/Du?
     - Da reiche (Kunstinteressierte Leute -> Sie)
+- i18n
+    - Internationalization -> auf verschiedenen Sprachen
+    - Vllt auch Barrierefrei?
+
 
 Angluar:
 - Viewencapsulation, damit nicht Style global ist
@@ -25,12 +29,14 @@ Spring Boot:
 	- isValid password (custom strong password validation) https://www.baeldung.com/registration-password-strength-and-rules
 - Swagger API-Doc
 
+
 Datenbank:
 - Wie Bilder Speichern Base64/Blob
 - id -> long/UUID
 	- UUID -> no dublication in the universe
 - dateTime -> Datum und Uhrzeit in einem (Timestamp)
 - price -> float (DECIMAL(10,2))
+
 
 Geplante Sachen:
 - Wenn Kunstwerk verkauft wird -> Unabhängig bekommt jeder der Requested/Reliked hat eine Nachricht

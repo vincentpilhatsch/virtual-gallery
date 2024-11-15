@@ -5,6 +5,7 @@ import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
 import com.vincent.gallerybackend.artwork.model.ArtworkMapper;
 import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
 import com.vincent.gallerybackend.config.CookieUtils;
+import com.vincent.gallerybackend.event.model.EventEntity;
 import com.vincent.gallerybackend.event.repository.EventRepository;
 import com.vincent.gallerybackend.exceptions.AuthenticationFailedException;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -200,23 +202,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(userEntity);
     }
 
-    @Transactional
-    @Override
-    public UserEntity updateAcceptedEventsOfUser(String email, long eventId) {
-        UserEntity userEntity = findByEmail(email);
-        checkIfEventExists(eventId);
-        Set<Long> acceptedEvents = addOrDeleteIdInSet(userEntity.getAcceptedEventIds(), eventId);
-        userEntity.setAcceptedEventIds(acceptedEvents);
-        return userRepository.save(userEntity);
-    }
-
-    private void checkIfEventExists(long eventId) {
-        boolean eventExists = eventRepository.existsById(eventId);
-        if (!eventExists) {
-            throw new NotFoundException("Event not found");
-        }
-    }
-
     private void checkIfArtworkExists(long artworkId) {
         boolean artworkExists = artworkRepository.existsById(artworkId);
         if (!artworkExists) {
@@ -224,7 +209,29 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private Set<Long> addOrDeleteIdInSet(Set<Long> set, long id) {
+    @Transactional
+    @Override
+    public UserEntity updateAcceptedEventsOfUser(String email, long eventId) {
+        UserEntity userEntity = findByEmail(email);
+        updateUserInEvent(eventId, userEntity.getId());
+        return updateEventInUser(eventId, userEntity);
+    }
+
+    private void updateUserInEvent(long eventId, UUID userId) {
+        EventEntity event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new NotFoundException("Event not found"));
+        Set<UUID> confirmedUsers = addOrDeleteIdInSet(event.getConfirmedUserIds(), userId);
+        event.setConfirmedUserIds(confirmedUsers);
+        eventRepository.save(event);
+    }
+
+    private UserEntity updateEventInUser(long eventId, UserEntity userEntity) {
+        Set<Long> acceptedEvents = addOrDeleteIdInSet(userEntity.getAcceptedEventIds(), eventId);
+        userEntity.setAcceptedEventIds(acceptedEvents);
+        return userRepository.save(userEntity);
+    }
+
+    private <T> Set<T> addOrDeleteIdInSet(Set<T> set, T id) {
         boolean exists = set.contains(id);
         if (exists) {
             set.remove(id);
