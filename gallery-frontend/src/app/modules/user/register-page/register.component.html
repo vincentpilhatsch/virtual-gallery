@@ -52,6 +52,10 @@
       </mat-form-field>
     </form>
     <span class="error-message">{{ errorMessage }}</span>
+    <!-- TODO -->
+    <mat-checkbox formControlName="confirmation">
+      <p class="text-one">Ich bestätige Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+    </mat-checkbox>
     <button mat-stroked-button class="button-one" (click)="onFormSubmitted()" [disabled]="false">
       Registrieren
     </button>

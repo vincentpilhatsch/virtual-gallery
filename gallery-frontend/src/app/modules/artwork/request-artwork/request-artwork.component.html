@@ -1,5 +1,5 @@
 @if (artwork) {
-  <p class="title-one">Anfrage stellen</p>
+  <p class="title-one">Kunstwerk anfragen</p>
   <div class="first-section">
     <div class="left-container">
       <img src="data:image/jpeg;base64,{{ artwork.image }}" alt="artwork">
@@ -44,7 +44,7 @@
   </div>
   <div class="divider"></div>
   <div class="second-section">
-    <p class="title-two">Kunstwerk anfragen</p>
+    <p class="title-two">Anfrage stellen</p>
     <p class="text-one">
       Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
       dolore magna aliquyam erat, sed diam voluptua. Dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
@@ -60,7 +60,7 @@
                     formControlName="notification"
                     rows="4"></textarea>
         </mat-form-field>
-        <!-- VALIDATION FOR CHECKBOX IS NOT WORKING PROPERLY -->
+        <!-- TODO: VALIDATION FOR CHECKBOX IS NOT WORKING PROPERLY -->
         <mat-checkbox formControlName="confirmation">
           <p class="text-one">Ich bestätige Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
         </mat-checkbox>

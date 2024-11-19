@@ -1,7 +1,12 @@
 @if (artwork) {
   <div class="first-section">
     <div class="left-container">
-      <img src="data:image/jpeg;base64,{{ artwork.image }}" alt="artwork">
+      @if (artwork.sold) {
+        <div class="sold-container">
+          <span class="sold-text">Verkauft</span>
+        </div>
+      }
+      <img src="data:image/jpeg;base64,{{ artwork.image }}" alt="artwork-card" loading="lazy">
     </div>
     <div class="right-container">
       <div class="title-container">
@@ -39,11 +44,7 @@
           </div>
         </mat-list-item>
       </mat-list>
-      @if (artwork.sold) {
-        <button mat-stroked-button class="button-one sold" disabled>
-          Bereits verkauft
-        </button>
-      } @else {
+      @if (!artwork.sold) {
         <button mat-stroked-button class="button-one" [routerLink]="['/kunstwerk-anfragen', artwork.id]">
           Anfrage stellen
         </button>

@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 import {AuthResponse} from "../model/authResponse";
 import {RegisterRequest} from "../model/registerRequest";
 import {Subscription} from "rxjs";
+import {MatCheckbox} from "@angular/material/checkbox";
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,8 @@ import {Subscription} from "rxjs";
     MatLabel,
     MatSuffix,
     NgOptimizedImage,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCheckbox
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
