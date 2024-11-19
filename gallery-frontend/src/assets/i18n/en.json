@@ -2,6 +2,9 @@
   "home": {
     "button.artworks": "Artworks"
   },
+  "snackbar": {
+    "login.expired": "Your login is expired"
+  },
   "error": {
     "default.message": "An error has occurred",
     "incorrect.email.or.password": "Provided email address or password is wrong",

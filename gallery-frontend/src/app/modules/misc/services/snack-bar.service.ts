@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
 import {SnackBarComponent} from "../snack-bar/snack-bar.component";
 import {RouterStateSnapshot} from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,21 @@ export class SnackBarService {
     "registrieren": "Du bist bereits angemeldet",
   };
 
-  constructor(private matSnackBar: MatSnackBar) {
+  constructor(private readonly matSnackBar: MatSnackBar,
+              private readonly translateService: TranslateService) {
   }
 
   openSnackBar(icon: string, message: string) {
+    this.matSnackBar.openFromComponent(SnackBarComponent, {
+      data: {icon, message},
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 3500,
+    });
+  }
+
+  openSnackBarByJSON(icon: string, json: string) {
+    const message: string = this.translateService.instant(json);
     this.matSnackBar.openFromComponent(SnackBarComponent, {
       data: {icon, message},
       horizontalPosition: this.horizontalPosition,
