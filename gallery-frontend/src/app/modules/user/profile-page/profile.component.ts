@@ -41,8 +41,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private userService: UserService,
-              private router: Router) {
+  constructor(private readonly userService: UserService,
+              private readonly router: Router) {
   }
 
   ngOnInit(): void {

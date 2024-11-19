@@ -41,8 +41,8 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   isFavorite: boolean = false;
 
   constructor(protected userService: UserService,
-              private route: ActivatedRoute,
-              private artworkService: ArtworkService) {
+              private readonly route: ActivatedRoute,
+              private readonly artworkService: ArtworkService) {
   }
 
   ngOnInit() {

@@ -54,9 +54,9 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(protected userService: UserService,
-              private route: ActivatedRoute,
-              private artworkService: ArtworkService,
-              private fb: FormBuilder) {
+              private readonly artworkService: ArtworkService,
+              private readonly route: ActivatedRoute,
+              private readonly fb: FormBuilder) {
   }
 
   ngOnInit() {

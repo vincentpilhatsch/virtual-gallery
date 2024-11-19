@@ -10,10 +10,8 @@ import {LoginRequest} from "../model/loginRequest";
 import {AuthResponse} from "../model/authResponse";
 import {LanguageService} from "../services/language.service";
 import {Router, RouterLink} from "@angular/router";
-import {FormErrorTypeEnum} from "../model/formErrorType.enum";
 import {Subscription} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
-import {ErrorResponse} from "../model/ErrorResponse";
 import {ErrorMessageHandlerPipe} from "../pipe/error-message-handler.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 
@@ -54,10 +52,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private fb: FormBuilder,
-              private userService: UserService,
-              private languageService: LanguageService,
-              private router: Router) {
+  constructor(private readonly fb: FormBuilder,
+              private readonly userService: UserService,
+              private readonly languageService: LanguageService,
+              private readonly router: Router) {
   }
 
   ngOnInit(): void {

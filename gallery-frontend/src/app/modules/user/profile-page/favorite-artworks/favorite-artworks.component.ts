@@ -24,8 +24,8 @@ export class FavoriteArtworksComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private userService: UserService,
-              private favoriteIconService: FavoriteIconService) {
+  constructor(private readonly userService: UserService,
+              private readonly favoriteIconService: FavoriteIconService) {
   }
 
   ngOnInit(): void {

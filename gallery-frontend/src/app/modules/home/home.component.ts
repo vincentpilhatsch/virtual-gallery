@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(protected userService: UserService,
-              private artworkService: ArtworkService) {
+              private readonly artworkService: ArtworkService) {
   }
 
   ngOnInit() {

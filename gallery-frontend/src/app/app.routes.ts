@@ -13,6 +13,7 @@ import {AddEditArtworkComponent} from "./modules/dashboard/add-edit-artwork-page
 import {ManageEventsComponent} from "./modules/dashboard/manage-events-page/manage-events.component";
 import {AddEditEventComponent} from "./modules/dashboard/add-and-edit-event-page/add-edit-event.component";
 import {HomeComponent} from "./modules/home/home.component";
+import {ExhibitionsComponent} from "./modules/exhibitions/exhibitions-page/exhibitions.component";
 
 export const routes: Routes = [
   {path: '', redirectTo: '/anmelden', pathMatch: 'full'},
@@ -21,7 +22,8 @@ export const routes: Routes = [
   {path: 'kunstwerke', component: ArtworksComponent},
   {path: 'kunstwerk-anfragen/:id', component: RequestArtworkComponent}, //, canActivate: [userAndArtistGuard]},
   {path: 'künstler', component: ArtistComponent},
-  {path: 'ausstellungen', component: EventsComponent},
+  {path: 'event', component: EventsComponent},
+  {path: 'ausstellungen', component: ExhibitionsComponent},
   {path: 'anmelden', component: LoginComponent}, // , canActivate: [authGuard]},
   {path: 'registrieren', component: RegisterComponent}, //, canActivate: [authGuard]},
   {path: 'profil', component: ProfileComponent}, //, canActivate: [userAndArtistGuard]},

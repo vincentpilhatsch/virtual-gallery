@@ -21,8 +21,8 @@ export class FavoriteIconComponent implements OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private userService: UserService,
-              private favoriteIconService: FavoriteIconService) {
+  constructor(private readonly userService: UserService,
+              private readonly favoriteIconService: FavoriteIconService) {
   }
 
   handleFavoriteClicked(isFavorite: boolean) {

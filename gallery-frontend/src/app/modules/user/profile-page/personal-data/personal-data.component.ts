@@ -46,7 +46,8 @@ export class PersonalDataComponent implements OnInit {
     city: ['']
   });
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private readonly fb: FormBuilder,
+              private readonly userService: UserService) {
   }
 
   ngOnInit(): void {

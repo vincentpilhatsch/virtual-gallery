@@ -26,7 +26,7 @@ export class AddEditArtworkComponent implements OnInit {
   title: string = '';
   buttonText: string = '';
 
-  constructor(private router: Router) {
+  constructor(private readonly router: Router) {
   }
 
   ngOnInit() {

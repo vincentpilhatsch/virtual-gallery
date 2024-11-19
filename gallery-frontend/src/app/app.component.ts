@@ -26,10 +26,8 @@ import {LanguageService} from "./modules/user/services/language.service";
   standalone: true
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private userService: UserService,
-    private languageService: LanguageService,
-  ) {
+  constructor(private readonly userService: UserService,
+              private readonly languageService: LanguageService) {
   }
 
   ngOnInit() {

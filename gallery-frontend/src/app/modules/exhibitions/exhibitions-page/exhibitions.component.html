@@ -1,0 +1,36 @@
+<p class="title-one">Laufende Ausstellungen</p>
+@if (upcomingExhibitions) {
+  @for (exhibition of upcomingExhibitions; track $index) {
+    <div class="exhibition">
+      <div class="first-section">
+        <img src="data:image/jpeg;base64,{{ exhibition.image }}" alt="exhibition">
+      </div>
+      <div class="second-section">
+        <p class="title-two">{{ exhibition.title }}</p>
+        <p class="text-one">{{ exhibition.description }}</p>
+        <p class="text-one text-date">{{ exhibition.location }}</p>
+        <p class="text-one text-date">
+          {{ exhibition.startDate | convertNumberArrayToDateString }} - {{ exhibition.endDate | convertNumberArrayToDateString}}
+        </p>
+      </div>
+    </div>
+  }
+}
+<div class="divider"></div>
+<p class="title-one">Vergangene Ausstellungen</p>
+@if (pastExhibitions) {
+  @for (exhibition of pastExhibitions; track $index) {
+    <div class="exhibition" [ngClass]="{ 'reversed-exhibition': $index % 2 === 0 }">
+      <div class="first-section">
+        <img src="data:image/jpeg;base64,{{ exhibition.image }}" alt="exhibition">
+      </div>
+      <div class="second-section">
+        <p class="title-two">{{ exhibition.title }}</p>
+        <p class="text-one">{{ exhibition.description }}</p>
+        <p class="text-one text-date">{{ exhibition.location }}</p>
+        <p class="text-one text-date">{{ exhibition.startDate }}</p>
+        <p class="text-one text-date">{{ exhibition.endDate }}</p>
+      </div>
+    </div>
+  }
+}

@@ -32,7 +32,7 @@ export class ArtworkCardComponent implements OnInit {
 
   isFavorite: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private readonly router: Router) {
   }
 
   ngOnInit() {

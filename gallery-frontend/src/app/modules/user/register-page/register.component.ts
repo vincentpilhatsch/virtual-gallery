@@ -55,10 +55,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private fb: FormBuilder,
-              private userService: UserService,
-              private languageService: LanguageService,
-              private router: Router) {
+  constructor(private readonly fb: FormBuilder,
+              private readonly userService: UserService,
+              private readonly languageService: LanguageService,
+              private readonly router: Router) {
   }
 
   ngOnInit(): void {

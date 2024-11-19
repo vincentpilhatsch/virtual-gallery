@@ -34,7 +34,7 @@ export class ArtworksComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(protected readonly userService: UserService,
+  constructor(protected userService: UserService,
               private readonly artworkService: ArtworkService,
               private readonly responsive: BreakpointObserver) {
   }

@@ -3,9 +3,9 @@ import {MatButton} from "@angular/material/button";
 import {EventService} from "../services/event.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Event} from "../model/event";
-import {ConvertNumberArrayToDateStringPipe} from "../pipes/convert-number-array-to-date.pipe";
 import {NgClass} from "@angular/common";
 import {UserService} from "../../user/services/user.service";
+import {ConvertNumberArrayToDateStringPipe} from "../pipes/convert-number-array-to-date-time.pipe";
 
 @Component({
   selector: 'app-events',
@@ -24,7 +24,7 @@ export class EventsComponent implements OnInit {
   pastEvents: Event[] = [];
 
   constructor(protected userService: UserService,
-              private eventService: EventService) {
+              private readonly eventService: EventService) {
   }
 
   ngOnInit(): void {
