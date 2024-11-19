@@ -31,7 +31,6 @@ public class EventEntity {
     private LocalDateTime dateTime;
 
     @Lob
-//    @NotNull
     private byte[] image;
 
     @ElementCollection(fetch = FetchType.EAGER)

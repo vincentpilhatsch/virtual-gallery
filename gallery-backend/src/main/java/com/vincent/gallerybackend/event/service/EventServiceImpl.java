@@ -52,11 +52,11 @@ public class EventServiceImpl implements EventService {
     public EventEntity updateEvent(Event newEvent, MultipartFile imageFile) {
         EventEntity oldEvent = findById(newEvent.getId());
         EventEntity updatedEventEntity = eventMapper.updateEventDTOtoDAO(oldEvent, newEvent);
-        setArtworkImage(updatedEventEntity, imageFile);
+        setEventImage(updatedEventEntity, imageFile);
         return eventRepository.save(updatedEventEntity);
     }
 
-    private void setArtworkImage(EventEntity eventEntity, MultipartFile imageFile) {
+    private void setEventImage(EventEntity eventEntity, MultipartFile imageFile) {
         try {
             if (imageFile == null || imageFile.isEmpty()) {
                 throw new ImageFileException("Image must be not empty");

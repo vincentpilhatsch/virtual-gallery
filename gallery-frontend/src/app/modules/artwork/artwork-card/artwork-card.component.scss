@@ -4,11 +4,26 @@ app-artwork-card {
     max-width: 100%;
     height: auto;
 
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
+    .image-container {
       cursor: pointer;
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .sold-container {
+        display: flex;
+        position: absolute;
+        padding: 5px 10px;
+        background-color: var(--custom-color-sold);
+      }
+
+      .sold-text {
+        color: white;
+        text-transform: uppercase;
+      }
     }
 
     .text-container {

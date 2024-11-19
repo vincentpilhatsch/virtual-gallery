@@ -21,9 +21,8 @@ Spring Boot:
 - @Transactional
 - H2 in-memory -> damit bei Testing jeder Tests zurückgesetzt wird und viel mehr...
 - Probleme mit Bilder-Ladegeschwindigkeit
-	- Caching durch Redis
-	- lazy loading
-	(Nicht möglich, da Blob - Angular Image-Optimization -> https://angular.dev/guide/image-optimization)
+	- Caching von Bildern
+	- lazy loading (Nicht möglich, da Blob - Angular Image-Optimization -> https://angular.dev/guide/image-optimization)
 - Authentication
     - Durch JWT (Header[Algorithm], Payload[User-Data], Signature[JWT-Secret])
 	- isValid password (custom strong password validation) https://www.baeldung.com/registration-password-strength-and-rules

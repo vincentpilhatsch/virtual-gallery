@@ -8,6 +8,7 @@ import {HttpClientModule, HttpErrorResponse} from "@angular/common/http";
 import {forkJoin, Subscription} from "rxjs";
 import {UserService} from "../../user/services/user.service";
 import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-artworks',
@@ -17,7 +18,8 @@ import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
     MatInput,
     MatLabel,
     ArtworkCardComponent,
-    HttpClientModule
+    HttpClientModule,
+    NgClass
   ],
   templateUrl: './artworks.component.html',
   styleUrl: './artworks.component.scss',
@@ -32,9 +34,9 @@ export class ArtworksComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(protected userService: UserService,
-              private artworkService: ArtworkService,
-              private responsive: BreakpointObserver) {
+  constructor(protected readonly userService: UserService,
+              private readonly artworkService: ArtworkService,
+              private readonly responsive: BreakpointObserver) {
   }
 
   ngOnInit() {
@@ -44,16 +46,10 @@ export class ArtworksComponent implements OnInit, OnDestroy {
 
   private subscribeToBreakpoints(): void {
     this.responsive
-      .observe(['(min-width: 1200px)'])
+      .observe(['(min-width: 1500px)'])
       .subscribe((state: BreakpointState) => {
-        if (state.matches) {
-          this.artworksPerRow = 4;
-          console.log(this.artworksPerRow);
-        } else {
-          this.artworksPerRow = 3;
-          console.log(this.artworksPerRow);
-        }
-        this.setGroupedArtworks(); // TODO: NOT WORKING!!!
+        this.artworksPerRow = state.matches ? 4 : 3;
+        this.setGroupedArtworks();
       });
   }
 
@@ -100,6 +96,7 @@ export class ArtworksComponent implements OnInit, OnDestroy {
   }
 
   private setGroupedArtworks(): void {
+    this.groupedArtworks = [];
     for (let i = 0; i < this.artworks.length; i += this.artworksPerRow) {
       this.groupedArtworks.push(this.artworks.slice(i, i + this.artworksPerRow));
     }

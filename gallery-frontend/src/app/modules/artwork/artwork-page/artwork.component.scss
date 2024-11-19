@@ -40,6 +40,11 @@ app-artwork {
     max-height: 100%;
   }
 
+  .sold {
+    color: var(--custom-color-red) !important;
+    border: 1px solid var(--custom-color-red) !important;
+  }
+
   .mat-divider {
     border-top-color: rgb(0 0 0 / 74%);
   }
