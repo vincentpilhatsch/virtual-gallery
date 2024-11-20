@@ -1,7 +1,6 @@
 package com.vincent.gallerybackend.artwork.service;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
-import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,9 +15,9 @@ public interface ArtworkService {
 
     List<Artwork> getRandomArtworks(int numberOfArtworks);
 
-    ArtworkEntity createArtwork(Artwork artwork, MultipartFile imageFile);
+    Artwork createArtwork(Artwork artwork, MultipartFile imageFile);
 
-    ArtworkEntity updateArtwork(Artwork artwork, MultipartFile imageFile);
+    Artwork updateArtwork(Artwork artwork, MultipartFile imageFile);
 
     void deleteArtwork(long id);
 

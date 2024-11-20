@@ -1,7 +1,6 @@
 package com.vincent.gallerybackend.notification.service;
 
 import com.vincent.gallerybackend.notification.model.Notification;
-import com.vincent.gallerybackend.notification.model.NotificationEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,8 @@ public interface NotificationService {
 
     List<Notification> getNotificationsFromUserByUserEmail(String email);
 
-    NotificationEntity createNotification(Notification notification);
+    Notification createNotification(Notification notification);
 
-    NotificationEntity setNotificationAsRead(long id);
+    Notification setNotificationAsRead(long id);
 
 }

@@ -1,7 +1,6 @@
 package com.vincent.gallerybackend.event.controller;
 
 import com.vincent.gallerybackend.event.model.Event;
-import com.vincent.gallerybackend.event.model.EventEntity;
 import com.vincent.gallerybackend.event.service.EventServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,33 +21,33 @@ public class EventController {
     private final EventServiceImpl eventServiceImpl;
 
     @GetMapping(value = "/all", produces = "application/json")
-    public List<Event> getEvents() {
+    public ResponseEntity<List<Event>> getEvents() {
         List<Event> events = eventServiceImpl.getEvents();
         log.info("GET ALL events ({})", events.size());
-        return events;
+        return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public Event getEvent(@PathVariable long id) {
+    public ResponseEntity<Event> getEvent(@PathVariable long id) {
         Event event = eventServiceImpl.getEventById(id);
         log.info("GET event: {}", event.getTitle());
-        return event;
+        return new ResponseEntity<>(event, HttpStatus.OK);
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<EventEntity> createEvent(@Valid @RequestPart("event") Event event, // RequestParam?
-                                                   @RequestPart("file") MultipartFile imageFile) {
-        EventEntity eventEntity = eventServiceImpl.createEvent(event, imageFile);
+    public ResponseEntity<Event> createEvent(@Valid @RequestPart("event") Event event,
+                                             @RequestPart("file") MultipartFile imageFile) {
+        Event createdEntity = eventServiceImpl.createEvent(event, imageFile);
         log.info("CREATE event: {}", event.getTitle());
-        return new ResponseEntity<>(eventEntity, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdEntity, HttpStatus.CREATED);
     }
 
     @PutMapping(produces = "application/json")
-    public ResponseEntity<EventEntity> updateEvent(@Valid @RequestPart("event") Event newEvent,
+    public ResponseEntity<Event> updateEvent(@Valid @RequestPart("event") Event newEvent,
                                                    @RequestPart("file") MultipartFile imageFile) {
-        EventEntity eventEntity = eventServiceImpl.updateEvent(newEvent, imageFile);
+        Event updatedEvent = eventServiceImpl.updateEvent(newEvent, imageFile);
         log.info("UPDATE event: {}", newEvent.getTitle());
-        return new ResponseEntity<>(eventEntity, HttpStatus.OK);
+        return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

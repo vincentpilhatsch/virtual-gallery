@@ -63,21 +63,23 @@ public class ArtworkServiceImpl implements ArtworkService {
 
     @Transactional
     @Override
-    public ArtworkEntity createArtwork(Artwork artwork, MultipartFile imageFile) {
+    public Artwork createArtwork(Artwork artwork, MultipartFile imageFile) {
         ArtworkEntity artworkEntity = artworkMapper.artworkDTOtoDAO(artwork);
         setArtworkImage(artworkEntity, imageFile);
         artworkEntity.setUploadedAt(LocalDateTime.now());
-        return artworkRepository.save(artworkEntity);
+        artworkRepository.save(artworkEntity);
+        return artworkMapper.artworkDAOtoDTO(artworkEntity);
     }
 
     @Transactional
     @Override
-    public ArtworkEntity updateArtwork(Artwork newArtwork, MultipartFile imageFile) {
+    public Artwork updateArtwork(Artwork newArtwork, MultipartFile imageFile) {
         ArtworkEntity oldArtwork = findById(newArtwork.getId());
         ArtworkEntity updatedArtworkEntity = artworkMapper.updateArtworkDTOtoDAO(oldArtwork, newArtwork);
         setArtworkImage(updatedArtworkEntity, imageFile);
         updatedArtworkEntity.setUploadedAt(LocalDateTime.now());
-        return artworkRepository.save(updatedArtworkEntity);
+        artworkRepository.save(updatedArtworkEntity);
+        return artworkMapper.artworkDAOtoDTO(updatedArtworkEntity);
     }
 
     private void setArtworkImage(ArtworkEntity artworkEntity, MultipartFile imageFile) {

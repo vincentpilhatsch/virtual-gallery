@@ -168,38 +168,43 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserEntity updateUser(User newUser) {
-        UserEntity oldUser = userRepository.findById(newUser.getId()).orElseThrow(() -> new NotFoundException("User not found"));
+    public User updateUser(User newUser) {
+        UserEntity oldUser = userRepository.findById(newUser.getId())
+                .orElseThrow(() -> new NotFoundException("User not found"));
         UserEntity updatedUserEntity = userMapper.updateUserDTOtoDAO(oldUser, newUser);
-        return userRepository.save(updatedUserEntity);
+        userRepository.save(updatedUserEntity);
+        return userMapper.userDAOtoDTO(updatedUserEntity);
     }
 
     @Transactional
     @Override
-    public UserEntity updateLanguageOfUser(String email, Language language) {
+    public User updateLanguageOfUser(String email, Language language) {
         UserEntity user = findByEmail(email);
         user.setLanguage(language);
-        return userRepository.save(user);
+        userRepository.save(user);
+        return userMapper.userDAOtoDTO(user);
     }
 
     @Transactional
     @Override
-    public UserEntity updateFavoriteArtworksOfUser(String email, long artworkId) {
+    public User updateFavoriteArtworksOfUser(String email, long artworkId) {
         UserEntity userEntity = findByEmail(email);
         checkIfArtworkExists(artworkId);
         Set<Long> favoriteArtworks = addOrDeleteIdInSet(userEntity.getFavoriteArtworkIds(), artworkId);
         userEntity.setFavoriteArtworkIds(favoriteArtworks);
-        return userRepository.save(userEntity);
+        userRepository.save(userEntity);
+        return userMapper.userDAOtoDTO(userEntity);
     }
 
     @Transactional
     @Override
-    public UserEntity updateOneRequestedArtworkOfUser(String email, long artworkId) {
+    public User updateOneRequestedArtworkOfUser(String email, long artworkId) {
         UserEntity userEntity = findByEmail(email);
         checkIfArtworkExists(artworkId);
         Set<Long> requestedArtworks = addOrDeleteIdInSet(userEntity.getRequestedArtworkIds(), artworkId);
         userEntity.setRequestedArtworkIds(requestedArtworks);
-        return userRepository.save(userEntity);
+        userRepository.save(userEntity);
+        return userMapper.userDAOtoDTO(userEntity);
     }
 
     private void checkIfArtworkExists(long artworkId) {
@@ -211,10 +216,11 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserEntity updateAcceptedEventsOfUser(String email, long eventId) {
+    public User updateAcceptedEventsOfUser(String email, long eventId) {
         UserEntity userEntity = findByEmail(email);
         updateUserInEvent(eventId, userEntity.getId());
-        return updateEventInUser(eventId, userEntity);
+        updateEventInUser(eventId, userEntity);
+        return userMapper.userDAOtoDTO(userEntity);
     }
 
     private void updateUserInEvent(long eventId, UUID userId) {
@@ -225,10 +231,10 @@ public class UserServiceImpl implements UserService {
         eventRepository.save(event);
     }
 
-    private UserEntity updateEventInUser(long eventId, UserEntity userEntity) {
+    private void updateEventInUser(long eventId, UserEntity userEntity) {
         Set<Long> acceptedEvents = addOrDeleteIdInSet(userEntity.getAcceptedEventIds(), eventId);
         userEntity.setAcceptedEventIds(acceptedEvents);
-        return userRepository.save(userEntity);
+        userRepository.save(userEntity);
     }
 
     private <T> Set<T> addOrDeleteIdInSet(Set<T> set, T id) {

@@ -1,7 +1,6 @@
 package com.vincent.gallerybackend.notification.controller;
 
 import com.vincent.gallerybackend.notification.model.Notification;
-import com.vincent.gallerybackend.notification.model.NotificationEntity;
 import com.vincent.gallerybackend.notification.service.NotificationServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,24 +20,24 @@ public class NotificationController {
     private final NotificationServiceImpl notificationServiceImpl;
 
     @GetMapping(value = "/{email}", produces = "application/json")
-    public List<Notification> getNotificationsFromUser(@PathVariable String email) {
+    public ResponseEntity<List<Notification>> getNotificationsFromUser(@PathVariable String email) {
         List<Notification> notifications = notificationServiceImpl.getNotificationsFromUserByUserEmail(email);
         log.info("GET notifications ({}): {}", notifications.size(), notifications);
-        return notifications;
+        return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<NotificationEntity> createNotification(@Valid @RequestBody Notification notification) {
-        NotificationEntity notificationEntity = notificationServiceImpl.createNotification(notification);
+    public ResponseEntity<Notification> createNotification(@Valid @RequestBody Notification notification) {
+        Notification createdNotification = notificationServiceImpl.createNotification(notification);
         log.info("CREATE notification: {}", notification);
-        return new ResponseEntity<>(notificationEntity, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdNotification, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<NotificationEntity> setNotificationAsRead(@PathVariable long id) {
-        NotificationEntity notificationEntity = notificationServiceImpl.setNotificationAsRead(id);
-        log.info("UPDATE notification: {}", notificationEntity);
-        return new ResponseEntity<>(notificationEntity, HttpStatus.OK);
+    public ResponseEntity<Notification> setNotificationAsRead(@PathVariable long id) {
+        Notification notification = notificationServiceImpl.setNotificationAsRead(id);
+        log.info("UPDATE notification: {}", notification);
+        return new ResponseEntity<>(notification, HttpStatus.OK);
     }
 
 }

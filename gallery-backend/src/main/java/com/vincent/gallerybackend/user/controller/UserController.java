@@ -24,10 +24,6 @@ public class UserController {
 
     private final UserServiceImpl userServiceImpl;
 
-//    public UserController(UserServiceImpl userServiceImpl) {
-//        this.userServiceImpl = userServiceImpl;
-//    }
-
     @GetMapping("/me")
     public ResponseEntity<User> getCurrentUser(Authentication authentication) {
         if (authentication == null || authentication.getPrincipal() == null) {
@@ -36,72 +32,72 @@ public class UserController {
         }
         User user = userServiceImpl.getCurrentUser(authentication);
         log.info("GET me: {}", user.getEmail());
-        return ResponseEntity.ok(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{email}", produces = "application/json")
-    public User getUser(@PathVariable String email) {
+    public ResponseEntity<User> getUser(@PathVariable String email) {
         User user = userServiceImpl.getUserByEmail(email);
         log.info("GET user: {}", user.getEmail());
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping()
-    public User getUserByToken(@RequestBody String token) {
+    public ResponseEntity<User> getUserByToken(@RequestBody String token) {
         User user = userServiceImpl.getUserByToken(token);
         log.info("GET user: {}", user.getEmail());
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping(value = "/favoriteArtworkIds/{email}", produces = "application/json")
-    public Set<Long> getFavoriteArtworkIds(@PathVariable String email) {
+    public ResponseEntity<Set<Long>> getFavoriteArtworkIds(@PathVariable String email) {
         Set<Long> favoriteArtworkIds = userServiceImpl.getFavoriteArtworkIdsByEmail(email);
         log.info("GET favorite artwork ids: {}", favoriteArtworkIds);
-        return favoriteArtworkIds;
+        return new ResponseEntity<>(favoriteArtworkIds, HttpStatus.OK);
     }
 
     @GetMapping(value = "/acceptedEventIds/{email}", produces = "application/json")
-    public Set<Long> getAcceptedEventIds(@PathVariable String email) {
+    public ResponseEntity<Set<Long>> getAcceptedEventIds(@PathVariable String email) {
         Set<Long> acceptedEventIds = userServiceImpl.getAcceptedEventIdsByEmail(email);
         log.info("GET accepted event ids: {}", acceptedEventIds);
-        return acceptedEventIds;
+        return new ResponseEntity<>(acceptedEventIds, HttpStatus.OK);
     }
 
     @GetMapping(value = "/notificationIds/{email}", produces = "application/json")
-    public Set<Long> getNotificationIds(@PathVariable String email) {
+    public ResponseEntity<Set<Long>> getNotificationIds(@PathVariable String email) {
         Set<Long> notificationIds = userServiceImpl.getNotificationIdsByEmail(email);
         log.info("GET notification ids: {}", notificationIds);
-        return notificationIds;
+        return new ResponseEntity<>(notificationIds, HttpStatus.OK);
     }
 
     @GetMapping(value = "/favoriteArtworks/{email}", produces = "application/json")
-    public List<Artwork> getFavoriteArtworks(@PathVariable String email) {
+    public ResponseEntity<List<Artwork>> getFavoriteArtworks(@PathVariable String email) {
         List<Artwork> favoriteArtworks = userServiceImpl.getFavoriteArtworksByEmail(email);
         log.info("GET favorite artworks ({})", favoriteArtworks.size());
-        return favoriteArtworks;
+        return new ResponseEntity<>(favoriteArtworks, HttpStatus.OK);
     }
 
     @GetMapping(value = "/requestedArtworks/{email}", produces = "application/json")
-    public List<Artwork> getRequestedArtworks(@PathVariable String email) {
+    public ResponseEntity<List<Artwork>> getRequestedArtworks(@PathVariable String email) {
         List<Artwork> requestedArtworks = userServiceImpl.getRequestedArtworksByEmail(email);
         log.info("GET requested artworks ({})", requestedArtworks.size());
-        return requestedArtworks;
+        return new ResponseEntity<>(requestedArtworks, HttpStatus.OK);
     }
 
     @PostMapping("/login")
-    public AuthResponse loginUser(@RequestBody LoginRequest loginRequest,
+    public ResponseEntity<AuthResponse> loginUser(@RequestBody LoginRequest loginRequest,
                                   HttpServletResponse response) {
         AuthResponse responseEntity = userServiceImpl.loginUser(loginRequest, response);
         log.info("LOGIN user: {}", loginRequest.getEmail());
-        return responseEntity;
+        return new ResponseEntity<>(responseEntity, HttpStatus.OK);
     }
 
     @PostMapping("/register")
-    public AuthResponse registerUser(@RequestBody RegisterRequest registerRequest,
+    public ResponseEntity<AuthResponse> registerUser(@RequestBody RegisterRequest registerRequest,
                                      HttpServletResponse response) {
         AuthResponse responseEntity = userServiceImpl.registerUser(registerRequest, response);
         log.info("REGISTER user: {}", registerRequest.getEmail());
-        return responseEntity;
+        return new ResponseEntity<>(responseEntity, HttpStatus.CREATED);
     }
 
     @PostMapping("/logout")
@@ -112,43 +108,43 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<UserEntity> updateUser(@Valid @RequestBody User newUser) { // Todo: Response type "ResponseEntity<UserEntity>"?
-        UserEntity updatedUserEntity = userServiceImpl.updateUser(newUser);
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User newUser) {
+        User updatedUser = userServiceImpl.updateUser(newUser);
         log.info("UPDATE user: {}", newUser.getEmail());
-        return new ResponseEntity<>(updatedUserEntity, HttpStatus.OK);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
     @PutMapping(value = "/updateLanguage")
-    public ResponseEntity<UserEntity> updateLanguageOfUser(@RequestParam String email,
-                                                           @RequestParam Language language) {
-        UserEntity updatedUserEntity = userServiceImpl.updateLanguageOfUser(email, language);
-        log.info("UPDATE language for user: {}", updatedUserEntity.getEmail());
-        return new ResponseEntity<>(updatedUserEntity, HttpStatus.OK);
+    public ResponseEntity<User> updateLanguageOfUser(@RequestParam String email,
+                                                     @RequestParam Language language) {
+        User updatedUser = userServiceImpl.updateLanguageOfUser(email, language);
+        log.info("UPDATE language for user: {}", updatedUser.getEmail());
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
 
     @PostMapping(value = "/updateOneRequestedArtwork")
-    public ResponseEntity<UserEntity> updateOneRequestedArtworkOfUser(@RequestParam String email,
-                                                                      @RequestParam long artworkId) {
-        UserEntity userEntity = userServiceImpl.updateOneRequestedArtworkOfUser(email, artworkId);
-        log.info("UPDATE one requested artwork for user: {}", userEntity.getEmail());
-        return new ResponseEntity<>(userEntity, HttpStatus.OK);
+    public ResponseEntity<User> updateOneRequestedArtworkOfUser(@RequestParam String email,
+                                                                @RequestParam long artworkId) {
+        User user = userServiceImpl.updateOneRequestedArtworkOfUser(email, artworkId);
+        log.info("UPDATE one requested artwork for user: {}", user.getEmail());
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping(value = "/updateFavoriteArtworks")
-    public ResponseEntity<UserEntity> updateFavoriteArtworksOfUser(@RequestParam String email,
-                                                                   @RequestParam long artworkId) {
-        UserEntity userEntity = userServiceImpl.updateFavoriteArtworksOfUser(email, artworkId);
-        log.info("UPDATE favorite artwork for user: {}", userEntity.getEmail());
-        return new ResponseEntity<>(userEntity, HttpStatus.OK);
+    public ResponseEntity<User> updateFavoriteArtworksOfUser(@RequestParam String email,
+                                                             @RequestParam long artworkId) {
+        User user = userServiceImpl.updateFavoriteArtworksOfUser(email, artworkId);
+        log.info("UPDATE favorite artwork for user: {}", user.getEmail());
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping(value = "/updateAcceptedEvents")
-    public ResponseEntity<UserEntity> updateAcceptedEventsOfUser(@RequestParam String email,
-                                                                 @RequestParam long eventId) {
-        UserEntity userEntity = userServiceImpl.updateAcceptedEventsOfUser(email, eventId);
-        log.info("UPDATE accepted for user: {}", userEntity.getEmail());
-        return new ResponseEntity<>(userEntity, HttpStatus.OK);
+    public ResponseEntity<User> updateAcceptedEventsOfUser(@RequestParam String email,
+                                                           @RequestParam long eventId) {
+        User user = userServiceImpl.updateAcceptedEventsOfUser(email, eventId);
+        log.info("UPDATE accepted for user: {}", user.getEmail());
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 }

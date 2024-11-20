@@ -41,6 +41,7 @@ import {MatInput} from "@angular/material/input";
 export class RequestArtworkComponent implements OnInit, OnDestroy {
   artwork: Artwork | undefined;
   isFavorite: boolean = false;
+  formsAreValid: boolean = false;
 
   form: FormGroup = this.fb.group({
     notification: ['', [
@@ -61,6 +62,7 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscribeToUser();
+    this.subscribeToCheckboxChanges();
   }
 
   private subscribeToUser() {
@@ -98,6 +100,12 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
     });
   }
 
+  private subscribeToCheckboxChanges(): void {
+    this.form.valueChanges.subscribe(() => {
+      this.formsAreValid = this.checkIfFormsAreValid();
+    });
+  }
+
   onRequestSubmitted(): void {
     if (this.checkIfFormsAreValid()) { // TODO: Comment in for Live
       const formNotification: string = this.form.get("notification")?.value;
@@ -107,8 +115,9 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
 
   private checkIfFormsAreValid(): boolean {
     const formNotification: string = this.form.get("notification")?.value;
+    const formConformation: string = this.form.get("confirmation")?.value;
     const formIsValid: boolean = this.form.valid;
-    return formIsValid && !!formNotification;
+    return formIsValid && !!formNotification && !!formConformation;
   }
 
   ngOnDestroy(): void {

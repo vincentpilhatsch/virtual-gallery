@@ -1,7 +1,6 @@
 package com.vincent.gallerybackend.exhibition.controller;
 
 import com.vincent.gallerybackend.exhibition.model.Exhibition;
-import com.vincent.gallerybackend.exhibition.model.ExhibitionEntity;
 import com.vincent.gallerybackend.exhibition.service.ExhibitionServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,33 +21,33 @@ public class ExhibitionController {
     private final ExhibitionServiceImpl exhibitionServiceImpl;
 
     @GetMapping(value = "/all", produces = "application/json")
-    public List<Exhibition> getExhibitions() {
+    public ResponseEntity<List<Exhibition>> getExhibitions() {
         List<Exhibition> exhibitions = exhibitionServiceImpl.getExhibitions();
         log.info("GET ALL exhibitions ({})", exhibitions.size());
-        return exhibitions;
+        return new ResponseEntity<>(exhibitions, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public Exhibition getExhibition(@PathVariable long id) {
+    public ResponseEntity<Exhibition> getExhibition(@PathVariable long id) {
         Exhibition exhibition = exhibitionServiceImpl.getExhibitionById(id);
         log.info("GET exhibition: {}", exhibition.getTitle());
-        return exhibition;
+        return new ResponseEntity<>(exhibition, HttpStatus.OK);
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<ExhibitionEntity> createExhibition(@Valid @RequestPart("exhibition") Exhibition exhibition, // RequestParam?
-                                                             @RequestPart("file") MultipartFile imageFile) {
-        ExhibitionEntity exhibitionEntity = exhibitionServiceImpl.createExhibition(exhibition, imageFile);
+    public ResponseEntity<Exhibition> createExhibition(@Valid @RequestPart("exhibition") Exhibition exhibition,
+                                                       @RequestPart("file") MultipartFile imageFile) {
+        Exhibition createdExhibition = exhibitionServiceImpl.createExhibition(exhibition, imageFile);
         log.info("CREATE exhibition: {}", exhibition.getTitle());
-        return new ResponseEntity<>(exhibitionEntity, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdExhibition, HttpStatus.CREATED);
     }
 
     @PutMapping(produces = "application/json")
-    public ResponseEntity<ExhibitionEntity> updateExhibition(@Valid @RequestPart("exhibition") Exhibition newExhibition,
-                                                             @RequestPart("file") MultipartFile imageFile) {
-        ExhibitionEntity exhibitionEntity = exhibitionServiceImpl.updateExhibition(newExhibition, imageFile);
+    public ResponseEntity<Exhibition> updateExhibition(@Valid @RequestPart("exhibition") Exhibition newExhibition,
+                                                       @RequestPart("file") MultipartFile imageFile) {
+        Exhibition exhibition = exhibitionServiceImpl.updateExhibition(newExhibition, imageFile);
         log.info("UPDATE exhibition: {}", newExhibition.getTitle());
-        return new ResponseEntity<>(exhibitionEntity, HttpStatus.OK);
+        return new ResponseEntity<>(exhibition, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

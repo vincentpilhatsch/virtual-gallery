@@ -34,14 +34,14 @@ public interface UserService {
 
     void logoutUser(HttpServletResponse response);
 
-    UserEntity updateUser(User user);
+    User updateUser(User user);
 
-    UserEntity updateLanguageOfUser(String email, Language language);
+    User updateLanguageOfUser(String email, Language language);
 
-    UserEntity updateFavoriteArtworksOfUser(String email, long artworkId);
+    User updateFavoriteArtworksOfUser(String email, long artworkId);
 
-    UserEntity updateAcceptedEventsOfUser(String email, long eventId);
+    User updateAcceptedEventsOfUser(String email, long eventId);
 
-    UserEntity updateOneRequestedArtworkOfUser(String email, long eventId);
+    User updateOneRequestedArtworkOfUser(String email, long eventId);
 
 }

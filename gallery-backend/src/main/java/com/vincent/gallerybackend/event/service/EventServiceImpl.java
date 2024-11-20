@@ -42,18 +42,20 @@ public class EventServiceImpl implements EventService {
 
     @Transactional()
     @Override
-    public EventEntity createEvent(Event event, MultipartFile imageFile) {
+    public Event createEvent(Event event, MultipartFile imageFile) {
         EventEntity eventEntity = eventMapper.eventDTOtoDAO(event);
-        return eventRepository.save(eventEntity);
+        eventRepository.save(eventEntity);
+        return eventMapper.eventDAOtoDTO(eventEntity);
     }
 
     @Transactional()
     @Override
-    public EventEntity updateEvent(Event newEvent, MultipartFile imageFile) {
+    public Event updateEvent(Event newEvent, MultipartFile imageFile) {
         EventEntity oldEvent = findById(newEvent.getId());
         EventEntity updatedEventEntity = eventMapper.updateEventDTOtoDAO(oldEvent, newEvent);
         setEventImage(updatedEventEntity, imageFile);
-        return eventRepository.save(updatedEventEntity);
+        eventRepository.save(updatedEventEntity);
+        return eventMapper.eventDAOtoDTO(updatedEventEntity);
     }
 
     private void setEventImage(EventEntity eventEntity, MultipartFile imageFile) {

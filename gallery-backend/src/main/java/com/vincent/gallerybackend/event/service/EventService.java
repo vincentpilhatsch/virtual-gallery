@@ -1,7 +1,6 @@
 package com.vincent.gallerybackend.event.service;
 
 import com.vincent.gallerybackend.event.model.Event;
-import com.vincent.gallerybackend.event.model.EventEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,9 +13,9 @@ public interface EventService {
 
     Event getEventById(long id);
 
-    EventEntity createEvent(Event event, MultipartFile multipartFile);
+    Event createEvent(Event event, MultipartFile multipartFile);
 
-    EventEntity updateEvent(Event event, MultipartFile multipartFile);
+    Event updateEvent(Event event, MultipartFile multipartFile);
 
     void deleteEvent(long id);
 

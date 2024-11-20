@@ -1,7 +1,6 @@
 package com.vincent.gallerybackend.exhibition.service;
 
 import com.vincent.gallerybackend.exhibition.model.Exhibition;
-import com.vincent.gallerybackend.exhibition.model.ExhibitionEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,9 +13,9 @@ public interface ExhibitionService {
 
     Exhibition getExhibitionById(long id);
 
-    ExhibitionEntity createExhibition(Exhibition exhibition, MultipartFile multipartFile);
+    Exhibition createExhibition(Exhibition exhibition, MultipartFile multipartFile);
 
-    ExhibitionEntity updateExhibition(Exhibition exhibition, MultipartFile multipartFile);
+    Exhibition updateExhibition(Exhibition exhibition, MultipartFile multipartFile);
 
     void deleteExhibition(long id);
 

@@ -1,7 +1,6 @@
 package com.vincent.gallerybackend.artwork.controller;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
-import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
 import com.vincent.gallerybackend.artwork.service.ArtworkServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,33 +32,33 @@ public class ArtworkController {
     }
 
     @GetMapping(value = "/random", produces = "application/json")
-    public List<Artwork> getRandomArtworks(@RequestParam int numberOfArtworks) {
+    public ResponseEntity<List<Artwork>> getRandomArtworks(@RequestParam int numberOfArtworks) {
         List<Artwork> artworks = artworkServiceImpl.getRandomArtworks(numberOfArtworks);
         log.info("GET ALL random artworks ({})", artworks.size());
-        return artworks;
+        return new ResponseEntity<>(artworks, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public Artwork getArtwork(@PathVariable long id) {
+    public ResponseEntity<Artwork> getArtwork(@PathVariable long id) {
         Artwork artwork = artworkServiceImpl.getArtworkById(id);
         log.info("GET artwork with id: {}", artwork.getId());
-        return artwork;
+        return new ResponseEntity<>(artwork, HttpStatus.OK);
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<ArtworkEntity> createArtwork(@Valid @RequestPart("artwork") Artwork artwork,
+    public ResponseEntity<Artwork> createArtwork(@Valid @RequestPart("artwork") Artwork artwork,
                                                        @RequestPart("file") MultipartFile imageFile) {
-        ArtworkEntity artworkEntity = artworkServiceImpl.createArtwork(artwork, imageFile);
+        Artwork createdEntity = artworkServiceImpl.createArtwork(artwork, imageFile);
         log.info("CREATE artwork with id: {}", artwork.getId());
-        return new ResponseEntity<>(artworkEntity, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdEntity, HttpStatus.CREATED);
     }
 
     @PutMapping(produces = "application/json")
-    public ResponseEntity<ArtworkEntity> updateArtwork(@Valid @RequestPart("artwork") Artwork newArtwork,
+    public ResponseEntity<Artwork> updateArtwork(@Valid @RequestPart("artwork") Artwork newArtwork,
                                                        @RequestPart("file") MultipartFile imageFile) {
-        ArtworkEntity updatedArtworkEntity = artworkServiceImpl.updateArtwork(newArtwork, imageFile);
+        Artwork updatedArtwork = artworkServiceImpl.updateArtwork(newArtwork, imageFile);
         log.info("UPDATE artwork with id: {}", newArtwork.getId());
-        return new ResponseEntity<>(updatedArtworkEntity, HttpStatus.OK);
+        return new ResponseEntity<>(updatedArtwork, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

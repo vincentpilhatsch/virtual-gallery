@@ -42,18 +42,20 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 
     @Transactional()
     @Override
-    public ExhibitionEntity createExhibition(Exhibition exhibition, MultipartFile imageFile) {
+    public Exhibition createExhibition(Exhibition exhibition, MultipartFile imageFile) {
         ExhibitionEntity exhibitionEntity = exhibitionMapper.exhibitionDTOtoDAO(exhibition);
-        return exhibitionRepository.save(exhibitionEntity);
+        exhibitionRepository.save(exhibitionEntity);
+        return exhibitionMapper.exhibitionDAOtoDTO(exhibitionEntity);
     }
 
     @Transactional()
     @Override
-    public ExhibitionEntity updateExhibition(Exhibition newExhibition, MultipartFile imageFile) {
+    public Exhibition updateExhibition(Exhibition newExhibition, MultipartFile imageFile) {
         ExhibitionEntity oldExhibition = findById(newExhibition.getId());
         ExhibitionEntity updatedExhibitionEntity = exhibitionMapper.updateExhibitionDTOtoDAO(oldExhibition, newExhibition);
         setExhibitionImage(updatedExhibitionEntity, imageFile);
-        return exhibitionRepository.save(updatedExhibitionEntity);
+        exhibitionRepository.save(updatedExhibitionEntity);
+        return exhibitionMapper.exhibitionDAOtoDTO(updatedExhibitionEntity);
     }
 
     private void setExhibitionImage(ExhibitionEntity exhibitionEntity, MultipartFile imageFile) {

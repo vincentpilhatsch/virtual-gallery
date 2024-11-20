@@ -28,7 +28,8 @@
   // Tab
   .mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
     --mdc-tab-indicator-active-indicator-color: black !important;
-    --mat-tab-header-active-focus-indicator-color: #000000 !important;
+    --mat-tab-header-active-focus-indicator-color: black !important;
+    --mat-tab-header-active-hover-indicator-color: black !important;
   }
 }
 

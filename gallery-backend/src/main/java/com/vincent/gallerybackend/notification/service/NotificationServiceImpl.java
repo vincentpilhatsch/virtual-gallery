@@ -35,11 +35,12 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Transactional()
     @Override
-    public NotificationEntity createNotification(Notification notification) {
+    public Notification createNotification(Notification notification) {
         NotificationEntity notificationEntity = notificationMapper.notificationDTOtoDAO(notification);
         notificationEntity.setDateTime(LocalDateTime.now());
         sendNewNotificationToAllUsers(notification);
-        return notificationRepository.save(notificationEntity);
+        notificationRepository.save(notificationEntity);
+        return notificationMapper.notificationDAOtoDTO(notificationEntity);
     }
 
     private void sendNewNotificationToAllUsers(Notification notification) {
@@ -54,11 +55,12 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Transactional()
     @Override
-    public NotificationEntity setNotificationAsRead(long id) {
+    public Notification setNotificationAsRead(long id) {
         NotificationEntity notificationEntity = notificationRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Notification not found"));
         notificationEntity.setRead(true);
-        return notificationRepository.save(notificationEntity);
+        notificationRepository.save(notificationEntity);
+        return notificationMapper.notificationDAOtoDTO(notificationEntity);
     }
 
 }

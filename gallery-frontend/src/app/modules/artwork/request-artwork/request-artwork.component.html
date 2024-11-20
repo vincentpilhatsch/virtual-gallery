@@ -60,7 +60,6 @@
                     formControlName="notification"
                     rows="4"></textarea>
         </mat-form-field>
-        <!-- TODO: VALIDATION FOR CHECKBOX IS NOT WORKING PROPERLY -->
         <mat-checkbox formControlName="confirmation">
           <p class="text-one">Ich bestätige Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
         </mat-checkbox>
@@ -69,7 +68,7 @@
     <button mat-stroked-button
             class="button-one"
             (click)="onRequestSubmitted()"
-            [disabled]="form.invalid">
+            [disabled]="!formsAreValid">
       Anfrage stellen
     </button>
   </div>
