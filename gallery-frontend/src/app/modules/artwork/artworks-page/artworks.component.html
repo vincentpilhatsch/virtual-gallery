@@ -1,12 +1,12 @@
 <div class="container">
   <p class="title-one">Kunstwerke</p>
   <div class="filter-container">
-    <form>
       <mat-form-field>
         <mat-label>Suchen...</mat-label>
-        <input matInput>
+        <input matInput
+               [(ngModel)]="searchQuery"
+               (keyup)="onSearch()">
       </mat-form-field>
-    </form>
     <div class="filter">
     </div>
   </div>

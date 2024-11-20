@@ -9,6 +9,7 @@ import {forkJoin, Subscription} from "rxjs";
 import {UserService} from "../../user/services/user.service";
 import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
 import {NgClass} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-artworks',
@@ -19,7 +20,8 @@ import {NgClass} from "@angular/common";
     MatLabel,
     ArtworkCardComponent,
     HttpClientModule,
-    NgClass
+    NgClass,
+    FormsModule
   ],
   templateUrl: './artworks.component.html',
   styleUrl: './artworks.component.scss',
@@ -31,6 +33,9 @@ export class ArtworksComponent implements OnInit, OnDestroy {
   artworks: Artwork[] = [];
   groupedArtworks: Artwork[][] = [];
   favoriteIds: number[] = [];
+
+  filteredArtworks: Artwork[] = [];
+  searchQuery: string = '';
 
   subscriptions: Subscription[] = [];
 
@@ -74,6 +79,7 @@ export class ArtworksComponent implements OnInit, OnDestroy {
         next: ([artworks, favoriteArtworkIds]: [Artwork[], number[]]): void => {
           this.artworks = artworks;
           this.favoriteIds = favoriteArtworkIds;
+          this.filteredArtworks = artworks;
           this.setGroupedArtworks();
         },
         error: (err: HttpErrorResponse): void => {
@@ -87,6 +93,7 @@ export class ArtworksComponent implements OnInit, OnDestroy {
     this.artworkService.getArtworks().subscribe({
       next: (res: Artwork[]): void => {
         this.artworks = res;
+        this.filteredArtworks = res;
         this.setGroupedArtworks();
       },
       error: (err: HttpErrorResponse): void => {
@@ -95,10 +102,21 @@ export class ArtworksComponent implements OnInit, OnDestroy {
     })
   }
 
+  onSearch(): void {
+    if (this.searchQuery.trim()) {
+      this.filteredArtworks = this.artworks.filter((artwork) =>
+        artwork.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    } else {
+      this.filteredArtworks = this.artworks;
+    }
+    this.setGroupedArtworks();
+  }
+
   private setGroupedArtworks(): void {
     this.groupedArtworks = [];
-    for (let i = 0; i < this.artworks.length; i += this.artworksPerRow) {
-      this.groupedArtworks.push(this.artworks.slice(i, i + this.artworksPerRow));
+    for (let i = 0; i < this.filteredArtworks.length; i += this.artworksPerRow) {
+      this.groupedArtworks.push(this.filteredArtworks.slice(i, i + this.artworksPerRow));
     }
   }
 
