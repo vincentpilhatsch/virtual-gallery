@@ -109,7 +109,6 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
   onRequestSubmitted(): void {
     if (this.checkIfFormsAreValid()) { // TODO: Comment in for Live
       const formNotification: string = this.form.get("notification")?.value;
-      console.log(formNotification);
     }
   }
 

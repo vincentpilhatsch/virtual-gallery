@@ -30,7 +30,7 @@ export class SnackBarService {
       duration: 3500,
     });
   }
-
+ 
   openSnackBarByJSON(icon: string, json: string) {
     const message: string = this.translateService.instant(json);
     this.matSnackBar.openFromComponent(SnackBarComponent, {

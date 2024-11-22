@@ -27,6 +27,7 @@ import {MatIcon} from "@angular/material/icon";
 export class RequestedArtworksComponent implements OnInit {
   @Input() userFromParent: User | undefined;
 
+  artworksPerRow = 3;
   groupedArtworks: Artwork[][] = [];
 
   constructor(private readonly userService: UserService,
@@ -52,8 +53,8 @@ export class RequestedArtworksComponent implements OnInit {
   }
 
   private setGroupedArtworks(favoriteArtworks: Artwork[]): void {
-    for (let i = 0; i < favoriteArtworks.length; i += 3) {
-      this.groupedArtworks.push(favoriteArtworks.slice(i, i + 3));
+    for (let i = 0; i < favoriteArtworks.length; i += this.artworksPerRow) {
+      this.groupedArtworks.push(favoriteArtworks.slice(i, i + this.artworksPerRow));
     }
   }
 

@@ -1,7 +1,14 @@
-@for (group of groupedArtworks; track $index) {
-  <div class="inner-artwork-container">
-    @for (artwork of group; track artwork.id) {
-      <app-artwork-card [artwork]="artwork" [favoriteArtworkIds]="favoriteArtworkIds"></app-artwork-card>
-    }
+@if (this.groupedArtworks.length > 0) {
+  @for (group of groupedArtworks; track $index) {
+    <div class="inner-artwork-container">
+      @for (artwork of group; track artwork.id) {
+        <app-artwork-card [artwork]="artwork" [favoriteArtworkIds]="favoriteArtworkIds"></app-artwork-card>
+      }
+    </div>
+  }
+} @else {
+  <div class="not-found-container">
+    <!--    <mat-icon fontIcon="sentiment_very_dissatisfied"></mat-icon>-->
+    <p class="text-one">Keine angefragten Kunstwerke vorhanden</p>
   </div>
 }

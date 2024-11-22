@@ -14,7 +14,6 @@
         <p class="price">{{ artwork.price | moneyConverter }}</p>
       </div>
       <div class="second-text-container">
-        <!-- Show favorite-icon only if user is logged in -> favoriteArtworksIds are present -->
         @if (favoriteArtworkIds) {
           <app-favorite-icon [artworkId]="artwork.id" [isFavorite]="isFavorite"></app-favorite-icon>
         }

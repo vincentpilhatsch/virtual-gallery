@@ -6,12 +6,14 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {ArtworkCardComponent} from "../../../artwork/artwork-card/artwork-card.component";
 import {Subscription} from "rxjs";
 import {User} from "../../model/user";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-favorite-artworks',
   standalone: true,
   imports: [
-    ArtworkCardComponent
+    ArtworkCardComponent,
+    MatIcon
   ],
   templateUrl: './favorite-artworks.component.html',
   styleUrl: './favorite-artworks.component.scss',
