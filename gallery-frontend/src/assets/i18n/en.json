@@ -9,5 +9,11 @@
     "default.message": "An error has occurred",
     "incorrect.email.or.password": "Provided email address or password is wrong",
     "invalid.date": "Invalid date"
+  },
+  "language": {
+    "german": "German",
+    "english": "English",
+    "french": "French",
+    "italian": "Italian"
   }
 }

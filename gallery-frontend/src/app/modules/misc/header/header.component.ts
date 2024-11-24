@@ -12,6 +12,7 @@ import {FormsModule} from "@angular/forms";
 import {LanguageService} from "../../user/services/language.service";
 import {User} from "../../user/model/user";
 import {HttpErrorResponse} from "@angular/common/http";
+import {LanguageStringTranslatorPipe} from "../pipes/language-string-translator.pipe";
 
 @Component({
   selector: 'app-header',
@@ -28,7 +29,8 @@ import {HttpErrorResponse} from "@angular/common/http";
     MatLabel,
     MatSelect,
     MatOption,
-    FormsModule
+    FormsModule,
+    LanguageStringTranslatorPipe
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
