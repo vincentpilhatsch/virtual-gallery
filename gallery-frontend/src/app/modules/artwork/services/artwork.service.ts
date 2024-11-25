@@ -10,7 +10,7 @@ import {environment} from "../../environment";
 export class ArtworkService {
   readonly endpoint: string = `${environment.apiUrl}/artwork`;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private readonly httpClient: HttpClient) {
   }
 
   getArtworks(): Observable<Artwork[]> {

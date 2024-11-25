@@ -1,14 +1,12 @@
-package com.vincent.gallerybackend.artwork;
+package com.vincent.gallerybackend.artworkrequest.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "gallery_artwork_request")
@@ -29,7 +27,7 @@ public class ArtworkRequestEntity {
     @NotNull
     private LocalDateTime requestTime;
 
-    private long userId;
+    private UUID userId;
 
     private long artworkId;
 

@@ -1,5 +1,5 @@
 export interface Artwork {
-  id: number, // id notwendig?
+  id: number,
   title: string,
   width: number,
   height: number,

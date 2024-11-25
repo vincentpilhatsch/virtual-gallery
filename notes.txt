@@ -19,6 +19,7 @@ Angluar:
 Spring Boot:
 - Liquibase (changelog, init Data)
 - @Transactional
+- DTO, DAO
 - H2 in-memory -> damit bei Testing jeder Tests zurückgesetzt wird und viel mehr...
 - Probleme mit Bilder-Ladegeschwindigkeit
 	- Caching von Bildern

@@ -1,4 +1,4 @@
-package com.vincent.gallerybackend.artwork;
+package com.vincent.gallerybackend.artworkrequest.model;
 
 import lombok.*;
 

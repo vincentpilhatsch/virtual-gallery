@@ -47,7 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         } catch (ExpiredJwtException e) {
-            log.info("JWT is expired: {}", e.getMessage());
+            log.error("JWT is expired: {}", e.getMessage());
             cookieUtils.deleteJwtCookie(response);
         } catch (Exception e) {
             log.error("Error extracting username from JWT: {}", e.getMessage());

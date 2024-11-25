@@ -2,7 +2,7 @@ import {LanguageEnum} from "./language.enum";
 import {RoleEnum} from "./role.enum";
 
 export interface User {
-  id: string, // id notwendig?
+  id: string,
   firstName: string,
   lastName: string,
   email: string,
