@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Artwork> getRequestedArtworksByEmail(String email) {
         UserEntity userEntity = findByEmail(email);
-        Set<Long> artworkIds = userEntity.getRequestedArtworkIds();
+        Set<Long> artworkIds = userEntity.getArtworkRequestIds();
         List<ArtworkEntity> artworkEntities = artworkRepository.findAllById(artworkIds);
         return artworkMapper.artworksDAOtoDTO(artworkEntities);
     }
@@ -201,8 +201,8 @@ public class UserServiceImpl implements UserService {
     public User updateOneRequestedArtworkOfUser(String email, long artworkId) {
         UserEntity userEntity = findByEmail(email);
         checkIfArtworkExists(artworkId);
-        Set<Long> requestedArtworks = addOrDeleteIdInSet(userEntity.getRequestedArtworkIds(), artworkId);
-        userEntity.setRequestedArtworkIds(requestedArtworks);
+        Set<Long> requestedArtworks = addOrDeleteIdInSet(userEntity.getArtworkRequestIds(), artworkId);
+        userEntity.setArtworkRequestIds(requestedArtworks);
         userRepository.save(userEntity);
         return userMapper.userDAOtoDTO(userEntity);
     }

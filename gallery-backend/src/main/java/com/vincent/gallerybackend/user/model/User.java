@@ -22,7 +22,7 @@ public class User {
     private Language language;
     private Role role;
     private Set<Long> favoriteArtworkIds;
-    private Set<Long> requestedArtworkIds;
+    private Set<Long> artworkRequestIds;
     private Set<Long> acceptedEventIds;
     private Set<Long> notificationIds;
 

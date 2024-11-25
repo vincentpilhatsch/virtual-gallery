@@ -20,9 +20,9 @@ public interface UserMapper {
     @Mapping(target = "language", source = "newUser.language")
     @Mapping(target = "role", source = "newUser.role")
     @Mapping(target = "favoriteArtworkIds", source = "newUser.favoriteArtworkIds")
-    @Mapping(target = "requestedArtworkIds", source = "newUser.requestedArtworkIds")
     @Mapping(target = "acceptedEventIds", source = "newUser.acceptedEventIds")
     @Mapping(target = "notificationIds", source = "newUser.notificationIds")
+    @Mapping(target = "artworkRequestIds", source = "newUser.artworkRequestIds")
     UserEntity updateUserDTOtoDAO(UserEntity oldUser, User newUser);
 
 }

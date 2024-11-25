@@ -34,7 +34,7 @@ public class EventEntity {
     private byte[] image;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "confirmed_users", joinColumns = @JoinColumn(name = "event_id"))
+    @CollectionTable(name = "event_confirmed_users", joinColumns = @JoinColumn(name = "event_id"))
     @Column(name = "user_id")
     private Set<UUID> confirmedUserIds;
 
