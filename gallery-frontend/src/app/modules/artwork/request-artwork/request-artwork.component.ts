@@ -15,6 +15,8 @@ import {MoneyConverterPipe} from "../pipes/money-converter.pipe";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {ArtworkRequest} from "../model/artworkRequest";
+import {ArtworkRequestService} from "../services/artwork-request.service";
 
 @Component({
   selector: 'app-request-artwork',
@@ -44,7 +46,7 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
   formsAreValid: boolean = false;
 
   form: FormGroup = this.fb.group({
-    notification: ['', [
+    description: ['', [
       Validators.required,
     ]],
     confirmation: ['', [
@@ -56,6 +58,7 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
 
   constructor(protected userService: UserService,
               private readonly artworkService: ArtworkService,
+              private readonly artworkRequestService: ArtworkRequestService,
               private readonly route: ActivatedRoute,
               private readonly fb: FormBuilder) {
   }
@@ -107,13 +110,26 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
   }
 
   onRequestSubmitted(): void {
-    if (this.checkIfFormsAreValid()) { // TODO: Comment in for Live
-      const formNotification: string = this.form.get("notification")?.value;
+    if (this.checkIfFormsAreValid() && this.userService.user?.id && this.artwork?.id) { // TODO: Comment in for Live
+      const formNotification: string = this.form.get("description")?.value;
+      const artworkRequest: ArtworkRequest = {
+        description: formNotification,
+        userId: this.userService.user.id,
+        artworkId: this.artwork.id
+      }
+      this.artworkRequestService.createArtworkRequest(artworkRequest).subscribe({
+        next: (res: ArtworkRequest): void => {
+          console.log(res);
+        },
+        error: (err: HttpErrorResponse): void => {
+          console.error(err);
+        }
+      })
     }
   }
 
   private checkIfFormsAreValid(): boolean {
-    const formNotification: string = this.form.get("notification")?.value;
+    const formNotification: string = this.form.get("description")?.value;
     const formConformation: string = this.form.get("confirmation")?.value;
     const formIsValid: boolean = this.form.valid;
     return formIsValid && !!formNotification && !!formConformation;

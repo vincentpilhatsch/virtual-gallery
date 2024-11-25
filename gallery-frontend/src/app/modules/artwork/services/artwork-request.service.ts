@@ -7,19 +7,30 @@ import {ArtworkRequest} from "../model/artworkRequest";
 @Injectable({
   providedIn: 'root'
 })
-export class ArtworkService {
+export class ArtworkRequestService {
   readonly endpoint: string = `${environment.apiUrl}/artwork-request`;
 
   constructor(private readonly httpClient: HttpClient) {
   }
 
-  getArtworks(): Observable<ArtworkRequest[]> {
+  getArtworkRequests(): Observable<ArtworkRequest[]> {
     const url: string = `${this.endpoint}/all`;
     return this.httpClient.get<ArtworkRequest[]>(url);
   }
 
-  getArtworkById(id: number): Observable<ArtworkRequest> {
+  getArtworkRequestById(id: number): Observable<ArtworkRequest> {
     const url: string = `${this.endpoint}/${id}`;
     return this.httpClient.get<ArtworkRequest>(url);
   }
+
+  createArtworkRequest(artworkRequest: ArtworkRequest): Observable<ArtworkRequest> {
+    const url: string = `${this.endpoint}`;
+    return this.httpClient.post<ArtworkRequest>(url, artworkRequest);
+  }
+
+  deleteArtworkById(id: number): Observable<void> {
+    const url: string = `${this.endpoint}}/${id}`;
+    return this.httpClient.delete<void>(url);
+  }
+
 }
