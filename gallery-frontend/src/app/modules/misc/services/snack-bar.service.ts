@@ -27,17 +27,17 @@ export class SnackBarService {
       data: {icon, message},
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
-      duration: 3500,
+      duration: 3000,
     });
   }
- 
+
   openSnackBarByJSON(icon: string, json: string) {
     const message: string = this.translateService.instant(json);
     this.matSnackBar.openFromComponent(SnackBarComponent, {
       data: {icon, message},
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
-      duration: 3500,
+      duration: 3000,
     });
   }
 

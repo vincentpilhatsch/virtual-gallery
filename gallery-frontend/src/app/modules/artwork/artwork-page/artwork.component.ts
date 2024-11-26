@@ -12,6 +12,7 @@ import {ArtworkCardComponent} from "../artwork-card/artwork-card.component";
 import {UserService} from "../../user/services/user.service";
 import {forkJoin, Subscription} from "rxjs";
 import {MoneyConverterPipe} from "../pipes/money-converter.pipe";
+import {ArtworkRequest} from "../model/artworkRequest";
 
 @Component({
   selector: 'app-artwork',
@@ -39,6 +40,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
 
   favoriteIds: number[] = [];
   isFavorite: boolean = false;
+  isRequested: boolean = false;
 
   constructor(protected userService: UserService,
               private readonly route: ActivatedRoute,
@@ -68,7 +70,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       if (id) {
         const convertedId = Number(id);
         if (email) {
-          this.loadArtworkAndFavoriteIds(convertedId, email);
+          this.loadArtworkAndFavoriteIdsAndArtworkRequests(convertedId, email);
         } else {
           this.loadArtwork(convertedId);
         }
@@ -76,15 +78,19 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     });
   }
 
-  private loadArtworkAndFavoriteIds(id: number, email: string): void {
+  private loadArtworkAndFavoriteIdsAndArtworkRequests(id: number, email: string): void {
     forkJoin({
       artwork: this.artworkService.getArtworkById(id),
-      favoriteIds: this.userService.getFavoriteArtworkIdsByEmail(email)
+      favoriteIds: this.userService.getFavoriteArtworkIdsByEmail(email),
+      artworkRequests: this.userService.getArtworkRequestsByEmail(email)
     }).subscribe({
-      next: (res: { artwork: Artwork, favoriteIds: number[] }): void => {
+      next: (res: { artwork: Artwork, favoriteIds: number[], artworkRequests: ArtworkRequest[] }): void => {
         this.artwork = res.artwork;
         this.favoriteIds = res.favoriteIds;
         this.isFavorite = res.favoriteIds.includes(this.artwork.id);
+        this.isRequested = res.artworkRequests.some((artworkRequest: ArtworkRequest) =>
+          artworkRequest.artworkId === res.artwork.id
+        );
       },
       error: (err: HttpErrorResponse): void => {
         console.error(err);

@@ -3,7 +3,8 @@
     "button.artworks": "Kunstwerke"
   },
   "snackbar": {
-    "login.expired": "Deine Anmeldung ist abgelaufen"
+    "login.expired": "Deine Anmeldung ist abgelaufen",
+    "artwork.requested": "Du hast das Kunstwerk erfolgreich angefragt"
   },
   "error": {
     "default.message": "Ein Fehler ist aufgetreten",

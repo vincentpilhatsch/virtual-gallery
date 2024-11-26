@@ -2,6 +2,7 @@ package com.vincent.gallerybackend.user.controller;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
 import com.vincent.gallerybackend.artworkrequest.model.ArtworkAndArtworkRequest;
+import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequest;
 import com.vincent.gallerybackend.user.model.*;
 import com.vincent.gallerybackend.user.service.UserServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
@@ -79,13 +80,20 @@ public class UserController {
     }
 
     @GetMapping(value = "/artworksAndArtworkRequests/{email}", produces = "application/json")
-    public ResponseEntity<List<ArtworkAndArtworkRequest>> getArtworksAndArtworkRequestsOfUser(
+    public ResponseEntity<List<ArtworkAndArtworkRequest>> getArtworksAndArtworkRequests(
             @PathVariable String email
     ) {
         List<ArtworkAndArtworkRequest> artworksAndArtworkRequests =
                 userServiceImpl.getArtworksAndArtworkRequestsOfUser(email);
         log.info("GET artwork and artwork requests ({})", artworksAndArtworkRequests.size());
         return new ResponseEntity<>(artworksAndArtworkRequests, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/artworkRequests/{email}", produces = "application/json")
+    public ResponseEntity<List<ArtworkRequest>> getArtworkRequests(@PathVariable String email) {
+        List<ArtworkRequest> artworkRequests = userServiceImpl.getArtworkRequestsByEmail(email);
+        log.info("GET artwork requests for user ({})", artworkRequests.size());
+        return new ResponseEntity<>(artworkRequests, HttpStatus.OK);
     }
 
     @PostMapping("/login")
@@ -141,14 +149,4 @@ public class UserController {
         log.info("UPDATE accepted for user: {}", user.getEmail());
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-
-    @PostMapping(value = "/updateOneRequestedArtwork")
-    public ResponseEntity<User> updateOneRequestedArtworkOfUser(@RequestParam String email,
-                                                                @RequestParam long artworkId) {
-        User user = userServiceImpl.updateOneRequestedArtworkOfUser(email, artworkId);
-        log.info("UPDATE one requested artwork for user: {}", user.getEmail());
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-
 }

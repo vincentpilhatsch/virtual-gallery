@@ -3,7 +3,8 @@
     "button.artworks": "Artworks"
   },
   "snackbar": {
-    "login.expired": "Your login has expired"
+    "login.expired": "Your login has expired",
+    "artwork.requested": "You have successfully requested the artwork"
   },
   "error": {
     "default.message": "An error has occurred",

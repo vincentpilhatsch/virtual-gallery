@@ -44,7 +44,7 @@
           </div>
         </mat-list-item>
       </mat-list>
-      @if (!artwork.sold && userService.user) {
+      @if (!artwork.sold && userService.user && !isRequested) {
         <button mat-stroked-button class="button-one" [routerLink]="['/kunstwerk-anfragen', artwork.id]">
           Anfrage stellen
         </button>

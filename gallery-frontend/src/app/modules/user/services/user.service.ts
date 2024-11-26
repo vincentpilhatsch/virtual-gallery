@@ -8,6 +8,7 @@ import {LoginRequest} from "../model/loginRequest";
 import {AuthResponse} from "../model/authResponse";
 import {RegisterRequest} from "../model/registerRequest";
 import {ArtworkAndArtworkRequest} from "../../artwork/model/artworkAndArtworkRequest";
+import {ArtworkRequest} from "../../artwork/model/artworkRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -73,9 +74,14 @@ export class UserService {
     return this.httpClient.get<Artwork[]>(url);
   }
 
-  getRequestedArtworksByEmail(email: string): Observable<ArtworkAndArtworkRequest[]> {
+  getArtworksAndArtworkRequestsByEmail(email: string): Observable<ArtworkAndArtworkRequest[]> {
     const url: string = `${this.endpoint}/artworksAndArtworkRequests/${email}`;
     return this.httpClient.get<ArtworkAndArtworkRequest[]>(url);
+  }
+
+  getArtworkRequestsByEmail(email: string): Observable<ArtworkRequest[]> {
+    const url: string = `${this.endpoint}/artworkRequests/${email}`;
+    return this.httpClient.get<ArtworkRequest[]>(url);
   }
 
   login(loginForm: LoginRequest) {
@@ -96,14 +102,6 @@ export class UserService {
 
   updateFavoriteArtworksOfUser(email: string, artworkId: number) {
     const url: string = `${this.endpoint}/updateFavoriteArtworks?`;
-    const params: HttpParams = new HttpParams()
-      .set("email", email)
-      .set("artworkId", artworkId);
-    return this.httpClient.post<{ email: string, eventId: number }>(url + params, null);
-  }
-
-  updateOneRequestedArtwork(email: string, artworkId: number) {
-    const url: string = `${this.endpoint}/updateOneRequestedArtwork?`;
     const params: HttpParams = new HttpParams()
       .set("email", email)
       .set("artworkId", artworkId);

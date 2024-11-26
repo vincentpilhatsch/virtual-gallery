@@ -6,7 +6,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {FavoriteIconComponent} from "../../misc/favorite-icon/favorite-icon.component";
 import {UserService} from "../../user/services/user.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ArtworkService} from "../services/artwork.service";
 import {forkJoin, Subscription} from "rxjs";
 import {Artwork} from "../model/artwork";
@@ -17,6 +17,7 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {ArtworkRequest} from "../model/artworkRequest";
 import {ArtworkRequestService} from "../services/artwork-request.service";
+import {SnackBarService} from "../../misc/services/snack-bar.service";
 
 @Component({
   selector: 'app-request-artwork',
@@ -59,7 +60,9 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
   constructor(protected userService: UserService,
               private readonly artworkService: ArtworkService,
               private readonly artworkRequestService: ArtworkRequestService,
+              private readonly snackBarService: SnackBarService,
               private readonly route: ActivatedRoute,
+              private readonly router: Router,
               private readonly fb: FormBuilder) {
   }
 
@@ -117,14 +120,7 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
         userId: this.userService.user.id,
         artworkId: this.artwork.id
       }
-      this.artworkRequestService.createArtworkRequest(artworkRequest).subscribe({
-        next: (res: ArtworkRequest): void => {
-          console.log(res);
-        },
-        error: (err: HttpErrorResponse): void => {
-          console.error(err);
-        }
-      })
+      this.createArtworkRequest(artworkRequest);
     }
   }
 
@@ -133,6 +129,20 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
     const formConformation: string = this.form.get("confirmation")?.value;
     const formIsValid: boolean = this.form.valid;
     return formIsValid && !!formNotification && !!formConformation;
+  }
+
+  private createArtworkRequest(artworkRequest: ArtworkRequest) {
+    this.artworkRequestService.createArtworkRequest(artworkRequest).subscribe({
+      next: (): void => {
+        if (this.artwork?.id) {
+          void this.router.navigate(["kunstwerk", this.artwork.id]);
+          this.snackBarService.openSnackBarByJSON("info", "snackbar.artwork.requested");
+        }
+      },
+      error: (err: HttpErrorResponse): void => {
+        console.error(err);
+      }
+    })
   }
 
   ngOnDestroy(): void {

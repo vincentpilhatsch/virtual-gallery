@@ -2,6 +2,7 @@ package com.vincent.gallerybackend.user.service;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
 import com.vincent.gallerybackend.artworkrequest.model.ArtworkAndArtworkRequest;
+import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequest;
 import com.vincent.gallerybackend.user.model.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
@@ -29,6 +30,8 @@ public interface UserService {
 
     List<ArtworkAndArtworkRequest> getArtworksAndArtworkRequestsOfUser(String email);
 
+    List<ArtworkRequest> getArtworkRequestsByEmail(String email);
+
     AuthResponse loginUser(LoginRequest loginRequest, HttpServletResponse response);
 
     AuthResponse registerUser(RegisterRequest registerRequest, HttpServletResponse response);
@@ -42,7 +45,5 @@ public interface UserService {
     User updateFavoriteArtworksOfUser(String email, long artworkId);
 
     User updateAcceptedEventsOfUser(String email, long eventId);
-
-    User updateOneRequestedArtworkOfUser(String email, long eventId);
 
 }

@@ -150,6 +150,14 @@ public class UserServiceImpl implements UserService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public List<ArtworkRequest> getArtworkRequestsByEmail(String email) {
+        UserEntity userEntity = findByEmail(email);
+        Set<Long> artworkRequestIds = userEntity.getArtworkRequestIds();
+        return getArtworkRequestsOfUser(artworkRequestIds);
+    }
+
     @Transactional
     @Override
     public AuthResponse registerUser(RegisterRequest registerRequest, HttpServletResponse response) {
@@ -256,17 +264,6 @@ public class UserServiceImpl implements UserService {
         Set<Long> acceptedEvents = addOrDeleteIdInSet(userEntity.getAcceptedEventIds(), eventId);
         userEntity.setAcceptedEventIds(acceptedEvents);
         userRepository.save(userEntity);
-    }
-
-    @Transactional
-    @Override
-    public User updateOneRequestedArtworkOfUser(String email, long artworkId) {
-        UserEntity userEntity = findByEmail(email);
-        checkIfArtworkExists(artworkId);
-        Set<Long> requestedArtworks = addOrDeleteIdInSet(userEntity.getArtworkRequestIds(), artworkId);
-        userEntity.setArtworkRequestIds(requestedArtworks);
-        userRepository.save(userEntity);
-        return userMapper.userDAOtoDTO(userEntity);
     }
 
     private void checkIfArtworkExists(long artworkId) {

@@ -45,7 +45,7 @@ export class RequestedArtworksComponent implements OnInit {
   private loadRequestedArtworks() {
     const email: string | undefined = this.userFromParent?.email;
     if (email) {
-      this.userService.getRequestedArtworksByEmail(email).subscribe({
+      this.userService.getArtworksAndArtworkRequestsByEmail(email).subscribe({
         next: (res: ArtworkAndArtworkRequest[]): void => {
           const artworks: Artwork[] = res.map(item => item.artwork);
           this.setGroupedArtworks(artworks);
@@ -69,24 +69,10 @@ export class RequestedArtworksComponent implements OnInit {
   }
 
   handleWithdrawRequest(artworkId: number): void {
-    // this.updateOneRequestedArtwork(artworkId);
     this.deleteArtworkRequest(artworkId);
     this.updateGroupedArtworks(artworkId);
     // sendEmail(); hier dann
   }
-
-  // private updateOneRequestedArtwork(artworkId: number) {
-  //   if (this.userFromParent?.email) {
-  //     this.userService.updateOneRequestedArtwork(this.userFromParent.email, artworkId).subscribe({
-  //       next: (res): void => {
-  //         console.log(res);
-  //       },
-  //       error: (err: HttpErrorResponse): void => {
-  //         console.error(err)
-  //       }
-  //     })
-  //   }
-  // }
 
   private deleteArtworkRequest(artworkId: number): void {
     const artworkRequestId: number | undefined = this.getArtworkRequestIdToDelete(artworkId);
