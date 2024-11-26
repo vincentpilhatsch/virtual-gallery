@@ -115,20 +115,20 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   onFormSubmitted(): void {
-    // if (this.checkIfFormsAreValid()) { // TODO: Comment in for Live
-    const formFirstName: string = this.form.get("firstName")?.value;
-    const formLastName: string = this.form.get("lastName")?.value;
-    const formEmail: string = this.form.get("email")?.value;
-    const formPassword: string = this.form.get("password")?.value;
+    if (this.checkIfFormsAreValid()) { // TODO: Comment in for Live
+      const formFirstName: string = this.form.get("firstName")?.value;
+      const formLastName: string = this.form.get("lastName")?.value;
+      const formEmail: string = this.form.get("email")?.value;
+      const formPassword: string = this.form.get("password")?.value;
 
-    const registerRequest: RegisterRequest = {
-      firstName: formFirstName,
-      lastName: formLastName,
-      email: formEmail,
-      password: formPassword
+      const registerRequest: RegisterRequest = {
+        firstName: formFirstName,
+        lastName: formLastName,
+        email: formEmail,
+        password: formPassword
+      }
+      this.registerUser(registerRequest);
     }
-    this.registerUser(registerRequest);
-    // }
   }
 
   private checkIfFormsAreValid(): boolean {
