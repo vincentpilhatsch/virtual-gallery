@@ -4,6 +4,11 @@ import com.vincent.gallerybackend.artwork.model.Artwork;
 import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
 import com.vincent.gallerybackend.artwork.model.ArtworkMapper;
 import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
+import com.vincent.gallerybackend.artworkrequest.model.ArtworkAndArtworkRequest;
+import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequest;
+import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequestEntity;
+import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequestMapper;
+import com.vincent.gallerybackend.artworkrequest.repository.ArtworkRequestRepository;
 import com.vincent.gallerybackend.config.CookieUtils;
 import com.vincent.gallerybackend.event.model.EventEntity;
 import com.vincent.gallerybackend.event.repository.EventRepository;
@@ -25,18 +30,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ArtworkRepository artworkRepository;
+    private final ArtworkRequestRepository artworkRequestRepository;
     private final EventRepository eventRepository;
 
     private final UserMapper userMapper;
     private final ArtworkMapper artworkMapper;
+    private final ArtworkRequestMapper artworkRequestMapper;
 
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
@@ -104,11 +115,39 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Artwork> getRequestedArtworksByEmail(String email) {
+    public List<ArtworkAndArtworkRequest> getArtworksAndArtworkRequestsOfUser(String email) {
         UserEntity userEntity = findByEmail(email);
-        Set<Long> artworkIds = userEntity.getArtworkRequestIds();
-        List<ArtworkEntity> artworkEntities = artworkRepository.findAllById(artworkIds);
+        Set<Long> artworkRequestIds = userEntity.getArtworkRequestIds();
+        List<ArtworkRequest> artworkRequests = getArtworkRequestsOfUser(artworkRequestIds);
+        List<Artwork> artworks = getArtworksOfUser(artworkRequests);
+        return getArtworksAndArtworkRequests(artworkRequests, artworks);
+    }
+
+    private List<ArtworkRequest> getArtworkRequestsOfUser(Set<Long> artworkRequestIds) {
+        List<ArtworkRequestEntity> artworkRequestEntities = artworkRequestRepository.findAllById(artworkRequestIds);
+        return artworkRequestMapper.artworkRequestsDAOtoDTO(artworkRequestEntities);
+    }
+
+    private List<Artwork> getArtworksOfUser(List<ArtworkRequest> artworkRequests) {
+        Set<Long> usersArtworkIdsOfArtworkRequests =
+                artworkRequests
+                        .stream()
+                        .map(ArtworkRequest::getArtworkId)
+                        .collect(Collectors.toSet());
+        List<ArtworkEntity> artworkEntities = artworkRepository.findAllById(usersArtworkIdsOfArtworkRequests);
         return artworkMapper.artworksDAOtoDTO(artworkEntities);
+    }
+
+    private List<ArtworkAndArtworkRequest> getArtworksAndArtworkRequests(List<ArtworkRequest> artworkRequests,
+                                                                         List<Artwork> artworks) {
+        Map<Long, Artwork> artworkMap = artworks.stream()
+                .collect(Collectors.toMap(Artwork::getId, artwork -> artwork));
+        return artworkRequests.stream()
+                .map(request -> new ArtworkAndArtworkRequest(
+                        artworkMap.get(request.getArtworkId()),
+                        request
+                ))
+                .toList();
     }
 
     @Transactional
@@ -198,24 +237,6 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User updateOneRequestedArtworkOfUser(String email, long artworkId) {
-        UserEntity userEntity = findByEmail(email);
-        checkIfArtworkExists(artworkId);
-        Set<Long> requestedArtworks = addOrDeleteIdInSet(userEntity.getArtworkRequestIds(), artworkId);
-        userEntity.setArtworkRequestIds(requestedArtworks);
-        userRepository.save(userEntity);
-        return userMapper.userDAOtoDTO(userEntity);
-    }
-
-    private void checkIfArtworkExists(long artworkId) {
-        boolean artworkExists = artworkRepository.existsById(artworkId);
-        if (!artworkExists) {
-            throw new NotFoundException("Artwork not found");
-        }
-    }
-
-    @Transactional
-    @Override
     public User updateAcceptedEventsOfUser(String email, long eventId) {
         UserEntity userEntity = findByEmail(email);
         updateUserInEvent(eventId, userEntity.getId());
@@ -235,6 +256,24 @@ public class UserServiceImpl implements UserService {
         Set<Long> acceptedEvents = addOrDeleteIdInSet(userEntity.getAcceptedEventIds(), eventId);
         userEntity.setAcceptedEventIds(acceptedEvents);
         userRepository.save(userEntity);
+    }
+
+    @Transactional
+    @Override
+    public User updateOneRequestedArtworkOfUser(String email, long artworkId) {
+        UserEntity userEntity = findByEmail(email);
+        checkIfArtworkExists(artworkId);
+        Set<Long> requestedArtworks = addOrDeleteIdInSet(userEntity.getArtworkRequestIds(), artworkId);
+        userEntity.setArtworkRequestIds(requestedArtworks);
+        userRepository.save(userEntity);
+        return userMapper.userDAOtoDTO(userEntity);
+    }
+
+    private void checkIfArtworkExists(long artworkId) {
+        boolean artworkExists = artworkRepository.existsById(artworkId);
+        if (!artworkExists) {
+            throw new NotFoundException("Artwork not found");
+        }
     }
 
     private <T> Set<T> addOrDeleteIdInSet(Set<T> set, T id) {

@@ -9,6 +9,8 @@ import {MatButton} from "@angular/material/button";
 import {User} from "../../model/user";
 import {MoneyConverterPipe} from "../../../artwork/pipes/money-converter.pipe";
 import {MatIcon} from "@angular/material/icon";
+import {ArtworkAndArtworkRequest} from "../../../artwork/model/artworkAndArtworkRequest";
+import {ArtworkRequestService} from "../../../artwork/services/artwork-request.service";
 
 @Component({
   selector: 'app-requested-artworks',
@@ -29,8 +31,10 @@ export class RequestedArtworksComponent implements OnInit {
 
   artworksPerRow = 3;
   groupedArtworks: Artwork[][] = [];
+  artworksAndArtworkRequests: ArtworkAndArtworkRequest[] = [];
 
   constructor(private readonly userService: UserService,
+              private readonly artworkRequestService: ArtworkRequestService,
               private readonly router: Router) {
   }
 
@@ -42,8 +46,10 @@ export class RequestedArtworksComponent implements OnInit {
     const email: string | undefined = this.userFromParent?.email;
     if (email) {
       this.userService.getRequestedArtworksByEmail(email).subscribe({
-        next: (res: Artwork[]): void => {
-          this.setGroupedArtworks(res);
+        next: (res: ArtworkAndArtworkRequest[]): void => {
+          const artworks: Artwork[] = res.map(item => item.artwork);
+          this.setGroupedArtworks(artworks);
+          this.artworksAndArtworkRequests = res;
         },
         error: (err: HttpErrorResponse): void => {
           console.error(err);
@@ -63,22 +69,39 @@ export class RequestedArtworksComponent implements OnInit {
   }
 
   handleWithdrawRequest(artworkId: number): void {
-    this.updateOneRequestedArtwork(artworkId);
+    // this.updateOneRequestedArtwork(artworkId);
+    this.deleteArtworkRequest(artworkId);
     this.updateGroupedArtworks(artworkId);
     // sendEmail(); hier dann
   }
 
-  private updateOneRequestedArtwork(artworkId: number) {
-    if (this.userFromParent?.email) {
-      this.userService.updateOneRequestedArtwork(this.userFromParent.email, artworkId).subscribe({
-        next: (res): void => {
-          console.log(res);
-        },
-        error: (err: HttpErrorResponse): void => {
-          console.error(err)
-        }
-      })
+  // private updateOneRequestedArtwork(artworkId: number) {
+  //   if (this.userFromParent?.email) {
+  //     this.userService.updateOneRequestedArtwork(this.userFromParent.email, artworkId).subscribe({
+  //       next: (res): void => {
+  //         console.log(res);
+  //       },
+  //       error: (err: HttpErrorResponse): void => {
+  //         console.error(err)
+  //       }
+  //     })
+  //   }
+  // }
+
+  private deleteArtworkRequest(artworkId: number): void {
+    const artworkRequestId: number | undefined = this.getArtworkRequestIdToDelete(artworkId);
+    if (artworkRequestId && artworkRequestId !== -1) {
+      this.artworkRequestService.deleteArtworkRequestById(artworkRequestId).subscribe();
     }
+  }
+
+  private getArtworkRequestIdToDelete(artworkId: number): number | undefined {
+    const match: ArtworkAndArtworkRequest | undefined =
+      this.artworksAndArtworkRequests.find(
+        (artworkAndRequest: ArtworkAndArtworkRequest) =>
+          artworkAndRequest.artworkRequest.artworkId === artworkId
+      );
+    return match ? match.artworkRequest.id : -1;
   }
 
   private updateGroupedArtworks(artworkId: number) {

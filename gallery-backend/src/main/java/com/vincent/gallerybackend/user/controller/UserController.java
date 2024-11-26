@@ -1,6 +1,7 @@
 package com.vincent.gallerybackend.user.controller;
 
 import com.vincent.gallerybackend.artwork.model.Artwork;
+import com.vincent.gallerybackend.artworkrequest.model.ArtworkAndArtworkRequest;
 import com.vincent.gallerybackend.user.model.*;
 import com.vincent.gallerybackend.user.service.UserServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
@@ -77,16 +78,19 @@ public class UserController {
         return new ResponseEntity<>(favoriteArtworks, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/requestedArtworks/{email}", produces = "application/json")
-    public ResponseEntity<List<Artwork>> getRequestedArtworks(@PathVariable String email) {
-        List<Artwork> requestedArtworks = userServiceImpl.getRequestedArtworksByEmail(email);
-        log.info("GET requested artworks ({})", requestedArtworks.size());
-        return new ResponseEntity<>(requestedArtworks, HttpStatus.OK);
+    @GetMapping(value = "/artworksAndArtworkRequests/{email}", produces = "application/json")
+    public ResponseEntity<List<ArtworkAndArtworkRequest>> getArtworksAndArtworkRequestsOfUser(
+            @PathVariable String email
+    ) {
+        List<ArtworkAndArtworkRequest> artworksAndArtworkRequests =
+                userServiceImpl.getArtworksAndArtworkRequestsOfUser(email);
+        log.info("GET artwork and artwork requests ({})", artworksAndArtworkRequests.size());
+        return new ResponseEntity<>(artworksAndArtworkRequests, HttpStatus.OK);
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> loginUser(@RequestBody LoginRequest loginRequest,
-                                  HttpServletResponse response) {
+                                                  HttpServletResponse response) {
         AuthResponse responseEntity = userServiceImpl.loginUser(loginRequest, response);
         log.info("LOGIN user: {}", loginRequest.getEmail());
         return new ResponseEntity<>(responseEntity, HttpStatus.OK);
@@ -94,7 +98,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerUser(@RequestBody RegisterRequest registerRequest,
-                                     HttpServletResponse response) {
+                                                     HttpServletResponse response) {
         AuthResponse responseEntity = userServiceImpl.registerUser(registerRequest, response);
         log.info("REGISTER user: {}", registerRequest.getEmail());
         return new ResponseEntity<>(responseEntity, HttpStatus.CREATED);
@@ -122,15 +126,6 @@ public class UserController {
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
-
-    @PostMapping(value = "/updateOneRequestedArtwork")
-    public ResponseEntity<User> updateOneRequestedArtworkOfUser(@RequestParam String email,
-                                                                @RequestParam long artworkId) {
-        User user = userServiceImpl.updateOneRequestedArtworkOfUser(email, artworkId);
-        log.info("UPDATE one requested artwork for user: {}", user.getEmail());
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
     @PostMapping(value = "/updateFavoriteArtworks")
     public ResponseEntity<User> updateFavoriteArtworksOfUser(@RequestParam String email,
                                                              @RequestParam long artworkId) {
@@ -146,5 +141,14 @@ public class UserController {
         log.info("UPDATE accepted for user: {}", user.getEmail());
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+    @PostMapping(value = "/updateOneRequestedArtwork")
+    public ResponseEntity<User> updateOneRequestedArtworkOfUser(@RequestParam String email,
+                                                                @RequestParam long artworkId) {
+        User user = userServiceImpl.updateOneRequestedArtworkOfUser(email, artworkId);
+        log.info("UPDATE one requested artwork for user: {}", user.getEmail());
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
 
 }

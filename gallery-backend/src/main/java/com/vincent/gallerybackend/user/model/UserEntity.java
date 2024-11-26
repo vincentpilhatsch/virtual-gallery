@@ -63,6 +63,6 @@ public class UserEntity {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_artwork_requests", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "artwork_id")
+    @Column(name = "artwork_request_id")
     private Set<Long> artworkRequestIds;
 }

@@ -39,9 +39,9 @@ public class UserConfig {
                     Language.EN,
                     Role.ARTIST,
                     Set.of(1L, 2L),      // favoriteArtworkIds
-                    Set.of(1L, 2L),      // requestedArtworkIds
                     Set.of(1L),          // acceptedEventIds
-                    Set.of(1L, 2L)       // notificationIds
+                    Set.of(1L, 2L),       // notificationIds
+                    Set.of()      // requestedArtworkIds
             );
 
             UserEntity max = new UserEntity(
@@ -55,9 +55,9 @@ public class UserConfig {
                     Language.EN,
                     Role.USER,
                     Set.of(1L, 2L),          // favoriteArtworkIds
-                    Set.of(1L),          // requestedArtworkIds
                     Set.of(1L),          // acceptedEventIds
-                    Set.of(1L)       // notificationIds
+                    Set.of(1L),       // notificationIds
+                    Set.of()          // requestedArtworkIds
             );
             userRepository.saveAll(List.of(thomas, max));
         };

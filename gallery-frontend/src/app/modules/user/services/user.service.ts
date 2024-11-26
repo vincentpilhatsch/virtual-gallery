@@ -7,6 +7,7 @@ import {Artwork} from "../../artwork/model/artwork";
 import {LoginRequest} from "../model/loginRequest";
 import {AuthResponse} from "../model/authResponse";
 import {RegisterRequest} from "../model/registerRequest";
+import {ArtworkAndArtworkRequest} from "../../artwork/model/artworkAndArtworkRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -72,9 +73,9 @@ export class UserService {
     return this.httpClient.get<Artwork[]>(url);
   }
 
-  getRequestedArtworksByEmail(email: string): Observable<Artwork[]> {
-    const url: string = `${this.endpoint}/requestedArtworks/${email}`;
-    return this.httpClient.get<Artwork[]>(url);
+  getRequestedArtworksByEmail(email: string): Observable<ArtworkAndArtworkRequest[]> {
+    const url: string = `${this.endpoint}/artworksAndArtworkRequests/${email}`;
+    return this.httpClient.get<ArtworkAndArtworkRequest[]>(url);
   }
 
   login(loginForm: LoginRequest) {

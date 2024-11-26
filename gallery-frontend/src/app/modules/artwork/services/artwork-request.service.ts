@@ -28,8 +28,8 @@ export class ArtworkRequestService {
     return this.httpClient.post<ArtworkRequest>(url, artworkRequest);
   }
 
-  deleteArtworkById(id: number): Observable<void> {
-    const url: string = `${this.endpoint}}/${id}`;
+  deleteArtworkRequestById(id: number): Observable<void> {
+    const url: string = `${this.endpoint}/${id}`;
     return this.httpClient.delete<void>(url);
   }
 

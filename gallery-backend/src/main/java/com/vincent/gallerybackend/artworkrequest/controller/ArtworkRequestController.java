@@ -36,7 +36,7 @@ public class ArtworkRequestController {
 
     @PostMapping(produces = "application/json")
     public ResponseEntity<ArtworkRequest> createArtworkRequest(
-            @Valid @RequestPart("artworkRequest") ArtworkRequest artworkRequest
+            @Valid @RequestBody ArtworkRequest artworkRequest
     ) {
         ArtworkRequest createdEntity = artworkRequestServiceImpl.createArtworkRequest(artworkRequest);
         log.info("CREATE artworkRequest with id: {}", artworkRequest.getId());
