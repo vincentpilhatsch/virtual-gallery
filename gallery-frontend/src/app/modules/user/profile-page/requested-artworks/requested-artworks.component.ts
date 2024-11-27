@@ -11,6 +11,7 @@ import {MoneyConverterPipe} from "../../../artwork/pipes/money-converter.pipe";
 import {MatIcon} from "@angular/material/icon";
 import {ArtworkAndArtworkRequest} from "../../../artwork/model/artworkAndArtworkRequest";
 import {ArtworkRequestService} from "../../../artwork/services/artwork-request.service";
+import {SnackBarService} from "../../../misc/services/snack-bar.service";
 
 @Component({
   selector: 'app-requested-artworks',
@@ -35,6 +36,7 @@ export class RequestedArtworksComponent implements OnInit {
 
   constructor(private readonly userService: UserService,
               private readonly artworkRequestService: ArtworkRequestService,
+              private readonly snackBarService: SnackBarService,
               private readonly router: Router) {
   }
 
@@ -77,6 +79,7 @@ export class RequestedArtworksComponent implements OnInit {
   private deleteArtworkRequest(artworkId: number): void {
     const artworkRequestId: number | undefined = this.getArtworkRequestIdToDelete(artworkId);
     if (artworkRequestId && artworkRequestId !== -1) {
+      this.snackBarService.openSnackBarByJSON("info", "snackbar.artwork.request.canceled");
       this.artworkRequestService.deleteArtworkRequestById(artworkRequestId).subscribe();
     }
   }
@@ -91,8 +94,8 @@ export class RequestedArtworksComponent implements OnInit {
   }
 
   private updateGroupedArtworks(artworkId: number) {
-    for (let i = 0; i < this.groupedArtworks.length; i++) {
-      const artworkGroup = this.groupedArtworks[i];
+    for (const element of this.groupedArtworks) {
+      const artworkGroup = element;
       const artworkIndex = artworkGroup.findIndex(artwork => artwork.id === artworkId);
 
       if (artworkIndex > -1) {

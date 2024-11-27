@@ -8,7 +8,7 @@ import {TranslateService} from "@ngx-translate/core";
   providedIn: 'root'
 })
 export class SnackBarService {
-  private readonly horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  private readonly horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   private readonly verticalPosition: MatSnackBarVerticalPosition = 'top';
   private readonly urlMessageMap: { [key: string]: string } = {
     "kunstwerk-anfragen": "Bitte melde dich an, um ein Kunstwerk anzufragen",

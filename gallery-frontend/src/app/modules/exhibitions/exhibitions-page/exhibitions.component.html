@@ -20,7 +20,7 @@
 <p class="title-one">Vergangene Ausstellungen</p>
 @if (pastExhibitions) {
   @for (exhibition of pastExhibitions; track $index) {
-    <div class="exhibition" [ngClass]="{ 'reversed-exhibition': $index % 2 === 0 }">
+    <div class="exhibition" [ngClass]="{ 'reversed-exhibition': $index % 2 === 1 }">
       <div class="first-section">
         <img src="data:image/jpeg;base64,{{ exhibition.image }}" alt="exhibition">
       </div>
@@ -28,8 +28,9 @@
         <p class="title-two">{{ exhibition.title }}</p>
         <p class="text-one">{{ exhibition.description }}</p>
         <p class="text-one text-date">{{ exhibition.location }}</p>
-        <p class="text-one text-date">{{ exhibition.startDate }}</p>
-        <p class="text-one text-date">{{ exhibition.endDate }}</p>
+        <p class="text-one text-date">
+          {{ exhibition.startDate | convertNumberArrayToDateString }} - {{ exhibition.endDate | convertNumberArrayToDateString}}
+        </p>
       </div>
     </div>
   }

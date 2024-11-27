@@ -6,6 +6,7 @@ import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators
 import {UserService} from "../../services/user.service";
 import {User} from "../../model/user";
 import {PersonalDataForm} from "../../model/personalDataForm";
+import {SnackBarService} from "../../../misc/services/snack-bar.service";
 
 @Component({
   selector: 'app-personal-data',
@@ -47,6 +48,7 @@ export class PersonalDataComponent implements OnInit {
   });
 
   constructor(private readonly fb: FormBuilder,
+              private readonly snackBarService: SnackBarService,
               private readonly userService: UserService) {
   }
 
@@ -108,6 +110,7 @@ export class PersonalDataComponent implements OnInit {
 
   onFormSubmitted(): void {
     this.showSubmitButton = false;
+    this.snackBarService.openSnackBarByJSON("info", "snackbar.user.updated")
     this.updateUserServiceValues();
     this.updateUser();
   }

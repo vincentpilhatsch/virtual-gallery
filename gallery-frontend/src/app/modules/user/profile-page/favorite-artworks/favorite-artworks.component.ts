@@ -79,15 +79,15 @@ export class FavoriteArtworksComponent implements OnInit, OnDestroy {
   }
 
   private updateGroupedArtworks(artworkId: number) {
-    for (let i = 0; i < this.groupedArtworks.length; i++) {
-      const artworkGroup = this.groupedArtworks[i];
+    for (const element of this.groupedArtworks) {
+      const artworkGroup = element;
       const artworkIndex = artworkGroup.findIndex(artwork => artwork.id === artworkId);
 
       if (artworkIndex > -1) {
         artworkGroup.splice(artworkIndex, 1);
         const tempGroupedArtworks = this.groupedArtworks;
-        this.groupedArtworks = [];
         this.setGroupedArtworks(tempGroupedArtworks.flat());
+        this.groupedArtworks = [];
         return;
       }
     }

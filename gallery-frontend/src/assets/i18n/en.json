@@ -4,7 +4,11 @@
   },
   "snackbar": {
     "login.expired": "Your login has expired",
-    "artwork.requested": "You have successfully requested the artwork"
+    "artwork.requested": "You have successfully requested the artwork",
+    "artwork.request.canceled": "You have withdrawn the request for the artwork",
+    "user.updated": "Your user data has been updated",
+    "event.accept": "You have successfully registered for the event",
+    "event.canceled": "You have unsubscribed from the event"
   },
   "error": {
     "default.message": "An error has occurred",

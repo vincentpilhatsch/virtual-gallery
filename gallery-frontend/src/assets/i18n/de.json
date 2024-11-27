@@ -3,12 +3,16 @@
     "button.artworks": "Kunstwerke"
   },
   "snackbar": {
-    "login.expired": "Deine Anmeldung ist abgelaufen",
-    "artwork.requested": "Du hast das Kunstwerk erfolgreich angefragt"
+    "login.expired": "Ihre Anmeldung ist abgelaufen",
+    "artwork.requested": "Sie haben das Kunstwerk erfolgreich angefragt",
+    "artwork.request.canceled": "Sie haben die Anfrage für das Kunstwerk zurückgezogen",
+    "user.updated": "Ihre Nutzerdaten wurden aktualisiert",
+    "event.accept": "Sie haben sich erfolgreich für das Event angemeldet",
+    "event.canceled": "Sie haben sich von dem Event abgemeldet"
   },
   "error": {
     "default.message": "Ein Fehler ist aufgetreten",
-    "incorrect.email.or.password": "Deine angegebene E-Mail Adresse oder Passwort ist falsch",
+    "incorrect.email.or.password": "Ihre angegebene E-Mail Adresse oder Ihr Passwort ist falsch",
     "invalid.date": "Ungültiges Datum"
   },
   "language": {

@@ -6,6 +6,7 @@ import {Event} from "../model/event";
 import {NgClass} from "@angular/common";
 import {UserService} from "../../user/services/user.service";
 import {ConvertNumberArrayToDateStringPipe} from "../pipes/convert-number-array-to-date-time.pipe";
+import {SnackBarService} from "../../misc/services/snack-bar.service";
 
 @Component({
   selector: 'app-events',
@@ -24,6 +25,7 @@ export class EventsComponent implements OnInit {
   pastEvents: Event[] = [];
 
   constructor(protected userService: UserService,
+              private readonly snackBarService: SnackBarService,
               private readonly eventService: EventService) {
   }
 
@@ -60,8 +62,8 @@ export class EventsComponent implements OnInit {
   }
 
   onButtonClicked(eventId: number) {
-    this.updateOneAcceptedEvent(eventId);
     this.updateFrontendEventArray(eventId);
+    this.updateOneAcceptedEvent(eventId);
   }
 
   private updateOneAcceptedEvent(eventId: number): void {
@@ -99,9 +101,13 @@ export class EventsComponent implements OnInit {
     const updateEventArray = (events: Event[]): boolean => {
       const event = events.find(event => event.id === eventId);
       if (event) {
-        event.confirmedUserIds = event.confirmedUserIds.includes(userId)
-          ? event.confirmedUserIds.filter(id => id !== userId) // remove userId
-          : [...event.confirmedUserIds, userId]; // add userId
+        if (event.confirmedUserIds.includes(userId)) {
+          this.snackBarService.openSnackBarByJSON("info", "snackbar.event.canceled")
+          event.confirmedUserIds = event.confirmedUserIds.filter(id => id !== userId)
+        } else {
+          this.snackBarService.openSnackBarByJSON("info", "snackbar.event.accept")
+          event.confirmedUserIds = [...event.confirmedUserIds, userId];
+        }
         return true;
       }
       return false;
