@@ -16,7 +16,6 @@ import {HomeComponent} from "./modules/home/home.component";
 import {ExhibitionsComponent} from "./modules/exhibitions/exhibitions-page/exhibitions.component";
 import {userAndArtistGuard} from "./modules/misc/guards/user-and-artist.guard";
 import {authGuard} from "./modules/misc/guards/auth.guard";
-import {artistGuard} from "./modules/misc/guards/artist.guard";
 
 export const routes: Routes = [
   {path: '', redirectTo: '/anmelden', pathMatch: 'full'},
@@ -30,12 +29,12 @@ export const routes: Routes = [
   {path: 'anmelden', component: LoginComponent, canActivate: [authGuard]},
   {path: 'registrieren', component: RegisterComponent, canActivate: [authGuard]},
   {path: 'profil', component: ProfileComponent, canActivate: [userAndArtistGuard]},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [artistGuard]},
-  {path: 'dashboard/kunstwerke-verwalten', component: ManageArtworksComponent, canActivate: [artistGuard]},
-  {path: 'dashboard/kunstwerk-bearbeiten', component: AddEditArtworkComponent, canActivate: [artistGuard]},
-  {path: 'dashboard/kunstwerk-erstellen', component: AddEditArtworkComponent, canActivate: [artistGuard]},
-  {path: 'dashboard/events-verwalten', component: ManageEventsComponent, canActivate: [artistGuard]},
-  {path: 'dashboard/event-bearbeiten', component: AddEditEventComponent, canActivate: [artistGuard]},
-  {path: 'dashboard/event-erstellen', component: AddEditEventComponent, canActivate: [artistGuard]},
+  {path: 'dashboard', component: DashboardComponent}, //
+  {path: 'dashboard/kunstwerke-verwalten', component: ManageArtworksComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/kunstwerk-bearbeiten', component: AddEditArtworkComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/kunstwerk-erstellen', component: AddEditArtworkComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/events-verwalten', component: ManageEventsComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/event-bearbeiten', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/event-erstellen', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
   // {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];

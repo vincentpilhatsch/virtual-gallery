@@ -16,22 +16,17 @@
   </div>
 </div>
 <div class="artwork-container">
-  <div class="inner-artwork-container">
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-  </div>
-  <div class="inner-artwork-container">
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-  </div>
-  <div class="inner-artwork-container">
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-    <app-artwork-card routerLink="/dashboard/kunstwerk-bearbeiten"></app-artwork-card>
-  </div>
+  @for (group of groupedArtworks; track $index) {
+    <div class="inner-artwork-container">
+      @for (artwork of group; track artwork.id) {
+        <app-artwork-card [artwork]="artwork"
+                          [ngClass]="{
+                            'three-images-width': artworksPerRow === 3,
+                            'four-images-width': artworksPerRow === 4
+                          }"
+                          (click)="onCardClicked(artwork)">
+        </app-artwork-card>
+      }
+    </div>
+  }
 </div>

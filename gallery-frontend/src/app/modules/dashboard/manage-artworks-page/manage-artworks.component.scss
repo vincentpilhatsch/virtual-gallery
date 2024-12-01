@@ -40,4 +40,12 @@ app-manage-artworks {
     display: none;
   }
 
+  .three-images-width {
+    width: calc(100% / 3);
+  }
+
+  .four-images-width {
+    width: calc(100% / 4);
+  }
+
 }

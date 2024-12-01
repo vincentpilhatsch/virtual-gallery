@@ -34,13 +34,7 @@
         <p class="text-one">{{ event.description }}</p>
         <p class="text-one text-date">{{ event.location }}</p>
         <p class="text-one text-date">{{ event.dateTime | convertNumberArrayToDateString }}</p>
-        @if (userService.user != null) {
-          @if (event.confirmedUserIds.includes(userService.user.id)) {
-            <button mat-stroked-button class="button-one" (click)="onButtonClicked(event.id)">Teilnahme bestätigt</button>
-          } @else {
-            <button mat-stroked-button class="button-one" (click)="onButtonClicked(event.id)">Zusagen</button>
-          }
-        }
+        <p class="text-one">Zugesagte Personen: {{ event.confirmedUserIds.length }}</p>
       </div>
     </div>
   }
