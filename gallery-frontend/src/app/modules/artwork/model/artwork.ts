@@ -1,10 +1,10 @@
 export interface Artwork {
-  id: number,
+  id?: number,
   title: string,
   width: number,
   height: number,
   yearOfCreation: string,
-  uploadedAt: Date,
+  uploadedAt?: Date,
   technic: string,
   price: number,
   sold: boolean,

@@ -41,8 +41,8 @@ export class ArtworkCardComponent implements OnInit {
   }
 
   checkIfArtworkIsFavorite(): void {
-    if (this.artwork && this.favoriteArtworkIds) {
-      this.isFavorite = this.favoriteArtworkIds.includes(this.artwork.id)
+    if (this.artwork?.id && this.favoriteArtworkIds) {
+      this.isFavorite = this.favoriteArtworkIds.includes(this.artwork.id);
     }
   }
 

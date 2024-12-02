@@ -1,0 +1,6 @@
+export enum EntityTypesEnum {
+  EXHIBITION = 'EXHIBITION',
+  EVENT = 'EVENT',
+  ARTWORK = 'ARTWORK',
+  ARTWORK_REQUEST = 'ARTWORK_REQUEST',
+}

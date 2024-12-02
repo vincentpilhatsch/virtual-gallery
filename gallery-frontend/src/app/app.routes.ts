@@ -31,10 +31,10 @@ export const routes: Routes = [
   {path: 'profil', component: ProfileComponent, canActivate: [userAndArtistGuard]},
   {path: 'dashboard', component: DashboardComponent}, //
   {path: 'dashboard/kunstwerke-verwalten', component: ManageArtworksComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/kunstwerk-bearbeiten', component: AddEditArtworkComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/kunstwerk-bearbeiten/:id', component: AddEditArtworkComponent}, // , canActivate: [artistGuard]},
   {path: 'dashboard/kunstwerk-erstellen', component: AddEditArtworkComponent}, // , canActivate: [artistGuard]},
   {path: 'dashboard/events-verwalten', component: ManageEventsComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/event-bearbeiten', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/event-bearbeiten/:id', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
   {path: 'dashboard/event-erstellen', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
   // {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];

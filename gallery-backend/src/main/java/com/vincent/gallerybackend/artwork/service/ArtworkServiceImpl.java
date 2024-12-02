@@ -4,6 +4,7 @@ import com.vincent.gallerybackend.artwork.model.Artwork;
 import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
 import com.vincent.gallerybackend.artwork.model.ArtworkMapper;
 import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
+import com.vincent.gallerybackend.config.FileValidationService;
 import com.vincent.gallerybackend.exceptions.ImageFileException;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +24,11 @@ public class ArtworkServiceImpl implements ArtworkService {
 
     private final ArtworkRepository artworkRepository;
     private final ArtworkMapper artworkMapper;
+    private final FileValidationService fileValidationService;
 
     @Transactional(readOnly = true)
     @Override
-    @Cacheable("artworks")
+//    @Cacheable("artworks") // TODO: No caching here needed?
     public List<Artwork> getArtworks() {
         List<ArtworkEntity> artworkEntities = artworkRepository.findAll();
         return artworkMapper.artworksDAOtoDTO(artworkEntities);
@@ -83,14 +85,8 @@ public class ArtworkServiceImpl implements ArtworkService {
     }
 
     private void setArtworkImage(ArtworkEntity artworkEntity, MultipartFile imageFile) {
-        try {
-            if (imageFile == null || imageFile.isEmpty()) {
-                throw new ImageFileException("Image must be not empty");
-            }
-            artworkEntity.setImage(imageFile.getBytes());
-        } catch (IOException e) {
-            throw new ImageFileException("Could not safe image");
-        }
+        fileValidationService.validateFile(imageFile);
+        fileValidationService.safeImageInEntity(artworkEntity, imageFile);
     }
 
     @Transactional

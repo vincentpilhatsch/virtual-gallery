@@ -3,13 +3,14 @@
     <div class="inner-artwork-container">
       @for (artwork of group; track artwork.id) {
         <div class="card">
-          <img (click)="handleCardClick(artwork.id)" src="data:image/jpeg;base64,{{ artwork.image }}" alt="artwork-card"
+          <img (click)="handleCardClick(artwork.id!)" src="data:image/jpeg;base64,{{ artwork.image }}"
+               alt="artwork-card"
                loading="lazy">
           <div class="text-container">
             <p>{{ artwork.title }}</p>
             <p>{{ artwork.price | moneyConverter }}</p>
           </div>
-          <button mat-stroked-button class="button-one" (click)="handleWithdrawRequest(artwork.id)">
+          <button mat-stroked-button class="button-one" (click)="handleWithdrawRequest(artwork.id!)">
             Anfrage zurückziehen
           </button>
         </div>

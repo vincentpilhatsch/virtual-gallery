@@ -5,12 +5,12 @@
   nonumy.
 </p>
 <div class="filter-container">
-  <form>
-    <mat-form-field>
-      <mat-label>Suchen...</mat-label>
-      <input matInput>
-    </mat-form-field>
-  </form>
+  <mat-form-field>
+    <mat-label>Suchen...</mat-label>
+    <input matInput
+           [(ngModel)]="searchQuery"
+           (keyup)="onSearch()">
+  </mat-form-field>
   <div class="add-button" routerLink="/dashboard/kunstwerk-erstellen">
     <mat-icon fontIcon="add"></mat-icon>
   </div>
@@ -24,7 +24,7 @@
                             'three-images-width': artworksPerRow === 3,
                             'four-images-width': artworksPerRow === 4
                           }"
-                          (click)="onCardClicked(artwork)">
+                          (click)="onCardClicked(artwork.id!)">
         </app-artwork-card>
       }
     </div>

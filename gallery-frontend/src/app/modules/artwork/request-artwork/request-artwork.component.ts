@@ -98,7 +98,7 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
     }).subscribe({
       next: (res: { artwork: Artwork, favoriteIds: number[] }): void => {
         this.artwork = res.artwork;
-        this.isFavorite = res.favoriteIds.includes(this.artwork.id);
+        this.isFavorite = res.favoriteIds.includes(this.artwork.id!);
       },
       error: (err: HttpErrorResponse): void => {
         console.error(err);

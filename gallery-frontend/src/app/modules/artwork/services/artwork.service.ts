@@ -29,4 +29,16 @@ export class ArtworkService {
       .set("numberOfArtworks", numberOfArtworks);
     return this.httpClient.get<Artwork[]>(url + params);
   }
+
+  createArtwork(artwork: Artwork, file: File): Observable<Artwork> {
+    const formData: FormData = new FormData();
+    const artworkBlob = new Blob([JSON.stringify(artwork)], {type: 'application/json'});
+    formData.append('artwork', artworkBlob);
+    formData.append('file', file);
+
+    const url: string = `${this.endpoint}`;
+    return this.httpClient.post<Artwork>(url, formData);
+  }
+
+
 }

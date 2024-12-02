@@ -58,7 +58,9 @@ export class FavoriteArtworksComponent implements OnInit, OnDestroy {
 
   private setFavoriteArtworkIds(favoriteArtworks: Artwork[]): void {
     for (const artwork of favoriteArtworks) {
-      this.favoriteArtworkIds.push(artwork.id);
+      if (artwork.id) {
+        this.favoriteArtworkIds.push(artwork.id);
+      }
     }
   }
 

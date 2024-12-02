@@ -10,7 +10,8 @@ import {ArtworkService} from "../../artwork/services/artwork.service";
 import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgClass} from "@angular/common";
-import {DashboardCommunicationService} from "../services/dashboard-communication.service";
+import {DashboardDataService} from "../services/dashboard-data.service";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-manage-artworks',
@@ -22,7 +23,8 @@ import {DashboardCommunicationService} from "../services/dashboard-communication
     MatIcon,
     RouterLink,
     ArtworkCardComponent,
-    NgClass
+    NgClass,
+    FormsModule
   ],
   templateUrl: './manage-artworks.component.html',
   styleUrl: './manage-artworks.component.scss',
@@ -41,7 +43,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy {
   constructor(private readonly artworkService: ArtworkService,
               private readonly router: Router,
               private readonly responsive: BreakpointObserver,
-              private readonly dashboardCommunicationService: DashboardCommunicationService) {
+              private readonly dashboardDataService: DashboardDataService) {
   }
 
   ngOnInit() {
@@ -89,9 +91,8 @@ export class ManageArtworksComponent implements OnInit, OnDestroy {
     }
   }
 
-  protected onCardClicked(artwork: Artwork) {
-    this.dashboardCommunicationService.artwork = artwork;
-    void this.router.navigate(["dashboard/kunstwerk-bearbeiten"]);
+  protected onCardClicked(artworkId: number) {
+    void this.router.navigate(["dashboard/kunstwerk-bearbeiten", artworkId]);
   }
 
   ngOnDestroy(): void {

@@ -87,7 +87,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       next: (res: { artwork: Artwork, favoriteIds: number[], artworkRequests: ArtworkRequest[] }): void => {
         this.artwork = res.artwork;
         this.favoriteIds = res.favoriteIds;
-        this.isFavorite = res.favoriteIds.includes(this.artwork.id);
+        this.isFavorite = res.favoriteIds.includes(this.artwork.id!);
         this.isRequested = res.artworkRequests.some((artworkRequest: ArtworkRequest) =>
           artworkRequest.artworkId === res.artwork.id
         );

@@ -47,17 +47,17 @@ public class ArtworkController {
 
     @PostMapping(produces = "application/json")
     public ResponseEntity<Artwork> createArtwork(@Valid @RequestPart("artwork") Artwork artwork,
-                                                       @RequestPart("file") MultipartFile imageFile) {
+                                                 @RequestPart("file") MultipartFile imageFile) { // TODO: File types?
         Artwork createdEntity = artworkServiceImpl.createArtwork(artwork, imageFile);
-        log.info("CREATE artwork with id: {}", artwork.getId());
+        log.info("CREATE artwork with id: {}", createdEntity.getId());
         return new ResponseEntity<>(createdEntity, HttpStatus.CREATED);
     }
 
     @PutMapping(produces = "application/json")
     public ResponseEntity<Artwork> updateArtwork(@Valid @RequestPart("artwork") Artwork newArtwork,
-                                                       @RequestPart("file") MultipartFile imageFile) {
+                                                 @RequestPart("file") MultipartFile imageFile) {
         Artwork updatedArtwork = artworkServiceImpl.updateArtwork(newArtwork, imageFile);
-        log.info("UPDATE artwork with id: {}", newArtwork.getId());
+        log.info("UPDATE artwork with id: {}", updatedArtwork.getId());
         return new ResponseEntity<>(updatedArtwork, HttpStatus.OK);
     }
 
