@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -7,6 +7,7 @@ import {UserService} from "../../services/user.service";
 import {User} from "../../model/user";
 import {PersonalDataForm} from "../../model/personalDataForm";
 import {SnackBarService} from "../../../misc/services/snack-bar.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-personal-data',
@@ -22,11 +23,12 @@ import {SnackBarService} from "../../../misc/services/snack-bar.service";
   styleUrl: './personal-data.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class PersonalDataComponent implements OnInit {
+export class PersonalDataComponent implements OnInit, OnDestroy {
   @Input() userFromParent: User | undefined;
 
   showSubmitButton: boolean = false;
   errorMessage: string | null = null;
+  subscriptions: Subscription[] = [];
 
   form: FormGroup = this.fb.group({
     firstName: ['', [
@@ -71,15 +73,17 @@ export class PersonalDataComponent implements OnInit {
   }
 
   private subscribeToFormValueChanges(): void {
-    this.form.valueChanges.subscribe(() => {
-      if (this.form.dirty && this.form.invalid) {
-        this.showSubmitButton = false;
-        this.handleErrorMessage();
-      } else {
-        this.showSubmitButton = true;
-        this.errorMessage = null;
-      }
-    });
+    this.subscriptions.push(
+      this.form.valueChanges.subscribe(() => {
+        if (this.form.dirty && this.form.invalid) {
+          this.showSubmitButton = false;
+          this.handleErrorMessage();
+        } else {
+          this.showSubmitButton = true;
+          this.errorMessage = null;
+        }
+      })
+    );
   }
 
   private handleErrorMessage(): void {
@@ -135,5 +139,13 @@ export class PersonalDataComponent implements OnInit {
         }
       })
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    })
   }
 }

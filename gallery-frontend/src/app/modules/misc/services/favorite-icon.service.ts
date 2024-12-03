@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable} from "rxjs";
   providedIn: 'root'
 })
 export class FavoriteIconService {
-  private favoriteArtworkSubject: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
+  private readonly favoriteArtworkSubject: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
   favoriteArtworkObserver: Observable<number> = this.favoriteArtworkSubject.asObservable();
 
   removeArtworkFromFavorites(artworkId: number) {

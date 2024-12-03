@@ -82,13 +82,15 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
   }
 
   private loadArtworkIdFromParam(email: string): void {
-    this.route.paramMap.subscribe(params => {
-      const id: string | null = params.get('id');
-      if (id) {
-        const convertedId = Number(id);
-        this.loadArtworkAndFavoriteIds(convertedId, email);
-      }
-    });
+    this.subscriptions.push(
+      this.route.paramMap.subscribe(params => {
+        const id: string | null = params.get('id');
+        if (id) {
+          const convertedId = Number(id);
+          this.loadArtworkAndFavoriteIds(convertedId, email);
+        }
+      })
+    );
   }
 
   private loadArtworkAndFavoriteIds(id: number, email: string): void {
@@ -107,9 +109,11 @@ export class RequestArtworkComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToCheckboxChanges(): void {
-    this.form.valueChanges.subscribe(() => {
-      this.formsAreValid = this.checkIfFormsAreValid();
-    });
+    this.subscriptions.push(
+      this.form.valueChanges.subscribe(() => {
+        this.formsAreValid = this.checkIfFormsAreValid();
+      })
+    );
   }
 
   onRequestSubmitted(): void {

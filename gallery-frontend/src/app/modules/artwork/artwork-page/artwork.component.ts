@@ -65,17 +65,19 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   }
 
   private loadArtworkIdFromParam(email?: string): void {
-    this.route.paramMap.subscribe(params => {
-      const id: string | null = params.get('id');
-      if (id) {
-        const convertedId = Number(id);
-        if (email) {
-          this.loadArtworkAndFavoriteIdsAndArtworkRequests(convertedId, email);
-        } else {
-          this.loadArtwork(convertedId);
+    this.subscriptions.push(
+      this.route.paramMap.subscribe(params => {
+        const id: string | null = params.get('id');
+        if (id) {
+          const convertedId = Number(id);
+          if (email) {
+            this.loadArtworkAndFavoriteIdsAndArtworkRequests(convertedId, email);
+          } else {
+            this.loadArtwork(convertedId);
+          }
         }
-      }
-    });
+      })
+    );
   }
 
   private loadArtworkAndFavoriteIdsAndArtworkRequests(id: number, email: string): void {

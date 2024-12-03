@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatCheckbox} from "@angular/material/checkbox";
@@ -13,6 +13,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {ArtworkForm} from "../models/artwork-form";
 import {SnackBarService} from "../../misc/services/snack-bar.service";
 import {ImageUploadComponent} from "../../misc/image-upload/image-upload.component";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-add-edit-artwork',
@@ -30,8 +31,10 @@ import {ImageUploadComponent} from "../../misc/image-upload/image-upload.compone
   styleUrl: './add-edit-artwork.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class AddEditArtworkComponent implements OnInit {
+export class AddEditArtworkComponent implements OnInit, OnDestroy {
   file: File | undefined;
+  manageMode: ManageModesEnum | undefined;
+  disableCreateButton: boolean = true;
   artwork: Artwork = {
     id: 0,
     title: "",
@@ -44,9 +47,6 @@ export class AddEditArtworkComponent implements OnInit {
     sold: false,
     image: ""
   };
-  manageMode: ManageModesEnum | undefined;
-  disableCreateButton: boolean = true;
-
   form: FormGroup = this.fb.group({
     title: ['', Validators.required],
     technic: ['', Validators.required],
@@ -56,6 +56,7 @@ export class AddEditArtworkComponent implements OnInit {
     price: ['', Validators.required],
     sold: [false],
   });
+  subscriptions: Subscription[] = [];
 
   constructor(private readonly dashboardDataService: DashboardDataService,
               private readonly route: ActivatedRoute,
@@ -79,13 +80,15 @@ export class AddEditArtworkComponent implements OnInit {
   }
 
   private getArtworkFromIdInParam(): void {
-    this.route.paramMap.subscribe(params => {
-      const id: string | null = params.get('id');
-      if (id) {
-        const convertedId = Number(id);
-        this.loadArtwork(convertedId);
-      }
-    });
+    this.subscriptions.push(
+      this.route.paramMap.subscribe(params => {
+        const id: string | null = params.get('id');
+        if (id) {
+          const convertedId = Number(id);
+          this.loadArtwork(convertedId);
+        }
+      })
+    );
   }
 
   private loadArtwork(id: number): void {
@@ -116,9 +119,11 @@ export class AddEditArtworkComponent implements OnInit {
   }
 
   private subscribeToFormValueChanges(): void {
-    this.form.valueChanges.subscribe(() => {
-      this.updateAddButtonVisibility();
-    });
+    this.subscriptions.push(
+      this.form.valueChanges.subscribe(() => {
+        this.updateAddButtonVisibility();
+      })
+    );
   }
 
   private updateAddButtonVisibility(): void {
@@ -128,10 +133,10 @@ export class AddEditArtworkComponent implements OnInit {
   private formsAreValid(): boolean {
     const requiredFields: string[] = ["title", "width", "height", "yearOfCreation", "technic", "price"];
     const allFieldsFilled: boolean = requiredFields.every(field => !!this.form.get(field)?.value);
-    const imagePresent: boolean = this.artwork?.image !== undefined;
+    const imagePresent: boolean = this.artwork?.image.length > 0;
 
-    console.log('Form status:', this.form.status);
-    console.log('File uploaded:', imagePresent);
+    // console.log('Form status:', this.form.status);
+    // console.log('File uploaded:', imagePresent);
 
     return this.form.valid && allFieldsFilled && imagePresent;
   }
@@ -210,6 +215,14 @@ export class AddEditArtworkComponent implements OnInit {
       ? "snackbar.dashboard.artwork.created"
       : "snackbar.dashboard.artwork.updated";
     this.snackBarService.openSnackBarByJSON("info", jsonString);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    })
   }
 
   protected readonly ManageModesEnum = ManageModesEnum;

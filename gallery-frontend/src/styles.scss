@@ -95,8 +95,25 @@ body {
 }
 
 .text-one {
-  font-size: 20px;
+  font-size: 19px;
   line-height: 28px;
+}
+
+// Font
+
+body, p, span, div, h1, h2, h3, h4, h5, h6, a, li, ul, ol, input, textarea, button, label {
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+.mat-h1, .mat-h2, .mat-h3, .mat-h4, .mat-h5, .mat-h6,
+.mat-body-1, .mat-body-2, .mat-caption, .mat-button,
+.mat-input-element, .mat-form-field-label, .mat-dialog-title,
+.mat-dialog-content, .mat-dialog-actions, .mat-tooltip {
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+h1, h2, h3, .mat-h1, .mat-h2, .mat-h3 {
+  font-family: 'Quicksand', sans-serif;
 }
 
 // Form
