@@ -8,7 +8,9 @@
     "artwork.request.canceled": "Sie haben die Anfrage für das Kunstwerk zurückgezogen",
     "user.updated": "Ihre Nutzerdaten wurden aktualisiert",
     "event.accept": "Sie haben sich erfolgreich für das Event angemeldet",
-    "event.canceled": "Sie haben sich von dem Event abgemeldet"
+    "event.canceled": "Sie haben sich von dem Event abgemeldet",
+    "dashboard.artwork.created": "Sie haben das Kunstwerk erfolgreich erstellt",
+    "dashboard.artwork.updated": "Sie haben das Kunstwerk erfolgreich aktualisiert"
   },
   "error": {
     "default.message": "Ein Fehler ist aufgetreten",

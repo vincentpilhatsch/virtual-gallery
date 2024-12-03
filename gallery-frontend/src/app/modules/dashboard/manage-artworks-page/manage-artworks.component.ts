@@ -63,6 +63,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy {
   private loadArtworks() {
     this.artworkService.getArtworks().subscribe({
       next: (res: Artwork[]): void => {
+        // res.reverse();
         this.artworks = res;
         this.filteredArtworks = res;
         this.setGroupedArtworks();
@@ -92,7 +93,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy {
   }
 
   protected onCardClicked(artworkId: number) {
-    void this.router.navigate(["dashboard/kunstwerk-bearbeiten", artworkId]);
+    void this.router.navigate(["dashboard", "kunstwerk-bearbeiten", artworkId]);
   }
 
   ngOnDestroy(): void {

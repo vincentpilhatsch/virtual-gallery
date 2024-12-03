@@ -80,7 +80,7 @@ export class RequestedArtworksComponent implements OnInit {
     const artworkRequestId: number | undefined = this.getArtworkRequestIdToDelete(artworkId);
     if (artworkRequestId && artworkRequestId !== -1) {
       this.snackBarService.openSnackBarByJSON("info", "snackbar.artwork.request.canceled");
-      this.artworkRequestService.deleteArtworkRequestById(artworkRequestId).subscribe();
+      this.artworkRequestService.deleteArtworkRequest(artworkRequestId).subscribe();
     }
   }
 

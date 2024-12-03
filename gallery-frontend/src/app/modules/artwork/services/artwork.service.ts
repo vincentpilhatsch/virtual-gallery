@@ -35,10 +35,27 @@ export class ArtworkService {
     const artworkBlob = new Blob([JSON.stringify(artwork)], {type: 'application/json'});
     formData.append('artwork', artworkBlob);
     formData.append('file', file);
-
     const url: string = `${this.endpoint}`;
     return this.httpClient.post<Artwork>(url, formData);
   }
 
+  updateArtwork(artwork: Artwork): Observable<Artwork> {
+    const url: string = `${this.endpoint}/update`;
+    return this.httpClient.put<Artwork>(url, artwork);
+  }
+
+  updateArtworkWithImage(artwork: Artwork, file: File): Observable<Artwork> {
+    const formData: FormData = new FormData();
+    const artworkBlob = new Blob([JSON.stringify(artwork)], {type: 'application/json'});
+    formData.append('artwork', artworkBlob);
+    formData.append('file', file);
+    const url: string = `${this.endpoint}/updateWithImage`;
+    return this.httpClient.put<Artwork>(url, formData);
+  }
+
+  deleteArtwork(id: number): Observable<void> {
+    const url: string = `${this.endpoint}/${id}`;
+    return this.httpClient.delete<void>(url);
+  }
 
 }

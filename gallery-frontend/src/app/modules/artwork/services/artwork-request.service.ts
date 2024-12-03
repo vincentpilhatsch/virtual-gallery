@@ -28,7 +28,7 @@ export class ArtworkRequestService {
     return this.httpClient.post<ArtworkRequest>(url, artworkRequest);
   }
 
-  deleteArtworkRequestById(id: number): Observable<void> {
+  deleteArtworkRequest(id: number): Observable<void> {
     const url: string = `${this.endpoint}/${id}`;
     return this.httpClient.delete<void>(url);
   }

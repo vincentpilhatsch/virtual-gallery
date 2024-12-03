@@ -8,6 +8,7 @@ Generell:
     - Internationalization -> auf verschiedenen Sprachen
     - Vllt auch Barrierefrei?
 - Clean-Code beachtet (Validierungs Kapitel?, aus Buch Zitieren?)
+- Wollte E-Mail Verifinzierung mit einbauen, hat aber von Zeit nicht gereicht
 
 
 Angluar:
@@ -24,6 +25,8 @@ Spring Boot:
 - H2 in-memory -> damit bei Testing jeder Tests zurückgesetzt wird und viel mehr...
 - Probleme mit Bilder-Ladegeschwindigkeit
 	- Caching von Bildern
+	    -> man kann im browser (http) cachen und backend (spring-cache) benutzen
+	    -> was habe ich?
 	- lazy loading (Nicht möglich, da Blob - Angular Image-Optimization -> https://angular.dev/guide/image-optimization)
 - Authentication
     - Durch JWT (Header[Algorithm], Payload[User-Data], Signature[JWT-Secret])

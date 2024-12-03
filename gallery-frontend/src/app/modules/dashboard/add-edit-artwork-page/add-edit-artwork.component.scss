@@ -21,6 +21,10 @@ app-add-edit-artwork {
     gap: 30px;
   }
 
+  .inner-spaced-form-container {
+    display: flex;
+  }
+
   .mat-mdc-text-field-wrapper.mdc-text-field {
     width: 100% !important;
   }
@@ -38,4 +42,38 @@ app-add-edit-artwork {
     margin-top: 50px;
     width: 350px;
   }
+
+  .button-one {
+    width: 100%;
+    background-color: black;
+    color: white !important;
+    border: 1px solid black;
+  }
+
+  .button-one:hover {
+    background-color: white;
+    color: black !important;
+    border: 1px solid black;
+  }
+
+  .button-one:disabled {
+    background-color: white;
+    color: #626262 !important;
+    border: 1px solid #8d8d8d !important;
+    cursor: not-allowed !important;
+  }
+
+  //.button-one {
+  //  width: 100%;
+  //  border: 1px white;
+  //  color: white !important;
+  //  background-color: black;
+  //}
+  //
+  //.button-one:hover {
+  //  border: 1px red !important;
+  //  background-color: white !important;
+  //  color: black !important;
+  //}
+
 }

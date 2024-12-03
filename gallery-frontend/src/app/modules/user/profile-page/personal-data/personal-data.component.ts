@@ -130,9 +130,6 @@ export class PersonalDataComponent implements OnInit {
   private updateUser() {
     if (this.userFromParent) {
       this.userService.updateUser(this.userFromParent).subscribe({
-        next: (res): void => {
-          console.log(res);
-        },
         error: (err): void => {
           console.error(err);
         }

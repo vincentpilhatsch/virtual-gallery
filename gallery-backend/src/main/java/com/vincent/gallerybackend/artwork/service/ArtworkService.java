@@ -17,6 +17,8 @@ public interface ArtworkService {
 
     Artwork createArtwork(Artwork artwork, MultipartFile imageFile);
 
+    Artwork updateArtwork(Artwork artwork);
+
     Artwork updateArtwork(Artwork artwork, MultipartFile imageFile);
 
     void deleteArtwork(long id);

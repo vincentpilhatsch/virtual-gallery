@@ -8,7 +8,9 @@
     "artwork.request.canceled": "You have withdrawn the request for the artwork",
     "user.updated": "Your user data has been updated",
     "event.accept": "You have successfully registered for the event",
-    "event.canceled": "You have unsubscribed from the event"
+    "event.canceled": "You have unsubscribed from the event",
+    "dashboard.artwork.created": "You have successfully created the artwork",
+    "dashboard.artwork.updated": "You have successfully updated the artwork"
   },
   "error": {
     "default.message": "An error has occurred",

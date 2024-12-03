@@ -92,6 +92,7 @@ export class ArtworksComponent implements OnInit, OnDestroy {
   private loadArtworks() {
     this.artworkService.getArtworks().subscribe({
       next: (res: Artwork[]): void => {
+        // res.reverse();
         this.artworks = res;
         this.filteredArtworks = res;
         this.setGroupedArtworks();

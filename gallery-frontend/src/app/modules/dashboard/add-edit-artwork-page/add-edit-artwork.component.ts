@@ -6,11 +6,13 @@ import {MatButton} from "@angular/material/button";
 import {DashboardDataService} from "../services/dashboard-data.service";
 import {ManageModesEnum} from "../models/manage-modes.enum";
 import {Artwork} from "../../artwork/model/artwork";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {ActivatedRoute} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ArtworkService} from "../../artwork/services/artwork.service";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ArtworkForm} from "../models/artwork-form";
+import {SnackBarService} from "../../misc/services/snack-bar.service";
+import {ImageUploadComponent} from "../../misc/image-upload/image-upload.component";
 
 @Component({
   selector: 'app-add-edit-artwork',
@@ -21,54 +23,52 @@ import {ArtworkForm} from "../models/artwork-form";
     MatLabel,
     MatCheckbox,
     MatButton,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ImageUploadComponent
   ],
   templateUrl: './add-edit-artwork.component.html',
   styleUrl: './add-edit-artwork.component.scss',
   encapsulation: ViewEncapsulation.None
 })
 export class AddEditArtworkComponent implements OnInit {
-  artwork: Artwork | undefined;
-  file: File | null = null;
+  file: File | undefined;
+  artwork: Artwork = {
+    id: 0,
+    title: "",
+    width: 0,
+    height: 0,
+    yearOfCreation: "",
+    uploadedAt: undefined,
+    technic: "",
+    price: 0,
+    sold: false,
+    image: ""
+  };
   manageMode: ManageModesEnum | undefined;
-  disableLoginButton: boolean = false;
+  disableCreateButton: boolean = true;
 
   form: FormGroup = this.fb.group({
-    title: ['', [
-      Validators.required,
-    ]],
-    technic: ['', [
-      Validators.required,
-    ]],
-    width: [0, [
-      Validators.required,
-    ]],
-    height: [0, [
-      Validators.required,
-    ]],
-    yearOfCreation: [0, [
-      Validators.required,
-    ]],
-    price: [0, [
-      Validators.required,
-    ]],
-    sold: [false, [
-      // Validators.required,
-    ]],
-    // notifyUsers: ['', [
-    //   Validators.required,
-    // ]],
+    title: ['', Validators.required],
+    technic: ['', Validators.required],
+    width: ['', Validators.required],
+    height: ['', Validators.required],
+    yearOfCreation: ['', Validators.required],
+    price: ['', Validators.required],
+    sold: [false],
   });
 
   constructor(private readonly dashboardDataService: DashboardDataService,
               private readonly route: ActivatedRoute,
               private readonly artworkService: ArtworkService,
+              private readonly router: Router,
+              private readonly snackBarService: SnackBarService,
               private readonly fb: FormBuilder) {
   }
 
   ngOnInit() {
     this.loadArtworkIfIsInEditMode();
     this.subscribeToFormValueChanges();
+    this.updateAddButtonVisibility();
   }
 
   private loadArtworkIfIsInEditMode() {
@@ -103,14 +103,13 @@ export class AddEditArtworkComponent implements OnInit {
   private initForm(): void {
     if (this.artwork) {
       const artworkForm: ArtworkForm = {
-        title: this.artwork.title || '',
-        technic: this.artwork.technic || '',
-        width: this.artwork.width || 0,
-        height: this.artwork.height || 0,
-        yearOfCreation: this.artwork.yearOfCreation || '',
-        price: this.artwork.price || 0,
-        sold: this.artwork.sold || false,
-        // city: this.userFromParent.city ?? '' // if attribute is not required
+        title: this.artwork.title,
+        technic: this.artwork.technic,
+        width: this.artwork.width,
+        height: this.artwork.height,
+        yearOfCreation: this.artwork.yearOfCreation,
+        price: this.artwork.price,
+        sold: this.artwork.sold,
       }
       this.form.setValue(artworkForm);
     }
@@ -118,18 +117,56 @@ export class AddEditArtworkComponent implements OnInit {
 
   private subscribeToFormValueChanges(): void {
     this.form.valueChanges.subscribe(() => {
-      this.disableLoginButton = !this.formsAreValid();
+      this.updateAddButtonVisibility();
     });
   }
 
+  private updateAddButtonVisibility(): void {
+    this.disableCreateButton = !this.formsAreValid();
+  }
+
   private formsAreValid(): boolean {
-    const requiredFields = ["title", "width", "height", "yearOfCreation", "technic", "price"];
-    const allFieldsFilled = requiredFields.every(field => !!this.form.get(field)?.value);
-    return this.form.valid && this.file !== null && allFieldsFilled;
+    const requiredFields: string[] = ["title", "width", "height", "yearOfCreation", "technic", "price"];
+    const allFieldsFilled: boolean = requiredFields.every(field => !!this.form.get(field)?.value);
+    const imagePresent: boolean = this.artwork?.image !== undefined;
+
+    console.log('Form status:', this.form.status);
+    console.log('File uploaded:', imagePresent);
+
+    return this.form.valid && allFieldsFilled && imagePresent;
+  }
+
+  onFileChange(file: File | undefined): void {
+    this.file = file;
+  }
+
+  onCreate(): void {
+    if (this.formsAreValid()) {
+      const artwork: Artwork = this.getArtworkByFormData();
+      if (this.manageMode === ManageModesEnum.ADD) {
+        this.createArtwork(artwork);
+      } else if (this.manageMode === ManageModesEnum.EDIT) {
+        this.updateArtwork(artwork);
+      }
+      this.routeBackToManagePage();
+    }
+  }
+
+  onDelete(): void {
+    const artworkId: number | undefined = this.artwork?.id;
+    if (artworkId) {
+      this.artworkService.deleteArtwork(artworkId).subscribe({
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+        }
+      });
+      this.routeBackToManagePage();
+    }
   }
 
   private getArtworkByFormData(): Artwork {
     return {
+      id: this.artwork.id,
       title: this.form.get("title")?.value,
       technic: this.form.get("technic")?.value,
       width: this.form.get("width")?.value,
@@ -137,29 +174,42 @@ export class AddEditArtworkComponent implements OnInit {
       yearOfCreation: this.form.get("yearOfCreation")?.value,
       price: this.form.get("price")?.value,
       sold: this.form.get("sold")?.value,
-      image: this.form.get("image")?.value,
+      image: this.artwork.image
     }
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      this.file = input.files[0];
-    }
-  }
-
-  onSubmit(): void {
-    if (this.formsAreValid()) {
-      const artwork: Artwork = this.getArtworkByFormData();
-      this.artworkService.createArtwork(artwork, this.file!).subscribe({
-        next: (res: Artwork) => {
-          console.log(res);
-        },
+  private createArtwork(artwork: Artwork) {
+    if (this.file) {
+      this.artworkService.createArtwork(artwork, this.file).subscribe({
         error: (err: HttpErrorResponse) => {
           console.log(err);
         }
       });
     }
+  }
+
+  private updateArtwork(artwork: Artwork) {
+    if (this.file) {
+      this.artworkService.updateArtworkWithImage(artwork, this.file).subscribe({
+        error: (err: HttpErrorResponse) => {
+          console.log(err);
+        }
+      })
+    } else {
+      this.artworkService.updateArtwork(artwork).subscribe({
+        error: (err: HttpErrorResponse) => {
+          console.log(err);
+        }
+      })
+    }
+  }
+
+  private routeBackToManagePage(): void {
+    void this.router.navigate(["dashboard"]);
+    const jsonString: string = this.manageMode === ManageModesEnum.ADD
+      ? "snackbar.dashboard.artwork.created"
+      : "snackbar.dashboard.artwork.updated";
+    this.snackBarService.openSnackBarByJSON("info", jsonString);
   }
 
   protected readonly ManageModesEnum = ManageModesEnum;

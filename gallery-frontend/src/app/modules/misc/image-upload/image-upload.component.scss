@@ -1,0 +1,35 @@
+app-image-upload {
+  .hidden-file-input {
+    display: none;
+  }
+
+  .editable-image {
+    cursor: pointer;
+    border: 1px dashed transparent;
+    transition: border-color 0.2s ease;
+  }
+
+  .editable-image:hover {
+    border-color: var(--custom-color-grey);
+  }
+
+  .empty-image-container {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    transition: border-color 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .text-one {
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 16px;
+    }
+  }
+
+  .empty-image-container:hover {
+    border: 1px dashed black;
+  }
+}

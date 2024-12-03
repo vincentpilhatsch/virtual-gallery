@@ -22,7 +22,6 @@ export class LanguageStringTranslatorPipe implements PipeTransform {
     }
     const language: string = this.translate.currentLang;
     const json: string = this.languageJsonMapper[language];
-    console.log(this.translate.instant(json));
     return this.translate.instant(json);
   }
 

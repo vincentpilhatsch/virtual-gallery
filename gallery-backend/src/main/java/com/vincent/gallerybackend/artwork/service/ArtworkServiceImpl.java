@@ -5,15 +5,14 @@ import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
 import com.vincent.gallerybackend.artwork.model.ArtworkMapper;
 import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
 import com.vincent.gallerybackend.config.FileValidationService;
-import com.vincent.gallerybackend.exceptions.ImageFileException;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -28,9 +27,10 @@ public class ArtworkServiceImpl implements ArtworkService {
 
     @Transactional(readOnly = true)
     @Override
-//    @Cacheable("artworks") // TODO: No caching here needed?
+    @Cacheable("artworks")
     public List<Artwork> getArtworks() {
         List<ArtworkEntity> artworkEntities = artworkRepository.findAll();
+        Collections.reverse(artworkEntities);
         return artworkMapper.artworksDAOtoDTO(artworkEntities);
     }
 
@@ -64,6 +64,7 @@ public class ArtworkServiceImpl implements ArtworkService {
     }
 
     @Transactional
+    @CacheEvict(value = "artworks", allEntries = true)
     @Override
     public Artwork createArtwork(Artwork artwork, MultipartFile imageFile) {
         ArtworkEntity artworkEntity = artworkMapper.artworkDTOtoDAO(artwork);
@@ -74,6 +75,18 @@ public class ArtworkServiceImpl implements ArtworkService {
     }
 
     @Transactional
+    @CacheEvict(value = "artworks", allEntries = true)
+    @Override
+    public Artwork updateArtwork(Artwork newArtwork) {
+        ArtworkEntity oldArtwork = findById(newArtwork.getId());
+        ArtworkEntity updatedArtworkEntity = artworkMapper.updateArtworkDTOtoDAO(oldArtwork, newArtwork);
+        updatedArtworkEntity.setUploadedAt(LocalDateTime.now());
+        artworkRepository.save(updatedArtworkEntity);
+        return artworkMapper.artworkDAOtoDTO(updatedArtworkEntity);
+    }
+
+    @Transactional
+    @CacheEvict(value = "artworks", allEntries = true)
     @Override
     public Artwork updateArtwork(Artwork newArtwork, MultipartFile imageFile) {
         ArtworkEntity oldArtwork = findById(newArtwork.getId());
@@ -90,6 +103,7 @@ public class ArtworkServiceImpl implements ArtworkService {
     }
 
     @Transactional
+    @CacheEvict(value = "artworks", allEntries = true)
     @Override
     public void deleteArtwork(long id) {
         ArtworkEntity artworkEntity = findById(id);

@@ -1,0 +1,30 @@
+@if (manageMode === ManageModesEnum.ADD) {
+  @if (file) {
+    <img
+      src="data:image/jpeg;base64,{{ entity?.image }}"
+      alt="artwork-add"
+      class="editable-image"
+      (click)="triggerFileInput()"/>
+  } @else {
+    <div class="empty-image-container" (click)="triggerFileInput()">
+      <p class="text-one">Wählen Sie ein Bild aus*</p>
+    </div>
+  }
+  <input
+    type="file"
+    #fileInput
+    class="hidden-file-input"
+    (change)="onFileSelected($event)"/>
+} @else if (manageMode === ManageModesEnum.EDIT) {
+  <img
+    src="data:image/jpeg;base64,{{ entity?.image }}"
+    alt="artwork-edit"
+    class="editable-image"
+    (click)="triggerFileInput()"
+  />
+  <input
+    type="file"
+    #fileInput
+    class="hidden-file-input"
+    (change)="onFileSelected($event)"/>
+}

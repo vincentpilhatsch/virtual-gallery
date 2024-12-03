@@ -1,11 +1,12 @@
 <p class="title-one">Kunstwerk hinzufügen</p>
 <div class="artwork-container">
   <div class="first-section">
-    @if (manageMode === ManageModesEnum.ADD) {
-      <img src="./assets/imgs/keros_artwork_2.png" alt="artwork-card">
-    } @else {
-      <img src="data:image/jpeg;base64,{{ artwork?.image }}" alt="artwork-card">
-    }
+    <app-image-upload
+      [file]="file"
+      [entity]="artwork"
+      [manageMode]="manageMode"
+      (fileChange)="onFileChange($event)">
+    </app-image-upload>
   </div>
   <form class="second-section" [formGroup]="form">
     <mat-form-field>
@@ -48,21 +49,33 @@
                formControlName="price">
       </mat-form-field>
     </div>
-    <mat-checkbox formControlName="sold">
-      <p class="text-one">Verkauft</p>
-    </mat-checkbox>
-    @if (manageMode === ManageModesEnum.ADD) {
-      <mat-checkbox>
-        <p class="text-one">Benutzer benachrichten</p>
+    <!-- Checkboxes -->
+    <div class="inner-form-container">
+      <mat-checkbox formControlName="sold">
+        <p class="text-one">Verkauft</p>
       </mat-checkbox>
-    }
-    <input type="file" (change)="onFileSelected($event)">
-    <!--    [disabled]="disableLoginButton"-->
-    <button mat-stroked-button
-            class="button-one"
-
-            (click)="onSubmit()">
-      Kunstwerk hinzufügen
-    </button>
+      @if (manageMode === ManageModesEnum.ADD) {
+        <mat-checkbox>
+          <p class="text-one">Benutzer benachrichten</p>
+        </mat-checkbox>
+      }
+    </div>
+    <!-- Buttons -->
+    <div class="inner-form-container">
+      <button type="button"
+              mat-stroked-button
+              class="button-one"
+              [disabled]="disableCreateButton"
+              (click)="onCreate()">
+        Kunstwerk hinzufügen
+      </button>
+      @if (manageMode === ManageModesEnum.EDIT) {
+        <button type="button"
+                mat-stroked-button
+                class="button-one" (click)="onDelete()">
+          Kunstwerk Löschen
+        </button>
+      }
+    </div>
   </form>
 </div>
