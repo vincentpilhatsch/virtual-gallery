@@ -27,6 +27,13 @@ public class ExhibitionController {
         return new ResponseEntity<>(exhibitions, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/latest", produces = "application/json")
+    public ResponseEntity<Exhibition> getLatestExhibition() {
+        Exhibition exhibition = exhibitionServiceImpl.getLatestExhibition();
+        log.info("GET LATEST exhibition ({})", exhibition.getTitle());
+        return new ResponseEntity<>(exhibition, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Exhibition> getExhibition(@PathVariable long id) {
         Exhibition exhibition = exhibitionServiceImpl.getExhibitionById(id);

@@ -1,44 +1,62 @@
 <div class="first-section">
   <div class="first-left-container">
-    <h1 class="title">Olivier Kéros</h1>
-    <p class="title-two">Magna aliquyam erat</p>
-    <p class="text-one">
+    <h1 class="title ">KÉROS</h1>
+    <p class="text-one-grey">
       Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
       invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-      accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
       sanctus est Lorem ipsum dolor sit amet.
     </p>
-    <button mat-stroked-button class="button-one" routerLink="/kunstwerke">
-      {{ 'home.button.artworks' | translate }}
+    <button mat-stroked-button class="button-one-inverted upper-case" routerLink="/kunstwerke">
+      {{ 'home.button.discover.artworks' | translate }}
     </button>
   </div>
-  <div class="first-right-container">
-    <img ngSrc="../../../../assets/imgs/keros_artwork_3.png" alt="home" height="880" width="610"
-         priority="high">
-  </div>
 </div>
 <div class="divider"></div>
-<div class="second-section">
-  @for (group of randomGroupedArtworks; track $index) {
-    <div class="inner-artwork-container">
-      @for (artwork of group; track artwork.id) {
-        <app-artwork-card [artwork]="artwork"
-                          [favoriteArtworkIds]="userService.user ? favoriteIds : undefined"></app-artwork-card>
-      }
+@if (latestExhibition) {
+  <div class="second-section">
+    <div class="title-before">AKTUELLE AUSSTELLUNG</div>
+    <div class="title-one">{{ latestExhibition.title }}</div>
+    <div class="inner-second-section">
+      <div class="second-left-container">
+        <img src="data:image/jpeg;base64,{{ latestExhibition.image }}" alt="exhibition">
+      </div>
+      <div class="second-right-container">
+        <div class="text-one">
+          {{ latestExhibition.startDate | convertNumberArrayToDateString }} -
+          {{ latestExhibition.endDate | convertNumberArrayToDateString }}
+        </div>
+        <div class="text-one">
+          {{ latestExhibition.location }}
+        </div>
+        <div class="text-one-grey">
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam.
+        </div>
+        <button mat-stroked-button
+                class="button-one upper-case"
+                routerLink="/ausstellungen">
+          Mehr erfahren
+        </button>
+      </div>
     </div>
-  }
-</div>
+  </div>
+}
 <div class="divider"></div>
 <div class="third-section">
-  <div class="second-left-container">
-    <img src="../../../../assets/imgs/keros_artwork_3.png" alt="home">
-  </div>
-  <div class="second-right-container">
-    <div class="title-two">Erlebe die Galerie in einer 360 Grad Tour</div>
-    <div class="text-one">
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-      dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam.
+  <div class="title-before">AKTUELLE ARBEIT</div>
+  <div class="current-artwork-container">
+    <div class="title-one">Ausgewählte Kunstwerke</div>
+    <div class="all-artworks" routerLink="/kunstwerke">
+      <div class="text-one">Alle Werke</div>
+      <mat-icon fontIcon="arrow_forward"></mat-icon>
     </div>
-    <button mat-stroked-button class="button-one">Tour starten</button>
+  </div>
+  <div class="inner-artwork-container">
+    @for (artwork of artworks; track $index) {
+      <app-artwork-card [artwork]="artwork"
+                        [favoriteArtworkIds]="userService.user ? favoriteIds : undefined"
+      ></app-artwork-card>
+<!--      data-aos="fade-right"-->
+    }
   </div>
 </div>

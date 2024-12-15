@@ -11,6 +11,8 @@ public interface ExhibitionService {
 
     List<Exhibition> getExhibitions();
 
+    Exhibition getLatestExhibition();
+
     Exhibition getExhibitionById(long id);
 
     Exhibition createExhibition(Exhibition exhibition, MultipartFile multipartFile);

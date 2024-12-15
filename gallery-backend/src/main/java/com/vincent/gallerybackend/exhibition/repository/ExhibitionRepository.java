@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ExhibitionRepository extends JpaRepository<ExhibitionEntity, Long> {
 
+    ExhibitionEntity findTopByOrderByStartDateDesc();
+
 }

@@ -44,24 +44,64 @@
           </div>
         </mat-list-item>
       </mat-list>
-      @if (!artwork.sold && userService.user && !isRequested) {
-        <button mat-stroked-button class="button-one" [routerLink]="['/kunstwerk-anfragen', artwork.id]">
-          Anfrage stellen
-        </button>
+      @if (userService.user) {
+        @if (artwork.sold) {
+          <button mat-stroked-button class="button-one-inverted" disabled>
+            BEREITS VERKAUFT
+          </button>
+        } @else if (isAlreadyRequested) {
+          <button mat-stroked-button class="button-one-inverted" disabled>
+            ANFRAGE WURDE GESTELLT
+          </button>
+        } @else {
+          <button mat-stroked-button class="button-one-inverted" (click)="onRequestButtonClicked()">
+            ANFRAGE STELLEN
+          </button>
+        }
       }
     </div>
   </div>
   <div class="divider"></div>
   <div class="second-section">
     <p class="title-two">Andere Kunstwerke</p>
-    @for (group of randomGroupedArtworks; track $index) {
-      <div class="inner-artwork-container">
-        @for (artwork of group; track artwork.id) {
-          <app-artwork-card [artwork]="artwork"
-                            [favoriteArtworkIds]="userService.user ? favoriteIds : undefined">
-          </app-artwork-card>
-        }
-      </div>
+    <div class="inner-artwork-container">
+    @for (artwork of randomArtworks; track $index) {
+      <app-artwork-card [artwork]="artwork"
+                        [favoriteArtworkIds]="userService.user ? favoriteIds : undefined">
+      </app-artwork-card>
     }
+    </div>
   </div>
+  @if (!isAlreadyRequested) {
+    <div class="divider" #requestContainer></div>
+    <div class="third-section">
+      <p class="title-two">Anfrage auf das Kunstwerk stellen</p>
+      <p class="text-one">
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. Dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+        tempor invidunt ut labore et dolore magna aliquyam erat.
+      </p>
+      <div class="form-container">
+        <form [formGroup]="form">
+          <p class="text-one">Mitteilung*</p>
+          <mat-form-field>
+            <textarea matInput
+                      type="text"
+                      name="description"
+                      formControlName="description"
+                      rows="4"></textarea>
+          </mat-form-field>
+<!--          <mat-checkbox formControlName="confirmation">-->
+<!--            <p class="text-one">Ich bestätige Lorem ipsum dolor sit amet, consetetur sadipscing elitr. *</p>-->
+<!--          </mat-checkbox>-->
+        </form>
+      </div>
+      <button mat-stroked-button
+              class="button-one-inverted"
+              (click)="onRequestSubmitted()"
+              [disabled]="!formsAreValid">
+        Anfrage stellen
+      </button>
+    </div>
+  }
 }

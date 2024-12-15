@@ -1,7 +1,6 @@
 import {Routes} from '@angular/router';
 import {ArtworkComponent} from "./modules/artwork/artwork-page/artwork.component";
 import {ArtworksComponent} from "./modules/artwork/artworks-page/artworks.component";
-import {RequestArtworkComponent} from "./modules/artwork/request-artwork/request-artwork.component";
 import {ArtistComponent} from "./modules/artist/artist-page/artist.component";
 import {EventsComponent} from "./modules/event/event-page/events.component";
 import {LoginComponent} from "./modules/user/login-page/login.component";
@@ -16,16 +15,17 @@ import {HomeComponent} from "./modules/home/home.component";
 import {ExhibitionsComponent} from "./modules/exhibitions/exhibitions-page/exhibitions.component";
 import {userAndArtistGuard} from "./modules/misc/guards/user-and-artist.guard";
 import {authGuard} from "./modules/misc/guards/auth.guard";
+import {TourComponent} from "./modules/tour/tour.component";
 
 export const routes: Routes = [
   {path: '', redirectTo: '/anmelden', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'kunstwerk/:id', component: ArtworkComponent},
   {path: 'kunstwerke', component: ArtworksComponent},
-  {path: 'kunstwerk-anfragen/:id', component: RequestArtworkComponent, canActivate: [userAndArtistGuard]},
   {path: 'künstler', component: ArtistComponent},
   {path: 'events', component: EventsComponent},
   {path: 'ausstellungen', component: ExhibitionsComponent},
+  {path: 'tour', component: TourComponent},
   {path: 'anmelden', component: LoginComponent, canActivate: [authGuard]},
   {path: 'registrieren', component: RegisterComponent, canActivate: [authGuard]},
   {path: 'profil', component: ProfileComponent, canActivate: [userAndArtistGuard]},

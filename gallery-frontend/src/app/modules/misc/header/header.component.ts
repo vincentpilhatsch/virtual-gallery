@@ -10,9 +10,10 @@ import {LanguageEnum} from "../../user/model/language.enum";
 import {UserService} from "../../user/services/user.service";
 import {FormsModule} from "@angular/forms";
 import {LanguageService} from "../../user/services/language.service";
-import {User} from "../../user/model/user";
 import {HttpErrorResponse} from "@angular/common/http";
 import {LanguageStringTranslatorPipe} from "../pipes/language-string-translator.pipe";
+import {TranslateModule} from "@ngx-translate/core";
+import {ToUpperCasePipe} from "../pipes/to-upper-case.pipe";
 
 @Component({
   selector: 'app-header',
@@ -30,7 +31,9 @@ import {LanguageStringTranslatorPipe} from "../pipes/language-string-translator.
     MatSelect,
     MatOption,
     FormsModule,
-    LanguageStringTranslatorPipe
+    LanguageStringTranslatorPipe,
+    TranslateModule,
+    ToUpperCasePipe
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

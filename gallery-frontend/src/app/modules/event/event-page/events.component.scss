@@ -1,27 +1,31 @@
 app-events {
 
-  .event {
+  .upcoming-event {
     display: flex;
     gap: 60px;
     margin-bottom: 70px;
-  }
 
-  .reversed-event {
-    flex-direction: row-reverse;
+    img {
+      width: 100%;
+      height: 800px;
+      object-fit: cover;
+    }
   }
 
   .first-section {
-    width: 50%;
+    width: 60%;
   }
 
   .second-section {
-    width: 50%;
+    width: 40%;
   }
 
-  .text-one.text-date {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    color: var(--custom-color-grey);
+  .text-container {
+    padding-top: 22px;
+
+    .text-one {
+      font-style: italic;
+    }
   }
 
   .finished-event-container {
@@ -29,14 +33,39 @@ app-events {
     gap: 38px;
   }
 
-  img {
-    max-width: 100%;
-    //height: 400px;
-  }
-
-  .button-one {
+  .button-one, .button-one-inverted {
     padding: 28px 0 !important;
     margin-top: 70px;
     width: 310px
+  }
+
+  .past-event {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background: #f3f3f3;
+
+    img {
+      max-width: 100%;
+    }
+
+    .past-event-container {
+      display: flex;
+      gap: 40px;
+    }
+
+    .past-event-inner-container {
+      width: calc(100% / 3) !important;
+
+      .title-two {
+        padding-top: 22px;
+        padding-bottom: 25px;
+        font-size: 23px;
+      }
+
+      .text-one {
+        margin-bottom: 0 !important;
+      }
+    }
   }
 }

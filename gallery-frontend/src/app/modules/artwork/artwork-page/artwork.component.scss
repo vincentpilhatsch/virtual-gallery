@@ -9,14 +9,17 @@ app-artwork {
     display: flex;
     flex-direction: column;
     gap: 30px;
-  }
+    padding: 30px;
+    background: #f3f3f3;
 
-  .left-container {
-    width: 40%;
+    .title-two {
+      padding-bottom: 15px;
+      //color: #454545;
+    }
   }
 
   .right-container {
-    width: 60%;
+    width: 55%;
   }
 
   .title-container {
@@ -27,6 +30,10 @@ app-artwork {
   .inner-artwork-container {
     display: flex;
     gap: 50px;
+
+    app-artwork-card {
+      width: calc(100% / 3) !important;
+    }
   }
 
   .item-content {
@@ -36,8 +43,9 @@ app-artwork {
   }
 
   .left-container {
+    width: 45%;
+
     img {
-      //max-width: 600px;
       max-width: 100%;
       max-height: 100%;
     }
@@ -53,6 +61,12 @@ app-artwork {
       font-size: 18px;
       color: white;
       text-transform: uppercase;
+    }
+  }
+
+  .third-section {
+    p.text-one {
+      padding-top: 10px;
     }
   }
 
@@ -72,6 +86,18 @@ app-artwork {
 
   .mdc-list {
     margin-bottom: 70px;
+  }
+
+  .mat-mdc-text-field-wrapper.mdc-text-field {
+    width: 100% !important;
+  }
+
+  form {
+    margin-top: 40px;
+  }
+
+  .form-container {
+    margin-bottom: 60px;
   }
 
 }

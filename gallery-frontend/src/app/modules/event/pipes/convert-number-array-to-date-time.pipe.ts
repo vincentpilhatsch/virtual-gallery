@@ -11,7 +11,7 @@ export class ConvertNumberArrayToDateStringPipe implements PipeTransform {
   private readonly GERMAN_TIME_TRANSLATION = "Uhr";
   private readonly INVALID_DATE_JSON = "error.invalid.date";
 
-  constructor(private translate: TranslateService) {
+  constructor(private readonly translate: TranslateService) {
   }
 
   transform(numberArray: number[]): string {
@@ -29,6 +29,6 @@ export class ConvertNumberArrayToDateStringPipe implements PipeTransform {
     const day = new Intl.DateTimeFormat(language, {weekday: 'long'}).format(dateObject);
     const date: string = dateObject.toLocaleDateString(language);
     const time: string = dateObject.toLocaleTimeString(language, {hour: '2-digit', minute: '2-digit'});
-    return `${day} ${date}, ${time} ${dayIfTranslatedInGerman}`
+    return `${day} ${date}, ${time} ${dayIfTranslatedInGerman}`;
   }
 }

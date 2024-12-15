@@ -6,38 +6,40 @@
   </div>
   <div class="middle-container">
     <div class="header-container">
-      <p class="header-text" routerLink="/künstler" routerLinkActive="active-link">Künstler</p>
+      <p class="header-text upper-case" routerLink="/künstler" routerLinkActive="active-link">
+        {{ "header.link.artists" | translate }}
+      </p>
     </div>
-    <p class="centered-dot">
-      <span class="dot"></span>
-    </p>
+<!--    <p class="centered-dot">-->
+<!--      <span class="dot"></span>-->
+<!--    </p>-->
     <div class="header-container">
-      <p class="header-text" routerLink="/kunstwerke" routerLinkActive="active-link">Kunstwerke</p>
+      <p class="header-text upper-case" routerLink="/kunstwerke" routerLinkActive="active-link">
+        {{ "header.link.artworks" | translate }}
+      </p>
     </div>
-    <p class="centered-dot">
-      <span class="dot"></span>
-    </p>
     <div class="header-container">
-      <p class="header-text" routerLink="/ausstellungen" routerLinkActive="active-link">Ausstellungen</p>
+      <p class="header-text upper-case" routerLink="/ausstellungen" routerLinkActive="active-link">
+        {{ "header.link.exhibitions" | translate }}
+      </p>
     </div>
-    <p class="centered-dot">
-      <span class="dot"></span>
-    </p>
     <div class="header-container">
-      <p class="header-text" routerLink="/events" routerLinkActive="active-link">Events</p>
+      <p class="header-text upper-case" routerLink="/events" routerLinkActive="active-link">
+        {{ "header.link.events" | translate }}
+      </p>
     </div>
-    <p class="centered-dot">
-      <span class="dot"></span>
-    </p>
     <div class="header-container">
-      <p class="header-text" routerLink="/" routerLinkActive="active-link">Virtuelle Tour</p>
+      <p class="header-text upper-case" routerLink="/tour" routerLinkActive="active-link">
+        {{ "header.link.360.degree.tour" | translate }}
+      </p>
     </div>
-    <p class="centered-dot">
-      <span class="dot"></span>
-    </p>
-    <div class="header-container">
-      <p class="header-text dashboard" routerLink="/dashboard" routerLinkActive="active-link">Dashboard</p>
-    </div>
+    @if (userService.user) {
+      <div class="header-container">
+        <p class="header-text dashboard upper-case" routerLink="/dashboard" routerLinkActive="active-link">
+          {{ "header.link.dashboard" | translate }}
+        </p>
+      </div>
+    }
   </div>
   <div class="right-container">
     <mat-form-field>
@@ -47,18 +49,20 @@
         }
       </mat-select>
     </mat-form-field>
-    <p class="centered-dot">
-      <span class="dot"></span>
-    </p>
     @if (userService.user) {
       <div class="header-container">
-        <div class="bar-icons">
-          <mat-icon fontIcon="notifications"></mat-icon>
-          <mat-icon fontIcon="account_circle" routerLink="/profil"></mat-icon>
-        </div>
+<!--        <div class="bar-icons">-->
+<!--          <mat-icon fontIcon="notifications"></mat-icon>-->
+<!--          <mat-icon fontIcon="account_circle" routerLink="/profil"></mat-icon>-->
+<!--        </div>-->
+        <p class="header-text upper-case" routerLink="/profil" routerLinkActive="active-link">
+          {{ "header.link.profile" | translate }}
+        </p>
       </div>
     } @else {
-      <button mat-stroked-button class="button-one" routerLink="/anmelden">Anmelden</button>
+      <button mat-stroked-button class="button-one upper-case" routerLink="/anmelden">
+        {{ "header.link.login" | translate }}
+      </button>
     }
   </div>
 </div>

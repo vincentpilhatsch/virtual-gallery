@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RequestArtworkComponent } from './request-artwork.component';
+import { TourComponent } from './tour.component';
 
-describe('RequestArtworkComponent', () => {
-  let component: RequestArtworkComponent;
-  let fixture: ComponentFixture<RequestArtworkComponent>;
+describe('TourComponent', () => {
+  let component: TourComponent;
+  let fixture: ComponentFixture<TourComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RequestArtworkComponent]
+      imports: [TourComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RequestArtworkComponent);
+    fixture = TestBed.createComponent(TourComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

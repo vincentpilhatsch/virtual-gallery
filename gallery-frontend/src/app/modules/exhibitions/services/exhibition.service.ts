@@ -17,4 +17,9 @@ export class ExhibitionService {
     const url: string = `${this.endpoint}/all`;
     return this.httpClient.get<Exhibition[]>(url);
   }
+
+  getLatestExhibitions(): Observable<Exhibition> {
+    const url: string = `${this.endpoint}/latest`;
+    return this.httpClient.get<Exhibition>(url);
+  }
 }

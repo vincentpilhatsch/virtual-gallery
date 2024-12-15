@@ -9,6 +9,12 @@ import {UserService} from "../user/services/user.service";
 import {ArtworkService} from "../artwork/services/artwork.service";
 import {forkJoin, Subscription} from "rxjs";
 import {RouterLink, RouterLinkActive} from "@angular/router";
+import {ToUpperCasePipe} from "../misc/pipes/to-upper-case.pipe";
+import {ExhibitionService} from "../exhibitions/services/exhibition.service";
+import {Exhibition} from "../exhibitions/model/exhibition";
+import {ConvertNumberArrayToDateStringPipe} from "../event/pipes/convert-number-array-to-date.pipe";
+import {MatIcon} from "@angular/material/icon";
+
 
 @Component({
   selector: 'app-home',
@@ -22,42 +28,52 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
     TranslateModule,
     RouterLink,
     RouterLinkActive,
+    ToUpperCasePipe,
+    ConvertNumberArrayToDateStringPipe,
+    MatIcon,
   ],
   standalone: true
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  randomGroupedArtworks: Artwork[][] = [];
+  artworks: Artwork[] = [];
   favoriteIds: number[] = [];
-  readonly numbersOfRandomArtworks: number = 4;
+  latestExhibition: Exhibition | undefined;
+  readonly NUMBERS_OF_RANDOM_ARTWORKS: number = 3;
 
   subscriptions: Subscription[] = [];
 
   constructor(protected userService: UserService,
+              private readonly exhibitionService: ExhibitionService,
               private readonly artworkService: ArtworkService) {
   }
 
   ngOnInit() {
     this.subscribeToUser();
+    // AOS.init({
+    //   duration: 750, // Dauer der Animation in Millisekunden
+    //   delay: 150,    // Verzögerung vor dem Start der Animation
+    // });
   }
 
   private subscribeToUser() {
+    this.loadLatestExhibition();
     this.subscriptions.push(this.userService.user$.subscribe((user) => {
         if (user) {
-          this.loadFourRandomArtworksAndFavoriteIds(user.email);
+          this.loadRandomArtworksAndFavoriteIds(user.email);
         } else {
-          this.loadFourRandomArtworks();
+          this.loadRandomArtworks();
         }
       })
     );
   }
 
-  private loadFourRandomArtworksAndFavoriteIds(email: string): void {
+  private loadRandomArtworksAndFavoriteIds(email: string): void {
     forkJoin([
-      this.artworkService.getRandomArtworks(this.numbersOfRandomArtworks),
+      this.artworkService.getRandomArtworks(this.NUMBERS_OF_RANDOM_ARTWORKS),
       this.userService.getFavoriteArtworkIdsByEmail(email)
     ]).subscribe({
       next: ([artworks, favoriteArtworkIds]: [Artwork[], number[]]): void => {
-        this.setRandomGroupedArtworks(artworks);
+        this.artworks = artworks;
         this.favoriteIds = favoriteArtworkIds;
       },
       error: (err: HttpErrorResponse): void => {
@@ -66,17 +82,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  setRandomGroupedArtworks(artworks: Artwork[]) {
-    this.randomGroupedArtworks = [];
-    for (let i = 0; i < artworks.length; i += 2) {
-      this.randomGroupedArtworks.push(artworks.slice(i, i + 2));
-    }
+  private loadRandomArtworks() {
+    this.artworkService.getRandomArtworks(this.NUMBERS_OF_RANDOM_ARTWORKS).subscribe({
+      next: (res: Artwork[]): void => {
+        this.artworks = res;
+      },
+      error: (err: HttpErrorResponse): void => {
+        console.error(err);
+      }
+    })
   }
 
-  private loadFourRandomArtworks() {
-    this.artworkService.getRandomArtworks(this.numbersOfRandomArtworks).subscribe({
-      next: (res: Artwork[]): void => {
-        this.setRandomGroupedArtworks(res);
+  private loadLatestExhibition() {
+    this.exhibitionService.getLatestExhibitions().subscribe({
+      next: (res: Exhibition): void => {
+        this.latestExhibition = res;
       },
       error: (err: HttpErrorResponse): void => {
         console.error(err);

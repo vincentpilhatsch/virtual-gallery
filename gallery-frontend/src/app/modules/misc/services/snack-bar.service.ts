@@ -9,7 +9,7 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class SnackBarService {
   private readonly horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  private readonly verticalPosition: MatSnackBarVerticalPosition = 'top';
+  private readonly verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   private readonly urlMessageMap: { [key: string]: string } = {
     "kunstwerk-anfragen": "Bitte melde dich an, um ein Kunstwerk anzufragen",
     "profil": "Bitte melde dich an, um auf dein Profil zuzugreifen",
@@ -22,13 +22,13 @@ export class SnackBarService {
               private readonly translateService: TranslateService) {
   }
 
-  openSnackBarByJSON(icon: string, json: string) {
+  openSnackBarByJSON(icon: string, json: string, durationInMillis?: number) {
     const message: string = this.translateService.instant(json);
     this.matSnackBar.openFromComponent(SnackBarComponent, {
       data: {icon, message},
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
-      duration: 3000,
+      duration: durationInMillis ?? 3000,
     });
   }
 

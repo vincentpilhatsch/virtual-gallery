@@ -7,6 +7,7 @@ import {NgClass} from "@angular/common";
 import {UserService} from "../../user/services/user.service";
 import {ConvertNumberArrayToDateStringPipe} from "../pipes/convert-number-array-to-date-time.pipe";
 import {SnackBarService} from "../../misc/services/snack-bar.service";
+import {ConvertNumberArrayToYearStringPipe} from "../../exhibitions/pipes/convert-number-array-to-year.pipe";
 
 @Component({
   selector: 'app-events',
@@ -14,7 +15,8 @@ import {SnackBarService} from "../../misc/services/snack-bar.service";
   imports: [
     MatButton,
     ConvertNumberArrayToDateStringPipe,
-    NgClass
+    NgClass,
+    ConvertNumberArrayToYearStringPipe
   ],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss',
@@ -23,6 +25,7 @@ import {SnackBarService} from "../../misc/services/snack-bar.service";
 export class EventsComponent implements OnInit {
   upcomingEvents: Event[] = [];
   pastEvents: Event[] = [];
+  groupedPastEvents: Event[][] = [];
 
   constructor(protected userService: UserService,
               private readonly snackBarService: SnackBarService,
@@ -54,11 +57,18 @@ export class EventsComponent implements OnInit {
         this.pastEvents.push(event);
       }
     });
+    this.setGroupedEvents(this.pastEvents);
   }
 
   private convertNumberArrayToDate(numberArray: number[]): Date {
     const [year, month, day, hour, minute] = numberArray;
     return new Date(year, month - 1, day, hour, minute);
+  }
+
+  private setGroupedEvents(exhibitions: Event[]): void {
+    for (let i = 0; i < exhibitions.length; i += 3) {
+      this.groupedPastEvents.push(exhibitions.slice(i, i + 3));
+    }
   }
 
   onButtonClicked(eventId: number) {

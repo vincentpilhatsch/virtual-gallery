@@ -1,37 +1,45 @@
-<p class="title-one">Laufende Ausstellungen</p>
+<p class="title-upper-case">Ausstellungen</p>
 @if (upcomingExhibitions) {
   @for (exhibition of upcomingExhibitions; track $index) {
-    <div class="exhibition">
-      <div class="first-section">
+    <div class="upcoming-exhibition">
+      <div class="upcoming-first-section">
         <img src="data:image/jpeg;base64,{{ exhibition.image }}" alt="exhibition">
       </div>
-      <div class="second-section">
-        <p class="title-two">{{ exhibition.title }}</p>
-        <p class="text-one">{{ exhibition.description }}</p>
-        <p class="text-one text-date">{{ exhibition.location }}</p>
-        <p class="text-one text-date">
-          {{ exhibition.startDate | convertNumberArrayToDateString }} - {{ exhibition.endDate | convertNumberArrayToDateString}}
-        </p>
+      <div class="upcoming-second-section">
+        <p class="title-two">{{ exhibition.title }}, {{ exhibition.startDate | convertNumberArrayToYearString }}</p>
+        <p class="text-one-grey">{{ exhibition.description }}</p>
+        <div class="text-container">
+          <p class="text-one">Wann?</p>
+            <p class="text-one-grey">
+            {{ exhibition.startDate | convertNumberArrayToDateString }} - {{ exhibition.endDate | convertNumberArrayToDateString}}
+          </p>
+        </div>
+        <div class="text-container">
+          <p class="text-one">Wo?</p>
+          <p class="text-one-grey">{{ exhibition.location }}</p>
+        </div>
       </div>
     </div>
   }
 }
-<div class="divider"></div>
-<p class="title-one">Vergangene Ausstellungen</p>
 @if (pastExhibitions) {
-  @for (exhibition of pastExhibitions; track $index) {
-    <div class="exhibition" [ngClass]="{ 'reversed-exhibition': $index % 2 === 1 }">
-      <div class="first-section">
-        <img src="data:image/jpeg;base64,{{ exhibition.image }}" alt="exhibition">
+  <div class="divider"></div>
+  <div class="past-exhibition">
+    <p class="title-two">Vergangene Ausstellungen</p>
+    @for (group of groupedPastExhibitions; track $index) {
+      <div class="past-exhibition-container">
+        @for (exhibition of group; track exhibition.id) {
+          <div class="inner-past-exhibition-container">
+            <div class="first-section">
+              <img src="data:image/jpeg;base64,{{ exhibition.image }}" alt="exhibition">
+            </div>
+            <div class="second-section">
+              <p class="title-two">{{ exhibition.title }}, {{ exhibition.startDate | convertNumberArrayToYearString }}</p>
+              <p class="text-one-grey">{{ exhibition.description }}</p>
+            </div>
+          </div>
+        }
       </div>
-      <div class="second-section">
-        <p class="title-two">{{ exhibition.title }}</p>
-        <p class="text-one">{{ exhibition.description }}</p>
-        <p class="text-one text-date">{{ exhibition.location }}</p>
-        <p class="text-one text-date">
-          {{ exhibition.startDate | convertNumberArrayToDateString }} - {{ exhibition.endDate | convertNumberArrayToDateString}}
-        </p>
-      </div>
-    </div>
-  }
+    }
+  </div>
 }

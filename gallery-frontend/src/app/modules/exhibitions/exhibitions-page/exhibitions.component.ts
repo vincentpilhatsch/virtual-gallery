@@ -6,6 +6,8 @@ import {NgClass} from "@angular/common";
 import {UserService} from "../../user/services/user.service";
 import {Exhibition} from "../model/exhibition";
 import {ExhibitionService} from "../services/exhibition.service";
+import {ArtworkCardComponent} from "../../artwork/artwork-card/artwork-card.component";
+import {ConvertNumberArrayToYearStringPipe} from "../pipes/convert-number-array-to-year.pipe";
 
 @Component({
   selector: 'app-exhibitions',
@@ -13,7 +15,9 @@ import {ExhibitionService} from "../services/exhibition.service";
   imports: [
     MatButton,
     ConvertNumberArrayToDateStringPipe,
-    NgClass
+    NgClass,
+    ArtworkCardComponent,
+    ConvertNumberArrayToYearStringPipe
   ],
   templateUrl: './exhibitions.component.html',
   styleUrl: './exhibitions.component.scss',
@@ -22,6 +26,7 @@ import {ExhibitionService} from "../services/exhibition.service";
 export class ExhibitionsComponent implements OnInit {
   upcomingExhibitions: Exhibition[] = [];
   pastExhibitions: Exhibition[] = [];
+  groupedPastExhibitions: Exhibition[][] = [];
 
   constructor(protected userService: UserService,
               private readonly exhibitionsService: ExhibitionService) {
@@ -52,6 +57,13 @@ export class ExhibitionsComponent implements OnInit {
         this.pastExhibitions.push(exhibition);
       }
     });
+    this.setGroupedExhibitions(this.pastExhibitions);
+  }
+
+  private setGroupedExhibitions(exhibitions: Exhibition[]): void {
+    for (let i = 0; i < exhibitions.length; i += 3) {
+      this.groupedPastExhibitions.push(exhibitions.slice(i, i + 3));
+    }
   }
 
   private convertNumberArrayToDate(numberArray: number[]): Date {

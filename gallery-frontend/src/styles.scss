@@ -5,6 +5,7 @@
   // Colors
   --custom-color-red: #a60000;
   --custom-color-grey: #4E4E4E;
+  --custom-color-text-grey: #868686;
   --custom-color-sold: #FF6060;
 
   // Input
@@ -33,20 +34,14 @@
   }
 }
 
-//html {
-//  display: flex;
-//  justify-content: center;
-//}
-
 body {
-  margin: 0 2%;
-  //max-width: 1800px;
+  margin: 0 2% 2% 2%;
 }
 
 .divider {
   width: 100%;
   margin: 100px 0;
-  border-top: 1px solid black;
+  border-top: 1px solid #adadad;
 }
 
 .centered-dot {
@@ -67,8 +62,8 @@ body {
 // Buttons
 
 .button-one {
-  padding: 28px 0 !important; // padding: 28px 100px !important;
-  min-width: 300px !important;
+  padding: 28px 0 !important;
+  min-width: 350px !important;
   border: 1px solid black !important;
   border-radius: 0 !important;
   font-size: 18px !important;
@@ -81,17 +76,54 @@ body {
   color: white !important;
 }
 
+.button-one-inverted {
+  padding: 28px 0 !important;
+  min-width: 350px !important;
+  border: 1px solid black !important;
+  background-color: black !important;
+  color: white !important;
+  border-radius: 0 !important;
+  font-size: 18px !important;
+  font-weight: normal !important;
+  letter-spacing: 1px !important;
+}
+
+.button-one-inverted:hover {
+  background-color: white !important;
+  color: black !important;
+  border: 1px solid black !important;
+}
+
+.button-one-inverted:disabled {
+  background-color: white !important;
+  color: #626262 !important;
+  border: 1px solid #8d8d8d !important;
+}
+
 // Text
 
 .title-one {
-  font-size: 48px !important;
+  font-size: 44px !important;
   padding-bottom: 80px;
 }
 
 .title-two {
   font-size: 28px;
-  padding-bottom: 60px;
+  padding-bottom: 40px;
   font-weight: 500;
+}
+
+.title-before {
+  font-size: 22px;
+  color: var(--custom-color-text-grey);
+  padding-bottom: 50px;
+  font-weight: 500;
+}
+
+.title-upper-case {
+  font-size: 40px;
+  padding-bottom: 50px;
+  text-transform: uppercase;
 }
 
 .text-one {
@@ -99,22 +131,32 @@ body {
   line-height: 28px;
 }
 
+.text-one-grey {
+  font-size: 19px;
+  line-height: 28px;
+  color: var(--custom-color-grey);
+}
+
+.upper-case {
+  text-transform: uppercase !important;
+}
+
 // Font
 
 body, p, span, div, h1, h2, h3, h4, h5, h6, a, li, ul, ol, input, textarea, button, label {
-  font-family: 'Lexend Deca', sans-serif;
+  font-family: 'Poppins', sans-serif !important;
 }
 
 .mat-h1, .mat-h2, .mat-h3, .mat-h4, .mat-h5, .mat-h6,
 .mat-body-1, .mat-body-2, .mat-caption, .mat-button,
 .mat-input-element, .mat-form-field-label, .mat-dialog-title,
 .mat-dialog-content, .mat-dialog-actions, .mat-tooltip {
-  font-family: 'Lexend Deca', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
-h1, h2, h3, .mat-h1, .mat-h2, .mat-h3 {
-  font-family: 'Quicksand', sans-serif;
-}
+//h1, h2, h3, .mat-h1, .mat-h2, .mat-h3 {
+//  font-family: 'Quicksand', sans-serif;
+//}
 
 // Form
 

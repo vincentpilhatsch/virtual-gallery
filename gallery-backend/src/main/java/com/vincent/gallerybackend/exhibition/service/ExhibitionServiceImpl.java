@@ -30,6 +30,13 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 
     @Transactional(readOnly = true)
     @Override
+    public Exhibition getLatestExhibition() {
+        ExhibitionEntity exhibitionEntities = exhibitionRepository.findTopByOrderByStartDateDesc();
+        return exhibitionMapper.exhibitionDAOtoDTO(exhibitionEntities);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public Exhibition getExhibitionById(long id) {
         ExhibitionEntity exhibitionEntity = findById(id);
         return exhibitionMapper.exhibitionDAOtoDTO(exhibitionEntity);

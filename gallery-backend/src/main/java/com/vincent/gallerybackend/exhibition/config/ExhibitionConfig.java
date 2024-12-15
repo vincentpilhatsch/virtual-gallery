@@ -37,8 +37,8 @@ public class ExhibitionConfig {
         return args -> {
             ExhibitionEntity exhibitionEntity1 = new ExhibitionEntity(
                     1L,
-                    "Hope",
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo irmod tempor.",
+                    "Geschlossene Gesellschaft",
+                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n" + "          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam.",
                     "Hohenzollerndamm 216, 10781 Berlin",
                     LocalDate.now().plusDays(1),
                     LocalDate.now().plusDays(2),
@@ -46,32 +46,25 @@ public class ExhibitionConfig {
             );
             ExhibitionEntity exhibitionEntity2 = new ExhibitionEntity(
                     2L,
-                    "Love",
+                    "Never Love",
                     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo irmod tempor.",
                     "Berliner Straße 16, 11721 Berlin",
                     LocalDate.now().minusDays(2),
                     LocalDate.now().minusDays(1),
-                    images.get(2)
+                    images.get(3)
             );
             ExhibitionEntity exhibitionEntity3 = new ExhibitionEntity(
                     3L,
-                    "Fever",
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo irmod tempor.",
-                    "Eisenacher Straße 16, 11721 Berlin",
-                    LocalDate.now().minusDays(2),
-                    LocalDate.now().minusDays(1),
-                    images.get(3)
-            );
-            ExhibitionEntity exhibitionEntity4 = new ExhibitionEntity(
-                    4L,
-                    "Danger",
+                    "The Wet Fever",
                     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo irmod tempor.",
                     "Eisenacher Straße 16, 11721 Berlin",
                     LocalDate.now().minusDays(2),
                     LocalDate.now().minusDays(1),
                     images.get(4)
             );
-            exhibitionRepository.saveAll(List.of(exhibitionEntity1, exhibitionEntity2, exhibitionEntity3, exhibitionEntity4));
+            exhibitionRepository.saveAll(List.of(
+                    exhibitionEntity1, exhibitionEntity2, exhibitionEntity3)
+            );
         };
     }
 

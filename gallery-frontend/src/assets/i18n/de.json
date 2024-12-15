@@ -1,10 +1,20 @@
 {
   "home": {
-    "button.artworks": "Kunstwerke"
+    "button.discover.artworks": "Kunstwerke entdecken"
+  },
+  "header": {
+    "link.artists": "Künstler",
+    "link.artworks": "Kunstwerke",
+    "link.exhibitions": "Ausstellungen",
+    "link.events": "Events",
+    "link.360.degree.tour": "360 Grad Tour",
+    "link.dashboard": "Dashboard",
+    "link.profile": "Profil",
+    "link.login": "Anmelden"
   },
   "snackbar": {
     "login.expired": "Ihre Anmeldung ist abgelaufen",
-    "artwork.requested": "Sie haben das Kunstwerk erfolgreich angefragt",
+    "artwork.requested": "Sie haben das Kunstwerk erfolgreich angefragt. Wir werden in kürze mit Ihnen in Kontakt treten.",
     "artwork.request.canceled": "Sie haben die Anfrage für das Kunstwerk zurückgezogen",
     "user.updated": "Ihre Nutzerdaten wurden aktualisiert",
     "event.accept": "Sie haben sich erfolgreich für das Event angemeldet",

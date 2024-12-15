@@ -62,18 +62,26 @@
     </div>
     <!-- Buttons -->
     <div class="inner-form-container">
-      <button type="button"
-              mat-stroked-button
-              class="button-one"
-              [disabled]="disableCreateButton"
-              (click)="onCreate()">
-        Kunstwerk hinzufügen
-      </button>
       @if (manageMode === ManageModesEnum.EDIT) {
         <button type="button"
                 mat-stroked-button
-                class="button-one" (click)="onDelete()">
+                class="button-one-inverted" (click)="onDelete()">
           Kunstwerk Löschen
+        </button>
+        <button type="button"
+                mat-stroked-button
+                class="button-one-inverted"
+                [disabled]="disableCreateButton"
+                (click)="onCreate()">
+          Kunstwerk aktualisieren
+        </button>
+      } @else {
+        <button type="button"
+                mat-stroked-button
+                class="button-one-inverted"
+                [disabled]="disableCreateButton"
+                (click)="onCreate()">
+          Kunstwerk hinzufügen
         </button>
       }
     </div>

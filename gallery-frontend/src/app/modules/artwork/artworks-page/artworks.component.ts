@@ -62,6 +62,7 @@ export class ArtworksComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.userService.user$.subscribe((user) => {
         if (user) {
+          // TODO: When I'm in the artworks page and reload it, the fav artworks dont display in frontend
           this.loadArtworksAndFavoriteIds(user.email);
         } else {
           this.loadArtworks();
