@@ -4,9 +4,9 @@
   },
   "header": {
     "link.artists": "Artist",
-    "link.artworks": "artworks",
-    "link.exhibitions": "exhibitions",
-    "link.events": "events",
+    "link.artworks": "Artworks",
+    "link.exhibitions": "Exhibitions",
+    "link.events": "Events",
     "link.360.degree.tour": "360 Degree Tour",
     "link.dashboard": "Dashboard",
     "link.profile": "Profile",
@@ -20,7 +20,8 @@
     "event.accept": "You have successfully registered for the event",
     "event.canceled": "You have unsubscribed from the event",
     "dashboard.artwork.created": "You have successfully created the artwork",
-    "dashboard.artwork.updated": "You have successfully updated the artwork"
+    "dashboard.artwork.updated": "You have successfully updated the artwork",
+    "dashboard.artwork.filetype.invalid": "The specified file type is invalid"
   },
   "error": {
     "default.message": "An error has occurred",

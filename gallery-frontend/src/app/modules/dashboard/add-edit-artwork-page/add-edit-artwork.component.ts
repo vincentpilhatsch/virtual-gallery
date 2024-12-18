@@ -3,7 +3,6 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatButton} from "@angular/material/button";
-import {DashboardDataService} from "../services/dashboard-data.service";
 import {ManageModesEnum} from "../models/manage-modes.enum";
 import {Artwork} from "../../artwork/model/artwork";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -14,6 +13,7 @@ import {ArtworkForm} from "../models/artwork-form";
 import {SnackBarService} from "../../misc/services/snack-bar.service";
 import {ImageUploadComponent} from "../../misc/image-upload/image-upload.component";
 import {Subscription} from "rxjs";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-add-edit-artwork',
@@ -25,7 +25,8 @@ import {Subscription} from "rxjs";
     MatCheckbox,
     MatButton,
     ReactiveFormsModule,
-    ImageUploadComponent
+    ImageUploadComponent,
+    MatIcon
   ],
   templateUrl: './add-edit-artwork.component.html',
   styleUrl: './add-edit-artwork.component.scss',
@@ -58,8 +59,7 @@ export class AddEditArtworkComponent implements OnInit, OnDestroy {
   });
   subscriptions: Subscription[] = [];
 
-  constructor(private readonly dashboardDataService: DashboardDataService,
-              private readonly route: ActivatedRoute,
+  constructor(private readonly route: ActivatedRoute,
               private readonly artworkService: ArtworkService,
               private readonly router: Router,
               private readonly snackBarService: SnackBarService,
@@ -72,11 +72,14 @@ export class AddEditArtworkComponent implements OnInit, OnDestroy {
     this.updateAddButtonVisibility();
   }
 
-  private loadArtworkIfIsInEditMode() {
-    this.manageMode = this.dashboardDataService.getManageMode();
-    if (this.manageMode === ManageModesEnum.EDIT) {
-      this.getArtworkFromIdInParam();
+  private loadArtworkIfIsInEditMode(): void {
+    const isAddingArtwork = this.router.url.includes('erstellen');
+    if (isAddingArtwork) {
+      this.manageMode = ManageModesEnum.ADD;
+      return;
     }
+    this.getArtworkFromIdInParam();
+    this.manageMode = ManageModesEnum.EDIT
   }
 
   private getArtworkFromIdInParam(): void {
@@ -133,7 +136,7 @@ export class AddEditArtworkComponent implements OnInit, OnDestroy {
   private formsAreValid(): boolean {
     const requiredFields: string[] = ["title", "width", "height", "yearOfCreation", "technic", "price"];
     const allFieldsFilled: boolean = requiredFields.every(field => !!this.form.get(field)?.value);
-    const imagePresent: boolean = this.artwork?.image.length > 0;
+    const imagePresent: boolean = this.artwork?.image.length > 0 || this.file !== undefined;
 
     // console.log('Form status:', this.form.status);
     // console.log('File uploaded:', imagePresent);
@@ -143,6 +146,8 @@ export class AddEditArtworkComponent implements OnInit, OnDestroy {
 
   onFileChange(file: File | undefined): void {
     this.file = file;
+    this.updateAddButtonVisibility();
+    console.log(this.formsAreValid());
   }
 
   onCreate(): void {

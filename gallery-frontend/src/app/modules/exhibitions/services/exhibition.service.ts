@@ -13,6 +13,11 @@ export class ExhibitionService {
   constructor(private readonly httpClient: HttpClient) {
   }
 
+  getExhibitionById(id: number): Observable<Exhibition> {
+    const url: string = `${this.endpoint}`;
+    return this.httpClient.get<Exhibition>(url);
+  }
+
   getExhibitions(): Observable<Exhibition[]> {
     const url: string = `${this.endpoint}/all`;
     return this.httpClient.get<Exhibition[]>(url);

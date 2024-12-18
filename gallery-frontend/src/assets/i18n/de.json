@@ -20,7 +20,8 @@
     "event.accept": "Sie haben sich erfolgreich für das Event angemeldet",
     "event.canceled": "Sie haben sich von dem Event abgemeldet",
     "dashboard.artwork.created": "Sie haben das Kunstwerk erfolgreich erstellt",
-    "dashboard.artwork.updated": "Sie haben das Kunstwerk erfolgreich aktualisiert"
+    "dashboard.artwork.updated": "Sie haben das Kunstwerk erfolgreich aktualisiert",
+    "dashboard.artwork.filetype.invalid": "Der angegebene Datei-Typ ist ungültig"
   },
   "error": {
     "default.message": "Ein Fehler ist aufgetreten",

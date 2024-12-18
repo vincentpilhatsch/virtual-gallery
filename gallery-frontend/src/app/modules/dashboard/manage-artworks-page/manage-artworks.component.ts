@@ -10,7 +10,6 @@ import {ArtworkService} from "../../artwork/services/artwork.service";
 import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgClass} from "@angular/common";
-import {DashboardDataService} from "../services/dashboard-data.service";
 import {FormsModule} from "@angular/forms";
 
 @Component({
@@ -42,8 +41,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy {
 
   constructor(private readonly artworkService: ArtworkService,
               private readonly router: Router,
-              private readonly responsive: BreakpointObserver,
-              private readonly dashboardDataService: DashboardDataService) {
+              private readonly responsive: BreakpointObserver) {
   }
 
   ngOnInit() {

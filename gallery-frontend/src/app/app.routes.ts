@@ -16,6 +16,7 @@ import {ExhibitionsComponent} from "./modules/exhibitions/exhibitions-page/exhib
 import {userAndArtistGuard} from "./modules/misc/guards/user-and-artist.guard";
 import {authGuard} from "./modules/misc/guards/auth.guard";
 import {TourComponent} from "./modules/tour/tour.component";
+import {ManageExhibitionsComponent} from "./modules/dashboard/manage-exhibitions-page/manage-exhibitions.component";
 
 export const routes: Routes = [
   {path: '', redirectTo: '/anmelden', pathMatch: 'full'},
@@ -36,5 +37,8 @@ export const routes: Routes = [
   {path: 'dashboard/events-verwalten', component: ManageEventsComponent}, // , canActivate: [artistGuard]},
   {path: 'dashboard/event-bearbeiten/:id', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
   {path: 'dashboard/event-erstellen', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/ausstellungen-verwalten', component: ManageExhibitionsComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/ausstellung-bearbeiten/:id', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/ausstellung-erstellen', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
   // {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];

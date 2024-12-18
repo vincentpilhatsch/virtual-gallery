@@ -1,0 +1,29 @@
+<p class="title-one">Ausstellungen verwalten</p>
+<div class="filter-container">
+  <mat-form-field>
+    <mat-label>Suchen...</mat-label>
+    <input matInput
+           [(ngModel)]="searchQuery"
+           (keyup)="onSearch()">
+  </mat-form-field>
+  <div class="add-button" routerLink="/dashboard/ausstellung-erstellen">
+    <mat-icon fontIcon="add"></mat-icon>
+  </div>
+</div>
+<div class="exhibition-container">
+  @for (group of groupedExhibitions; track $index) {
+    <div class="inner-exhibition-container">
+      @for (exhibition of group; track exhibition.id) {
+        <div class="card" (click)="onCardClicked(exhibition.id)">
+          <div class="first-section">
+            <img src="data:image/jpeg;base64,{{ exhibition.image }}" alt="exhibition">
+          </div>
+          <div class="second-section">
+            <p class="title-two">{{ exhibition.title }}, {{ exhibition.startDate | convertNumberArrayToYearString }}</p>
+            <p class="text-one-grey">{{ exhibition.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

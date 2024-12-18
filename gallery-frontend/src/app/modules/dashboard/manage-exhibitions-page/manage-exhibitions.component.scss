@@ -1,0 +1,41 @@
+app-manage-exhibitions {
+
+  .filter-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+
+  .exhibition-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .inner-exhibition-container {
+    display: flex;
+    gap: 40px;
+  }
+
+  .card {
+    width: calc(100% / 3) !important;
+
+    .title-two {
+      padding-top: 22px;
+      padding-bottom: 25px;
+      font-size: 23px;
+    }
+
+    .text-one {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .mat-mdc-form-field-bottom-align {
+    display: none;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,63 @@
+app-add-exhibition-artwork {
+
+  .artwork-container {
+    display: flex;
+    gap: 80px;
+  }
+
+  .first-section {
+    width: 45%;
+  }
+
+  .second-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 55%;
+  }
+
+  .inner-form-container {
+    display: flex;
+    gap: 30px;
+  }
+
+  .inner-spaced-form-container {
+    display: flex;
+  }
+
+  .mat-mdc-text-field-wrapper.mdc-text-field {
+    width: 100% !important;
+  }
+
+  p.text-one {
+    margin-bottom: 2px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .mat-mdc-button-base {
+    margin-top: 50px;
+    width: 350px;
+  }
+
+  .button-one-inverted {
+    width: 100%;
+  }
+
+  //.button-one {
+  //  width: 100%;
+  //  border: 1px white;
+  //  color: white !important;
+  //  background-color: black;
+  //}
+  //
+  //.button-one:hover {
+  //  border: 1px red !important;
+  //  background-color: white !important;
+  //  color: black !important;
+  //}
+
+}
