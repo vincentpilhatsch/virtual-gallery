@@ -31,7 +31,7 @@ export const routes: Routes = [
   {path: 'registrieren', component: RegisterComponent, canActivate: [authGuard]},
   {path: 'profil', component: ProfileComponent, canActivate: [userAndArtistGuard]},
   {path: 'dashboard', component: DashboardComponent}, //
-  {path: 'dashboard/kunstwerke-verwalten', component: ManageArtworksComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/kunstwerke-verwalten', component: ManageArtworksComponent}, // , canActivate: [artistGuard]}, // TODO: need guards, app otherwise buggy (dashboard)
   {path: 'dashboard/kunstwerk-bearbeiten/:id', component: AddEditArtworkComponent}, // , canActivate: [artistGuard]},
   {path: 'dashboard/kunstwerk-erstellen', component: AddEditArtworkComponent}, // , canActivate: [artistGuard]},
   {path: 'dashboard/events-verwalten', component: ManageEventsComponent}, // , canActivate: [artistGuard]},
