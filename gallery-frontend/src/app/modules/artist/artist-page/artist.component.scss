@@ -1,38 +1,3 @@
 app-artist {
 
-  .second-section {
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-  }
-
-  .inner-section {
-    display: flex;
-    gap: 50px;
-  }
-
-  .first-image {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .second-image {
-    width: 500px;
-    height: auto;
-    margin-top: -190px;
-  }
-
-  .third-image {
-    width: 650px;
-    height: auto;
-  }
-
-  .text-one {
-    text-align: justify;
-  }
-
-  .divider {
-    margin: 80px 0;
-  }
-
 }

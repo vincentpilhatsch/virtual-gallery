@@ -2,62 +2,70 @@
   <div class="left-container">
     <img ngSrc="../../../../assets/imgs/keros_artwork_3.png" alt="register" height="880" width="610"
          priority="high">
+    <img src="./assets/images/login_register_image.jpg" alt="artwork-card">
   </div>
   <div class="right-container">
-    <p class="title-one">Registrieren</p>
-    <p class="text-one">
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-    </p>
-    <form [formGroup]="form">
-      <div class="name-container">
+    <div class="inner-right-container">
+      <p class="title-one">Registrieren</p>
+      <p class="text-one">
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
+      </p>
+      <form [formGroup]="form">
+        <div class="name-container">
+          <mat-form-field>
+            <mat-label>Vorname</mat-label>
+            <input matInput
+                   type="text"
+                   formControlName="firstName">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Nachname</mat-label>
+            <input matInput
+                   type="text"
+                   formControlName="lastName">
+          </mat-form-field>
+        </div>
+
         <mat-form-field>
-          <mat-label>Vorname</mat-label>
-          <input matInput
-                 type="text"
-                 formControlName="firstName">
+          <mat-label>E-Mail</mat-label>
+          <input type="email"
+                 name="username"
+                 matInput
+                 placeholder="example@example.com"
+                 formControlName="email">
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Nachname</mat-label>
+          <mat-label>Passwort</mat-label>
           <input matInput
-                 type="text"
-                 formControlName="lastName">
+                 type="password"
+                 name="password"
+                 [type]="hide() ? 'password' : 'text'"
+                 formControlName="password"/>
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="showOrHidePassword($event)"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()">
+            <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
         </mat-form-field>
-      </div>
-
-      <mat-form-field>
-        <mat-label>E-Mail</mat-label>
-        <input type="email"
-               name="username"
-               matInput
-               placeholder="example@example.com"
-               formControlName="email">
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Passwort</mat-label>
-        <input matInput
-               type="password"
-               name="password"
-               [type]="hide() ? 'password' : 'text'"
-               formControlName="password"/>
-        <button
-          mat-icon-button
-          matSuffix
-          (click)="showOrHidePassword($event)"
-          [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide()">
-          <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
-        </button>
-      </mat-form-field>
-    </form>
-    <span class="error-message">{{ errorMessage }}</span>
-    <!-- TODO -->
-    <mat-checkbox formControlName="confirmation">
-      <p class="text-one">Ich bestätige Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
-    </mat-checkbox>
-    <button mat-stroked-button class="button-one" (click)="onFormSubmitted()" [disabled]="disableLoginButton">
-      Registrieren
-    </button>
+      </form>
+      <span class="error-message">{{ errorMessage }}</span>
+      <!-- TODO -->
+      <!--    <mat-checkbox formControlName="confirmation">-->
+      <!--      <p class="text-one">Ich bestätige Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>-->
+      <!--    </mat-checkbox>-->
+      <button mat-stroked-button class="button-one" (click)="onFormSubmitted()" [disabled]="disableLoginButton">
+        Registrieren
+      </button>
+    </div>
+    <div class="inner-login-container">
+      <p class="text-one">Du hast noch kein Konto?
+        <span class="login-link" routerLink="/anmelden">Hier Anmelden</span>
+      </p>
+    </div>
   </div>
 </div>

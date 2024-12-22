@@ -4,6 +4,21 @@ app-register {
     gap: 100px;
   }
 
+  .left-container {
+    width: 40%;
+  }
+
+  .right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 60%;
+  }
+
+  .inner-login-container .text-one {
+    margin-bottom: 0 !important;
+  }
+
   .text-one {
     margin-bottom: 100px !important;
   }
@@ -29,5 +44,16 @@ app-register {
   .error-message {
     display: flex;
     color: #f44336;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .login-link {
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 8px;
   }
 }

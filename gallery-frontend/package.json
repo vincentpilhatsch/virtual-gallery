@@ -1,6 +1,6 @@
 {
-  "name": "gallery-frontend",
-  "version": "0.0.0",
+  "name": "gallery-website",
+  "version": "1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

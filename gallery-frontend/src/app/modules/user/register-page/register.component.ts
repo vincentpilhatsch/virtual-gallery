@@ -8,7 +8,7 @@ import {FormErrorTypeEnum} from "../model/formErrorType.enum";
 import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UserService} from "../services/user.service";
 import {LanguageService} from "../services/language.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {AuthResponse} from "../model/authResponse";
 import {RegisterRequest} from "../model/registerRequest";
 import {Subscription} from "rxjs";
@@ -27,7 +27,8 @@ import {MatCheckbox} from "@angular/material/checkbox";
     MatSuffix,
     NgOptimizedImage,
     ReactiveFormsModule,
-    MatCheckbox
+    MatCheckbox,
+    RouterLink
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
