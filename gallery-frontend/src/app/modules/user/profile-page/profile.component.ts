@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.userService.logout().subscribe({
       next: () => {
         this.userService.user = null;
-        void this.router.navigate(["home"]);
+        void this.router.navigate(["startseite"]);
       },
       error: (error) => console.error(error),
     });
