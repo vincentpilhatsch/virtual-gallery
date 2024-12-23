@@ -145,6 +145,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.userService.user = res.user
         this.languageService.setLanguageByLoggedInUser(res.user.language);
         void this.router.navigate(["profil"]);
+        // TODO: Snack-Bar message
       },
       error: (err): void => {
         console.error(err);

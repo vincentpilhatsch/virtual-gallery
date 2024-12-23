@@ -44,7 +44,7 @@
           </div>
         </mat-list-item>
       </mat-list>
-      @if (userService.user) {
+      @if (userService.user && userService.user?.role === RoleEnum.USER) {
         @if (artwork.sold) {
           <button mat-stroked-button class="button-one-inverted" disabled>
             BEREITS VERKAUFT
@@ -65,20 +65,21 @@
   <div class="second-section">
     <p class="title-two">Andere Kunstwerke</p>
     <div class="inner-artwork-container">
-    @for (artwork of randomArtworks; track $index) {
-      <app-artwork-card [artwork]="artwork"
-                        [favoriteArtworkIds]="userService.user ? favoriteIds : undefined">
-      </app-artwork-card>
-    }
+      @for (artwork of randomArtworks; track $index) {
+        <app-artwork-card [artwork]="artwork"
+                          [favoriteArtworkIds]="userService.user ? favoriteIds : undefined">
+        </app-artwork-card>
+      }
     </div>
   </div>
-  @if (!isAlreadyRequested) {
+  @if (!isAlreadyRequested && userService.user && userService.user?.role === RoleEnum.USER) {
     <div class="divider" #requestContainer></div>
     <div class="third-section">
       <p class="title-two">Anfrage auf das Kunstwerk stellen</p>
       <p class="text-one">
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-        dolore magna aliquyam erat, sed diam voluptua. Dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+        dolore magna aliquyam erat, sed diam voluptua. Dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+        eirmod
         tempor invidunt ut labore et dolore magna aliquyam erat.
       </p>
       <div class="form-container">
@@ -91,9 +92,9 @@
                       formControlName="description"
                       rows="4"></textarea>
           </mat-form-field>
-<!--          <mat-checkbox formControlName="confirmation">-->
-<!--            <p class="text-one">Ich bestätige Lorem ipsum dolor sit amet, consetetur sadipscing elitr. *</p>-->
-<!--          </mat-checkbox>-->
+          <!--          <mat-checkbox formControlName="confirmation">-->
+          <!--            <p class="text-one">Ich bestätige Lorem ipsum dolor sit amet, consetetur sadipscing elitr. *</p>-->
+          <!--          </mat-checkbox>-->
         </form>
       </div>
       <button mat-stroked-button

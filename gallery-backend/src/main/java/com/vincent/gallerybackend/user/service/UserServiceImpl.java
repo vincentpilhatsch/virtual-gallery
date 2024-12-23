@@ -80,7 +80,6 @@ public class UserServiceImpl implements UserService {
 
     public UserEntity findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
-        // Try catch necessary?
     }
 
     @Transactional(readOnly = true)

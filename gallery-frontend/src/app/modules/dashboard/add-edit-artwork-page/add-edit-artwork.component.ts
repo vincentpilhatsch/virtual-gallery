@@ -32,7 +32,7 @@ import {MatIcon} from "@angular/material/icon";
   styleUrl: './add-edit-artwork.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class AddEditArtworkComponent implements OnInit, OnDestroy {
+export class AddEditArtworkComponent implements OnInit, OnDestroy { // TODO: Werde ausgeloggt, wenn input falsch
   file: File | undefined;
   manageMode: ManageModesEnum | undefined;
   disableCreateButton: boolean = true;

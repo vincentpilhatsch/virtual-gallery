@@ -38,26 +38,26 @@ public class UserConfig {
                     "123456789",
                     Language.DE,
                     Role.ARTIST,
-                    Set.of(1L, 2L),      // favoriteArtworkIds
-                    Set.of(1L),          // acceptedEventIds
-                    Set.of(1L, 2L),       // notificationIds
-                    Set.of()      // requestedArtworkIds
+                    Set.of(1L, 2L),         // favoriteArtworkIds
+                    Set.of(1L),             // acceptedEventIds
+                    Set.of(1L, 2L),         // notificationIds
+                    Set.of()                // requestedArtworkIds
             );
 
             UserEntity max = new UserEntity(
                     UUID.randomUUID(),
                     "max",
                     "steiner",
-                    "steiner@bht.de",
-                    passwordEncoder.encode("admin"),
+                    "user@bht.de",
+                    passwordEncoder.encode("user"),
                     "berlin",
                     "123456789",
                     Language.EN,
                     Role.USER,
-                    Set.of(1L, 2L),          // favoriteArtworkIds
-                    Set.of(1L),          // acceptedEventIds
-                    Set.of(1L),       // notificationIds
-                    Set.of()          // requestedArtworkIds
+                    Set.of(1L, 2L),         // favoriteArtworkIds
+                    Set.of(1L),             // acceptedEventIds
+                    Set.of(1L),             // notificationIds
+                    Set.of()                // requestedArtworkIds
             );
             userRepository.saveAll(List.of(thomas, max));
         };

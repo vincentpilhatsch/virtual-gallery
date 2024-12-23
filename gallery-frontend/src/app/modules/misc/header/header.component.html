@@ -10,9 +10,9 @@
         {{ "header.link.artists" | translate }}
       </p>
     </div>
-<!--    <p class="centered-dot">-->
-<!--      <span class="dot"></span>-->
-<!--    </p>-->
+    <!--    <p class="centered-dot">-->
+    <!--      <span class="dot"></span>-->
+    <!--    </p>-->
     <div class="header-container">
       <p class="header-text upper-case" routerLink="/kunstwerke" routerLinkActive="active-link">
         {{ "header.link.artworks" | translate }}
@@ -33,7 +33,8 @@
         {{ "header.link.360.degree.tour" | translate }}
       </p>
     </div>
-    @if (userService.user) {
+    <!-- TODO: user.role === ... -->
+    @if (userService.user && userService.user.role === RoleEnum.ARTIST) {
       <div class="header-container">
         <p class="header-text dashboard upper-case" routerLink="/dashboard" routerLinkActive="active-link">
           {{ "header.link.dashboard" | translate }}
@@ -51,10 +52,10 @@
     </mat-form-field>
     @if (userService.user) {
       <div class="header-container">
-<!--        <div class="bar-icons">-->
-<!--          <mat-icon fontIcon="notifications"></mat-icon>-->
-<!--          <mat-icon fontIcon="account_circle" routerLink="/profil"></mat-icon>-->
-<!--        </div>-->
+        <!--        <div class="bar-icons">-->
+        <!--          <mat-icon fontIcon="notifications"></mat-icon>-->
+        <!--          <mat-icon fontIcon="account_circle" routerLink="/profil"></mat-icon>-->
+        <!--        </div>-->
         <p class="header-text upper-case" routerLink="/profil" routerLinkActive="active-link">
           {{ "header.link.profile" | translate }}
         </p>

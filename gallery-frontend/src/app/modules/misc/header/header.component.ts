@@ -14,6 +14,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {LanguageStringTranslatorPipe} from "../pipes/language-string-translator.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {ToUpperCasePipe} from "../pipes/to-upper-case.pipe";
+import {RoleEnum} from "../../user/model/role.enum";
 
 @Component({
   selector: 'app-header',
@@ -80,4 +81,6 @@ export class HeaderComponent implements OnInit {
       this.selectedLanguage = localStorageLanguage;
     }
   }
+
+  protected readonly RoleEnum = RoleEnum;
 }

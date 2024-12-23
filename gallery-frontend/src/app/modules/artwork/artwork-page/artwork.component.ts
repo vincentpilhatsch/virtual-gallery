@@ -19,6 +19,8 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {ArtworkRequestService} from "../services/artwork-request.service";
 import {SnackBarService} from "../../misc/services/snack-bar.service";
+import {User} from "../../user/model/user";
+import {RoleEnum} from "../../user/model/role.enum";
 
 @Component({
   selector: 'app-artwork',
@@ -206,4 +208,5 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     })
   }
 
+  protected readonly RoleEnum = RoleEnum;
 }
