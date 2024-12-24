@@ -16,6 +16,7 @@ import java.util.UUID;
 @Setter
 @ToString
 public class ArtworkRequestEntity {
+    // TODO: when artworkRequest got accepted then every request for the artwork needs to get deleted
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
