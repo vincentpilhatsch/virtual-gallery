@@ -20,7 +20,7 @@ import {ManageExhibitionsComponent} from "./modules/dashboard/manage-exhibitions
 
 export const routes: Routes = [
   {path: '', redirectTo: '/anmelden', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
+  {path: 'startseite', component: HomeComponent},
   {path: 'kunstwerk/:id', component: ArtworkComponent},
   {path: 'kunstwerke', component: ArtworksComponent},
   {path: 'künstler', component: ArtistComponent},
