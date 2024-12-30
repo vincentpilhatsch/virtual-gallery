@@ -1,5 +1,7 @@
 package com.vincent.gallerybackend.exhibition.service;
 
+import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
+import com.vincent.gallerybackend.config.FileValidationService;
 import com.vincent.gallerybackend.exceptions.ImageFileException;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
 import com.vincent.gallerybackend.exhibition.model.Exhibition;
@@ -20,6 +22,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 
     private final ExhibitionRepository exhibitionRepository;
     private final ExhibitionMapper exhibitionMapper;
+    private final FileValidationService fileValidationService;
 
     @Transactional(readOnly = true)
     @Override
@@ -51,8 +54,18 @@ public class ExhibitionServiceImpl implements ExhibitionService {
     @Override
     public Exhibition createExhibition(Exhibition exhibition, MultipartFile imageFile) {
         ExhibitionEntity exhibitionEntity = exhibitionMapper.exhibitionDTOtoDAO(exhibition);
+        setExhibitionImage(exhibitionEntity, imageFile);
         exhibitionRepository.save(exhibitionEntity);
         return exhibitionMapper.exhibitionDAOtoDTO(exhibitionEntity);
+    }
+
+    @Transactional()
+    @Override
+    public Exhibition updateExhibition(Exhibition newExhibition) {
+        ExhibitionEntity oldExhibition = findById(newExhibition.getId());
+        ExhibitionEntity updatedExhibitionEntity = exhibitionMapper.updateExhibitionDTOtoDAO(oldExhibition, newExhibition);
+        exhibitionRepository.save(updatedExhibitionEntity);
+        return exhibitionMapper.exhibitionDAOtoDTO(updatedExhibitionEntity);
     }
 
     @Transactional()
@@ -66,15 +79,10 @@ public class ExhibitionServiceImpl implements ExhibitionService {
     }
 
     private void setExhibitionImage(ExhibitionEntity exhibitionEntity, MultipartFile imageFile) {
-        try {
-            if (imageFile == null || imageFile.isEmpty()) {
-                throw new ImageFileException("Image must be not empty");
-            }
-            exhibitionEntity.setImage(imageFile.getBytes());
-        } catch (IOException e) {
-            throw new ImageFileException("Could not safe image");
-        }
+        fileValidationService.validateFile(imageFile);
+        fileValidationService.safeImageInEntity(exhibitionEntity, imageFile);
     }
+
 
     @Transactional()
     @Override

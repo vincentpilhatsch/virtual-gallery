@@ -21,7 +21,13 @@
     "event.canceled": "You have unsubscribed from the event",
     "dashboard.artwork.created": "You have successfully created the artwork",
     "dashboard.artwork.updated": "You have successfully updated the artwork",
-    "dashboard.artwork.filetype.invalid": "The specified file type is invalid"
+    "dashboard.exhibition.created": "You have successfully created the exhibition",
+    "dashboard.exhibition.updated": "You have successfully updated the exhibition",
+    "dashboard.event.created": "You have successfully created the event",
+    "dashboard.event.updated": "You have successfully updated the event",
+    "dashboard.artwork.request.created": "You have successfully created the artwork-request",
+    "dashboard.artwork.request.updated": "You have successfully updated the artwork-request",
+    "snackbar.filetype.invalid": "The specified file type is invalid"
   },
   "error": {
     "default.message": "An error has occurred",

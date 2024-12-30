@@ -17,6 +17,8 @@ public interface ExhibitionService {
 
     Exhibition createExhibition(Exhibition exhibition, MultipartFile multipartFile);
 
+    Exhibition updateExhibition(Exhibition newExhibition);
+
     Exhibition updateExhibition(Exhibition exhibition, MultipartFile multipartFile);
 
     void deleteExhibition(long id);

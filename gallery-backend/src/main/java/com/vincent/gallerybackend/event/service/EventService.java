@@ -15,6 +15,8 @@ public interface EventService {
 
     Event createEvent(Event event, MultipartFile multipartFile);
 
+    Event updateEvent(Event newEvent);
+
     Event updateEvent(Event event, MultipartFile multipartFile);
 
     void deleteEvent(long id);

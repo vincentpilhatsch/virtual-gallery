@@ -64,7 +64,7 @@ public class ArtworkController {
     public ResponseEntity<Artwork> updateArtwork(@Valid @RequestPart("artwork") Artwork newArtwork,
                                                  @RequestPart("file") MultipartFile imageFile) {
         Artwork updatedArtwork = artworkServiceImpl.updateArtwork(newArtwork, imageFile);
-        log.info("UPDATE artwork with id: {}", updatedArtwork.getId());
+        log.info("UPDATE artwork with image with id: {}", updatedArtwork.getId());
         return new ResponseEntity<>(updatedArtwork, HttpStatus.OK);
     }
 

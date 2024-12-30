@@ -49,11 +49,18 @@ public class ExhibitionController {
         return new ResponseEntity<>(createdExhibition, HttpStatus.CREATED);
     }
 
-    @PutMapping(produces = "application/json")
+    @PutMapping(value = "update", produces = "application/json")
+    public ResponseEntity<Exhibition> updateExhibition(@Valid @RequestPart("exhibition") Exhibition newExhibition) {
+        Exhibition exhibition = exhibitionServiceImpl.updateExhibition(newExhibition);
+        log.info("UPDATE exhibition: {}", newExhibition.getTitle());
+        return new ResponseEntity<>(exhibition, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "updateWithImage", produces = "application/json")
     public ResponseEntity<Exhibition> updateExhibition(@Valid @RequestPart("exhibition") Exhibition newExhibition,
                                                        @RequestPart("file") MultipartFile imageFile) {
         Exhibition exhibition = exhibitionServiceImpl.updateExhibition(newExhibition, imageFile);
-        log.info("UPDATE exhibition: {}", newExhibition.getTitle());
+        log.info("UPDATE exhibition with image: {}", newExhibition.getTitle());
         return new ResponseEntity<>(exhibition, HttpStatus.OK);
     }
 

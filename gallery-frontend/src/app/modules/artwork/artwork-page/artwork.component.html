@@ -44,7 +44,7 @@
           </div>
         </mat-list-item>
       </mat-list>
-      @if (userService.user && userService.user?.role === RoleEnum.USER) {
+      @if (userService.user?.role === RoleEnum.USER) {
         @if (artwork.sold) {
           <button mat-stroked-button class="button-one-inverted" disabled>
             BEREITS VERKAUFT
@@ -72,7 +72,7 @@
       }
     </div>
   </div>
-  @if (!isAlreadyRequested && userService.user && userService.user?.role === RoleEnum.USER) {
+  @if (!isAlreadyRequested && userService.user?.role === RoleEnum.USER) {
     <div class="divider" #requestContainer></div>
     <div class="third-section">
       <p class="title-two">Anfrage auf das Kunstwerk stellen</p>
