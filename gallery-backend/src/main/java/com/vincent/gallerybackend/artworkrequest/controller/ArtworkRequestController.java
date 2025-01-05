@@ -2,6 +2,7 @@ package com.vincent.gallerybackend.artworkrequest.controller;
 
 import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequest;
 import com.vincent.gallerybackend.artworkrequest.service.ArtworkRequestServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ public class ArtworkRequestController {
 
     private final ArtworkRequestServiceImpl artworkRequestServiceImpl;
 
+    @Operation(summary = "Retrieve all artwork requests", description = "Fetches a list of all artwork requests available in the system.")
     @GetMapping(value = "/all", produces = "application/json")
     public ResponseEntity<List<ArtworkRequest>> getArtworkRequests() {
         List<ArtworkRequest> artworkRequests = artworkRequestServiceImpl.getArtworkRequests();
@@ -27,6 +29,7 @@ public class ArtworkRequestController {
 
     }
 
+    @Operation(summary = "Retrieve artwork request by ID", description = "Fetches details of a specific artwork request using its unique ID.")
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<ArtworkRequest> getArtworkRequest(@PathVariable long id) {
         ArtworkRequest artworkRequest = artworkRequestServiceImpl.getArtworkRequestById(id);
@@ -34,6 +37,7 @@ public class ArtworkRequestController {
         return new ResponseEntity<>(artworkRequest, HttpStatus.OK);
     }
 
+    @Operation(summary = "Create a new artwork request", description = "Creates a new artwork request with the provided details.")
     @PostMapping(produces = "application/json")
     public ResponseEntity<ArtworkRequest> createArtworkRequest(
             @Valid @RequestBody ArtworkRequest artworkRequest
@@ -43,6 +47,7 @@ public class ArtworkRequestController {
         return new ResponseEntity<>(createdEntity, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Delete artwork request by ID", description = "Deletes an existing artwork request using its unique ID.")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteArtworkRequest(@PathVariable long id) {
         artworkRequestServiceImpl.deleteArtworkRequest(id);

@@ -24,8 +24,6 @@ public interface UserService {
 
     Set<Long> getAcceptedEventIdsByEmail(String email);
 
-    Set<Long> getNotificationIdsByEmail(String email);
-
     List<Artwork> getFavoriteArtworksByEmail(String email);
 
     List<ArtworkAndArtworkRequest> getArtworksAndArtworkRequestsOfUser(String email);

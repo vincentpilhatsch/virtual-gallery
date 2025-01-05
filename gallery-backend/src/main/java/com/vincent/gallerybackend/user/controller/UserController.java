@@ -5,6 +5,7 @@ import com.vincent.gallerybackend.artworkrequest.model.ArtworkAndArtworkRequest;
 import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequest;
 import com.vincent.gallerybackend.user.model.*;
 import com.vincent.gallerybackend.user.service.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class UserController {
 
     private final UserServiceImpl userServiceImpl;
 
+    @Operation(summary = "Retrieve current user", description = "Fetches the details of the currently authenticated user based on their session or token.")
     @GetMapping("/me")
     public ResponseEntity<User> getCurrentUser(Authentication authentication) {
         if (authentication == null || authentication.getPrincipal() == null) {
@@ -37,6 +39,7 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @Operation(summary = "Retrieve user by email", description = "Fetches the details of a user using their email address.")
     @GetMapping(value = "/{email}", produces = "application/json")
     public ResponseEntity<User> getUser(@PathVariable String email) {
         User user = userServiceImpl.getUserByEmail(email);
@@ -44,6 +47,7 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @Operation(summary = "Retrieve user by token", description = "Fetches user details based on a provided token.")
     @PostMapping()
     public ResponseEntity<User> getUserByToken(@RequestBody String token) {
         User user = userServiceImpl.getUserByToken(token);
@@ -51,6 +55,7 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @Operation(summary = "Retrieve favorite artwork IDs", description = "Fetches a set of IDs representing the artworks marked as favorite by the user.")
     @GetMapping(value = "/favoriteArtworkIds/{email}", produces = "application/json")
     public ResponseEntity<Set<Long>> getFavoriteArtworkIds(@PathVariable String email) {
         Set<Long> favoriteArtworkIds = userServiceImpl.getFavoriteArtworkIdsByEmail(email);
@@ -58,6 +63,7 @@ public class UserController {
         return new ResponseEntity<>(favoriteArtworkIds, HttpStatus.OK);
     }
 
+    @Operation(summary = "Retrieve accepted event IDs", description = "Fetches a set of event IDs that the user has accepted.")
     @GetMapping(value = "/acceptedEventIds/{email}", produces = "application/json")
     public ResponseEntity<Set<Long>> getAcceptedEventIds(@PathVariable String email) {
         Set<Long> acceptedEventIds = userServiceImpl.getAcceptedEventIdsByEmail(email);
@@ -65,13 +71,7 @@ public class UserController {
         return new ResponseEntity<>(acceptedEventIds, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/notificationIds/{email}", produces = "application/json")
-    public ResponseEntity<Set<Long>> getNotificationIds(@PathVariable String email) {
-        Set<Long> notificationIds = userServiceImpl.getNotificationIdsByEmail(email);
-        log.info("GET notification ids: {}", notificationIds);
-        return new ResponseEntity<>(notificationIds, HttpStatus.OK);
-    }
-
+    @Operation(summary = "Retrieve favorite artworks", description = "Fetches a list of artworks marked as favorite by the user.")
     @GetMapping(value = "/favoriteArtworks/{email}", produces = "application/json")
     public ResponseEntity<List<Artwork>> getFavoriteArtworks(@PathVariable String email) {
         List<Artwork> favoriteArtworks = userServiceImpl.getFavoriteArtworksByEmail(email);
@@ -79,6 +79,7 @@ public class UserController {
         return new ResponseEntity<>(favoriteArtworks, HttpStatus.OK);
     }
 
+    @Operation(summary = "Retrieve artworks and artwork requests", description = "Fetches a list of artworks and artwork requests associated with the user.")
     @GetMapping(value = "/artworksAndArtworkRequests/{email}", produces = "application/json")
     public ResponseEntity<List<ArtworkAndArtworkRequest>> getArtworksAndArtworkRequests(
             @PathVariable String email
@@ -89,6 +90,7 @@ public class UserController {
         return new ResponseEntity<>(artworksAndArtworkRequests, HttpStatus.OK);
     }
 
+    @Operation(summary = "Retrieve artwork requests", description = "Fetches a list of artwork requests made by the user.")
     @GetMapping(value = "/artworkRequests/{email}", produces = "application/json")
     public ResponseEntity<List<ArtworkRequest>> getArtworkRequests(@PathVariable String email) {
         List<ArtworkRequest> artworkRequests = userServiceImpl.getArtworkRequestsByEmail(email);
@@ -96,6 +98,7 @@ public class UserController {
         return new ResponseEntity<>(artworkRequests, HttpStatus.OK);
     }
 
+    @Operation(summary = "Authenticate user", description = "Authenticates the user using their email and password and returns an authentication response.")
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> loginUser(@RequestBody LoginRequest loginRequest,
                                                   HttpServletResponse response) {
@@ -104,6 +107,7 @@ public class UserController {
         return new ResponseEntity<>(responseEntity, HttpStatus.OK);
     }
 
+    @Operation(summary = "Register a new user", description = "Registers a new user with the provided details and returns an authentication response.")
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerUser(@RequestBody RegisterRequest registerRequest,
                                                      HttpServletResponse response) {
@@ -112,6 +116,7 @@ public class UserController {
         return new ResponseEntity<>(responseEntity, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Logout user", description = "Logs out the user and clears their authentication cookies or session.")
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(HttpServletResponse response) {
         userServiceImpl.logoutUser(response);
@@ -119,6 +124,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Update user details", description = "Updates the details of an existing user with the provided data.")
     @PutMapping
     public ResponseEntity<User> updateUser(@Valid @RequestBody User newUser) {
         User updatedUser = userServiceImpl.updateUser(newUser);
@@ -126,6 +132,7 @@ public class UserController {
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
+    @Operation(summary = "Update user language", description = "Updates the preferred language of the user.")
     @PutMapping(value = "/updateLanguage")
     public ResponseEntity<User> updateLanguageOfUser(@RequestParam String email,
                                                      @RequestParam Language language) {
@@ -134,6 +141,7 @@ public class UserController {
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
+    @Operation(summary = "Update favorite artworks", description = "Adds or removes an artwork from the user's list of favorite artworks.")
     @PostMapping(value = "/updateFavoriteArtworks")
     public ResponseEntity<User> updateFavoriteArtworksOfUser(@RequestParam String email,
                                                              @RequestParam long artworkId) {
@@ -142,6 +150,7 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @Operation(summary = "Update accepted events", description = "Adds or removes an event from the user's list of accepted events.")
     @PostMapping(value = "/updateAcceptedEvents")
     public ResponseEntity<User> updateAcceptedEventsOfUser(@RequestParam String email,
                                                            @RequestParam long eventId) {

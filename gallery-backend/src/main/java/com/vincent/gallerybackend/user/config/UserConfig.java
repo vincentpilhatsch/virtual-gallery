@@ -40,7 +40,6 @@ public class UserConfig {
                     Role.ARTIST,
                     Set.of(1L, 2L),         // favoriteArtworkIds
                     Set.of(1L),             // acceptedEventIds
-                    Set.of(1L, 2L),         // notificationIds
                     Set.of()                // requestedArtworkIds
             );
 
@@ -56,7 +55,6 @@ public class UserConfig {
                     Role.USER,
                     Set.of(1L, 2L),         // favoriteArtworkIds
                     Set.of(1L),             // acceptedEventIds
-                    Set.of(1L),             // notificationIds
                     Set.of()                // requestedArtworkIds
             );
             userRepository.saveAll(List.of(thomas, max));

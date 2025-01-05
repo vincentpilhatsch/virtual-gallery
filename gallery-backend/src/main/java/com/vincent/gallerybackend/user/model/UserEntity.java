@@ -57,11 +57,6 @@ public class UserEntity {
     private Set<Long> acceptedEventIds;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_notifications", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "notification_id")
-    private Set<Long> notificationIds;
-
-    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_artwork_requests", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "artwork_request_id")
     private Set<Long> artworkRequestIds;

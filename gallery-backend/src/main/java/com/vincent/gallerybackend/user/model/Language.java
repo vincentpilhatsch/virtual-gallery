@@ -2,5 +2,7 @@ package com.vincent.gallerybackend.user.model;
 
 public enum Language {
     DE,
-    EN
+    EN,
+    FR,
+    IT
 }

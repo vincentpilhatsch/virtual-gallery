@@ -24,6 +24,5 @@ public class User {
     private Set<Long> favoriteArtworkIds;
     private Set<Long> artworkRequestIds;
     private Set<Long> acceptedEventIds;
-    private Set<Long> notificationIds;
 
 }
