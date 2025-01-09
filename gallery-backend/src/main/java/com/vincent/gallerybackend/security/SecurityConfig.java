@@ -47,19 +47,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/event").hasAuthority(ROLE_ARTIST)
                         .requestMatchers(HttpMethod.DELETE, "/event/**").hasAuthority(ROLE_ARTIST)
 
-                        .requestMatchers(HttpMethod.POST, "/notification").hasAuthority(ROLE_ARTIST)
-                        .requestMatchers(HttpMethod.PUT, "/notification/**").hasAuthority(ROLE_ARTIST)
-
                         // Role ARTIST/USER
-                        .requestMatchers(HttpMethod.GET, "/notification/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
-
                         .requestMatchers(HttpMethod.PUT, "/user").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
                         .requestMatchers(HttpMethod.PUT, "/user/updateLanguage").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
                         .requestMatchers(HttpMethod.POST, "/user/updateFavoriteArtworks").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
                         .requestMatchers(HttpMethod.POST, "/user/updateAcceptedEvents").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
                         .requestMatchers(HttpMethod.GET, "/user/favoriteArtworkIds/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
                         .requestMatchers(HttpMethod.GET, "/user/acceptedEventIds/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
-                        .requestMatchers(HttpMethod.GET, "/user/notificationIds/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
                         .requestMatchers(HttpMethod.GET, "/user/favoriteArtworks/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
                         .requestMatchers(HttpMethod.GET, "/user/requestedArtworks/**").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)
 

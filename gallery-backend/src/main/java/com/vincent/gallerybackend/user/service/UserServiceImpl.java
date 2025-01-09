@@ -98,13 +98,6 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     @Override
-    public Set<Long> getNotificationIdsByEmail(String email) {
-        UserEntity userEntity = findByEmail(email);
-        return userEntity.getNotificationIds();
-    }
-
-    @Transactional(readOnly = true)
-    @Override
     public List<Artwork> getFavoriteArtworksByEmail(String email) {
         UserEntity userEntity = findByEmail(email);
         Set<Long> artworkIds = userEntity.getFavoriteArtworkIds();
