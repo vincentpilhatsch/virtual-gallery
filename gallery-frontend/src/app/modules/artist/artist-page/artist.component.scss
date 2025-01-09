@@ -1,3 +1,60 @@
 app-artist {
 
+  .image-container {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 800px;
+      object-fit: cover;
+    }
+
+    .title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      font-size: 220px;
+      margin: 0;
+      font-family: "Italiana", sans-serif !important;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .title:first-of-type {
+      bottom: 320px;
+    }
+
+    .title:last-of-type {
+      bottom: 80px;
+    }
+
+  }
+
+  .text-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+
+    .title-two {
+      font-size: 22px;
+      padding-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .first-inner-text-container {
+      width: 100%;
+      text-align: justify;
+    }
+
+    .second-inner-text-container {
+      width: 100%;
+      text-align: justify;
+    }
+
+    b {
+      font-weight: 500;
+    }
+  }
+
 }

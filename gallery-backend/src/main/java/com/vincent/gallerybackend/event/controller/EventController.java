@@ -42,11 +42,18 @@ public class EventController {
         return new ResponseEntity<>(createdEntity, HttpStatus.CREATED);
     }
 
-    @PutMapping(produces = "application/json")
-    public ResponseEntity<Event> updateEvent(@Valid @RequestPart("event") Event newEvent,
-                                                   @RequestPart("file") MultipartFile imageFile) {
-        Event updatedEvent = eventServiceImpl.updateEvent(newEvent, imageFile);
+    @PutMapping(value = "update", produces = "application/json")
+    public ResponseEntity<Event> updateEvent(@Valid @RequestPart("event") Event newEvent) {
+        Event updatedEvent = eventServiceImpl.updateEvent(newEvent);
         log.info("UPDATE event: {}", newEvent.getTitle());
+        return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "updateWithImage", produces = "application/json")
+    public ResponseEntity<Event> updateEvent(@Valid @RequestPart("event") Event newEvent,
+                                             @RequestPart("file") MultipartFile imageFile) {
+        Event updatedEvent = eventServiceImpl.updateEvent(newEvent, imageFile);
+        log.info("UPDATE event with image: {}", newEvent.getTitle());
         return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
     }
 

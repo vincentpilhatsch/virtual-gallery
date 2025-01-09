@@ -1,5 +1,7 @@
 package com.vincent.gallerybackend.event.service;
 
+import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
+import com.vincent.gallerybackend.config.FileValidationService;
 import com.vincent.gallerybackend.event.model.Event;
 import com.vincent.gallerybackend.event.model.EventEntity;
 import com.vincent.gallerybackend.event.model.EventMapper;
@@ -20,6 +22,7 @@ public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
+    private final FileValidationService fileValidationService;
 
     @Transactional(readOnly = true)
     @Override
@@ -44,9 +47,20 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event createEvent(Event event, MultipartFile imageFile) {
         EventEntity eventEntity = eventMapper.eventDTOtoDAO(event);
+        setEventImage(eventEntity, imageFile);
         eventRepository.save(eventEntity);
         return eventMapper.eventDAOtoDTO(eventEntity);
     }
+
+    @Transactional()
+    @Override
+    public Event updateEvent(Event newEvent) {
+        EventEntity oldEvent = findById(newEvent.getId());
+        EventEntity updatedEventEntity = eventMapper.updateEventDTOtoDAO(oldEvent, newEvent);
+        eventRepository.save(updatedEventEntity);
+        return eventMapper.eventDAOtoDTO(updatedEventEntity);
+    }
+
 
     @Transactional()
     @Override
@@ -59,15 +73,10 @@ public class EventServiceImpl implements EventService {
     }
 
     private void setEventImage(EventEntity eventEntity, MultipartFile imageFile) {
-        try {
-            if (imageFile == null || imageFile.isEmpty()) {
-                throw new ImageFileException("Image must be not empty");
-            }
-            eventEntity.setImage(imageFile.getBytes());
-        } catch (IOException e) {
-            throw new ImageFileException("Could not safe image");
-        }
+        fileValidationService.validateFile(imageFile);
+        fileValidationService.safeImageInEntity(eventEntity, imageFile);
     }
+
 
     @Transactional()
     @Override
