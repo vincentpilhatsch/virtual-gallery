@@ -14,20 +14,14 @@
   },
   "snackbar": {
     "login.expired": "Ihre Anmeldung ist abgelaufen",
-    "artwork.requested": "Sie haben das Kunstwerk erfolgreich angefragt. Wir werden in Kürze mit Ihnen in Kontakt treten.",
+    "artwork.requested": "Sie haben das Kunstwerk erfolgreich angefragt. Wir werden in kürze mit Ihnen in Kontakt treten.",
     "artwork.request.canceled": "Sie haben die Anfrage für das Kunstwerk zurückgezogen",
     "user.updated": "Ihre Nutzerdaten wurden aktualisiert",
     "event.accept": "Sie haben sich erfolgreich für das Event angemeldet",
     "event.canceled": "Sie haben sich von dem Event abgemeldet",
     "dashboard.artwork.created": "Sie haben das Kunstwerk erfolgreich erstellt",
     "dashboard.artwork.updated": "Sie haben das Kunstwerk erfolgreich aktualisiert",
-    "dashboard.exhibition.created": "Sie haben das Ausstellung erfolgreich erstellt",
-    "dashboard.exhibition.updated": "Sie haben das Ausstellung erfolgreich aktualisiert",
-    "dashboard.event.created": "Sie haben das Event erfolgreich erstellt",
-    "dashboard.event.updated": "Sie haben das Event erfolgreich aktualisiert",
-    "dashboard.artwork.request.created": "Sie haben das Kunstwerk-Anfrage erfolgreich erstellt",
-    "dashboard.artwork.request.updated": "Sie haben das Kunstwerk-Anfrage erfolgreich aktualisiert",
-    "snackbar.filetype.invalid": "Der angegebene Datei-Typ ist ungültig"
+    "dashboard.artwork.filetype.invalid": "Der angegebene Datei-Typ ist ungültig"
   },
   "error": {
     "default.message": "Ein Fehler ist aufgetreten",

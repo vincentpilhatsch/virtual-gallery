@@ -35,7 +35,7 @@ export class ImageUploadComponent {
       const file = input.files[0];
 
       if (!this.fileTypeIsValid(file)) {
-        this.snackBar.openSnackBarByJSON("error", "snackbar.filetype.invalid")
+        this.snackBar.openSnackBarByJSON("error", "snackbar.dashboard.artwork.filetype.invalid")
         return;
       }
 

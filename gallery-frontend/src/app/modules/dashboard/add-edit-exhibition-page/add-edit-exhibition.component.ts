@@ -4,6 +4,7 @@ import {MatInput} from "@angular/material/input";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatButton} from "@angular/material/button";
 import {ManageModesEnum} from "../models/manage-modes.enum";
+import {Artwork} from "../../artwork/model/artwork";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -16,7 +17,7 @@ import {ExhibitionService} from "../../exhibitions/services/exhibition.service";
 import {ExhibitionForm} from "../models/exhibition-form";
 
 @Component({
-  selector: 'app-add-edit-exhibition',
+  selector: 'app-add-exhibition-artwork',
   standalone: true,
   imports: [
     MatFormField,
@@ -47,10 +48,12 @@ export class AddEditExhibitionComponent implements OnInit, OnDestroy {
   };
   form: FormGroup = this.fb.group({
     title: ['', Validators.required],
-    description: ['', Validators.required],
-    location: ['', Validators.required],
-    startDate: ['', Validators.required],
-    endDate: ['', Validators.required],
+    technic: ['', Validators.required],
+    width: ['', Validators.required],
+    height: ['', Validators.required],
+    yearOfCreation: ['', Validators.required],
+    price: ['', Validators.required],
+    sold: [false],
   });
   subscriptions: Subscription[] = [];
 
@@ -68,8 +71,8 @@ export class AddEditExhibitionComponent implements OnInit, OnDestroy {
   }
 
   private loadExhibitionIfIsInEditMode(): void {
-    const isAddingExhibition = this.router.url.includes('erstellen');
-    if (isAddingExhibition) {
+    const isAddingArtwork = this.router.url.includes('erstellen');
+    if (isAddingArtwork) {
       this.manageMode = ManageModesEnum.ADD;
       return;
     }
@@ -145,20 +148,20 @@ export class AddEditExhibitionComponent implements OnInit, OnDestroy {
 
   onCreate(): void {
     if (this.formsAreValid()) {
-      const exhibition: Exhibition = this.getExhibitionByFormData();
+      const artwork: Artwork = this.getExhibitionByFormData();
       if (this.manageMode === ManageModesEnum.ADD) {
-        this.createExhibition(exhibition);
+        this.createExhibition(artwork);
       } else if (this.manageMode === ManageModesEnum.EDIT) {
-        this.updateExhibition(exhibition);
+        this.updateExhibition(artwork);
       }
       this.routeBackToManagePage();
     }
   }
 
   onDelete(): void {
-    const exhibitionId: number | undefined = this.exhibition?.id;
-    if (exhibitionId) {
-      this.exhibitionService.deleteExhibition(exhibitionId).subscribe({
+    const artworkId: number | undefined = this.exhibition?.id;
+    if (artworkId) {
+      this.exhibitionService.deleteArtwork(artworkId).subscribe({
         error: (err: HttpErrorResponse) => {
           console.error(err);
         }
@@ -179,9 +182,9 @@ export class AddEditExhibitionComponent implements OnInit, OnDestroy {
     }
   }
 
-  private createExhibition(exhibition: Exhibition) {
+  private createExhibition(artwork: Artwork) {
     if (this.file) {
-      this.exhibitionService.createExhibition(exhibition, this.file).subscribe({
+      this.exhibitionService.createArtwork(artwork, this.file).subscribe({
         error: (err: HttpErrorResponse) => {
           console.log(err);
         }
@@ -189,15 +192,15 @@ export class AddEditExhibitionComponent implements OnInit, OnDestroy {
     }
   }
 
-  private updateExhibition(exhibition: Exhibition) {
+  private updateExhibition(artwork: Artwork) {
     if (this.file) {
-      this.exhibitionService.updateExhibitionWithImage(exhibition, this.file).subscribe({
+      this.exhibitionService.updateArtworkWithImage(artwork, this.file).subscribe({
         error: (err: HttpErrorResponse) => {
           console.log(err);
         }
       })
     } else {
-      this.exhibitionService.updateExhibition(exhibition).subscribe({
+      this.exhibitionService.updateArtwork(artwork).subscribe({
         error: (err: HttpErrorResponse) => {
           console.log(err);
         }
@@ -208,8 +211,8 @@ export class AddEditExhibitionComponent implements OnInit, OnDestroy {
   private routeBackToManagePage(): void {
     void this.router.navigate(["dashboard"]);
     const jsonString: string = this.manageMode === ManageModesEnum.ADD
-      ? "snackbar.dashboard.exhibition.created"
-      : "snackbar.dashboard.exhibition.updated";
+      ? "snackbar.dashboard.artwork.created"
+      : "snackbar.dashboard.artwork.updated";
     this.snackBarService.openSnackBarByJSON("info", jsonString);
   }
 
