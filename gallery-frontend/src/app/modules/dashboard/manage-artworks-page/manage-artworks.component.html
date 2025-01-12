@@ -15,6 +15,7 @@
     <div class="inner-artwork-container">
       @for (artwork of group; track artwork.id) {
         <app-artwork-card [artwork]="artwork"
+                          [isDashboardCard]="true"
                           [ngClass]="{
                             'three-images-width': artworksPerRow === 3,
                             'four-images-width': artworksPerRow === 4

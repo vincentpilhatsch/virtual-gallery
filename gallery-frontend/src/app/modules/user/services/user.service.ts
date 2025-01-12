@@ -64,11 +64,6 @@ export class UserService {
     return this.httpClient.get<number[]>(url);
   }
 
-  getNotificationIdsByEmail(email: string): Observable<number[]> {
-    const url: string = `${this.endpoint}/notificationIds/${email}`;
-    return this.httpClient.get<number[]>(url);
-  }
-
   getFavoriteArtworksByEmail(email: string): Observable<Artwork[]> {
     const url: string = `${this.endpoint}/favoriteArtworks/${email}`;
     return this.httpClient.get<Artwork[]>(url);

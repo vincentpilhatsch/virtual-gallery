@@ -11,7 +11,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "gallery_artwork")
-@AllArgsConstructor @NoArgsConstructor @Getter @Setter @ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class ArtworkEntity {
 
     @Id
@@ -42,6 +46,5 @@ public class ArtworkEntity {
     @Lob
     @NotEmpty
     private byte[] image;
-
 
 }

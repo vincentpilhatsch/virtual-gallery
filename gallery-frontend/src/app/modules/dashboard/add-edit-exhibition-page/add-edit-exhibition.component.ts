@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatButton} from "@angular/material/button";
@@ -10,10 +10,13 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {SnackBarService} from "../../misc/services/snack-bar.service";
 import {ImageUploadComponent} from "../../misc/image-upload/image-upload.component";
 import {Subscription} from "rxjs";
-import {MatIcon} from "@angular/material/icon";
+import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {Exhibition} from "../../exhibitions/model/exhibition";
 import {ExhibitionService} from "../../exhibitions/services/exhibition.service";
 import {ExhibitionForm} from "../models/exhibition-form";
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {MatNativeDateModule} from '@angular/material/core';
+
 
 @Component({
   selector: 'app-add-edit-exhibition',
@@ -26,7 +29,13 @@ import {ExhibitionForm} from "../models/exhibition-form";
     MatButton,
     ReactiveFormsModule,
     ImageUploadComponent,
-    MatIcon
+    MatIcon,
+    MatDatepicker,
+    MatIconModule,
+    MatDatepickerToggle,
+    MatDatepickerInput,
+    MatHint,
+    MatNativeDateModule
   ],
   templateUrl: './add-edit-exhibition.component.html',
   styleUrl: './add-edit-exhibition.component.scss',
@@ -107,9 +116,8 @@ export class AddEditExhibitionComponent implements OnInit, OnDestroy {
         title: this.exhibition.title,
         description: this.exhibition.description,
         location: this.exhibition.location,
-        startDate: this.exhibition.startDate,
-        endDate: this.exhibition.endDate,
-        image: this.exhibition.image,
+        startDate: this.convertArrayToDateString(this.exhibition.startDate),
+        endDate: this.convertArrayToDateString(this.exhibition.endDate)
       }
       this.form.setValue(exhibitionForm);
     }
@@ -173,11 +181,24 @@ export class AddEditExhibitionComponent implements OnInit, OnDestroy {
       title: this.form.get("title")?.value,
       description: this.form.get("description")?.value,
       location: this.form.get("location")?.value,
-      startDate: this.form.get("startDate")?.value,
-      endDate: this.form.get("endDate")?.value,
+      startDate: this.convertDateStringToArray(this.form.get("startDate")?.value),
+      endDate: this.convertDateStringToArray(this.form.get("endDate")?.value),
       image: this.exhibition.image
     }
   }
+
+  convertDateStringToArray(dateString: string): number[] {
+    const [day, month, year] = dateString.split('.').map(Number);
+    return [year, month, day];
+  }
+
+  convertArrayToDateString(dateArray: number[]): string {
+    const [year, month, day] = dateArray;
+    const formattedDay = day.toString().padStart(2, '0');
+    const formattedMonth = month.toString().padStart(2, '0');
+    return `${formattedDay}.${formattedMonth}.${year}`;
+  }
+
 
   private createExhibition(exhibition: Exhibition) {
     if (this.file) {

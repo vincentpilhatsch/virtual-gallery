@@ -1,4 +1,4 @@
-<p class="title-upper-case">Events</p>
+<p class="title-upper-case">Veranstaltungen</p>
 @if (upcomingEvents) {
   @for (event of upcomingEvents; track $index) {
     <div class="upcoming-event">
@@ -34,19 +34,19 @@
 @if (pastEvents) {
   <div class="divider"></div>
   <div class="past-event">
-  <p class="title-two">Vergangene Events</p>
+    <p class="title-two">Vergangene Veranstaltungen</p>
     @for (group of groupedPastEvents; track $index) {
-    <div class="past-event-container">
-      @for (event of group; track $index) {
-        <div class="past-event-inner-container">
+      <div class="past-event-container">
+        @for (event of group; track $index) {
+          <div class="past-event-inner-container">
             <img src="data:image/jpeg;base64,{{ event.image }}" alt="event">
-          <div class="past-second-section">
-            <p class="title-two">{{ event.title }}, {{ event.dateTime | convertNumberArrayToYearString }}</p>
-            <p class="text-one-grey">{{ event.description }}</p>
+            <div class="past-second-section">
+              <p class="title-two">{{ event.title }}, {{ event.dateTime | convertNumberArrayToYearString }}</p>
+              <p class="text-one-grey">{{ event.description }}</p>
+            </div>
           </div>
-        </div>
-      }
-    </div>
-  }
+        }
+      </div>
+    }
   </div>
 }

@@ -1,5 +1,10 @@
 app-manage-artworks {
 
+  .card {
+    border: 2px dashed #a7a7a7;
+    padding: 15px;
+  }
+
   .filter-container {
     display: flex;
     justify-content: space-between;
@@ -10,6 +15,12 @@ app-manage-artworks {
     display: flex;
     flex-direction: column;
     gap: 20px;
+  }
+
+  app-artwork-card {
+    //border: 1px solid black;
+    //padding: 20px;
+    cursor: pointer;
   }
 
   .inner-artwork-container {

@@ -26,12 +26,14 @@
         <mat-label>Breite in Zentimetern</mat-label>
         <input matInput
                type="text"
+               placeholder="Bsp: 120"
                formControlName="width">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Höhe in Zentimetern</mat-label>
         <input matInput
                type="text"
+               placeholder="Bsp: 180"
                formControlName="height">
       </mat-form-field>
     </div>
@@ -40,32 +42,30 @@
         <mat-label>Erstellungsjahr</mat-label>
         <input matInput
                type="text"
+               placeholder="Bsp: 2019"
                formControlName="yearOfCreation">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Preis in Euro</mat-label>
         <input matInput
                type="text"
+               placeholder="Bsp: 2450"
                formControlName="price">
       </mat-form-field>
     </div>
     <!-- Checkboxes -->
     <div class="inner-form-container">
       <mat-checkbox formControlName="sold">
-        <p class="text-one">Verkauft</p>
+        <p class="text-one">Kunstwerk verkauft</p>
       </mat-checkbox>
-      @if (manageMode === ManageModesEnum.ADD) {
-        <mat-checkbox>
-          <p class="text-one">Benutzer benachrichten</p>
-        </mat-checkbox>
-      }
+
     </div>
     <!-- Buttons -->
     <div class="inner-form-container">
       @if (manageMode === ManageModesEnum.EDIT) {
         <button type="button"
                 mat-stroked-button
-                class="button-one-inverted" (click)="onDelete()">
+                class="button-one" (click)="onDelete()">
           Kunstwerk Löschen
         </button>
         <button type="button"

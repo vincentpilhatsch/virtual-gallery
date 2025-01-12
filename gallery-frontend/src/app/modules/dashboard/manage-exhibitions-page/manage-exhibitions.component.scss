@@ -19,6 +19,9 @@ app-manage-exhibitions {
 
   .card {
     width: calc(100% / 3) !important;
+    border: 2px dashed #a7a7a7;
+    padding: 15px;
+    cursor: pointer;
 
     .title-two {
       padding-top: 22px;

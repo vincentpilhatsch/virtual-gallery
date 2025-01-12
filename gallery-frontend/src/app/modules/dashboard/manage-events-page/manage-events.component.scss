@@ -1,5 +1,10 @@
 app-manage-events {
 
+  .card {
+    border: 1px solid black;
+    padding: 15px;
+  }
+
   .upcoming-event-container {
     display: flex;
     gap: 80px;

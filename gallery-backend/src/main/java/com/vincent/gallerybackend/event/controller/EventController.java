@@ -48,7 +48,7 @@ public class EventController {
 
     @Operation(summary = "Update event with image", description = "Updates the details of an existing event and replaces its associated image.")
     @PutMapping(value = "update", produces = "application/json")
-    public ResponseEntity<Event> updateEvent(@Valid @RequestPart("event") Event newEvent) {
+    public ResponseEntity<Event> updateEvent(@Valid @RequestBody Event newEvent) {
         Event updatedEvent = eventServiceImpl.updateEvent(newEvent);
         log.info("UPDATE event: {}", newEvent.getTitle());
         return new ResponseEntity<>(updatedEvent, HttpStatus.OK);

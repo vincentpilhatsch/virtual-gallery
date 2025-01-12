@@ -180,9 +180,13 @@ body, p, span, div, h1, h2, h3, h4, h5, h6, a, li, ul, ol, input, textarea, butt
 
 .mat-mdc-text-field-wrapper.mdc-text-field {
   background-color: white !important;
-  border: 1px solid black !important;
   border-radius: 0 !important;
   width: 450px !important;
+
+  border-left: 1px solid black !important;
+  border-bottom: 2px solid #696969;
+  border-right: 1px solid black !important;
+  border-top: 1px solid black !important;
 }
 
 .mdc-line-ripple {

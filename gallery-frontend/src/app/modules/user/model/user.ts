@@ -13,5 +13,4 @@ export interface User {
   role: RoleEnum,
   favoriteArtworkIds?: number[],
   acceptedEventIds?: number[],
-  notificationIds?: number[],
 }

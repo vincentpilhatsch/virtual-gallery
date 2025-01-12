@@ -28,7 +28,7 @@ import {NgOptimizedImage} from "@angular/common";
 export class ArtworkCardComponent implements OnInit {
   @Output() removedFavoriteArtwork = new EventEmitter<void>();
   @Input() artwork: Artwork | undefined;
-  @Input() isArtworkDetailPage: boolean | undefined;
+  @Input() isDashboardCard: boolean | undefined;
   @Input() favoriteArtworkIds: number[] | undefined;
 
   isFavorite: boolean = false;
@@ -47,7 +47,7 @@ export class ArtworkCardComponent implements OnInit {
   }
 
   handleCardClick(): void {
-    if (this.artwork?.id && this.isArtworkDetailPage) {
+    if (this.artwork?.id && !this.isDashboardCard) {
       void this.router.navigate(["kunstwerk", this.artwork.id]);
     }
   }

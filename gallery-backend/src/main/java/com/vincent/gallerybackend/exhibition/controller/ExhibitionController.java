@@ -56,7 +56,7 @@ public class ExhibitionController {
 
     @Operation(summary = "Update exhibition details", description = "Updates the details of an existing exhibition without modifying its associated image.")
     @PutMapping(value = "update", produces = "application/json")
-    public ResponseEntity<Exhibition> updateExhibition(@Valid @RequestPart("exhibition") Exhibition newExhibition) {
+    public ResponseEntity<Exhibition> updateExhibition(@Valid @RequestBody Exhibition newExhibition) {
         Exhibition exhibition = exhibitionServiceImpl.updateExhibition(newExhibition);
         log.info("UPDATE exhibition: {}", newExhibition.getTitle());
         return new ResponseEntity<>(exhibition, HttpStatus.OK);

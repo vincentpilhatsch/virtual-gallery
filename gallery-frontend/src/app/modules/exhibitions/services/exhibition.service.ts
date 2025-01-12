@@ -15,7 +15,7 @@ export class ExhibitionService {
   }
 
   getExhibitionById(id: number): Observable<Exhibition> {
-    const url: string = `${this.endpoint}`;
+    const url: string = `${this.endpoint}/${id}`;
     return this.httpClient.get<Exhibition>(url);
   }
 

@@ -16,64 +16,59 @@
              formControlName="title">
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Technik</mat-label>
+      <mat-label>Beschreibung</mat-label>
       <input matInput
              type="text"
-             formControlName="technic">
+             formControlName="description">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Standort</mat-label>
+      <input matInput
+             type="text"
+             formControlName="location">
     </mat-form-field>
     <div class="inner-form-container">
+      <!--      <mat-form-field>-->
+      <!--        <mat-label>Startdatum</mat-label>-->
+      <!--        <input matInput [matDatepicker]="startPicker" formControlName="startDate">-->
+      <!--        <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>-->
+      <!--        <mat-datepicker #startPicker></mat-datepicker>-->
+      <!--      </mat-form-field>-->
+      <!--      <mat-form-field>-->
+      <!--        <mat-label>Startdatum</mat-label>-->
+      <!--        <input matInput [matDatepicker]="endPicker" formControlName="endDate">-->
+      <!--        <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>-->
+      <!--        <mat-datepicker #endPicker></mat-datepicker>-->
+      <!--      </mat-form-field>-->
       <mat-form-field>
-        <mat-label>Breite in Zentimetern</mat-label>
+        <mat-label>Startdatum</mat-label>
         <input matInput
                type="text"
-               formControlName="width">
+               placeholder="Bsp: 01.01.2001"
+               formControlName="startDate">
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Höhe in Zentimetern</mat-label>
+        <mat-label>Enddatum</mat-label>
         <input matInput
                type="text"
-               formControlName="height">
+               placeholder="Format: 01.01.2001"
+               formControlName="endDate">
       </mat-form-field>
-    </div>
-    <div class="inner-form-container">
-      <mat-form-field>
-        <mat-label>Erstellungsjahr</mat-label>
-        <input matInput
-               type="text"
-               formControlName="yearOfCreation">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Preis in Euro</mat-label>
-        <input matInput
-               type="text"
-               formControlName="price">
-      </mat-form-field>
-    </div>
-    <!-- Checkboxes -->
-    <div class="inner-form-container">
-      <mat-checkbox formControlName="sold">
-        <p class="text-one">Verkauft</p>
-      </mat-checkbox>
-      @if (manageMode === ManageModesEnum.ADD) {
-        <mat-checkbox>
-          <p class="text-one">Benutzer benachrichten</p>
-        </mat-checkbox>
-      }
     </div>
     <!-- Buttons -->
     <div class="inner-form-container">
       @if (manageMode === ManageModesEnum.EDIT) {
         <button type="button"
                 mat-stroked-button
-                class="button-one-inverted" (click)="onDelete()">
-          Kunstwerk Löschen
+                class="button-one" (click)="onDelete()">
+          Ausstellung Löschen
         </button>
         <button type="button"
                 mat-stroked-button
                 class="button-one-inverted"
                 [disabled]="disableCreateButton"
                 (click)="onCreate()">
-          Kunstwerk aktualisieren
+          Ausstellung aktualisieren
         </button>
       } @else {
         <button type="button"
@@ -81,7 +76,7 @@
                 class="button-one-inverted"
                 [disabled]="disableCreateButton"
                 (click)="onCreate()">
-          Kunstwerk hinzufügen
+          Ausstellung hinzufügen
         </button>
       }
     </div>
