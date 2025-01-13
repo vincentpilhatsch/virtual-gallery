@@ -1,28 +1,40 @@
-<p class="title-one">Kunstwerke verwalten</p>
-<div class="filter-container">
-  <mat-form-field>
-    <mat-label>Suchen...</mat-label>
-    <input matInput
-           [(ngModel)]="searchQuery"
-           (keyup)="onSearch()">
-  </mat-form-field>
-  <div class="add-button" routerLink="/dashboard/kunstwerk-erstellen">
-    <mat-icon fontIcon="add"></mat-icon>
-  </div>
-</div>
-<div class="artwork-container">
-  @for (group of groupedArtworks; track $index) {
-    <div class="inner-artwork-container">
-      @for (artwork of group; track artwork.id) {
-        <app-artwork-card [artwork]="artwork"
-                          [isDashboardCard]="true"
-                          [ngClass]="{
+@defer {
+  <p class="title-one">Kunstwerke verwalten</p>
+  @if (groupedArtworks.length > 0) {
+    <div class="filter-container">
+      <mat-form-field>
+        <mat-label>Suchen...</mat-label>
+        <input matInput
+               [(ngModel)]="searchQuery"
+               (keyup)="onSearch()">
+      </mat-form-field>
+      <div class="add-button" routerLink="/dashboard/kunstwerk-erstellen">
+        <mat-icon fontIcon="add"></mat-icon>
+      </div>
+    </div>
+    <div class="artwork-container">
+      @for (group of groupedArtworks; track $index) {
+        <div class="inner-artwork-container">
+          @for (artwork of group; track artwork.id) {
+            <app-artwork-card [artwork]="artwork"
+                              [isDashboardCard]="true"
+                              [ngClass]="{
                             'three-images-width': artworksPerRow === 3,
                             'four-images-width': artworksPerRow === 4
                           }"
-                          (click)="onCardClicked(artwork.id!)">
-        </app-artwork-card>
+                              (click)="onCardClicked(artwork.id!)">
+            </app-artwork-card>
+          }
+        </div>
       }
     </div>
+  } @else {
+    <div class="not-found-container">
+      <p class="text-one">Keine Kunstwerke vorhanden</p>
+    </div>
   }
-</div>
+} @placeholder (minimum 200ms) {
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+}

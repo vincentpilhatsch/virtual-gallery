@@ -1,12 +1,19 @@
 package com.vincent.gallerybackend.artworkrequest.service;
 
+import com.vincent.gallerybackend.artwork.model.Artwork;
+import com.vincent.gallerybackend.artwork.model.ArtworkEntity;
+import com.vincent.gallerybackend.artwork.model.ArtworkMapper;
+import com.vincent.gallerybackend.artwork.repository.ArtworkRepository;
 import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequest;
 import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequestEntity;
 import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequestMapper;
+import com.vincent.gallerybackend.artworkrequest.model.CompleteArtworkRequest;
 import com.vincent.gallerybackend.artworkrequest.repository.ArtworkRequestRepository;
 import com.vincent.gallerybackend.exceptions.InternalServerErrorException;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
+import com.vincent.gallerybackend.user.model.User;
 import com.vincent.gallerybackend.user.model.UserEntity;
+import com.vincent.gallerybackend.user.model.UserMapper;
 import com.vincent.gallerybackend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +29,11 @@ public class ArtworkRequestServiceImpl implements ArtworkRequestService {
 
     private final ArtworkRequestRepository artworkRequestRepository;
     private final UserRepository userRepository;
+    private final ArtworkRepository artworkRepository;
+
     private final ArtworkRequestMapper artworkRequestMapper;
+    private final ArtworkMapper artworkMapper;
+    private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
     @Override
@@ -33,12 +44,39 @@ public class ArtworkRequestServiceImpl implements ArtworkRequestService {
 
     @Transactional(readOnly = true)
     @Override
+    public List<CompleteArtworkRequest> getCompleteArtworkRequests() {
+        List<ArtworkRequestEntity> artworkRequestEntities = artworkRequestRepository.findAll();
+        List<CompleteArtworkRequest> completeArtworkRequests = new ArrayList<>();
+        for (ArtworkRequestEntity artworkRequestEntity : artworkRequestEntities) {
+            ArtworkRequest artworkRequest = artworkRequestMapper.artworkRequestDAOtoDTO(artworkRequestEntity);
+            Artwork artwork = findArtworkById(artworkRequestEntity.getArtworkId());
+            User user = findUserById(artworkRequestEntity.getUserId());
+            CompleteArtworkRequest completeArtworkRequest = new CompleteArtworkRequest(artworkRequest, artwork, user);
+            completeArtworkRequests.add(completeArtworkRequest);
+        }
+        return completeArtworkRequests;
+    }
+
+    private Artwork findArtworkById(long artworkId) {
+        ArtworkEntity artworkEntity = artworkRepository.findById(artworkId)
+                .orElseThrow(() -> new NotFoundException("Artwork not found!"));
+        return artworkMapper.artworkDAOtoDTO(artworkEntity);
+    }
+
+    private User findUserById(UUID userId) {
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found!"));
+        return userMapper.userDAOtoDTO(userEntity);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public ArtworkRequest getArtworkRequestById(long id) {
-        ArtworkRequestEntity artworkRequestEntity = findById(id);
+        ArtworkRequestEntity artworkRequestEntity = findArtworkRequestById(id);
         return artworkRequestMapper.artworkRequestDAOtoDTO(artworkRequestEntity);
     }
 
-    private ArtworkRequestEntity findById(long id) {
+    private ArtworkRequestEntity findArtworkRequestById(long id) {
         return artworkRequestRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("ArtworkRequest not found"));
     }
@@ -100,8 +138,29 @@ public class ArtworkRequestServiceImpl implements ArtworkRequestService {
 
     @Transactional
     @Override
+    public void acceptArtworkRequest(ArtworkRequest artworkRequest) {
+        setArtworkToSold(artworkRequest.getArtworkId());
+        artworkRequestRepository.deleteArtworkRequestEntitiesByArtworkId(artworkRequest.getArtworkId());
+    }
+
+    private void setArtworkToSold(long artworkId) {
+        ArtworkEntity artworkEntity = artworkRepository.findById(artworkId)
+                .orElseThrow(() -> new NotFoundException("Artwork not found!"));
+        artworkEntity.setSold(true);
+        artworkRepository.save(artworkEntity);
+    }
+
+    @Transactional
+    @Override
+    public void rejectArtworkRequest(ArtworkRequest artworkRequest) {
+        ArtworkRequestEntity artworkRequestEntity = artworkRequestMapper.artworkRequestDTOtoDAO(artworkRequest);
+        artworkRequestRepository.delete(artworkRequestEntity);
+    }
+
+    @Transactional
+    @Override
     public void deleteArtworkRequest(long id) {
-        ArtworkRequestEntity artworkRequestEntity = findById(id);
+        ArtworkRequestEntity artworkRequestEntity = findArtworkRequestById(id);
         artworkRequestRepository.delete(artworkRequestEntity);
     }
 

@@ -32,7 +32,11 @@ class UserMapperTests {
                 "müller123",
                 "berlin",
                 "123456789",
-                Language.DE);
+                Language.DE,
+                Role.USER,
+                null,
+                null,
+                null);
         incompleteUserEntity = new UserEntity(UUID.randomUUID(),
                 null,
                 "müller",
@@ -40,8 +44,11 @@ class UserMapperTests {
                 null,
                 "berlin",
                 "123456789",
-                Language.DE
-        );
+                Language.DE,
+                Role.USER,
+                null,
+                null,
+                null);
     }
 
     @Test

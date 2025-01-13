@@ -14,6 +14,7 @@ import {SnackBarService} from "../../misc/services/snack-bar.service";
 import {ImageUploadComponent} from "../../misc/image-upload/image-upload.component";
 import {Subscription} from "rxjs";
 import {MatIcon} from "@angular/material/icon";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-add-edit-artwork',
@@ -26,7 +27,8 @@ import {MatIcon} from "@angular/material/icon";
     MatButton,
     ReactiveFormsModule,
     ImageUploadComponent,
-    MatIcon
+    MatIcon,
+    MatProgressSpinner
   ],
   templateUrl: './add-edit-artwork.component.html',
   styleUrl: './add-edit-artwork.component.scss',
@@ -150,7 +152,7 @@ export class AddEditArtworkComponent implements OnInit, OnDestroy { // TODO: Wer
     console.log(this.formsAreValid());
   }
 
-  onCreate(): void {
+  onCreateOrUpdate(): void {
     if (this.formsAreValid()) {
       const artwork: Artwork = this.getArtworkByFormData();
       if (this.manageMode === ManageModesEnum.ADD) {

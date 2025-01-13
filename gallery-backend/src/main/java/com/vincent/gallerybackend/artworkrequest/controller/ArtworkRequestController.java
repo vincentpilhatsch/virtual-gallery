@@ -1,6 +1,7 @@
 package com.vincent.gallerybackend.artworkrequest.controller;
 
 import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequest;
+import com.vincent.gallerybackend.artworkrequest.model.CompleteArtworkRequest;
 import com.vincent.gallerybackend.artworkrequest.service.ArtworkRequestServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -29,6 +30,15 @@ public class ArtworkRequestController {
 
     }
 
+    @Operation(summary = "Retrieve all complete artwork requests", description = "Fetches a list of all complete artwork requests available in the system.")
+    @GetMapping(value = "/allComplete", produces = "application/json")
+    public ResponseEntity<List<CompleteArtworkRequest>> getCompleteArtworkRequests() {
+        List<CompleteArtworkRequest> completeArtworkRequest = artworkRequestServiceImpl.getCompleteArtworkRequests();
+        log.info("GET ALL COMPLETE artworkRequests ({})", completeArtworkRequest.size());
+        return new ResponseEntity<>(completeArtworkRequest, HttpStatus.OK);
+
+    }
+
     @Operation(summary = "Retrieve artwork request by ID", description = "Fetches details of a specific artwork request using its unique ID.")
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<ArtworkRequest> getArtworkRequest(@PathVariable long id) {
@@ -45,6 +55,26 @@ public class ArtworkRequestController {
         ArtworkRequest createdEntity = artworkRequestServiceImpl.createArtworkRequest(artworkRequest);
         log.info("CREATE artworkRequest with id: {}", artworkRequest.getId());
         return new ResponseEntity<>(createdEntity, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Accept a artwork request", description = "Accept artwork requests for the artwork.")
+    @PostMapping(value = "accept", produces = "application/json")
+    public ResponseEntity<ArtworkRequest> acceptArtworkRequest(
+            @Valid @RequestBody ArtworkRequest artworkRequest
+    ) {
+        artworkRequestServiceImpl.acceptArtworkRequest(artworkRequest);
+        log.info("ACCEPTED ALL artworkRequest for artwork: {}", artworkRequest.getArtworkId());
+        return new ResponseEntity<>(artworkRequest, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Reject a artwork request", description = "Reject artwork request for the user and artist.")
+    @PostMapping(value = "reject", produces = "application/json")
+    public ResponseEntity<ArtworkRequest> rejectArtworkRequest(
+            @Valid @RequestBody ArtworkRequest artworkRequest
+    ) {
+        artworkRequestServiceImpl.rejectArtworkRequest(artworkRequest);
+        log.info("REJECT artworkRequest with id: {}", artworkRequest.getArtworkId());
+        return new ResponseEntity<>(artworkRequest, HttpStatus.OK);
     }
 
     @Operation(summary = "Delete artwork request by ID", description = "Deletes an existing artwork request using its unique ID.")

@@ -16,6 +16,7 @@ import {ExhibitionService} from "../../exhibitions/services/exhibition.service";
 import {ExhibitionForm} from "../models/exhibition-form";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 
 @Component({
@@ -35,7 +36,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatDatepickerToggle,
     MatDatepickerInput,
     MatHint,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatProgressSpinner
   ],
   templateUrl: './add-edit-exhibition.component.html',
   styleUrl: './add-edit-exhibition.component.scss',
@@ -151,7 +153,7 @@ export class AddEditExhibitionComponent implements OnInit, OnDestroy {
     this.updateAddButtonVisibility();
   }
 
-  onCreate(): void {
+  onCreateOrUpdate(): void {
     if (this.formsAreValid()) {
       const exhibition: Exhibition = this.getExhibitionByFormData();
       if (this.manageMode === ManageModesEnum.ADD) {

@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ArtworkRequestRepository extends JpaRepository<ArtworkRequestEntity, Long> {
+
+    void deleteArtworkRequestEntitiesByArtworkId(long artworkId);
+    
 }

@@ -1,25 +1,31 @@
-<div class="container">
-  <div class="filter-container">
-    <mat-form-field>
-      <mat-label>Suchen...</mat-label>
-      <input matInput
-             [(ngModel)]="searchQuery"
-             (keyup)="onSearch()">
-    </mat-form-field>
-    <div class="filter">
+@defer {
+  <div class="container">
+    <div class="filter-container">
+      <mat-form-field>
+        <mat-label>Suchen...</mat-label>
+        <input matInput
+               [(ngModel)]="searchQuery"
+               (keyup)="onSearch()">
+      </mat-form-field>
+      <div class="filter">
+      </div>
     </div>
-  </div>
-  @for (group of groupedArtworks; track $index) {
-    <div class="inner-artwork-container">
-      @for (artwork of group; track artwork.id) {
-        <app-artwork-card [artwork]="artwork"
-                          [favoriteArtworkIds]="userService.user ? favoriteIds : undefined"
-                          [ngClass]="{
+    @for (group of groupedArtworks; track $index) {
+      <div class="inner-artwork-container">
+        @for (artwork of group; track artwork.id) {
+          <app-artwork-card [artwork]="artwork"
+                            [favoriteArtworkIds]="userService.user ? favoriteIds : undefined"
+                            [ngClass]="{
                             'three-images-width': artworksPerRow === 3,
                             'four-images-width': artworksPerRow === 4
                           }">
-        </app-artwork-card>
-      }
-    </div>
-  }
-</div>
+          </app-artwork-card>
+        }
+      </div>
+    }
+  </div>
+} @placeholder (minimum 400ms) {
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+}

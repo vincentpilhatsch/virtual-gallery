@@ -10,7 +10,7 @@ import {DashboardComponent} from "./modules/dashboard/dashboard-page/dashboard.c
 import {ManageArtworksComponent} from "./modules/dashboard/manage-artworks-page/manage-artworks.component";
 import {AddEditArtworkComponent} from "./modules/dashboard/add-edit-artwork-page/add-edit-artwork.component";
 import {ManageEventsComponent} from "./modules/dashboard/manage-events-page/manage-events.component";
-import {AddEditEventComponent} from "./modules/dashboard/add-and-edit-event-page/add-edit-event.component";
+import {AddEditEventComponent} from "./modules/dashboard/add-edit-event-page/add-edit-event.component";
 import {HomeComponent} from "./modules/home/home.component";
 import {ExhibitionsComponent} from "./modules/exhibitions/exhibitions-page/exhibitions.component";
 import {userAndArtistGuard} from "./modules/misc/guards/user-and-artist.guard";
@@ -18,6 +18,9 @@ import {authGuard} from "./modules/misc/guards/auth.guard";
 import {TourComponent} from "./modules/tour/tour.component";
 import {ManageExhibitionsComponent} from "./modules/dashboard/manage-exhibitions-page/manage-exhibitions.component";
 import {AddEditExhibitionComponent} from "./modules/dashboard/add-edit-exhibition-page/add-edit-exhibition.component";
+import {
+  ManageArtworkRequestComponent
+} from "./modules/dashboard/manage-artwork-request/manage-artwork-request.component";
 
 export const routes: Routes = [
   {path: '', redirectTo: '/anmelden', pathMatch: 'full'},
@@ -35,11 +38,14 @@ export const routes: Routes = [
   {path: 'dashboard/kunstwerke-verwalten', component: ManageArtworksComponent}, // , canActivate: [artistGuard]}, // TODO: need guards, app otherwise buggy (dashboard)
   {path: 'dashboard/kunstwerk-bearbeiten/:id', component: AddEditArtworkComponent}, // , canActivate: [artistGuard]},
   {path: 'dashboard/kunstwerk-erstellen', component: AddEditArtworkComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/veranstaltungeneranstaltungen-verwalten', component: ManageEventsComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/veranstaltungen-bearbeiten/:id', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/veranstaltungen-erstellen', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/veranstaltungen-verwalten', component: ManageEventsComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/veranstaltung-bearbeiten/:id', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/veranstaltung-erstellen', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
   {path: 'dashboard/ausstellungen-verwalten', component: ManageExhibitionsComponent}, // , canActivate: [artistGuard]},
   {path: 'dashboard/ausstellung-bearbeiten/:id', component: AddEditExhibitionComponent}, // , canActivate: [artistGuard]},
   {path: 'dashboard/ausstellung-erstellen', component: AddEditExhibitionComponent}, // , canActivate: [artistGuard]},
+  {path: 'dashboard/kunstwerk-anfragen-verwalten', component: ManageArtworkRequestComponent}, // , canActivate: [artistGuard]},
+  // {path: 'dashboard/kunstwerk-anfrage-bearbeiten/:id', component: AddEditExhibitionComponent}, // , canActivate: [artistGuard]},
+  // {path: 'dashboard/kunstwerk-anfrage-erstellen', component: AddEditExhibitionComponent}, // , canActivate: [artistGuard]},
   // {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];

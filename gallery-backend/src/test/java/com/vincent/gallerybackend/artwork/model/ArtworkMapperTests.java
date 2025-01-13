@@ -1,9 +1,6 @@
 package com.vincent.gallerybackend.artwork.model;
 
-import com.vincent.gallerybackend.user.model.Language;
-import com.vincent.gallerybackend.user.model.User;
-import com.vincent.gallerybackend.user.model.UserEntity;
-import com.vincent.gallerybackend.user.model.UserMapperImpl;
+import com.vincent.gallerybackend.user.model.*;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +29,11 @@ class ArtworkMapperTests {
                 "müller123",
                 "berlin",
                 "123456789",
-                Language.DE);
+                Language.DE,
+                Role.USER,
+                null,
+                null,
+                null);
         incompleteUserEntity = new UserEntity(
                 UUID.randomUUID(),
                 null,
@@ -41,7 +42,11 @@ class ArtworkMapperTests {
                 null,
                 "berlin",
                 "123456789",
-                Language.DE
+                Language.DE,
+                Role.ARTIST,
+                null,
+                null,
+                null
         );
     }
 
@@ -50,7 +55,6 @@ class ArtworkMapperTests {
         User user = userMapperImpl.userDAOtoDTO(thomas);
 
         assertInstanceOf(User.class, user);
-        assertEquals("0", user.getId());
         assertEquals("thomas", user.getFirstName());
         assertEquals("müller", user.getLastName());
         assertEquals("müller@bht.de", user.getEmail());

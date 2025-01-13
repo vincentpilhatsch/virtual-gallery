@@ -1,48 +1,64 @@
 app-manage-events {
 
-  .card {
-    border: 1px solid black;
-    padding: 15px;
-  }
-
-  .upcoming-event-container {
+  .filter-container {
     display: flex;
-    gap: 80px;
+    justify-content: space-between;
+    margin-bottom: 40px;
   }
 
-  .left-section {
-    width: 45%;
+  .inner-event-container {
+    gap: 40px;
+    display: flex;
   }
 
-  .right-section {
+  .event-container {
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    width: 55%;
+    gap: 40px;
   }
 
-  .title-two {
-    margin-top: 80px;
+  .card {
+    width: calc(100% / 3) !important;
+    cursor: pointer;
+
+    .first-section {
+      border-top: 2px dashed #a7a7a7;
+      border-left: 2px dashed #a7a7a7;
+      border-right: 2px dashed #a7a7a7;
+      padding: 15px;
+    }
+
+    .second-section {
+      border-bottom: 2px dashed #a7a7a7;
+      border-left: 2px dashed #a7a7a7;
+      border-right: 2px dashed #a7a7a7;
+      padding: 15px;
+    }
+
+    .title-two {
+      padding-top: 22px;
+      padding-bottom: 25px;
+      font-size: 23px;
+    }
+
+    .text-one {
+      margin-bottom: 0 !important;
+    }
   }
 
-  .text-one.title {
-    font-size: 22px;
-    font-weight: 500;
-    margin-bottom: 5px;
+  .not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 80px 0;
   }
 
-  .text-one.date {
-    color: #4E4E4E;
-  }
-
-  .button-one {
-    margin-top: 30px;
-    width: 350px;
+  .mat-mdc-form-field-bottom-align {
+    display: none;
   }
 
   img {
     max-width: 100%;
-    height: auto;
   }
 
 }

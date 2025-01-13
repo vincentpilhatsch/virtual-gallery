@@ -8,6 +8,7 @@ import {Exhibition} from "../model/exhibition";
 import {ExhibitionService} from "../services/exhibition.service";
 import {ArtworkCardComponent} from "../../artwork/artwork-card/artwork-card.component";
 import {ConvertNumberArrayToYearStringPipe} from "../pipes/convert-number-array-to-year.pipe";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-exhibitions',
@@ -17,7 +18,8 @@ import {ConvertNumberArrayToYearStringPipe} from "../pipes/convert-number-array-
     ConvertNumberArrayToDateStringPipe,
     NgClass,
     ArtworkCardComponent,
-    ConvertNumberArrayToYearStringPipe
+    ConvertNumberArrayToYearStringPipe,
+    MatProgressSpinner
   ],
   templateUrl: './exhibitions.component.html',
   styleUrl: './exhibitions.component.scss',

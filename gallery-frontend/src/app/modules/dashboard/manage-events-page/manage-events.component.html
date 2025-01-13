@@ -1,31 +1,42 @@
-<p class="title-one">Veranstaltungen verwalten</p>
-<p class="text-one">
-  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-  magna aliquyam erat, sed diam voluptua dolor diam nonumy eirmod sit amet, consetetur sadipscing elitr, sed diam
-  nonumy.
-</p>
-<p class="title-two">Aufkommendes Event</p>
-<div class="upcoming-event-container">
-  <div class="left-section">
-    <img src="../../../../assets/images/keros_artwork_2.png" alt="artwork-card">
-  </div>
-  <div class="right-section">
-    <div>
-      <p class="text-one title">Titel der Veranstaltung</p>
-      <p class="text-one date">10.06.2024</p>
+@defer {
+  <p class="title-one">Veranstaltungen verwalten</p>
+  @if (groupedEvents.length > 0) {
+    <div class="filter-container">
+      <mat-form-field>
+        <mat-label>Suchen...</mat-label>
+        <input matInput
+               [(ngModel)]="searchQuery"
+               (keyup)="onSearch()">
+      </mat-form-field>
+      <div class="add-button" routerLink="/dashboard/veranstaltung-erstellen">
+        <mat-icon fontIcon="add"></mat-icon>
+      </div>
     </div>
-    <p class="text-one text">
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-      dolore magna aliquyam erat, sed diam voluptua.
-    </p>
-    <div class="text-one">Zugesagte Teilnehmer: 26</div>
-    <button mat-stroked-button class="button-one" routerLink="/dashboard/event-bearbeiten">Event verwalten
-    </button>
+    <div class="event-container">
+      @for (group of groupedEvents; track $index) {
+        <div class="inner-event-container">
+          @for (event of group; track event.id) {
+            <div class="card" (click)="onCardClicked(event.id)">
+              <div class="first-section">
+                <img src="data:image/jpeg;base64,{{ event.image }}" alt="event">
+              </div>
+              <div class="second-section">
+                <p class="title-two">{{ event.title }}, {{ event.dateTime | convertNumberArrayToYearString }}</p>
+                <p class="text-one-grey">{{ event.description }}</p>
+                <p class="text-one-grey">({{ event.confirmedUserIds.length }} Teilnehmer)</p>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="not-found-container">
+      <p class="text-one">Keine angefragten Kunstwerke vorhanden</p>
+    </div>
+  }
+} @placeholder (minimum 200ms) {
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
   </div>
-</div>
-<div class="divider"></div>
-<p class="title-two">Aufkommendes Event</p>
-<div class="finished-event-container">
-  <!--  <app-artwork-card></app-artwork-card>-->
-</div>
-<button mat-stroked-button class="button-one" routerLink="/dashboard/event-erstellen">Event hinzufügen</button>
+}

@@ -1,6 +1,7 @@
 package com.vincent.gallerybackend.user.controller;
 
 import com.vincent.gallerybackend.user.model.Language;
+import com.vincent.gallerybackend.user.model.Role;
 import com.vincent.gallerybackend.user.model.UserEntity;
 import com.vincent.gallerybackend.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +50,11 @@ class UserControllerTests {
                 "müller123",
                 "berlin",
                 "123456789",
-                Language.DE);
+                Language.DE,
+                Role.USER,
+                null,
+                null,
+                null);
         UserEntity max = new UserEntity(UUID.randomUUID(),
                 "max",
                 "schultz",
@@ -57,7 +62,11 @@ class UserControllerTests {
                 "müller123",
                 "berlin",
                 "123456789",
-                Language.EN);
+                Language.EN,
+                Role.USER,
+                null,
+                null,
+                null);
         userRepository.saveAll(List.of(thomas, max));
     }
 
@@ -76,7 +85,7 @@ class UserControllerTests {
     @Test
     void getUserByEmailShouldReturn200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/user/bäcker@bht.de")
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -84,18 +93,18 @@ class UserControllerTests {
     void getUserByIdShouldReturnCorrectUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/user/bäcker@bht.de")
                         .contentType(MediaType.APPLICATION_JSON))
-                        .andExpect(jsonPath("$.firstName").value("thomas"))
-                        .andExpect(jsonPath("$.lastName").value("bäcker"))
-                        .andExpect(jsonPath("$.email").value("bäcker@bht.de"))
-                        .andExpect(jsonPath("$.phone").value("123456789"))
-                        .andExpect(jsonPath("$.language").value("DE"));
+                .andExpect(jsonPath("$.firstName").value("thomas"))
+                .andExpect(jsonPath("$.lastName").value("bäcker"))
+                .andExpect(jsonPath("$.email").value("bäcker@bht.de"))
+                .andExpect(jsonPath("$.phone").value("123456789"))
+                .andExpect(jsonPath("$.language").value("DE"));
     }
 
     @Test
     void getUserByEmailShouldReturn404WhenUserNotFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/user/1111")
                         .contentType(MediaType.APPLICATION_JSON))
-                        .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound());
     }
 
     // createUser
@@ -115,7 +124,7 @@ class UserControllerTests {
                                 }
                                 """)
                         .contentType(MediaType.APPLICATION_JSON))
-                        .andExpect(status().isCreated());
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -138,7 +147,8 @@ class UserControllerTests {
                 .andExpect(jsonPath("$.lastName").value("bäcker"))
                 .andExpect(jsonPath("$.email").value("reiner@bht.de"))
                 .andExpect(jsonPath("$.phone").value("123456789"))
-                .andExpect(jsonPath("$.language").value("DE"));;
+                .andExpect(jsonPath("$.language").value("DE"));
+        ;
     }
 
     @Test
@@ -193,7 +203,8 @@ class UserControllerTests {
                 .andExpect(jsonPath("$.lastName").value("bäcker"))
                 .andExpect(jsonPath("$.email").value("bäcker@bht.de"))
                 .andExpect(jsonPath("$.phone").value("123456789"))
-                .andExpect(jsonPath("$.language").value("DE"));;
+                .andExpect(jsonPath("$.language").value("DE"));
+        ;
     }
 
     @Test

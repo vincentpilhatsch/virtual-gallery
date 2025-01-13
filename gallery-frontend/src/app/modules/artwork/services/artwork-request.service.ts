@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environment";
 import {ArtworkRequest} from "../model/artworkRequest";
+import {CompleteArtworkRequest} from "../model/completeArtworkRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,24 @@ export class ArtworkRequestService {
     return this.httpClient.get<ArtworkRequest>(url);
   }
 
+  getCompleteArtworkRequests(): Observable<CompleteArtworkRequest[]> {
+    const url: string = `${this.endpoint}/allComplete`;
+    return this.httpClient.get<CompleteArtworkRequest[]>(url);
+  }
+
   createArtworkRequest(artworkRequest: ArtworkRequest): Observable<ArtworkRequest> {
     const url: string = `${this.endpoint}`;
+    return this.httpClient.post<ArtworkRequest>(url, artworkRequest);
+  }
+
+  acceptArtworkRequest(artworkRequest: ArtworkRequest): Observable<ArtworkRequest> {
+    const url: string = `${this.endpoint}/accept`;
+    return this.httpClient.post<ArtworkRequest>(url, artworkRequest);
+  }
+
+
+  rejectArtworkRequest(artworkRequest: ArtworkRequest): Observable<ArtworkRequest> {
+    const url: string = `${this.endpoint}/reject`;
     return this.httpClient.post<ArtworkRequest>(url, artworkRequest);
   }
 

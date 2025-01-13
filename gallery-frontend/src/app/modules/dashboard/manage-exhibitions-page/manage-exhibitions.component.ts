@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {ConvertNumberArrayToYearStringPipe} from "../../exhibitions/pipes/convert-number-array-to-year.pipe";
 import {Exhibition} from "../../exhibitions/model/exhibition";
 import {ExhibitionService} from "../../exhibitions/services/exhibition.service";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-manage-exhibitions',
@@ -22,14 +23,15 @@ import {ExhibitionService} from "../../exhibitions/services/exhibition.service";
     RouterLink,
     NgClass,
     FormsModule,
-    ConvertNumberArrayToYearStringPipe
+    ConvertNumberArrayToYearStringPipe,
+    MatProgressSpinner
   ],
   templateUrl: './manage-exhibitions.component.html',
   styleUrl: './manage-exhibitions.component.scss',
   encapsulation: ViewEncapsulation.None
 })
 export class ManageExhibitionsComponent implements OnInit, OnDestroy {
-  exhibitionPerRow = 4;
+  exhibitionPerRow = 3;
   exhibitions: Exhibition[] = [];
   groupedExhibitions: Exhibition[][] = [];
 

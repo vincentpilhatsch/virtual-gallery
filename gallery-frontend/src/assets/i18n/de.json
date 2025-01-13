@@ -25,8 +25,8 @@
     "dashboard.exhibition.updated": "Sie haben das Ausstellung erfolgreich aktualisiert",
     "dashboard.event.created": "Sie haben die Veranstaltung erfolgreich erstellt",
     "dashboard.event.updated": "Sie haben die Veranstaltung erfolgreich aktualisiert",
-    "dashboard.artwork.request.created": "Sie haben das Kunstwerk-Anfrage erfolgreich erstellt",
-    "dashboard.artwork.request.updated": "Sie haben das Kunstwerk-Anfrage erfolgreich aktualisiert",
+    "dashboard.artwork.request.accepted": "Sie haben die Kunstwerk-Anfrage erfolgreich angenommen",
+    "dashboard.artwork.request.rejected": "Sie haben die Kunstwerk-Anfrage erfolgreich abgelehnt",
     "snackbar.filetype.invalid": "Der angegebene Datei-Typ ist ungültig"
   },
   "error": {

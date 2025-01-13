@@ -8,6 +8,7 @@ import {UserService} from "../../user/services/user.service";
 import {ConvertNumberArrayToDateStringPipe} from "../pipes/convert-number-array-to-date-time.pipe";
 import {SnackBarService} from "../../misc/services/snack-bar.service";
 import {ConvertNumberArrayToYearStringPipe} from "../../exhibitions/pipes/convert-number-array-to-year.pipe";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-events',
@@ -16,7 +17,8 @@ import {ConvertNumberArrayToYearStringPipe} from "../../exhibitions/pipes/conver
     MatButton,
     ConvertNumberArrayToDateStringPipe,
     NgClass,
-    ConvertNumberArrayToYearStringPipe
+    ConvertNumberArrayToYearStringPipe,
+    MatProgressSpinner
   ],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss',

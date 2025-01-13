@@ -214,3 +214,16 @@ body, p, span, div, h1, h2, h3, h4, h5, h6, a, li, ul, ol, input, textarea, butt
   margin: 15px;
   min-width: auto !important;
 }
+
+// Spinner
+circle {
+  stroke: black !important;
+  stroke-width: 4px !important;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}

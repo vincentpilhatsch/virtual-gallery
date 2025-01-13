@@ -8,6 +8,7 @@ app-dashboard {
 
   .inner-container {
     display: flex;
+    width: calc(100% / 4);
     flex-direction: column;
     align-items: center;
     cursor: pointer;
@@ -27,7 +28,7 @@ app-dashboard {
   }
 
   img {
-    max-width: 100%;
+    width: 100%;
     height: 450px;
     object-fit: cover;
   }

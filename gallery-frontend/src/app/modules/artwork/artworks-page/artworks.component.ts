@@ -10,6 +10,7 @@ import {UserService} from "../../user/services/user.service";
 import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
 import {NgClass} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-artworks',
@@ -21,7 +22,8 @@ import {FormsModule} from "@angular/forms";
     ArtworkCardComponent,
     HttpClientModule,
     NgClass,
-    FormsModule
+    FormsModule,
+    MatProgressSpinner
   ],
   templateUrl: './artworks.component.html',
   styleUrl: './artworks.component.scss',

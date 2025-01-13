@@ -19,9 +19,21 @@ app-manage-exhibitions {
 
   .card {
     width: calc(100% / 3) !important;
-    border: 2px dashed #a7a7a7;
-    padding: 15px;
     cursor: pointer;
+
+    .first-section {
+      border-top: 2px dashed #a7a7a7;
+      border-left: 2px dashed #a7a7a7;
+      border-right: 2px dashed #a7a7a7;
+      padding: 15px;
+    }
+
+    .second-section {
+      border-bottom: 2px dashed #a7a7a7;
+      border-left: 2px dashed #a7a7a7;
+      border-right: 2px dashed #a7a7a7;
+      padding: 15px;
+    }
 
     .title-two {
       padding-top: 22px;
@@ -32,6 +44,13 @@ app-manage-exhibitions {
     .text-one {
       margin-bottom: 0 !important;
     }
+  }
+
+  .not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 80px 0;
   }
 
   .mat-mdc-form-field-bottom-align {

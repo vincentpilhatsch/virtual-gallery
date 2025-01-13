@@ -1,0 +1,76 @@
+@defer {
+  <p class="title-one">Kunstwerk Anfragen</p>
+  @if (groupedCompleteArtworkRequests.length > 0) {
+    <div class="event-container">
+      @for (group of groupedCompleteArtworkRequests; track $index) {
+        <div class="inner-artwork-request-container">
+          @for (completeArtworkRequest of group; track completeArtworkRequest.artworkRequest.id) {
+            <div class="card">
+              <div class="first-section">
+                <p class="title-two">{{ completeArtworkRequest.artwork.title }}</p>
+                <p class="title-two">{{ completeArtworkRequest.artwork.price | moneyConverter }}</p>
+              </div>
+              <img src="data:image/jpeg;base64,{{ completeArtworkRequest.artwork.image }}" alt="event">
+              <div class="second-section">
+                <mat-list>
+                  <mat-list-item>
+                    <div class="item-content">
+                      <span>Name</span>
+                      <span>{{ completeArtworkRequest.user.firstName }} {{ completeArtworkRequest.user.lastName }}</span>
+                    </div>
+                  </mat-list-item>
+                  <mat-divider></mat-divider>
+                  @if (completeArtworkRequest.user.phone) {
+                    <mat-list-item>
+                      <div class="item-content">
+                        <span>Telefonnummer</span>
+                        <span>{{ completeArtworkRequest.user.phone }}</span>
+                      </div>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                  }
+                  @if (completeArtworkRequest.user.city) {
+                    <mat-list-item>
+                      <div class="item-content">
+                        <span>Stadt</span>
+                        <span>{{ completeArtworkRequest.user.city }}</span>
+                      </div>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                  }
+                  @if (completeArtworkRequest.artworkRequest.requestTime) {
+                    <mat-list-item>
+                      <div class="item-content">
+                        <span>Datum</span>
+                        <span>{{ completeArtworkRequest.artworkRequest.requestTime | convertNumberArrayToDateString }}</span>
+                      </div>
+                    </mat-list-item>
+                  }
+                </mat-list>
+                <p class="text-one-grey">{{ completeArtworkRequest.artworkRequest.description }}</p>
+                <div class="button-container">
+                  <button mat-stroked-button class="button-one-inverted"
+                          (click)="acceptArtworkRequest(completeArtworkRequest.artworkRequest)">
+                    ANNEHMEN
+                  </button>
+                  <button mat-stroked-button class="button-one"
+                          (click)="rejectArtworkRequest(completeArtworkRequest.artworkRequest)">
+                    ABLEHNEN
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="not-found-container">
+      <p class="text-one">Keine angefragten Kunstwerke vorhanden</p>
+    </div>
+  }
+} @placeholder (minimum 200ms) {
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+}

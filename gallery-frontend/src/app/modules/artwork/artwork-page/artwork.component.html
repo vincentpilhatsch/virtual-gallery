@@ -44,20 +44,18 @@
           </div>
         </mat-list-item>
       </mat-list>
-      @if (userService.user?.role === RoleEnum.USER) {
-        @if (artwork.sold) {
-          <button mat-stroked-button class="button-one-inverted" disabled>
-            BEREITS VERKAUFT
-          </button>
-        } @else if (isAlreadyRequested) {
-          <button mat-stroked-button class="button-one-inverted" disabled>
-            ANFRAGE WURDE GESTELLT
-          </button>
-        } @else {
-          <button mat-stroked-button class="button-one-inverted" (click)="onRequestButtonClicked()">
-            ANFRAGE STELLEN
-          </button>
-        }
+      @if (artwork.sold) {
+        <button mat-stroked-button class="button-one-inverted" disabled>
+          BEREITS VERKAUFT
+        </button>
+      } @else if (isAlreadyRequested) {
+        <button mat-stroked-button class="button-one-inverted" disabled>
+          ANFRAGE WURDE GESTELLT
+        </button>
+      } @else {
+        <button mat-stroked-button class="button-one-inverted" (click)="onRequestButtonClicked()">
+          ANFRAGE STELLEN
+        </button>
       }
     </div>
   </div>
@@ -72,7 +70,7 @@
       }
     </div>
   </div>
-  @if (!isAlreadyRequested && userService.user?.role === RoleEnum.USER) {
+  @if (!artwork.sold && !isAlreadyRequested) {
     <div class="divider" #requestContainer></div>
     <div class="third-section">
       <p class="title-two">Anfrage auf das Kunstwerk stellen</p>

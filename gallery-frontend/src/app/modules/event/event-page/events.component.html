@@ -1,52 +1,58 @@
-<p class="title-upper-case">Veranstaltungen</p>
-@if (upcomingEvents) {
-  @for (event of upcomingEvents; track $index) {
-    <div class="upcoming-event">
-      <div class="first-section">
-        <img src="data:image/jpeg;base64,{{ event.image }}" alt="event">
-      </div>
-      <div class="second-section">
-        <p class="title-two">{{ event.title }}, {{ event.dateTime | convertNumberArrayToYearString }}</p>
-        <p class="text-one-grey">{{ event.description }}</p>
-        <div class="text-container">
-          <p class="text-one">Wann?</p>
-          <p class="text-one-grey">{{ event.dateTime | convertNumberArrayToDateString }}</p>
+@defer {
+  <p class="title-upper-case">Veranstaltungen</p>
+  @if (upcomingEvents) {
+    @for (event of upcomingEvents; track $index) {
+      <div class="upcoming-event">
+        <div class="first-section">
+          <img src="data:image/jpeg;base64,{{ event.image }}" alt="event">
         </div>
-        <div class="text-container">
-          <p class="text-one">Wo?</p>
-          <p class="text-one-grey">{{ event.location }}</p>
-        </div>
-        @if (userService.user != null) {
-          @if (event.confirmedUserIds.includes(userService.user.id)) {
-            <button mat-stroked-button class="button-one" (click)="onButtonClicked(event.id)">
-              Teilnahme bestätigt
-            </button>
-          } @else {
-            <button mat-stroked-button class="button-one-inverted" (click)="onButtonClicked(event.id)">
-              Zusagen
-            </button>
-          }
-        }
-      </div>
-    </div>
-  }
-}
-@if (pastEvents) {
-  <div class="divider"></div>
-  <div class="past-event">
-    <p class="title-two">Vergangene Veranstaltungen</p>
-    @for (group of groupedPastEvents; track $index) {
-      <div class="past-event-container">
-        @for (event of group; track $index) {
-          <div class="past-event-inner-container">
-            <img src="data:image/jpeg;base64,{{ event.image }}" alt="event">
-            <div class="past-second-section">
-              <p class="title-two">{{ event.title }}, {{ event.dateTime | convertNumberArrayToYearString }}</p>
-              <p class="text-one-grey">{{ event.description }}</p>
-            </div>
+        <div class="second-section">
+          <p class="title-two">{{ event.title }}, {{ event.dateTime | convertNumberArrayToYearString }}</p>
+          <p class="text-one-grey">{{ event.description }}</p>
+          <div class="text-container">
+            <p class="text-one">Wann?</p>
+            <p class="text-one-grey">{{ event.dateTime | convertNumberArrayToDateString }}</p>
           </div>
-        }
+          <div class="text-container">
+            <p class="text-one">Wo?</p>
+            <p class="text-one-grey">{{ event.location }}</p>
+          </div>
+          @if (userService.user != null) {
+            @if (event.confirmedUserIds.includes(userService.user.id)) {
+              <button mat-stroked-button class="button-one" (click)="onButtonClicked(event.id)">
+                Teilnahme bestätigt
+              </button>
+            } @else {
+              <button mat-stroked-button class="button-one-inverted" (click)="onButtonClicked(event.id)">
+                Zusagen
+              </button>
+            }
+          }
+        </div>
       </div>
     }
+  }
+  @if (pastEvents) {
+    <div class="divider"></div>
+    <div class="past-event">
+      <p class="title-two">Vergangene Veranstaltungen</p>
+      @for (group of groupedPastEvents; track $index) {
+        <div class="past-event-container">
+          @for (event of group; track $index) {
+            <div class="past-event-inner-container">
+              <img src="data:image/jpeg;base64,{{ event.image }}" alt="event">
+              <div class="past-second-section">
+                <p class="title-two">{{ event.title }}, {{ event.dateTime | convertNumberArrayToYearString }}</p>
+                <p class="text-one-grey">{{ event.description }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+} @placeholder (minimum 200ms) {
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
   </div>
 }

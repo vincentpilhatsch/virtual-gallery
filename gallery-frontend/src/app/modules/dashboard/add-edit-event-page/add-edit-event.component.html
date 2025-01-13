@@ -1,0 +1,82 @@
+@defer {
+  @if (manageMode === ManageModesEnum.ADD) {
+    <p class="title-one">Veranstaltungen hinzufügen</p>
+  } @else if (manageMode === ManageModesEnum.EDIT) {
+    <p class="title-one">Veranstaltungen bearbeiten</p>
+  }
+  <div class="artwork-container">
+    <div class="first-section">
+      <app-image-upload
+        [file]="file"
+        [entity]="event"
+        [manageMode]="manageMode"
+        (fileChange)="onFileChange($event)">
+      </app-image-upload>
+    </div>
+    <form class="second-section" [formGroup]="form">
+      <mat-form-field>
+        <mat-label>Titel</mat-label>
+        <input matInput
+               type="text"
+               formControlName="title">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Beschreibung</mat-label>
+        <input matInput
+               type="text"
+               formControlName="description">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Standort</mat-label>
+        <input matInput
+               type="text"
+               formControlName="location">
+      </mat-form-field>
+      <div class="inner-form-container">
+        <mat-form-field>
+          <mat-label>Datum</mat-label>
+          <input matInput
+                 type="text"
+                 placeholder="Bsp: 01.01.2001"
+                 formControlName="date">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Uhrzeit</mat-label>
+          <input matInput
+                 type="text"
+                 placeholder="Bsp: 12:20"
+                 formControlName="time">
+        </mat-form-field>
+      </div>
+      <!-- Buttons -->
+      <div class="inner-form-container">
+        @if (manageMode === ManageModesEnum.EDIT) {
+          <button type="button"
+                  mat-stroked-button
+                  class="button-one" (click)="onDelete()">
+            Ausstellung Löschen
+          </button>
+          <button type="button"
+                  mat-stroked-button
+                  class="button-one-inverted"
+                  [disabled]="disableCreateButton"
+                  (click)="onCreateOrUpdate()">
+            Ausstellung aktualisieren
+          </button>
+        } @else {
+          <button type="button"
+                  mat-stroked-button
+                  class="button-one-inverted"
+                  [disabled]="disableCreateButton"
+                  (click)="onCreateOrUpdate()">
+            Ausstellung hinzufügen
+          </button>
+        }
+      </div>
+    </form>
+  </div>
+} @placeholder (minimum 200ms) {
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+}

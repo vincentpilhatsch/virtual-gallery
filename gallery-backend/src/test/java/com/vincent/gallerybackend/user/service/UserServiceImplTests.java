@@ -1,10 +1,7 @@
 package com.vincent.gallerybackend.user.service;
 
 import com.vincent.gallerybackend.exceptions.NotFoundException;
-import com.vincent.gallerybackend.user.model.Language;
-import com.vincent.gallerybackend.user.model.User;
-import com.vincent.gallerybackend.user.model.UserEntity;
-import com.vincent.gallerybackend.user.model.UserMapper;
+import com.vincent.gallerybackend.user.model.*;
 import com.vincent.gallerybackend.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,7 +50,11 @@ class UserServiceImplTests {
                 "müller123",
                 "berlin",
                 "123456789",
-                Language.EN);
+                Language.EN,
+                Role.USER,
+                null,
+                null,
+                null);
         userEntity = new UserEntity(UUID.randomUUID(),
                 "max",
                 "meier",
@@ -61,7 +62,11 @@ class UserServiceImplTests {
                 "müller123",
                 "berlin",
                 "123456789",
-                Language.DE);
+                Language.DE,
+                Role.USER,
+                null,
+                null,
+                null);
         oldUserEntity = new UserEntity(UUID.randomUUID(),
                 "thomas",
                 "bäcker",
@@ -69,7 +74,11 @@ class UserServiceImplTests {
                 "müller123",
                 "berlin",
                 "123456789",
-                Language.EN);
+                Language.EN,
+                Role.USER,
+                null,
+                null,
+                null);
     }
 
     // getUserById

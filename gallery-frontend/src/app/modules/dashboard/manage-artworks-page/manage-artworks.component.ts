@@ -11,6 +11,7 @@ import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgClass} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-manage-artworks',
@@ -23,7 +24,8 @@ import {FormsModule} from "@angular/forms";
     RouterLink,
     ArtworkCardComponent,
     NgClass,
-    FormsModule
+    FormsModule,
+    MatProgressSpinner
   ],
   templateUrl: './manage-artworks.component.html',
   styleUrl: './manage-artworks.component.scss',
