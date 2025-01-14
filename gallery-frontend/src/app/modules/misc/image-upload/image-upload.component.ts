@@ -4,11 +4,14 @@ import {Event as EventEntity} from "../../event/model/event";
 import {Exhibition as ExhibitionEntity} from "../../exhibitions/model/exhibition";
 import {ManageModesEnum} from "../../dashboard/models/manage-modes.enum";
 import {SnackBarService} from "../services/snack-bar.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-image-upload',
   standalone: true,
-  imports: [],
+  imports: [
+    TranslateModule
+  ],
   templateUrl: './image-upload.component.html',
   styleUrl: './image-upload.component.scss',
   encapsulation: ViewEncapsulation.None

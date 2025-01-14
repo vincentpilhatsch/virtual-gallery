@@ -1,9 +1,9 @@
 @defer {
-  <p class="title-one">Veranstaltungen verwalten</p>
+  <p class="title-one">{{ 'dashboard.events.title' | translate }}</p>
   @if (groupedEvents.length > 0) {
     <div class="filter-container">
       <mat-form-field>
-        <mat-label>Suchen...</mat-label>
+        <mat-label>{{ 'misc.search' | translate }}</mat-label>
         <input matInput
                [(ngModel)]="searchQuery"
                (keyup)="onSearch()">
@@ -23,7 +23,9 @@
               <div class="second-section">
                 <p class="title-two">{{ event.title }}, {{ event.dateTime | convertNumberArrayToYearString }}</p>
                 <p class="text-one-grey">{{ event.description }}</p>
-                <p class="text-one-grey">({{ event.confirmedUserIds.length }} Teilnehmer)</p>
+                <p class="text-one-grey">
+                  ({{ event.confirmedUserIds.length }} {{ 'dashboard.events.participants' | translate }})
+                </p>
               </div>
             </div>
           }
@@ -32,7 +34,7 @@
     </div>
   } @else {
     <div class="not-found-container">
-      <p class="text-one">Keine angefragten Kunstwerke vorhanden</p>
+      <p class="text-one">{{ 'dashboard.events.none' | translate }}</p>
     </div>
   }
 } @placeholder (minimum 200ms) {

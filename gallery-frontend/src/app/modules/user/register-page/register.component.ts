@@ -13,6 +13,7 @@ import {AuthResponse} from "../model/authResponse";
 import {RegisterRequest} from "../model/registerRequest";
 import {Subscription} from "rxjs";
 import {MatCheckbox} from "@angular/material/checkbox";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-register',
@@ -28,7 +29,8 @@ import {MatCheckbox} from "@angular/material/checkbox";
     NgOptimizedImage,
     ReactiveFormsModule,
     MatCheckbox,
-    RouterLink
+    RouterLink,
+    TranslateModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -41,9 +43,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   errorMessage: FormErrorTypeEnum | null = null;
   form: FormGroup = this.fb.group({
     firstName: ['', [
+      Validators.minLength(2),
       Validators.required,
     ]],
     lastName: ['', [
+      Validators.minLength(2),
       Validators.required,
     ]],
     email: ['', [
@@ -116,7 +120,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   onFormSubmitted(): void {
-    if (this.checkIfFormsAreValid()) { // TODO: Comment in for Live
+    if (this.checkIfFormsAreValid()) {
       const formFirstName: string = this.form.get("firstName")?.value;
       const formLastName: string = this.form.get("lastName")?.value;
       const formEmail: string = this.form.get("email")?.value;

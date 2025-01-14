@@ -1,6 +1,222 @@
 {
   "home": {
-    "button.discover.artworks": "Kunstwerke entdecken"
+    "introduction": "Oliver Kéros präsentiert einzigartige Werke, die Emotionen und Geschichten auf Leinwand und darüber hinaus bringen. Lassen Sie sich inspirieren und entdecken Sie Kunst in ihrer faszinierendsten Form.",
+    "current.work": "Aktuelle Arbeit",
+    "selected.artwork": "Ausgewählte Kunstwerke",
+    "all.artwork": "Alle Werke",
+    "discover.artworks": "Kunstwerke entdecken",
+    "current.exhibition": "Aktuelle Ausstellung",
+    "learn.more": "Mehr erfahren"
+  },
+  "artwork": {
+    "title": "Kunstwerk",
+    "sold": "Verkauft",
+    "already.requested": "Anfrage wurde gestellt",
+    "request": "Anfrage stellen",
+    "price": "Preis",
+    "dimensions": "Abmessung",
+    "year.of.creation": "Entstehungsjahr",
+    "technic": "Technik",
+    "other.artworks": "Andere Kunstwerke",
+    "purchase.request": "Kaufanfrage stellen",
+    "request.description": "Bitte nutzen Sie das untenstehende Formular, um eine unverbindliche Anfrage zu dem ausgewählten Kunstwerk zu stellen. Wir werden Ihre Anfrage umgehend prüfen und uns zeitnah mit weiteren Informationen bei Ihnen melden.",
+    "message": "Mitteilung",
+    "button.submit.request": "Anfrage stellen",
+    "button.sold": "Bereits verkauft",
+    "button.requested": "Anfrage wurde gestellt"
+  },
+  "exhibitions": {
+    "title": "Ausstellungen",
+    "upcoming": "Bevorstehende Ausstellungen",
+    "past": "Vergangene Ausstellungen",
+    "when": "Wann?",
+    "where": "Wo?"
+  },
+  "events": {
+    "title": "Veranstaltungen",
+    "when": "Wann?",
+    "where": "Wo?",
+    "past": "Vergangene Veranstaltungen",
+    "button.attend": "Zusagen",
+    "button.withdraw": "Teilnahme zurückziehen"
+  },
+  "profile": {
+    "my.profile": "Mein Profil",
+    "logout": "Abmelden",
+    "personal.data": "Persönliche Daten",
+    "requested.artworks": "Angefragte Kunstwerke",
+    "favorite.artworks": "Favorisierte Kunstwerke",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "city": "Wohnort",
+    "button.save": "Daten speichern",
+    "button.withdraw.request": "Anfrage zurückziehen",
+    "no.requested.artworks": "Keine angefragten Kunstwerke vorhanden"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "manage.artworks": "Kunstwerke",
+    "requested.artworks": "Angefragte Kunstwerke",
+    "manage.exhibitions": "Ausstellungen",
+    "manage.events": "Veranstaltungen",
+    "artwork.requests": {
+      "title": "Kunstwerk anfragen",
+      "name": "Name",
+      "phone": "Telefonnummer",
+      "city": "Stadt",
+      "date": "Datum",
+      "accept": "Annehmen",
+      "reject": "Ablehnen",
+      "none": "Keine angefragten Kunstwerke vorhanden"
+    },
+    "exhibitions": {
+      "title": "Ausstellungen verwalten",
+      "none": "Keine angefragten Kunstwerke vorhanden"
+    },
+    "events": {
+      "title": "Veranstaltungen verwalten",
+      "participants": "Teilnehmer",
+      "none": "Keine angefragten Kunstwerke vorhanden"
+    }
+  },
+  "login": {
+    "title": "Anmelden",
+    "description": "Melden Sie sich mit Ihrem Konto an, um auf Ihre persönlichen Daten zuzugreifen, Kaufanfragen zu stellen, Ihre Lieblingskunstwerke zu speichern und stets über die neuesten Ausstellungen und Veranstaltungen informiert zu bleiben.",
+    "email": {
+      "label": "E-Mail",
+      "placeholder": "example@example.com"
+    },
+    "password": {
+      "label": "Passwort"
+    },
+    "button": {
+      "submit": "Anmelden"
+    },
+    "no.account": "Du hast noch kein Konto?",
+    "register.link": "Hier Registrieren"
+  },
+  "register": {
+    "title": "Registrieren",
+    "description": "Werden Sie Teil der Welt von Olivier Kéros und erstellen Sie ein persönliches Konto, um exklusive Einblicke in seine Kunstwerke zu erhalten oder Ausstellungen und Veranstaltungen zu verfolgen.",
+    "first.name.label": "Vorname",
+    "last.name.label": "Nachname",
+    "email": {
+      "label": "E-Mail",
+      "placeholder": "example@example.com"
+    },
+    "password": {
+      "label": "Passwort"
+    },
+    "button": {
+      "submit": "Registrieren"
+    },
+    "already.have.account": "Du hast schon ein Konto?",
+    "login.link": "Hier Anmelden"
+  },
+  "add.edit.artwork": {
+    "add": {
+      "title": "Kunstwerk hinzufügen",
+      "button": "Kunstwerk hinzufügen"
+    },
+    "edit": {
+      "title": "Kunstwerk bearbeiten",
+      "button": "Kunstwerk aktualisieren"
+    },
+    "delete": {
+      "button": "Kunstwerk löschen"
+    },
+    "title": {
+      "label": "Titel"
+    },
+    "technic": {
+      "label": "Technik"
+    },
+    "width": {
+      "label": "Breite in Zentimetern",
+      "placeholder": "Bsp: 120"
+    },
+    "height": {
+      "label": "Höhe in Zentimetern",
+      "placeholder": "Bsp: 180"
+    },
+    "year": {
+      "label": "Erstellungsjahr",
+      "placeholder": "Bsp: 2019"
+    },
+    "price": {
+      "label": "Preis in Euro",
+      "placeholder": "Bsp: 2450"
+    },
+    "sold": {
+      "label": "Kunstwerk verkauft"
+    }
+  },
+  "add.edit.exhibition": {
+    "add": {
+      "title": "Ausstellung hinzufügen",
+      "button": "Ausstellung hinzufügen"
+    },
+    "edit": {
+      "title": "Ausstellung bearbeiten",
+      "button": "Ausstellung aktualisieren"
+    },
+    "delete": {
+      "button": "Ausstellung löschen"
+    },
+    "title": {
+      "label": "Titel"
+    },
+    "description": {
+      "label": "Beschreibung"
+    },
+    "location": {
+      "label": "Standort"
+    },
+    "start.date": {
+      "label": "Startdatum",
+      "placeholder": "Bsp: 01.01.2001"
+    },
+    "end.date": {
+      "label": "Enddatum",
+      "placeholder": "Bsp: 01.01.2001"
+    }
+  },
+  "add.edit.event": {
+    "add": {
+      "title": "Veranstaltung hinzufügen",
+      "button": "Veranstaltung hinzufügen"
+    },
+    "edit": {
+      "title": "Veranstaltung bearbeiten",
+      "button": "Veranstaltung aktualisieren"
+    },
+    "delete": {
+      "button": "Veranstaltung löschen"
+    },
+    "title": {
+      "label": "Titel"
+    },
+    "description": {
+      "label": "Beschreibung"
+    },
+    "location": {
+      "label": "Standort"
+    },
+    "date": {
+      "label": "Datum",
+      "placeholder": "Bsp: 01.01.2001"
+    },
+    "time": {
+      "label": "Uhrzeit",
+      "placeholder": "Bsp: 12:20"
+    }
+  },
+  "misc": {
+    "search": "Suchen...",
+    "sold": "Verkauft",
+    "select.image": "Wählen Sie ein Bild aus*"
   },
   "header": {
     "link.artists": "Künstler",

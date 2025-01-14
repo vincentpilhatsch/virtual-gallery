@@ -1,26 +1,24 @@
 <div class="container">
   <div class="left-container">
-    <!--    <img ngSrc="../../../../assets/imgs/keros_artwork_3.png" alt="login" height="880" width="610"-->
-    <!--         priority="high">-->
     <img src="../../../../assets/images/login_register_image.jpg" alt="artwork-card">
   </div>
   <div class="right-container">
     <div class="inner-login-container">
-      <p class="title-one">Anmelden</p>
-      <p class="text-one">
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
+      <p class="title-one">{{ 'login.title' | translate }}</p>
+      <p class="text-one-grey">
+        {{ 'login.description' | translate }}
       </p>
       <form [formGroup]="form">
         <mat-form-field>
-          <mat-label>E-Mail</mat-label>
+          <mat-label>{{ 'login.email.label' | translate }}</mat-label>
           <input matInput
                  type="email"
                  name="username"
-                 placeholder="example@example.com"
+                 placeholder="{{ 'login.email.placeholder' | translate }}"
                  formControlName="email"/>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Passwort</mat-label>
+          <mat-label>{{ 'login.password.label' | translate }}</mat-label>
           <input matInput
                  type="password"
                  name="password"
@@ -39,14 +37,14 @@
         </mat-form-field>
       </form>
       <span class="error-message">{{ backendErrorMessage | errorMessageHandler }}</span>
-      <button mat-stroked-button class="button-one" (click)="onFormSubmitted()" [disabled]="false">
-        <!-- disableLoginButton -->
-        Anmelden
+      <button mat-stroked-button class="button-one-inverted" (click)="onFormSubmitted()"
+              [disabled]="disableLoginButton">
+        {{ 'login.button.submit' | translate }}
       </button>
     </div>
     <div class="inner-register-container">
-      <p class="text-one">Du hast noch kein Konto?
-        <span class="register-link" routerLink="/registrieren">Hier Registrieren</span>
+      <p class="text-one">{{ 'login.no.account' | translate }}
+        <span class="register-link" routerLink="/registrieren">{{ 'login.register.link' | translate }}</span>
       </p>
     </div>
   </div>

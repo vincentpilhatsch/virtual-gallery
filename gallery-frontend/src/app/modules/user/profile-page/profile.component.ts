@@ -13,6 +13,7 @@ import {UserService} from "../services/user.service";
 import {User} from "../model/user";
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +31,8 @@ import {Router} from "@angular/router";
     MatSelectionList,
     MatListOption,
     FormsModule,
-    RequestedArtworksComponent
+    RequestedArtworksComponent,
+    TranslateModule
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',

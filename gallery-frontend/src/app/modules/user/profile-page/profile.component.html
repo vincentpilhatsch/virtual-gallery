@@ -1,17 +1,19 @@
 <div class="first-section">
-  <p class="title-one">Mein Profil</p>
-  <button mat-stroked-button class="button-one upper-case" (click)="this.logout()">Abmelden</button>
+  <p class="title-one">{{ 'profile.my.profile' | translate }}</p>
+  <button mat-stroked-button class="button-one upper-case" (click)="this.logout()">
+    {{ 'profile.logout' | translate }}
+  </button>
 </div>
 <div class="second-section">
   @if (userFromParent) {
     <mat-tab-group [disableRipple]="true">
-      <mat-tab label="Persönliche Daten">
-          <app-personal-data [userFromParent]="userFromParent"></app-personal-data>
+      <mat-tab label="{{ 'profile.personal.data' | translate }}">
+        <app-personal-data [userFromParent]="userFromParent"></app-personal-data>
       </mat-tab>
-      <mat-tab label="Angefragte Kunstwerke">
+      <mat-tab label="{{ 'profile.requested.artworks' | translate }}">
         <app-requested-artworks [userFromParent]="userFromParent"></app-requested-artworks>
       </mat-tab>
-      <mat-tab label="Favorisierte Kunstwerke">
+      <mat-tab label="{{ 'profile.favorite.artworks' | translate }}">
         <app-favorite-artworks [userFromParent]="userFromParent"></app-favorite-artworks>
       </mat-tab>
     </mat-tab-group>

@@ -1,8 +1,12 @@
 @defer {
   @if (manageMode === ManageModesEnum.ADD) {
-    <p class="title-one">Ausstellungen hinzufügen</p>
-  } @else if (manageMode === ManageModesEnum.EDIT) {
-    <p class="title-one">Ausstellungen bearbeiten</p>
+    <p class="title-one">
+      {{ 'add.edit.exhibition.add.title' | translate }}
+    </p>
+  } @else {
+    <p class="title-one">
+      {{ 'add.edit.exhibition.edit.title' | translate }}
+    </p>
   }
   <div class="artwork-container">
     <div class="first-section">
@@ -15,24 +19,38 @@
     </div>
     <form class="second-section" [formGroup]="form">
       <mat-form-field>
-        <mat-label>Titel</mat-label>
+        <mat-label>{{ 'add.edit.exhibition.title.label' | translate }}</mat-label>
         <input matInput
                type="text"
                formControlName="title">
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Beschreibung</mat-label>
+        <mat-label>{{ 'add.edit.exhibition.description.label' | translate }}</mat-label>
         <input matInput
                type="text"
                formControlName="description">
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Standort</mat-label>
+        <mat-label>{{ 'add.edit.exhibition.location.label' | translate }}</mat-label>
         <input matInput
                type="text"
                formControlName="location">
       </mat-form-field>
       <div class="inner-form-container">
+        <mat-form-field>
+          <mat-label>{{ 'add.edit.exhibition.start.date.label' | translate }}</mat-label>
+          <input matInput
+                 type="text"
+                 placeholder="{{ 'add.edit.exhibition.start.date.placeholder' | translate }}"
+                 formControlName="startDate">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{ 'add.edit.exhibition.end.date.label' | translate }}</mat-label>
+          <input matInput
+                 type="text"
+                 placeholder="{{ 'add.edit.exhibition.end.date.placeholder' | translate }}"
+                 formControlName="endDate">
+        </mat-form-field>
         <!--      <mat-form-field>-->
         <!--        <mat-label>Startdatum</mat-label>-->
         <!--        <input matInput [matDatepicker]="startPicker" formControlName="startDate">-->
@@ -45,35 +63,22 @@
         <!--        <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>-->
         <!--        <mat-datepicker #endPicker></mat-datepicker>-->
         <!--      </mat-form-field>-->
-        <mat-form-field>
-          <mat-label>Startdatum</mat-label>
-          <input matInput
-                 type="text"
-                 placeholder="Bsp: 01.01.2001"
-                 formControlName="startDate">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Enddatum</mat-label>
-          <input matInput
-                 type="text"
-                 placeholder="Format: 01.01.2001"
-                 formControlName="endDate">
-        </mat-form-field>
       </div>
       <!-- Buttons -->
       <div class="inner-form-container">
         @if (manageMode === ManageModesEnum.EDIT) {
           <button type="button"
                   mat-stroked-button
-                  class="button-one" (click)="onDelete()">
-            Ausstellung Löschen
+                  class="button-one"
+                  (click)="onDelete()">
+            {{ 'add.edit.exhibition.delete.button' | translate }}
           </button>
           <button type="button"
                   mat-stroked-button
                   class="button-one-inverted"
                   [disabled]="disableCreateButton"
                   (click)="onCreateOrUpdate()">
-            Ausstellung aktualisieren
+            {{ 'add.edit.exhibition.edit.button' | translate }}
           </button>
         } @else {
           <button type="button"
@@ -81,7 +86,7 @@
                   class="button-one-inverted"
                   [disabled]="disableCreateButton"
                   (click)="onCreateOrUpdate()">
-            Ausstellung hinzufügen
+            {{ 'add.edit.exhibition.add.button' | translate }}
           </button>
         }
       </div>

@@ -8,6 +8,7 @@ import {User} from "../../model/user";
 import {PersonalDataForm} from "../../model/personalDataForm";
 import {SnackBarService} from "../../../misc/services/snack-bar.service";
 import {Subscription} from "rxjs";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-personal-data',
@@ -17,7 +18,8 @@ import {Subscription} from "rxjs";
     MatFormField,
     MatInput,
     MatLabel,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './personal-data.component.html',
   styleUrl: './personal-data.component.scss',

@@ -3,7 +3,9 @@
   @if (groupedArtworks.length > 0) {
     <div class="filter-container">
       <mat-form-field>
-        <mat-label>Suchen...</mat-label>
+        <mat-label>
+          {{ 'misc.search' | translate }}
+        </mat-label>
         <input matInput
                [(ngModel)]="searchQuery"
                (keyup)="onSearch()">
@@ -33,7 +35,7 @@
       <p class="text-one">Keine Kunstwerke vorhanden</p>
     </div>
   }
-} @placeholder (minimum 200ms) {
+} @placeholder (minimum 400ms) {
   <div class="spinner-container">
     <mat-spinner></mat-spinner>
   </div>

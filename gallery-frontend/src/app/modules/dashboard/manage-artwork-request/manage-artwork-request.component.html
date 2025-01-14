@@ -1,5 +1,5 @@
 @defer {
-  <p class="title-one">Kunstwerk Anfragen</p>
+  <p class="title-one">{{ 'dashboard.artwork.requests.title' | translate }}</p>
   @if (groupedCompleteArtworkRequests.length > 0) {
     <div class="event-container">
       @for (group of groupedCompleteArtworkRequests; track $index) {
@@ -15,7 +15,7 @@
                 <mat-list>
                   <mat-list-item>
                     <div class="item-content">
-                      <span>Name</span>
+                      <span>{{ 'dashboard.artwork.requests.name' | translate }}</span>
                       <span>{{ completeArtworkRequest.user.firstName }} {{ completeArtworkRequest.user.lastName }}</span>
                     </div>
                   </mat-list-item>
@@ -23,7 +23,7 @@
                   @if (completeArtworkRequest.user.phone) {
                     <mat-list-item>
                       <div class="item-content">
-                        <span>Telefonnummer</span>
+                        <span>{{ 'dashboard.artwork.requests.phone' | translate }}</span>
                         <span>{{ completeArtworkRequest.user.phone }}</span>
                       </div>
                     </mat-list-item>
@@ -32,7 +32,7 @@
                   @if (completeArtworkRequest.user.city) {
                     <mat-list-item>
                       <div class="item-content">
-                        <span>Stadt</span>
+                        <span>{{ 'dashboard.artwork.requests.city' | translate }}</span>
                         <span>{{ completeArtworkRequest.user.city }}</span>
                       </div>
                     </mat-list-item>
@@ -41,7 +41,7 @@
                   @if (completeArtworkRequest.artworkRequest.requestTime) {
                     <mat-list-item>
                       <div class="item-content">
-                        <span>Datum</span>
+                        <span>{{ 'dashboard.artwork.requests.date' | translate }}</span>
                         <span>{{ completeArtworkRequest.artworkRequest.requestTime | convertNumberArrayToDateString }}</span>
                       </div>
                     </mat-list-item>
@@ -49,13 +49,13 @@
                 </mat-list>
                 <p class="text-one-grey">{{ completeArtworkRequest.artworkRequest.description }}</p>
                 <div class="button-container">
-                  <button mat-stroked-button class="button-one-inverted"
+                  <button mat-stroked-button class="button-one-inverted upper-case"
                           (click)="acceptArtworkRequest(completeArtworkRequest.artworkRequest)">
-                    ANNEHMEN
+                    {{ 'dashboard.artwork.requests.accept' | translate }}
                   </button>
-                  <button mat-stroked-button class="button-one"
+                  <button mat-stroked-button class="button-one upper-case"
                           (click)="rejectArtworkRequest(completeArtworkRequest.artworkRequest)">
-                    ABLEHNEN
+                    {{ 'dashboard.artwork.requests.reject' | translate }}
                   </button>
                 </div>
               </div>
@@ -66,7 +66,7 @@
     </div>
   } @else {
     <div class="not-found-container">
-      <p class="text-one">Keine angefragten Kunstwerke vorhanden</p>
+      <p class="text-one">{{ 'dashboard.artwork.requests.none' | translate }}</p>
     </div>
   }
 } @placeholder (minimum 200ms) {

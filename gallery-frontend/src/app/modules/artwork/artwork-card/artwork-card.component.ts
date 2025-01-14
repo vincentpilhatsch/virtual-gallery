@@ -6,6 +6,7 @@ import {Router, RouterLink} from "@angular/router";
 import {Artwork} from "../model/artwork";
 import {MoneyConverterPipe} from "../pipes/money-converter.pipe";
 import {NgOptimizedImage} from "@angular/common";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-artwork-card',
@@ -19,7 +20,8 @@ import {NgOptimizedImage} from "@angular/common";
     FavoriteIconComponent,
     RouterLink,
     MoneyConverterPipe,
-    NgOptimizedImage
+    NgOptimizedImage,
+    TranslateModule
   ],
   templateUrl: './artwork-card.component.html',
   styleUrl: './artwork-card.component.scss',

@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   hide = signal(true);
 
   backendErrorMessage: HttpErrorResponse | null = null;
-  disableLoginButton: boolean = true; // TODO: Set false for Live
+  disableLoginButton: boolean = true;
   form: FormGroup = this.fb.group({
     email: ['', [
       Validators.required,
@@ -71,15 +71,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onFormSubmitted(): void {
-    // if (this.checkIfFormsAreValid()) { // TODO: Comment in for Live
-    const formEmail: string = this.form.get("email")?.value;
-    const formPassword: string = this.form.get("password")?.value;
-    const user: LoginRequest = {
-      email: formEmail,
-      password: formPassword
+    if (this.checkIfFormsAreValid()) {
+      const formEmail: string = this.form.get("email")?.value;
+      const formPassword: string = this.form.get("password")?.value;
+      const user: LoginRequest = {
+        email: formEmail,
+        password: formPassword
+      }
+      this.loginUser(user);
     }
-    this.loginUser(user);
-    // }
   }
 
   private checkIfFormsAreValid(): boolean {

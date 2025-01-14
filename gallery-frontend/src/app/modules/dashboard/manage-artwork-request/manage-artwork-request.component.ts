@@ -14,6 +14,7 @@ import {MatButton} from "@angular/material/button";
 import {ArtworkRequest} from "../../artwork/model/artworkRequest";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {SnackBarService} from "../../misc/services/snack-bar.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-artwork-request',
@@ -28,7 +29,8 @@ import {SnackBarService} from "../../misc/services/snack-bar.service";
     ConvertNumberArrayToYearStringPipe,
     ConvertNumberArrayToDateStringPipe,
     MatButton,
-    MatProgressSpinner
+    MatProgressSpinner,
+    TranslateModule
   ],
   templateUrl: './manage-artwork-request.component.html',
   styleUrl: './manage-artwork-request.component.scss'

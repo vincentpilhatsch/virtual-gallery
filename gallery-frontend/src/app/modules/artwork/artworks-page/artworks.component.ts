@@ -11,6 +11,7 @@ import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
 import {NgClass} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-artworks',
@@ -23,7 +24,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     HttpClientModule,
     NgClass,
     FormsModule,
-    MatProgressSpinner
+    MatProgressSpinner,
+    TranslateModule
   ],
   templateUrl: './artworks.component.html',
   styleUrl: './artworks.component.scss',

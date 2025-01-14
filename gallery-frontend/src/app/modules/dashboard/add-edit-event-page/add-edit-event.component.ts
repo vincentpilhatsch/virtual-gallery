@@ -14,6 +14,7 @@ import {Event} from "../../event/model/event";
 import {EventService} from "../../event/services/event.service";
 import {EventForm} from "../models/event-form";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-add-edit-event',
@@ -25,7 +26,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     MatButton,
     ReactiveFormsModule,
     ImageUploadComponent,
-    MatProgressSpinner
+    MatProgressSpinner,
+    TranslateModule
   ],
   templateUrl: './add-edit-event.component.html',
   styleUrl: './add-edit-event.component.scss',

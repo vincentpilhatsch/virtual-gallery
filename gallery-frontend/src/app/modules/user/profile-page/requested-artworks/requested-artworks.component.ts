@@ -12,6 +12,7 @@ import {MatIcon} from "@angular/material/icon";
 import {ArtworkAndArtworkRequest} from "../../../artwork/model/artworkAndArtworkRequest";
 import {ArtworkRequestService} from "../../../artwork/services/artwork-request.service";
 import {SnackBarService} from "../../../misc/services/snack-bar.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-requested-artworks',
@@ -21,7 +22,8 @@ import {SnackBarService} from "../../../misc/services/snack-bar.service";
     FavoriteIconComponent,
     MatButton,
     MoneyConverterPipe,
-    MatIcon
+    MatIcon,
+    TranslateModule
   ],
   templateUrl: './requested-artworks.component.html',
   styleUrls: ['./requested-artworks.component.scss'],

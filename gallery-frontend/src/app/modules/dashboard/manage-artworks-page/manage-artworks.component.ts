@@ -12,6 +12,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {NgClass} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-artworks',
@@ -25,7 +26,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     ArtworkCardComponent,
     NgClass,
     FormsModule,
-    MatProgressSpinner
+    MatProgressSpinner,
+    TranslateModule
   ],
   templateUrl: './manage-artworks.component.html',
   styleUrl: './manage-artworks.component.scss',

@@ -15,6 +15,7 @@ import {ImageUploadComponent} from "../../misc/image-upload/image-upload.compone
 import {Subscription} from "rxjs";
 import {MatIcon} from "@angular/material/icon";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-add-edit-artwork',
@@ -28,7 +29,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     ReactiveFormsModule,
     ImageUploadComponent,
     MatIcon,
-    MatProgressSpinner
+    MatProgressSpinner,
+    TranslateModule
   ],
   templateUrl: './add-edit-artwork.component.html',
   styleUrl: './add-edit-artwork.component.scss',
@@ -51,11 +53,11 @@ export class AddEditArtworkComponent implements OnInit, OnDestroy { // TODO: Wer
     image: ""
   };
   form: FormGroup = this.fb.group({
-    title: ['', Validators.required],
-    technic: ['', Validators.required],
+    title: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(120)]],
     width: ['', Validators.required],
     height: ['', Validators.required],
-    yearOfCreation: ['', Validators.required],
+    yearOfCreation: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+    technic: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(120)]],
     price: ['', Validators.required],
     sold: [false],
   });
@@ -139,10 +141,6 @@ export class AddEditArtworkComponent implements OnInit, OnDestroy { // TODO: Wer
     const requiredFields: string[] = ["title", "width", "height", "yearOfCreation", "technic", "price"];
     const allFieldsFilled: boolean = requiredFields.every(field => !!this.form.get(field)?.value);
     const imagePresent: boolean = this.artwork?.image.length > 0 || this.file !== undefined;
-
-    // console.log('Form status:', this.form.status);
-    // console.log('File uploaded:', imagePresent);
-
     return this.form.valid && allFieldsFilled && imagePresent;
   }
 

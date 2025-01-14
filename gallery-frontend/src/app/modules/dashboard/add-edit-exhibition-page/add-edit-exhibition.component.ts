@@ -17,6 +17,7 @@ import {ExhibitionForm} from "../models/exhibition-form";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {TranslateModule} from "@ngx-translate/core";
 
 
 @Component({
@@ -37,7 +38,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     MatDatepickerInput,
     MatHint,
     MatNativeDateModule,
-    MatProgressSpinner
+    MatProgressSpinner,
+    TranslateModule
   ],
   templateUrl: './add-edit-exhibition.component.html',
   styleUrl: './add-edit-exhibition.component.scss',

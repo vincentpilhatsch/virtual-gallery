@@ -21,6 +21,7 @@ import {ArtworkRequestService} from "../services/artwork-request.service";
 import {SnackBarService} from "../../misc/services/snack-bar.service";
 import {User} from "../../user/model/user";
 import {RoleEnum} from "../../user/model/role.enum";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-artwork',
@@ -39,7 +40,8 @@ import {RoleEnum} from "../../user/model/role.enum";
     MatCheckbox,
     MatFormField,
     MatInput,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './artwork.component.html',
   styleUrl: './artwork.component.scss',
@@ -55,10 +57,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   form: FormGroup = this.fb.group({
     description: ['', [
       Validators.required,
-    ]],
-    // confirmation: ['', [
-    //   Validators.required,
-    // ]]
+    ]]
   });
   formsAreValid: boolean = false;
 
@@ -162,12 +161,15 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   }
 
   onRequestSubmitted(): void {
-    if (this.checkIfFormsAreValid() && this.userService.user?.id && this.artwork?.id) {
-      const formNotification: string = this.form.get("description")?.value;
+    const formNotification: string | undefined = this.form.get("description")?.value;
+    const userId: string | undefined = this.userService.user?.id;
+    const artworkId: number | undefined = this.artwork?.id;
+
+    if (this.checkIfFormsAreValid() && formNotification && userId && artworkId) {
       const artworkRequest: ArtworkRequest = {
         description: formNotification,
-        userId: this.userService.user.id,
-        artworkId: this.artwork.id
+        userId: userId,
+        artworkId: artworkId
       }
       this.createArtworkRequest(artworkRequest);
     }

@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +59,7 @@ public class ArtworkRequestController {
     }
 
     @Operation(summary = "Accept a artwork request", description = "Accept artwork requests for the artwork.")
+    @CacheEvict(value = "artworks", allEntries = true)
     @PostMapping(value = "accept", produces = "application/json")
     public ResponseEntity<ArtworkRequest> acceptArtworkRequest(
             @Valid @RequestBody ArtworkRequest artworkRequest

@@ -11,7 +11,7 @@
             <p>{{ artwork.price | moneyConverter }}</p>
           </div>
           <button mat-stroked-button class="button-one" (click)="handleWithdrawRequest(artwork.id!)">
-            Anfrage zurückziehen
+            {{ 'profile.button.withdraw.request' | translate }}
           </button>
         </div>
       }
@@ -19,6 +19,6 @@
   }
 } @else {
   <div class="not-found-container">
-    <p class="text-one">Keine angefragten Kunstwerke vorhanden</p>
+    <p class="text-one">{{ 'profile.no.requested.artworks' | translate }}</p>
   </div>
 }

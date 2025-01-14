@@ -21,31 +21,111 @@ import {AddEditExhibitionComponent} from "./modules/dashboard/add-edit-exhibitio
 import {
   ManageArtworkRequestComponent
 } from "./modules/dashboard/manage-artwork-request/manage-artwork-request.component";
+import {artistGuard} from "./modules/misc/guards/artist.guard";
 
 export const routes: Routes = [
-  {path: '', redirectTo: '/anmelden', pathMatch: 'full'},
-  {path: 'startseite', component: HomeComponent},
-  {path: 'kunstwerk/:id', component: ArtworkComponent},
-  {path: 'kunstwerke', component: ArtworksComponent},
-  {path: 'künstler', component: ArtistComponent},
-  {path: 'veranstaltungen', component: EventsComponent},
-  {path: 'ausstellungen', component: ExhibitionsComponent},
-  {path: 'tour', component: TourComponent},
-  {path: 'anmelden', component: LoginComponent, canActivate: [authGuard]},
-  {path: 'registrieren', component: RegisterComponent, canActivate: [authGuard]},
-  {path: 'profil', component: ProfileComponent, canActivate: [userAndArtistGuard]},
-  {path: 'dashboard', component: DashboardComponent}, //
-  {path: 'dashboard/kunstwerke-verwalten', component: ManageArtworksComponent}, // , canActivate: [artistGuard]}, // TODO: need guards, app otherwise buggy (dashboard)
-  {path: 'dashboard/kunstwerk-bearbeiten/:id', component: AddEditArtworkComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/kunstwerk-erstellen', component: AddEditArtworkComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/veranstaltungen-verwalten', component: ManageEventsComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/veranstaltung-bearbeiten/:id', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/veranstaltung-erstellen', component: AddEditEventComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/ausstellungen-verwalten', component: ManageExhibitionsComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/ausstellung-bearbeiten/:id', component: AddEditExhibitionComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/ausstellung-erstellen', component: AddEditExhibitionComponent}, // , canActivate: [artistGuard]},
-  {path: 'dashboard/kunstwerk-anfragen-verwalten', component: ManageArtworkRequestComponent}, // , canActivate: [artistGuard]},
-  // {path: 'dashboard/kunstwerk-anfrage-bearbeiten/:id', component: AddEditExhibitionComponent}, // , canActivate: [artistGuard]},
-  // {path: 'dashboard/kunstwerk-anfrage-erstellen', component: AddEditExhibitionComponent}, // , canActivate: [artistGuard]},
-  // {path: '**', redirectTo: '/home', pathMatch: 'full'}
+  {
+    path: '',
+    redirectTo: '/anmelden',
+    pathMatch: 'full'
+  },
+  {
+    path: 'startseite',
+    component: HomeComponent
+  },
+  {
+    path: 'kunstwerk/:id',
+    component: ArtworkComponent
+  },
+  {
+    path: 'kunstwerke',
+    component: ArtworksComponent
+  },
+  {
+    path: 'künstler',
+    component: ArtistComponent
+  },
+  {
+    path: 'veranstaltungen',
+    component: EventsComponent
+  },
+  {
+    path: 'ausstellungen',
+    component: ExhibitionsComponent
+  },
+  {
+    path: 'tour',
+    component: TourComponent
+  },
+  {
+    path: 'anmelden',
+    component: LoginComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'registrieren',
+    component: RegisterComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'profil',
+    component: ProfileComponent,
+    canActivate: [userAndArtistGuard]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [artistGuard]
+  },
+  {
+    path: 'dashboard/kunstwerke-verwalten',
+    component: ManageArtworksComponent,
+    canActivate: [artistGuard]
+  },
+  {
+    path: 'dashboard/kunstwerk-bearbeiten/:id',
+    component: AddEditArtworkComponent,
+    canActivate: [artistGuard]
+  },
+  {
+    path: 'dashboard/kunstwerk-erstellen',
+    component: AddEditArtworkComponent,
+    canActivate: [artistGuard]
+  },
+  {
+    path: 'dashboard/veranstaltungen-verwalten',
+    component: ManageEventsComponent,
+    canActivate: [artistGuard]
+  },
+  {
+    path: 'dashboard/veranstaltung-bearbeiten/:id',
+    component: AddEditEventComponent,
+    canActivate: [artistGuard]
+  },
+  {
+    path: 'dashboard/veranstaltung-erstellen',
+    component: AddEditEventComponent,
+    canActivate: [artistGuard]
+  },
+  {
+    path: 'dashboard/ausstellungen-verwalten',
+    component: ManageExhibitionsComponent,
+    canActivate: [artistGuard]
+  },
+  {
+    path: 'dashboard/ausstellung-bearbeiten/:id',
+    component: AddEditExhibitionComponent,
+    canActivate: [artistGuard]
+  },
+  {
+    path: 'dashboard/ausstellung-erstellen',
+    component: AddEditExhibitionComponent,
+    canActivate: [artistGuard]
+  },
+  {
+    path: 'dashboard/kunstwerk-anfragen-verwalten',
+    component: ManageArtworkRequestComponent,
+    canActivate: [artistGuard]
+  },
 ];
+

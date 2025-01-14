@@ -3,7 +3,7 @@
     <div class="image-container" (click)="handleCardClick()">
       @if (artwork.sold) {
         <div class="sold-container">
-          <span class="sold-text">Verkauft</span>
+          <span class="sold-text">{{ 'misc.sold' | translate }}</span>
         </div>
       }
       <img src="data:image/jpeg;base64,{{ artwork.image }}" alt="artwork-card" loading="lazy">

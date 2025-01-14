@@ -32,7 +32,6 @@ public class UserController {
     public ResponseEntity<User> getCurrentUser(Authentication authentication) {
         if (authentication == null || authentication.getPrincipal() == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//            return ResponseEntity.noContent().build();
         }
         User user = userServiceImpl.getCurrentUser(authentication);
         log.info("GET me: {}", user.getEmail());

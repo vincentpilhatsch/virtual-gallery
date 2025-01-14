@@ -1,9 +1,9 @@
 @defer {
-  <p class="title-one">Ausstellungen verwalten</p>
+  <p class="title-one">{{ 'dashboard.exhibitions.title' | translate }}</p>
   @if (groupedExhibitions.length > 0) {
     <div class="filter-container">
       <mat-form-field>
-        <mat-label>Suchen...</mat-label>
+        <mat-label>{{ 'misc.search' | translate }}</mat-label>
         <input matInput
                [(ngModel)]="searchQuery"
                (keyup)="onSearch()">
@@ -21,8 +21,9 @@
                 <img src="data:image/jpeg;base64,{{ exhibition.image }}" alt="exhibition">
               </div>
               <div class="second-section">
-                <p class="title-two">{{ exhibition.title }}
-                  , {{ exhibition.startDate | convertNumberArrayToYearString }}</p>
+                <p class="title-two">
+                  {{ exhibition.title }}, {{ exhibition.startDate | convertNumberArrayToYearString }}
+                </p>
                 <p class="text-one-grey">{{ exhibition.description }}</p>
               </div>
             </div>
@@ -32,7 +33,7 @@
     </div>
   } @else {
     <div class="not-found-container">
-      <p class="text-one">Keine angefragten Kunstwerke vorhanden</p>
+      <p class="text-one">{{ 'dashboard.exhibitions.none' | translate }}</p>
     </div>
   }
 } @placeholder (minimum 200ms) {

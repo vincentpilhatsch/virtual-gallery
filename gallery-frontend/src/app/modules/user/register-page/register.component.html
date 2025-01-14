@@ -1,26 +1,24 @@
 <div class="container">
   <div class="left-container">
-    <img ngSrc="../../../../assets/imgs/keros_artwork_3.png" alt="register" height="880" width="610"
-         priority="high">
     <img src="./assets/images/login_register_image.jpg" alt="artwork-card">
   </div>
   <div class="right-container">
     <div class="inner-right-container">
-      <p class="title-one">Registrieren</p>
-      <p class="text-one">
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
+      <p class="title-one">{{ 'register.title' | translate }}</p>
+      <p class="text-one-grey">
+        {{ 'register.description' | translate }}
       </p>
       <form [formGroup]="form">
         <div class="name-container">
           <mat-form-field>
-            <mat-label>Vorname</mat-label>
+            <mat-label>{{ 'register.first.name.label' | translate }}</mat-label>
             <input matInput
                    type="text"
                    formControlName="firstName">
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Nachname</mat-label>
+            <mat-label>{{ 'register.last.name.label' | translate }}</mat-label>
             <input matInput
                    type="text"
                    formControlName="lastName">
@@ -28,16 +26,16 @@
         </div>
 
         <mat-form-field>
-          <mat-label>E-Mail</mat-label>
+          <mat-label>{{ 'register.email.label' | translate }}</mat-label>
           <input type="email"
                  name="username"
                  matInput
-                 placeholder="example@example.com"
+                 placeholder="{{ 'register.email.placeholder' | translate }}"
                  formControlName="email">
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Passwort</mat-label>
+          <mat-label>{{ 'register.password.label' | translate }}</mat-label>
           <input matInput
                  type="password"
                  name="password"
@@ -54,17 +52,14 @@
         </mat-form-field>
       </form>
       <span class="error-message">{{ errorMessage }}</span>
-      <!-- TODO -->
-      <!--    <mat-checkbox formControlName="confirmation">-->
-      <!--      <p class="text-one">Ich bestätige Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>-->
-      <!--    </mat-checkbox>-->
-      <button mat-stroked-button class="button-one" (click)="onFormSubmitted()" [disabled]="disableLoginButton">
-        Registrieren
+      <button mat-stroked-button class="button-one-inverted" (click)="onFormSubmitted()"
+              [disabled]="disableLoginButton">
+        {{ 'register.button.submit' | translate }}
       </button>
     </div>
     <div class="inner-login-container">
-      <p class="text-one">Du hast noch kein Konto?
-        <span class="login-link" routerLink="/anmelden">Hier Anmelden</span>
+      <p class="text-one">{{ 'register.already.have.account' | translate }}
+        <span class="login-link" routerLink="/anmelden">{{ 'register.login.link' | translate }}</span>
       </p>
     </div>
   </div>

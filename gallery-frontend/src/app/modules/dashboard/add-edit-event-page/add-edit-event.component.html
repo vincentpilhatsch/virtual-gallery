@@ -1,8 +1,12 @@
 @defer {
   @if (manageMode === ManageModesEnum.ADD) {
-    <p class="title-one">Veranstaltungen hinzufügen</p>
-  } @else if (manageMode === ManageModesEnum.EDIT) {
-    <p class="title-one">Veranstaltungen bearbeiten</p>
+    <p class="title-one">
+      {{ 'add.edit.event.add.title' | translate }}
+    </p>
+  } @else {
+    <p class="title-one">
+      {{ 'add.edit.event.edit.title' | translate }}
+    </p>
   }
   <div class="artwork-container">
     <div class="first-section">
@@ -15,36 +19,36 @@
     </div>
     <form class="second-section" [formGroup]="form">
       <mat-form-field>
-        <mat-label>Titel</mat-label>
+        <mat-label>{{ 'add.edit.event.title.label' | translate }}</mat-label>
         <input matInput
                type="text"
                formControlName="title">
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Beschreibung</mat-label>
+        <mat-label>{{ 'add.edit.event.description.label' | translate }}</mat-label>
         <input matInput
                type="text"
                formControlName="description">
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Standort</mat-label>
+        <mat-label>{{ 'add.edit.event.location.label' | translate }}</mat-label>
         <input matInput
                type="text"
                formControlName="location">
       </mat-form-field>
       <div class="inner-form-container">
         <mat-form-field>
-          <mat-label>Datum</mat-label>
+          <mat-label>{{ 'add.edit.event.date.label' | translate }}</mat-label>
           <input matInput
                  type="text"
-                 placeholder="Bsp: 01.01.2001"
+                 placeholder="{{ 'add.edit.event.date.placeholder' | translate }}"
                  formControlName="date">
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Uhrzeit</mat-label>
+          <mat-label>{{ 'add.edit.event.time.label' | translate }}</mat-label>
           <input matInput
                  type="text"
-                 placeholder="Bsp: 12:20"
+                 placeholder="{{ 'add.edit.event.time.placeholder' | translate }}"
                  formControlName="time">
         </mat-form-field>
       </div>
@@ -53,15 +57,16 @@
         @if (manageMode === ManageModesEnum.EDIT) {
           <button type="button"
                   mat-stroked-button
-                  class="button-one" (click)="onDelete()">
-            Ausstellung Löschen
+                  class="button-one"
+                  (click)="onDelete()">
+            {{ 'add.edit.event.delete.button' | translate }}
           </button>
           <button type="button"
                   mat-stroked-button
                   class="button-one-inverted"
                   [disabled]="disableCreateButton"
                   (click)="onCreateOrUpdate()">
-            Ausstellung aktualisieren
+            {{ 'add.edit.event.edit.button' | translate }}
           </button>
         } @else {
           <button type="button"
@@ -69,7 +74,7 @@
                   class="button-one-inverted"
                   [disabled]="disableCreateButton"
                   (click)="onCreateOrUpdate()">
-            Ausstellung hinzufügen
+            {{ 'add.edit.event.add.button' | translate }}
           </button>
         }
       </div>

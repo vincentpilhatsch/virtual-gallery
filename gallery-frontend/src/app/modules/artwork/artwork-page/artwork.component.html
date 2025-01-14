@@ -3,7 +3,7 @@
     <div class="left-container">
       @if (artwork.sold) {
         <div class="sold-container">
-          <span class="sold-text">Verkauft</span>
+          <span class="sold-text">{{ 'artwork.sold' | translate }}</span>
         </div>
       }
       <img src="data:image/jpeg;base64,{{ artwork.image }}" alt="artwork-card" loading="lazy">
@@ -18,50 +18,50 @@
       <mat-list>
         <mat-list-item>
           <div class="item-content">
-            <span>Preis</span>
+            <span>{{ 'artwork.price' | translate }}</span>
             <span>{{ artwork.price | moneyConverter }}</span>
           </div>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
           <div class="item-content">
-            <span>Abmessung</span>
+            <span>{{ 'artwork.dimensions' | translate }}</span>
             <span>{{ artwork.width }}cm x {{ artwork.height }}cm</span>
           </div>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
           <div class="item-content">
-            <span>Entstehungsjahr</span>
+            <span>{{ 'artwork.year.of.creation' | translate }}</span>
             <span>{{ artwork.yearOfCreation }}</span>
           </div>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
           <div class="item-content">
-            <span>Technik</span>
+            <span>{{ 'artwork.technic' | translate }}</span>
             <span>{{ artwork.technic }}</span>
           </div>
         </mat-list-item>
       </mat-list>
       @if (artwork.sold) {
-        <button mat-stroked-button class="button-one-inverted" disabled>
-          BEREITS VERKAUFT
+        <button mat-stroked-button class="button-one-inverted upper-case" disabled>
+          {{ 'artwork.button.sold' | translate }}
         </button>
       } @else if (isAlreadyRequested) {
-        <button mat-stroked-button class="button-one-inverted" disabled>
-          ANFRAGE WURDE GESTELLT
+        <button mat-stroked-button class="button-one-inverted upper-case" disabled>
+          {{ 'artwork.button.requested' | translate }}
         </button>
       } @else {
-        <button mat-stroked-button class="button-one-inverted" (click)="onRequestButtonClicked()">
-          ANFRAGE STELLEN
+        <button mat-stroked-button class="button-one-inverted upper-case" (click)="onRequestButtonClicked()">
+          {{ 'artwork.request' | translate }}
         </button>
       }
     </div>
   </div>
   <div class="divider"></div>
   <div class="second-section">
-    <p class="title-two">Andere Kunstwerke</p>
+    <p class="title-two">{{ 'artwork.other.artworks' | translate }}</p>
     <div class="inner-artwork-container">
       @for (artwork of randomArtworks; track $index) {
         <app-artwork-card [artwork]="artwork"
@@ -73,14 +73,13 @@
   @if (!artwork.sold && !isAlreadyRequested) {
     <div class="divider" #requestContainer></div>
     <div class="third-section">
-      <p class="title-two">Anfrage auf das Kunstwerk stellen</p>
+      <p class="title-two">{{ 'artwork.purchase.request' | translate }}</p>
       <p class="text-one">
-        Bitte nutzen Sie das untenstehende Formular, um eine unverbindliche Anfrage zu dem ausgewählten Kunstwerk zu
-        stellen. Wir werden Ihre Anfrage umgehend prüfen und uns zeitnah mit weiteren Informationen bei Ihnen melden.
+        {{ 'artwork.request.description' | translate }}
       </p>
       <div class="form-container">
         <form [formGroup]="form">
-          <p class="text-one">Mitteilung*</p>
+          <p class="text-one">{{ 'artwork.message' | translate }}*</p>
           <mat-form-field>
             <textarea matInput
                       type="text"
@@ -88,16 +87,13 @@
                       formControlName="description"
                       rows="4"></textarea>
           </mat-form-field>
-          <!--          <mat-checkbox formControlName="confirmation">-->
-          <!--            <p class="text-one">Ich bestätige Lorem ipsum dolor sit amet, consetetur sadipscing elitr. *</p>-->
-          <!--          </mat-checkbox>-->
         </form>
       </div>
       <button mat-stroked-button
-              class="button-one-inverted"
+              class="button-one-inverted upper-case"
               (click)="onRequestSubmitted()"
               [disabled]="!formsAreValid">
-        Anfrage stellen
+        {{ 'artwork.button.submit.request' | translate }}
       </button>
     </div>
   }

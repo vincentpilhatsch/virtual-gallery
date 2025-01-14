@@ -30,7 +30,7 @@ public class EventConfig {
     @Bean
     CommandLineRunner eventCommandLineRunner(EventRepository eventRepository) throws IOException {
         List<byte[]> images = new ArrayList<>();
-        for (int i = 1; i < 6; i++) {
+        for (int i = 1; i < 9; i++) {
             String path = "classpath:" + i + ".jpg";
             byte[] base64 = readFileToByteArray(path);
             images.add(base64);
@@ -40,39 +40,43 @@ public class EventConfig {
             EventEntity eventEntity1 = new EventEntity(
                     1L,
                     "Vernissage",
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo irmod tempor.",
+                    "Erleben Sie die feierliche Vorstellung neuer Kunstwerke von Olivier Kéros. Tauschen Sie sich mit dem Künstler persönlich aus und entdecken Sie seine neuesten Werke in exklusivem Ambiente.",
                     "Hohenzollerndamm 216, 10781 Berlin",
-                    LocalDateTime.now().plusDays(1),
-                    images.get(1),
+                    LocalDateTime.now().plusDays(5),
+                    images.get(5),
                     Set.of(UUID.randomUUID(), UUID.randomUUID())
             );
+
             EventEntity eventEntity2 = new EventEntity(
                     2L,
-                    "Vorstellung",
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo irmod tempor.",
+                    "Künstlergespräch",
+                    "Ein inspirierender Abend mit Olivier Kéros. Erfahren Sie mehr über seine Arbeitsweise, seine Philosophie und die Geschichten hinter seinen Werken. Eine seltene Gelegenheit, die Kunst durch die Augen des Künstlers zu sehen.",
                     "Berliner Straße 16, 11721 Berlin",
                     LocalDateTime.now().minusDays(1),
-                    images.get(2),
+                    images.get(6),
                     Set.of(UUID.randomUUID(), UUID.randomUUID())
             );
+
             EventEntity eventEntity3 = new EventEntity(
                     3L,
-                    "Party",
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo irmod tempor.",
-                    "Eisenacher Straße 16, 11721 Berlin",
-                    LocalDateTime.now().minusDays(1),
-                    images.get(3),
-                    Set.of(UUID.randomUUID(), UUID.randomUUID())
-            );
-            EventEntity eventEntity4 = new EventEntity(
-                    4L,
-                    "Neueröffnung",
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo irmod tempor.",
-                    "Eisenacher Straße 16, 11721 Berlin",
+                    "After-Show-Party",
+                    "Feiern Sie mit uns das Ende einer Ausstellung. Genießen Sie Musik, Drinks und gute Gespräche inmitten einer inspirierenden Kunstatmosphäre. Bringen Sie gerne Freunde und Verwandte mit",
+                    "Eisenacher Straße 22, 10781 Berlin",
                     LocalDateTime.now().minusDays(1),
                     images.get(4),
                     Set.of(UUID.randomUUID(), UUID.randomUUID())
             );
+
+            EventEntity eventEntity4 = new EventEntity(
+                    4L,
+                    "Neueröffnung",
+                    "Feiern Sie die Neueröffnung unseres Galerieraums mit einer besonderen Auswahl von Werken von Olivier Kéros. Lassen Sie sich von der neuen Atmosphäre inspirieren und genießen Sie einen unvergesslichen Abend.",
+                    "Nollendorf Straße 32, 10623 Berlin",
+                    LocalDateTime.now().minusDays(1),
+                    images.get(7),
+                    Set.of(UUID.randomUUID(), UUID.randomUUID())
+            );
+
             eventRepository.saveAll(List.of(eventEntity1, eventEntity2, eventEntity3, eventEntity4));
         };
     }

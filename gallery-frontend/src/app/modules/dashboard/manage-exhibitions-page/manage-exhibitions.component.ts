@@ -11,6 +11,7 @@ import {ConvertNumberArrayToYearStringPipe} from "../../exhibitions/pipes/conver
 import {Exhibition} from "../../exhibitions/model/exhibition";
 import {ExhibitionService} from "../../exhibitions/services/exhibition.service";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-exhibitions',
@@ -24,7 +25,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     NgClass,
     FormsModule,
     ConvertNumberArrayToYearStringPipe,
-    MatProgressSpinner
+    MatProgressSpinner,
+    TranslateModule
   ],
   templateUrl: './manage-exhibitions.component.html',
   styleUrl: './manage-exhibitions.component.scss',

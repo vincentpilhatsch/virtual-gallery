@@ -2,7 +2,7 @@
   <div class="container">
     <div class="filter-container">
       <mat-form-field>
-        <mat-label>Suchen...</mat-label>
+        <mat-label>{{ 'misc.search.bar' | translate }}</mat-label>
         <input matInput
                [(ngModel)]="searchQuery"
                (keyup)="onSearch()">

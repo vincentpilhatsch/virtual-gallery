@@ -1,32 +1,27 @@
-<p class="title-upper-case">Dashboard</p>
-<!--<p class="text-one">-->
-<!--  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore-->
-<!--  magna aliquyam erat, sed diam voluptua dolor diam nonumy eirmod sit amet, consetetur sadipscing elitr, sed diam-->
-<!--  nonumy.-->
-<!--</p>-->
+<p class="title-upper-case">{{ 'dashboard.title' | translate }}</p>
 <div class="container">
   <div class="inner-container" routerLink="/dashboard/kunstwerke-verwalten">
     <img src="../../../../assets/images/dashboard_1.png" alt="artwork-card">
     <div class="text-container">
-      <p class="title">KUNSTWERKE</p>
+      <p class="title">{{ 'dashboard.manage.artworks' | translate }}</p>
     </div>
   </div>
   <div class="inner-container" routerLink="/dashboard/kunstwerk-anfragen-verwalten">
     <img src="../../../../assets/images/dashboard_2.png" alt="artwork-card">
     <div class="text-container">
-      <p class="title">ANGEFRAGTE KUNSTWERKE</p>
+      <p class="title">{{ 'dashboard.requested.artworks' | translate }}</p>
     </div>
   </div>
   <div class="inner-container" routerLink="/dashboard/ausstellungen-verwalten">
     <img src="../../../../assets/images/dashboard_3.png" alt="artwork-card">
     <div class="text-container">
-      <p class="title">AUSSTELLUNGEN</p>
+      <p class="title">{{ 'dashboard.manage.exhibitions' | translate }}</p>
     </div>
   </div>
   <div class="inner-container" routerLink="/dashboard/veranstaltungen-verwalten">
     <img src="../../../../assets/images/dashboard_4.png" alt="artwork-card">
     <div class="text-container">
-      <p class="title">VERANSTALTUNGEN</p>
+      <p class="title">{{ 'dashboard.manage.events' | translate }}</p>
     </div>
   </div>
 </div>

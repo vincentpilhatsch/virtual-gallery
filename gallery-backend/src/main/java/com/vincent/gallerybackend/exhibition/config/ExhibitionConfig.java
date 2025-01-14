@@ -37,29 +37,31 @@ public class ExhibitionConfig {
         return args -> {
             ExhibitionEntity exhibitionEntity1 = new ExhibitionEntity(
                     1L,
-                    "Geschlossene Gesellschaft",
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n" + "          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam.",
+                    "Shades of Transformation",
+                    "Diese Ausstellung lädt Sie ein, die transformative Kraft der Farben zu entdecken. Olivier Kéros zeigt eine Auswahl seiner neuesten Werke, die das Spiel zwischen Farbe und Kontrast in den Mittelpunkt rücken.",
                     "Hohenzollerndamm 216, 10781 Berlin",
-                    LocalDate.now().plusDays(1),
-                    LocalDate.now().plusDays(2),
-                    images.get(1)
+                    LocalDate.now().plusDays(4),
+                    LocalDate.now().plusDays(50),
+                    images.get(2)
             );
+
             ExhibitionEntity exhibitionEntity2 = new ExhibitionEntity(
                     2L,
-                    "Never Love",
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo irmod tempor.",
+                    "Emotions on Canvas",
+                    "Eine Reise durch die Tiefen menschlicher Gefühle. Diese Ausstellung präsentiert kraftvolle Werke, die durch abstrakte Formen und lebendige Farben eine intensive Wirkung entfalten.",
                     "Berliner Straße 16, 11721 Berlin",
+                    LocalDate.now().minusDays(7),
                     LocalDate.now().minusDays(2),
-                    LocalDate.now().minusDays(1),
                     images.get(3)
             );
+
             ExhibitionEntity exhibitionEntity3 = new ExhibitionEntity(
                     3L,
-                    "The Wet Fever",
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo irmod tempor.",
+                    "The Chaos of Silence",
+                    "In dieser einzigartigen Ausstellung verbindet Olivier Kéros das scheinbare Chaos abstrakter Formen mit der Ruhe der Stille. Ein Erlebnis für die Sinne und den Geist.",
                     "Eisenacher Straße 16, 11721 Berlin",
-                    LocalDate.now().minusDays(2),
-                    LocalDate.now().minusDays(1),
+                    LocalDate.now().minusDays(10),
+                    LocalDate.now().minusDays(5),
                     images.get(4)
             );
             exhibitionRepository.saveAll(List.of(

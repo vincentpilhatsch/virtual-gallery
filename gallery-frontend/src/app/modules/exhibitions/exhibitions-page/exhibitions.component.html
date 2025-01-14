@@ -1,5 +1,5 @@
 @defer {
-  <p class="title-upper-case">Ausstellungen</p>
+  <p class="title-upper-case">{{ 'exhibitions.title' | translate }}</p>
   @if (upcomingExhibitions) {
     @for (exhibition of upcomingExhibitions; track $index) {
       <div class="upcoming-exhibition">
@@ -7,17 +7,19 @@
           <img src="data:image/jpeg;base64,{{ exhibition.image }}" alt="exhibition">
         </div>
         <div class="upcoming-second-section">
-          <p class="title-two">{{ exhibition.title }}, {{ exhibition.startDate | convertNumberArrayToYearString }}</p>
+          <p class="title-two">
+            {{ exhibition.title }}, {{ exhibition.startDate | convertNumberArrayToYearString }}
+          </p>
           <p class="text-one-grey">{{ exhibition.description }}</p>
           <div class="text-container">
-            <p class="text-one">Wann?</p>
+            <p class="text-one">{{ 'exhibitions.when' | translate }}</p>
             <p class="text-one-grey">
               {{ exhibition.startDate | convertNumberArrayToDateString }}
               - {{ exhibition.endDate | convertNumberArrayToDateString }}
             </p>
           </div>
           <div class="text-container">
-            <p class="text-one">Wo?</p>
+            <p class="text-one">{{ 'exhibitions.where' | translate }}</p>
             <p class="text-one-grey">{{ exhibition.location }}</p>
           </div>
         </div>
@@ -27,7 +29,7 @@
   @if (pastExhibitions) {
     <div class="divider"></div>
     <div class="past-exhibition">
-      <p class="title-two">Vergangene Ausstellungen</p>
+      <p class="title-two">{{ 'exhibitions.past' | translate }}</p>
       @for (group of groupedPastExhibitions; track $index) {
         <div class="past-exhibition-container">
           @for (exhibition of group; track exhibition.id) {
@@ -36,8 +38,9 @@
                 <img src="data:image/jpeg;base64,{{ exhibition.image }}" alt="exhibition">
               </div>
               <div class="second-section">
-                <p class="title-two">{{ exhibition.title }}
-                  , {{ exhibition.startDate | convertNumberArrayToYearString }}</p>
+                <p class="title-two">
+                  {{ exhibition.title }}, {{ exhibition.startDate | convertNumberArrayToYearString }}
+                </p>
                 <p class="text-one-grey">{{ exhibition.description }}</p>
               </div>
             </div>

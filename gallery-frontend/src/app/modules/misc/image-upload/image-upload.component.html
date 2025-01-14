@@ -7,7 +7,7 @@
       (click)="triggerFileInput()"/>
   } @else {
     <div class="empty-image-container" (click)="triggerFileInput()">
-      <p class="text-one">Wählen Sie ein Bild aus*</p>
+      <p class="text-one">{{ 'misc.select.image' | translate }}</p>
     </div>
   }
   <input

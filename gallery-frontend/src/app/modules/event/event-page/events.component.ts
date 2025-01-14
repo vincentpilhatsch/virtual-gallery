@@ -9,6 +9,7 @@ import {ConvertNumberArrayToDateStringPipe} from "../pipes/convert-number-array-
 import {SnackBarService} from "../../misc/services/snack-bar.service";
 import {ConvertNumberArrayToYearStringPipe} from "../../exhibitions/pipes/convert-number-array-to-year.pipe";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-events',
@@ -18,7 +19,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     ConvertNumberArrayToDateStringPipe,
     NgClass,
     ConvertNumberArrayToYearStringPipe,
-    MatProgressSpinner
+    MatProgressSpinner,
+    TranslateModule
   ],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss',

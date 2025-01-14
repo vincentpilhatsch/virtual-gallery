@@ -10,6 +10,7 @@ import {ConvertNumberArrayToYearStringPipe} from "../../exhibitions/pipes/conver
 import {Event} from "../../event/model/event";
 import {EventService} from "../../event/services/event.service";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-events',
@@ -22,7 +23,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     MatIcon,
     MatInput,
     MatLabel,
-    MatProgressSpinner
+    MatProgressSpinner,
+    TranslateModule
   ],
   templateUrl: './manage-events.component.html',
   styleUrl: './manage-events.component.scss',

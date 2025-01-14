@@ -9,6 +9,7 @@ import {ExhibitionService} from "../services/exhibition.service";
 import {ArtworkCardComponent} from "../../artwork/artwork-card/artwork-card.component";
 import {ConvertNumberArrayToYearStringPipe} from "../pipes/convert-number-array-to-year.pipe";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-exhibitions',
@@ -19,7 +20,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     NgClass,
     ArtworkCardComponent,
     ConvertNumberArrayToYearStringPipe,
-    MatProgressSpinner
+    MatProgressSpinner,
+    TranslateModule
   ],
   templateUrl: './exhibitions.component.html',
   styleUrl: './exhibitions.component.scss',
