@@ -40,8 +40,8 @@ public class ExhibitionConfig {
                     "Shades of Transformation",
                     "Diese Ausstellung lädt Sie ein, die transformative Kraft der Farben zu entdecken. Olivier Kéros zeigt eine Auswahl seiner neuesten Werke, die das Spiel zwischen Farbe und Kontrast in den Mittelpunkt rücken.",
                     "Hohenzollerndamm 216, 10781 Berlin",
-                    LocalDate.now().plusDays(4),
-                    LocalDate.now().plusDays(50),
+                    LocalDate.now().plusWeeks(4),
+                    LocalDate.now().plusWeeks(8),
                     images.get(2)
             );
 

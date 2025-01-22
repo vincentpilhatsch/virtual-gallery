@@ -9,6 +9,7 @@ import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequestEntity;
 import com.vincent.gallerybackend.artworkrequest.model.ArtworkRequestMapper;
 import com.vincent.gallerybackend.artworkrequest.model.CompleteArtworkRequest;
 import com.vincent.gallerybackend.artworkrequest.repository.ArtworkRequestRepository;
+import com.vincent.gallerybackend.exceptions.ConflictException;
 import com.vincent.gallerybackend.exceptions.InternalServerErrorException;
 import com.vincent.gallerybackend.exceptions.NotFoundException;
 import com.vincent.gallerybackend.user.model.User;
@@ -85,23 +86,23 @@ public class ArtworkRequestServiceImpl implements ArtworkRequestService {
     @Override
     public ArtworkRequest createArtworkRequest(ArtworkRequest artworkRequest) {
         ArtworkRequestEntity artworkRequestEntity = createArtworkRequestEntity(artworkRequest);
-        artworkRequestEntity = artworkRequestRepository.save(artworkRequestEntity);
         setArtworkRequestForUser(artworkRequestEntity);
+        artworkRequestEntity = artworkRequestRepository.save(artworkRequestEntity);
         return artworkRequestMapper.artworkRequestDAOtoDTO(artworkRequestEntity);
     }
 
     private ArtworkRequestEntity createArtworkRequestEntity(ArtworkRequest artworkRequest) {
         ArtworkRequestEntity artworkRequestEntity = artworkRequestMapper.artworkRequestDTOtoDAO(artworkRequest);
         artworkRequestEntity.setRequestTime(LocalDateTime.now());
-        throwErrorIfArtworkRequestAlreadyExists(artworkRequestEntity);
+        throwErrorIfArtworkRequestForUserAlreadyExists(artworkRequestEntity);
         return artworkRequestEntity;
     }
 
-    private void throwErrorIfArtworkRequestAlreadyExists(ArtworkRequestEntity artworkRequestEntity) {
+    private void throwErrorIfArtworkRequestForUserAlreadyExists(ArtworkRequestEntity artworkRequestEntity) {
         Set<Long> userArtworkRequestIds = getUsersArtworkRequestIds(artworkRequestEntity);
         boolean artworkExistsInUsersArtworkRequests = artworkExistsInUsersArtworkRequests(artworkRequestEntity, userArtworkRequestIds);
         if (artworkExistsInUsersArtworkRequests) {
-            throw new InternalServerErrorException("Artwork request for user already exists");
+            throw new ConflictException("An artwork request for the specified user already exists");
         }
     }
 

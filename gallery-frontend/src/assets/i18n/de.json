@@ -64,6 +64,7 @@
     "artwork.requests": {
       "title": "Kunstwerk anfragen",
       "name": "Name",
+      "email": "E-Mail",
       "phone": "Telefonnummer",
       "city": "Stadt",
       "date": "Datum",
@@ -244,6 +245,12 @@
     "dashboard.artwork.request.accepted": "Sie haben die Kunstwerk-Anfrage erfolgreich angenommen",
     "dashboard.artwork.request.rejected": "Sie haben die Kunstwerk-Anfrage erfolgreich abgelehnt",
     "snackbar.filetype.invalid": "Der angegebene Datei-Typ ist ungültig"
+  },
+  "artist": {
+    "introduction": "Olivier Kéros ist ein 23-jähriger, leidenschaftlicher Künstler aus Berlin, der sich bewusst abseits der klassischen Kunstschule und des Mainstreams positioniert. In seiner 14 Quadratmeter großen Wohnung, die er zu einem Atelier umfunktioniert hat, entstehen Werke, die mit ihrer beeindruckenden Größe sowie ihrer außergewöhnlichen Farb- und Formsprache überzeugen. Diese Kunst widerspricht nicht nur den beengten Umständen seines Lebensraums, sondern auch seiner Herkunft, die von Armut geprägt ist. Für Kéros bedeutet Kunst, „Ja“ zum Leben zu sagen und den Wandel willkommen zu heißen, da Veränderung das einzig Beständige ist. Seine persönliche Lebensphilosophie zeigt sich auch in seiner Überzeugung, dass jede Krise zugleich einen Neuanfang darstellt.",
+    "autodidact": "Der Autodidakt fand über sein Psychologiestudium mit etwa 20 Jahren endgültig zur Kunst, auch wenn er sich bereits seit seiner Kindheit mit kreativen Prozessen auseinandersetzte. Seine Werke zeichnen sich durch eine prozessorientierte Dynamik, starke Kontraste und einzigartige Motive aus, die den",
+    "purpose": "Betrachter herausfordern, sich mit dem Unbewussten auseinanderzusetzen. So schaffen seine Bilder nicht nur neue Fragen, sondern eröffnen auch tiefere Bewusstseinsebenen. In seiner Kunst legt Kéros besonderen Wert auf die Lebendigkeit und Vielfalt der Malprozesse. Dabei verzichtet er bewusst auf traditionelle Stilmittel der gegenständlichen Malerei oder interpretiert sie radikal neu und vereinfacht sie bis an die Grenze des Minimalismus. Durch den gezielten Einsatz kräftiger Farben und einer scheinbar einfachen Formsprache vermittelt er direkte und unmittelbare Emotionen. Dies führt zu einem Stil, den man als abstrakt expressionistisch beschreiben könnte.",
+    "style": "Kéros kombiniert technische Versiertheit mit einer tiefen Hingabe, wodurch seine Werke sowohl emotional als auch intellektuell ansprechend sind. Sie fordern den Betrachter immer wieder heraus und lassen Raum für individuelle Interpretationen. Mit seiner einzigartigen Herangehensweise schafft er Kunst, die weit über das Ästhetische hinausgeht und eine Reflexion über die eigene Wahrnehmung anregt."
   },
   "error": {
     "default.message": "Ein Fehler ist aufgetreten",

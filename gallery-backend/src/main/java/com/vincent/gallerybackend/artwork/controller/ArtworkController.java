@@ -26,10 +26,6 @@ public class ArtworkController {
     public ResponseEntity<List<Artwork>> getArtworks() {
         List<Artwork> artworks = artworkServiceImpl.getArtworks();
         log.info("GET ALL artworks ({})", artworks.size());
-        // TODO: Browser-Caching (HTTP)
-        //        return ResponseEntity.ok()
-        //        .cacheControl(CacheControl.maxAge(7, TimeUnit.DAYS).cachePublic())
-        //        .body(artworks);
         return ResponseEntity.ok().body(artworks);
     }
 

@@ -44,18 +44,20 @@
           </div>
         </mat-list-item>
       </mat-list>
-      @if (artwork.sold) {
-        <button mat-stroked-button class="button-one-inverted upper-case" disabled>
-          {{ 'artwork.button.sold' | translate }}
-        </button>
-      } @else if (isAlreadyRequested) {
-        <button mat-stroked-button class="button-one-inverted upper-case" disabled>
-          {{ 'artwork.button.requested' | translate }}
-        </button>
-      } @else {
-        <button mat-stroked-button class="button-one-inverted upper-case" (click)="onRequestButtonClicked()">
-          {{ 'artwork.request' | translate }}
-        </button>
+      @if (userService.user) {
+        @if (artwork.sold) {
+          <button mat-stroked-button class="button-one-inverted upper-case" disabled>
+            {{ 'artwork.button.sold' | translate }}
+          </button>
+        } @else if (isAlreadyRequested) {
+          <button mat-stroked-button class="button-one-inverted upper-case" disabled>
+            {{ 'artwork.button.requested' | translate }}
+          </button>
+        } @else {
+          <button mat-stroked-button class="button-one-inverted upper-case" (click)="onRequestButtonClicked()">
+            {{ 'artwork.request' | translate }}
+          </button>
+        }
       }
     </div>
   </div>
@@ -70,7 +72,7 @@
       }
     </div>
   </div>
-  @if (!artwork.sold && !isAlreadyRequested) {
+  @if (!artwork.sold && !isAlreadyRequested && userService.user) {
     <div class="divider" #requestContainer></div>
     <div class="third-section">
       <p class="title-two">{{ 'artwork.purchase.request' | translate }}</p>

@@ -50,9 +50,7 @@ public class ArtworkRequestController {
 
     @Operation(summary = "Create a new artwork request", description = "Creates a new artwork request with the provided details.")
     @PostMapping(produces = "application/json")
-    public ResponseEntity<ArtworkRequest> createArtworkRequest(
-            @Valid @RequestBody ArtworkRequest artworkRequest
-    ) {
+    public ResponseEntity<ArtworkRequest> createArtworkRequest(@Valid @RequestBody ArtworkRequest artworkRequest) {
         ArtworkRequest createdEntity = artworkRequestServiceImpl.createArtworkRequest(artworkRequest);
         log.info("CREATE artworkRequest with id: {}", artworkRequest.getId());
         return new ResponseEntity<>(createdEntity, HttpStatus.CREATED);
@@ -61,9 +59,7 @@ public class ArtworkRequestController {
     @Operation(summary = "Accept a artwork request", description = "Accept artwork requests for the artwork.")
     @CacheEvict(value = "artworks", allEntries = true)
     @PostMapping(value = "accept", produces = "application/json")
-    public ResponseEntity<ArtworkRequest> acceptArtworkRequest(
-            @Valid @RequestBody ArtworkRequest artworkRequest
-    ) {
+    public ResponseEntity<ArtworkRequest> acceptArtworkRequest(@Valid @RequestBody ArtworkRequest artworkRequest) {
         artworkRequestServiceImpl.acceptArtworkRequest(artworkRequest);
         log.info("ACCEPTED ALL artworkRequest for artwork: {}", artworkRequest.getArtworkId());
         return new ResponseEntity<>(artworkRequest, HttpStatus.OK);
@@ -71,9 +67,7 @@ public class ArtworkRequestController {
 
     @Operation(summary = "Reject a artwork request", description = "Reject artwork request for the user and artist.")
     @PostMapping(value = "reject", produces = "application/json")
-    public ResponseEntity<ArtworkRequest> rejectArtworkRequest(
-            @Valid @RequestBody ArtworkRequest artworkRequest
-    ) {
+    public ResponseEntity<ArtworkRequest> rejectArtworkRequest(@Valid @RequestBody ArtworkRequest artworkRequest) {
         artworkRequestServiceImpl.rejectArtworkRequest(artworkRequest);
         log.info("REJECT artworkRequest with id: {}", artworkRequest.getArtworkId());
         return new ResponseEntity<>(artworkRequest, HttpStatus.OK);

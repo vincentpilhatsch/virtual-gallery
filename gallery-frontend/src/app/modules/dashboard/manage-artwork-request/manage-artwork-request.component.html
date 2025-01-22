@@ -20,6 +20,15 @@
                     </div>
                   </mat-list-item>
                   <mat-divider></mat-divider>
+                  @if (completeArtworkRequest.user.email) {
+                    <mat-list-item>
+                      <div class="item-content">
+                        <span>{{ 'dashboard.artwork.requests.email' | translate }}</span>
+                        <span>{{ completeArtworkRequest.user.email }}</span>
+                      </div>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                  }
                   @if (completeArtworkRequest.user.phone) {
                     <mat-list-item>
                       <div class="item-content">

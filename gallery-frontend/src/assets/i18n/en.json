@@ -1,6 +1,223 @@
 {
   "home": {
-    "button.discover.artworks": "Discover artworks"
+    "introduction": "Oliver Kéros presents unique works that bring emotions and stories to life on canvas and beyond. Be inspired and discover art in its most fascinating form.",
+    "current.work": "Current Work",
+    "selected.artwork": "Selected Artworks",
+    "all.artwork": "All Artworks",
+    "discover.artworks": "Discover Artworks",
+    "current.exhibition": "Current Exhibition",
+    "learn.more": "Learn More"
+  },
+  "artwork": {
+    "title": "Artwork",
+    "sold": "Sold",
+    "already.requested": "Request Submitted",
+    "request": "Submit Request",
+    "price": "Price",
+    "dimensions": "Dimensions",
+    "year.of.creation": "Year of Creation",
+    "technic": "Technique",
+    "other.artworks": "Other Artworks",
+    "purchase.request": "Submit Purchase Request",
+    "request.description": "Please use the form below to submit a non-binding request for the selected artwork. We will review your request promptly and get back to you with more information.",
+    "message": "Message",
+    "button.submit.request": "Submit Request",
+    "button.sold": "Already Sold",
+    "button.requested": "Request Submitted"
+  },
+  "exhibitions": {
+    "title": "Exhibitions",
+    "upcoming": "Upcoming Exhibitions",
+    "past": "Past Exhibitions",
+    "when": "When?",
+    "where": "Where?"
+  },
+  "events": {
+    "title": "Events",
+    "when": "When?",
+    "where": "Where?",
+    "past": "Past Events",
+    "button.attend": "Attend",
+    "button.withdraw": "Withdraw Attendance"
+  },
+  "profile": {
+    "my.profile": "My Profile",
+    "logout": "Logout",
+    "personal.data": "Personal Data",
+    "requested.artworks": "Requested Artworks",
+    "favorite.artworks": "Favorite Artworks",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "city": "City",
+    "button.save": "Save Data",
+    "button.withdraw.request": "Withdraw Request",
+    "no.requested.artworks": "No requested artworks available"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "manage.artworks": "Artworks",
+    "requested.artworks": "Requested Artworks",
+    "manage.exhibitions": "Exhibitions",
+    "manage.events": "Events",
+    "artwork.requests": {
+      "title": "Artwork Requests",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "city": "City",
+      "date": "Date",
+      "accept": "Accept",
+      "reject": "Reject",
+      "none": "No requested artworks available"
+    },
+    "exhibitions": {
+      "title": "Manage Exhibitions",
+      "none": "No requested exhibitions available"
+    },
+    "events": {
+      "title": "Manage Events",
+      "participants": "Participants",
+      "none": "No requested events available"
+    }
+  },
+  "login": {
+    "title": "Login",
+    "description": "Log in to your account to access your personal data, submit purchase requests, save your favorite artworks, and stay informed about the latest exhibitions and events.",
+    "email": {
+      "label": "Email",
+      "placeholder": "example@example.com"
+    },
+    "password": {
+      "label": "Password"
+    },
+    "button": {
+      "submit": "Login"
+    },
+    "no.account": "Don't have an account?",
+    "register.link": "Register Here"
+  },
+  "register": {
+    "title": "Register",
+    "description": "Become part of the world of Olivier Kéros and create a personal account to gain exclusive insights into his artworks or follow exhibitions and events.",
+    "first.name.label": "First Name",
+    "last.name.label": "Last Name",
+    "email": {
+      "label": "Email",
+      "placeholder": "example@example.com"
+    },
+    "password": {
+      "label": "Password"
+    },
+    "button": {
+      "submit": "Register"
+    },
+    "already.have.account": "Already have an account?",
+    "login.link": "Log In Here"
+  },
+  "add.edit.artwork": {
+    "add": {
+      "title": "Add Artwork",
+      "button": "Add Artwork"
+    },
+    "edit": {
+      "title": "Edit Artwork",
+      "button": "Update Artwork"
+    },
+    "delete": {
+      "button": "Delete Artwork"
+    },
+    "title": {
+      "label": "Title"
+    },
+    "technic": {
+      "label": "Technique"
+    },
+    "width": {
+      "label": "Width in centimeters",
+      "placeholder": "e.g., 120"
+    },
+    "height": {
+      "label": "Height in centimeters",
+      "placeholder": "e.g., 180"
+    },
+    "year": {
+      "label": "Year of Creation",
+      "placeholder": "e.g., 2019"
+    },
+    "price": {
+      "label": "Price in Euros",
+      "placeholder": "e.g., 2450"
+    },
+    "sold": {
+      "label": "Artwork Sold"
+    }
+  },
+  "add.edit.exhibition": {
+    "add": {
+      "title": "Add Exhibition",
+      "button": "Add Exhibition"
+    },
+    "edit": {
+      "title": "Edit Exhibition",
+      "button": "Update Exhibition"
+    },
+    "delete": {
+      "button": "Delete Exhibition"
+    },
+    "title": {
+      "label": "Title"
+    },
+    "description": {
+      "label": "Description"
+    },
+    "location": {
+      "label": "Location"
+    },
+    "start.date": {
+      "label": "Start Date",
+      "placeholder": "e.g., 01.01.2001"
+    },
+    "end.date": {
+      "label": "End Date",
+      "placeholder": "e.g., 01.01.2001"
+    }
+  },
+  "add.edit.event": {
+    "add": {
+      "title": "Add Event",
+      "button": "Add Event"
+    },
+    "edit": {
+      "title": "Edit Event",
+      "button": "Update Event"
+    },
+    "delete": {
+      "button": "Delete Event"
+    },
+    "title": {
+      "label": "Title"
+    },
+    "description": {
+      "label": "Description"
+    },
+    "location": {
+      "label": "Location"
+    },
+    "date": {
+      "label": "Date",
+      "placeholder": "e.g., 01.01.2001"
+    },
+    "time": {
+      "label": "Time",
+      "placeholder": "e.g., 12:20"
+    }
+  },
+  "misc": {
+    "search": "Search...",
+    "sold": "Sold",
+    "select.image": "Select an Image*"
   },
   "header": {
     "link.artists": "Artist",
@@ -12,26 +229,32 @@
     "link.profile": "Profile",
     "link.login": "Login"
   },
+  "artist": {
+    "introduction": "Olivier Kéros is a 23-year-old passionate artist from Berlin who deliberately positions himself outside the classical art school and mainstream. In his 14-square-meter apartment, which he has transformed into a studio, he creates works that impress with their extraordinary size, as well as their remarkable use of color and form. His art not only defies the confined conditions of his living space but also his background, which has been shaped by poverty. For Kéros, art means saying 'yes' to life and welcoming transformation, as change is the only constant. His personal philosophy is reflected in his belief that every crisis simultaneously represents a new beginning.",
+    "autodidact": "The self-taught artist found his way to art definitively through his psychology studies at the age of about 20, although he had already engaged with creative processes since childhood. His works are characterized by process-oriented dynamism, strong contrasts, and unique motifs that challenge viewers to engage with the unconscious",
+    "purpose": "Kéros's paintings not only raise new questions but also open deeper levels of awareness. In his art, he emphasizes the vitality and diversity of painting processes. He consciously forgoes traditional techniques of figurative painting or radically reinterprets and simplifies them to the edge of minimalism. Through the deliberate use of bold colors and seemingly simple forms, he conveys direct and immediate emotions.",
+    "style": "This leads to a style that could be described as abstract expressionism. Kéros combines technical skill with deep dedication, making his works both emotionally and intellectually appealing. They constantly challenge the viewer and leave room for individual interpretations. With his unique approach, he creates art that goes far beyond aesthetics and encourages reflection on personal perception."
+  },
   "snackbar": {
-    "login.expired": "Your login has expired",
-    "artwork.requested": "You have successfully requested the artwork. We will be in contact with you shortly.",
+    "login.expired": "Your session has expired",
+    "artwork.requested": "You have successfully requested the artwork. We will contact you shortly.",
     "artwork.request.canceled": "You have withdrawn the request for the artwork",
-    "user.updated": "Your user data has been updated",
+    "user.updated": "Your personal data has been updated",
     "event.accept": "You have successfully registered for the event",
-    "event.canceled": "You have unsubscribed from the event",
+    "event.canceled": "You have withdrawn your attendance from the event",
     "dashboard.artwork.created": "You have successfully created the artwork",
     "dashboard.artwork.updated": "You have successfully updated the artwork",
     "dashboard.exhibition.created": "You have successfully created the exhibition",
     "dashboard.exhibition.updated": "You have successfully updated the exhibition",
     "dashboard.event.created": "You have successfully created the event",
     "dashboard.event.updated": "You have successfully updated the event",
-    "dashboard.artwork.request.accepted": "You have successfully accepted the artwork-request",
-    "dashboard.artwork.request.rejected": "You have successfully rejected the artwork-request",
+    "dashboard.artwork.request.accepted": "You have successfully accepted the artwork request",
+    "dashboard.artwork.request.rejected": "You have successfully rejected the artwork request",
     "snackbar.filetype.invalid": "The specified file type is invalid"
   },
   "error": {
-    "default.message": "An error has occurred",
-    "incorrect.email.or.password": "Provided email address or password is wrong",
+    "default.message": "An error occurred",
+    "incorrect.email.or.password": "Your email address or password is incorrect",
     "invalid.date": "Invalid date"
   },
   "language": {

@@ -1,8 +1,10 @@
 package com.vincent.gallerybackend.artworkrequest.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,20 +18,21 @@ import java.util.UUID;
 @Setter
 @ToString
 public class ArtworkRequestEntity {
-    // TODO: when artworkRequest got accepted then every request for the artwork needs to get deleted
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotEmpty
+    @NotBlank
     private String description;
 
     @NotNull
     private LocalDateTime requestTime;
 
+    @NotNull
     private UUID userId;
 
+    @NotNull
     private long artworkId;
 
 }

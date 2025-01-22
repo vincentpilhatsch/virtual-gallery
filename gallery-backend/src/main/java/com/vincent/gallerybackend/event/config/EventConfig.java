@@ -42,7 +42,7 @@ public class EventConfig {
                     "Vernissage",
                     "Erleben Sie die feierliche Vorstellung neuer Kunstwerke von Olivier Kéros. Tauschen Sie sich mit dem Künstler persönlich aus und entdecken Sie seine neuesten Werke in exklusivem Ambiente.",
                     "Hohenzollerndamm 216, 10781 Berlin",
-                    LocalDateTime.now().plusDays(5),
+                    LocalDateTime.now().plusWeeks(5),
                     images.get(5),
                     Set.of(UUID.randomUUID(), UUID.randomUUID())
             );
