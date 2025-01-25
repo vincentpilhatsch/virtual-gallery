@@ -8,4 +8,10 @@ app-personal-data {
     color: #f44336;
     font-size: 16px;
   }
+
+  .email-input {
+    color: grey !important;
+    font-style: italic !important;
+    cursor: not-allowed !important;
+  }
 }

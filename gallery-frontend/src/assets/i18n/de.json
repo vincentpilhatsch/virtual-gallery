@@ -21,7 +21,7 @@
     "purchase.request": "Kaufanfrage stellen",
     "request.description": "Bitte nutzen Sie das untenstehende Formular, um eine unverbindliche Anfrage zu dem ausgewählten Kunstwerk zu stellen. Wir werden Ihre Anfrage umgehend prüfen und uns zeitnah mit weiteren Informationen bei Ihnen melden.",
     "message": "Mitteilung",
-    "button.submit.request": "Anfrage stellen",
+    "button.submit.request": "Abschicken",
     "button.sold": "Bereits verkauft",
     "button.requested": "Anfrage wurde gestellt"
   },
@@ -66,7 +66,7 @@
       "name": "Name",
       "email": "E-Mail",
       "phone": "Telefonnummer",
-      "city": "Stadt",
+      "city": "Wohnort",
       "date": "Datum",
       "accept": "Annehmen",
       "reject": "Ablehnen",
@@ -224,7 +224,7 @@
     "link.artworks": "Kunstwerke",
     "link.exhibitions": "Ausstellungen",
     "link.events": "Veranstaltungen",
-    "link.360.degree.tour": "360 Grad Tour",
+    "link.360.degree.tour": "360-Grad-Rundgang",
     "link.dashboard": "Dashboard",
     "link.profile": "Profil",
     "link.login": "Anmelden"

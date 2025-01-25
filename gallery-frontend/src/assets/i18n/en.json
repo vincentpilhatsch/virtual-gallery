@@ -21,7 +21,7 @@
     "purchase.request": "Submit Purchase Request",
     "request.description": "Please use the form below to submit a non-binding request for the selected artwork. We will review your request promptly and get back to you with more information.",
     "message": "Message",
-    "button.submit.request": "Submit Request",
+    "button.submit.request": "Submit",
     "button.sold": "Already Sold",
     "button.requested": "Request Submitted"
   },
@@ -50,7 +50,7 @@
     "lastName": "Last Name",
     "email": "Email",
     "phone": "Phone",
-    "city": "City",
+    "city": "Place of Residence",
     "button.save": "Save Data",
     "button.withdraw.request": "Withdraw Request",
     "no.requested.artworks": "No requested artworks available"
@@ -66,7 +66,7 @@
       "name": "Name",
       "email": "Email",
       "phone": "Phone Number",
-      "city": "City",
+      "city": "Place of Residence",
       "date": "Date",
       "accept": "Accept",
       "reject": "Reject",

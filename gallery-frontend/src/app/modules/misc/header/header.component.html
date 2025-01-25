@@ -10,9 +10,6 @@
         {{ "header.link.artists" | translate }}
       </p>
     </div>
-    <!--    <p class="centered-dot">-->
-    <!--      <span class="dot"></span>-->
-    <!--    </p>-->
     <div class="header-container">
       <p class="header-text upper-case" routerLink="/kunstwerke" routerLinkActive="active-link">
         {{ "header.link.artworks" | translate }}
@@ -29,7 +26,7 @@
       </p>
     </div>
     <div class="header-container">
-      <p class="header-text upper-case" routerLink="/tour" routerLinkActive="active-link">
+      <p class="header-text upper-case" (click)="onTourClicked()">
         {{ "header.link.360.degree.tour" | translate }}
       </p>
     </div>

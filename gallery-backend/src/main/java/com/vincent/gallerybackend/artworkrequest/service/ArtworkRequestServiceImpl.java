@@ -86,8 +86,8 @@ public class ArtworkRequestServiceImpl implements ArtworkRequestService {
     @Override
     public ArtworkRequest createArtworkRequest(ArtworkRequest artworkRequest) {
         ArtworkRequestEntity artworkRequestEntity = createArtworkRequestEntity(artworkRequest);
-        setArtworkRequestForUser(artworkRequestEntity);
         artworkRequestEntity = artworkRequestRepository.save(artworkRequestEntity);
+        setArtworkRequestForUser(artworkRequestEntity);
         return artworkRequestMapper.artworkRequestDAOtoDTO(artworkRequestEntity);
     }
 

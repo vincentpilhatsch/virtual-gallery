@@ -41,6 +41,7 @@ import {RoleEnum} from "../../user/model/role.enum";
   encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit {
+  readonly TOUR_URL: string = "https://marzipano-nu.vercel.app/";
   readonly languageArray: string[] = Object.values(LanguageEnum);
   selectedLanguage: LanguageEnum = LanguageEnum.DE;
 
@@ -61,6 +62,10 @@ export class HeaderComponent implements OnInit {
         this.setLanguageByLocalStorage();
       }
     });
+  }
+
+  onTourClicked(): void {
+    window.open(this.TOUR_URL, '_blank', 'noopener,noreferrer');
   }
 
   onSelectChange($event: MatSelectChange): void {
