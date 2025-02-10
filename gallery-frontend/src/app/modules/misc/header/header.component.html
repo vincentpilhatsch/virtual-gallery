@@ -30,7 +30,6 @@
         {{ "header.link.360.degree.tour" | translate }}
       </p>
     </div>
-    <!-- TODO: user.role === ... -->
     @if (userService.user && userService.user.role === RoleEnum.ARTIST) {
       <div class="header-container">
         <p class="header-text dashboard upper-case" routerLink="/dashboard" routerLinkActive="active-link">

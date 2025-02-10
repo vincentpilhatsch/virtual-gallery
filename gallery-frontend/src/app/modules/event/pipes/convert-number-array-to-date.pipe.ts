@@ -4,7 +4,7 @@ import {TranslateService} from "@ngx-translate/core";
 @Pipe({
   name: 'convertNumberArrayToDateString',
   standalone: true,
-  pure: false // TODO: pipe gets called on every change detection, can lead to bad website performance
+  pure: false
 })
 export class ConvertNumberArrayToDateStringPipe implements PipeTransform {
   private readonly INVALID_DATE_JSON = "error.invalid.date";

@@ -33,7 +33,7 @@ public class ArtworkEntity {
 
     @Size(min = 4, max = 4, message = "Invalid date format")
     @NotBlank
-    private String yearOfCreation; // TODO: Change to int!! -> auch NotEmpty, da int
+    private String yearOfCreation;
 
     @NotNull
     private LocalDateTime uploadedAt;

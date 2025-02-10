@@ -39,7 +39,7 @@ import {TranslateModule} from "@ngx-translate/core";
 export class RegisterComponent implements OnInit, OnDestroy {
   hide = signal(true);
 
-  disableLoginButton: boolean = true; // TODO: Set false for Live
+  disableLoginButton: boolean = true;
   errorMessage: FormErrorTypeEnum | null = null;
   form: FormGroup = this.fb.group({
     firstName: ['', [
@@ -149,7 +149,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.userService.user = res.user
         this.languageService.setLanguageByLoggedInUser(res.user.language);
         void this.router.navigate(["profil"]);
-        // TODO: Snack-Bar message
       },
       error: (err): void => {
         console.error(err);

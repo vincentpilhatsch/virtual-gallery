@@ -5,7 +5,7 @@ import {LanguageEnum} from "../../user/model/language.enum";
 @Pipe({
   name: 'convertNumberArrayToDateString',
   standalone: true,
-  pure: false // TODO: pipe gets called on every change detection, can lead to bad website performance
+  pure: false
 })
 export class ConvertNumberArrayToDateStringPipe implements PipeTransform {
   private readonly GERMAN_TIME_TRANSLATION = "Uhr";

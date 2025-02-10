@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {NgOptimizedImage} from "@angular/common";
 import {ArtworkCardComponent} from "../artwork/artwork-card/artwork-card.component";
@@ -35,6 +35,8 @@ import {MatIcon} from "@angular/material/icon";
   standalone: true
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  @ViewChild('scrollTarget', {static: false}) scrollTarget!: ElementRef;
+
   artworks: Artwork[] = [];
   favoriteIds: number[] = [];
   latestExhibition: Exhibition | undefined;
@@ -49,10 +51,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscribeToUser();
-    // AOS.init({
-    //   duration: 750, // Dauer der Animation in Millisekunden
-    //   delay: 150,    // Verzögerung vor dem Start der Animation
-    // });
   }
 
   private subscribeToUser() {
@@ -102,6 +100,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.error(err);
       }
     })
+  }
+
+  onClicked(): void {
+    const nativeElement = this.scrollTarget.nativeElement;
+    if (nativeElement) {
+      nativeElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
   }
 
   ngOnDestroy(): void {

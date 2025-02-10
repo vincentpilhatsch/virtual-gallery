@@ -4,12 +4,12 @@
     <p class="text-one-grey">
       {{ 'home.introduction' | translate }}
     </p>
-    <button mat-stroked-button class="button-one-inverted upper-case" routerLink="/kunstwerke">
-      {{ 'home.discover.artworks' | translate }}
+    <button mat-stroked-button class="button-one-inverted upper-case" (click)="onClicked()">
+      {{ 'home.discover.more' | translate }}
     </button>
   </div>
 </div>
-<div class="divider"></div>
+<div class="divider" #scrollTarget></div>
 @if (latestExhibition) {
   <div class="second-section">
     <div class="title-before upper-case">

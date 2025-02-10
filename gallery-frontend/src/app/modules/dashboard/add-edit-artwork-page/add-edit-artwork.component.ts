@@ -36,7 +36,7 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: './add-edit-artwork.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class AddEditArtworkComponent implements OnInit, OnDestroy { // TODO: Werde ausgeloggt, wenn input falsch
+export class AddEditArtworkComponent implements OnInit, OnDestroy {
   file: File | undefined;
   manageMode: ManageModesEnum | undefined;
   disableCreateButton: boolean = true;

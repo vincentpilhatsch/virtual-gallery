@@ -34,8 +34,6 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        //TODO: Check if all endpoints are up to date and still needed
-
                         // Role ARTIST
                         .requestMatchers(HttpMethod.POST, "/artwork").hasAuthority(ROLE_ARTIST)
                         .requestMatchers(HttpMethod.PUT, "/artwork").hasAuthority(ROLE_ARTIST)
@@ -46,6 +44,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/event").hasAuthority(ROLE_ARTIST)
                         .requestMatchers(HttpMethod.PUT, "/event").hasAuthority(ROLE_ARTIST)
                         .requestMatchers(HttpMethod.DELETE, "/event/**").hasAuthority(ROLE_ARTIST)
+
+                        .requestMatchers(HttpMethod.POST, "/exhibition").hasAuthority(ROLE_ARTIST)
+                        .requestMatchers(HttpMethod.PUT, "/exhibition").hasAuthority(ROLE_ARTIST)
+                        .requestMatchers(HttpMethod.DELETE, "/exhibition/**").hasAuthority(ROLE_ARTIST)
 
                         // Role ARTIST/USER
                         .requestMatchers(HttpMethod.PUT, "/user").hasAnyAuthority(ROLE_ARTIST, ROLE_USER)

@@ -41,13 +41,13 @@ import {RoleEnum} from "../../user/model/role.enum";
   encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit {
-  readonly TOUR_URL: string = "https://marzipano-nu.vercel.app/";
+  readonly TOUR_URL: string = "/assets/360-degree-tour/index.html";
   readonly languageArray: string[] = Object.values(LanguageEnum);
   selectedLanguage: LanguageEnum = LanguageEnum.DE;
 
 
   constructor(protected userService: UserService,
-              private languageService: LanguageService) {
+              private readonly languageService: LanguageService) {
   }
 
   ngOnInit(): void {
